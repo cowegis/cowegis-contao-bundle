@@ -10,7 +10,6 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
 use Cowegis\Bundle\Api\CowegisApiBundle;
-use Cowegis\Bundle\Client\CowegisClientBundle;
 use Cowegis\Bundle\Contao\CowegisContaoBundle;
 use Cowegis\Bundle\ContaoGeocodeWidget\CowegisContaoGeocodeWidgetBundle;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -23,11 +22,9 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
     {
         return [
             BundleConfig::create(CowegisApiBundle::class),
-            BundleConfig::create(CowegisClientBundle::class),
             BundleConfig::create(CowegisContaoBundle::class)->setLoadAfter([
                 ContaoCoreBundle::class,
                 CowegisApiBundle::class,
-                CowegisClientBundle::class,
                 CowegisContaoGeocodeWidgetBundle::class,
             ]),
         ];
