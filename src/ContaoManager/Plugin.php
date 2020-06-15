@@ -35,11 +35,27 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
 
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel) : ?RouteCollection
     {
-        $loader = $resolver->resolve(__DIR__ . '/Bundle/Contao/Resources/config/routing.xml');
+        $routeCollection = new RouteCollection();
+
+        $loader = $resolver->resolve(__DIR__ . '/Bundle/Api/Resources/config/routing.xml');
         if ($loader) {
-            return $loader->load(__DIR__ . '/Bundle/Contao/Resources/config/routing.xml');
+            $collection = $loader->load(__DIR__ . '/Bundle/Api/Resources/config/routing.xml');
+
+            if ($collection instanceof RouteCollection) {
+                $routePrefix = $kernel->getContainer()->getParameter('cowegis_api.route_prefix');
+                $collection->addPrefix($routePrefix);
+                $routeCollection->addCollection($collection);
+            }
         }
 
-        return null;
+        $loader = $resolver->resolve(__DIR__ . '/Bundle/Contao/Resources/config/routing.xml');
+        if ($loader) {
+            $collection = $loader->load(__DIR__ . '/Bundle/Contao/Resources/config/routing.xml');
+            if ($collection instanceof RouteCollection) {
+                $routeCollection->addCollection($collection);
+            }
+        }
+
+        return $routeCollection;
     }
 }

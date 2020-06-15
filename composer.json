@@ -24,7 +24,8 @@
         "psr/container": "^1.0",
         "psr/event-dispatcher": "^1.0",
         "symfony/http-kernel": "^4.4",
-        "terminal42/dcawizard": "^2.4",
+
+
         "ausi/slug-generator": "^1.1"
     },
     "require-dev": {
