@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="cowegis_contao.model.tl_cowegis_marker">Cowegis\Bundle\Contao\Model\MarkerModel</parameter>
+        <parameter key="cowegis_contao.model.tl_cowegis_layer">Cowegis\Bundle\Contao\Model\LayerModel</parameter>
+        <parameter key="cowegis_contao.model.tl_cowegis_control">Cowegis\Bundle\Contao\Model\ControlModel</parameter>
+        <parameter key="cowegis_contao.model.tl_cowegis_icon">Cowegis\Bundle\Contao\Model\IconModel</parameter>
+    </parameters>
+
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="false"/>
+
+        <service id="Cowegis\Bundle\Contao\Model\Map\MapRepository">
+            <tag name="netzmacht.contao_toolkit.repository" model="Cowegis\Bundle\Contao\Model\Map\MapModel" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Model\Map\MapLayerRepository">
+            <argument type="service" id="database_connection" />
+            <tag name="netzmacht.contao_toolkit.repository" model="Cowegis\Bundle\Contao\Model\Map\MapLayerModel"/>
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Model\Map\MapPaneRepository">
+            <tag name="netzmacht.contao_toolkit.repository" model="Cowegis\Bundle\Contao\Model\Map\MapPaneModel" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Model\IconRepository">
+            <argument>%cowegis_contao.model.tl_cowegis_icon%</argument>
+            <tag name="netzmacht.contao_toolkit.repository" model="Cowegis\Bundle\Contao\Model\IconModel" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Model\MarkerRepository">
+            <argument>%cowegis_contao.model.tl_cowegis_marker%</argument>
+            <argument type="service" id="event_dispatcher" />
+            <tag name="netzmacht.contao_toolkit.repository" model="Cowegis\Bundle\Contao\Model\MarkerModel" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Model\LayerRepository">
+            <argument>%cowegis_contao.model.tl_cowegis_layer%</argument>
+            <tag name="netzmacht.contao_toolkit.repository" model="Cowegis\Bundle\Contao\Model\LayerModel" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Model\PopupRepository">
+            <tag name="netzmacht.contao_toolkit.repository" model="Cowegis\Bundle\Contao\Model\PopupModel" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Model\ControlRepository">
+            <argument>%cowegis_contao.model.tl_cowegis_control%</argument>
+            <tag name="netzmacht.contao_toolkit.repository" model="Cowegis\Bundle\Contao\Model\ControlModel" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Model\TooltipRepository">
+            <tag name="netzmacht.contao_toolkit.repository" model="Cowegis\Bundle\Contao\Model\TooltipModel" />
+        </service>
+    </services>
+</container>

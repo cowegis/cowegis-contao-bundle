@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+
+        <parameter key="cowegis_contao.file_formats" type="collection">
+            <parameter key="gpx" type="collection">
+                <parameter>gpx</parameter>
+            </parameter>
+            <parameter key="kml" type="collection">
+                <parameter>kml</parameter>
+            </parameter>
+            <parameter key="wkt" type="collection">
+                <parameter>wkt</parameter>
+            </parameter>
+            <parameter key="geojson" type="collection">
+                <parameter>json</parameter>
+                <parameter>geojson</parameter>
+            </parameter>
+            <parameter key="topojson" type="collection">
+                <parameter>json</parameter>
+                <parameter>geojson</parameter>
+            </parameter>
+        </parameter>
+
+    </parameters>
+
+</container>

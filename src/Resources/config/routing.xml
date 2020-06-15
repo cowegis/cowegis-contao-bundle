@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+        https://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="cowegis_contao_backend_api_docs" path="/contao/cowegis/docs" controller="Cowegis\Bundle\Contao\Action\Backend\DocsAction" methods="GET">
+        <default key="_scope">backend</default>
+        <default key="_backend_module">cowegis-api-docs</default>
+    </route>
+
+    <route id="cowegis_contao_backend_map_layer_actions" path="/contao/cowegis/map/{mapId}/layer/{layerId}"
+           controller="Cowegis\Bundle\Contao\Action\Backend\MapLayerAction" methods="POST">
+        <default key="_scope">backend</default>
+    </route>
+
+</routes>

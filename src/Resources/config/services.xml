@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="false"/>
+
+        <service id="Cowegis\Bundle\Contao\Action\Backend\DocsAction" public="true">
+            <argument type="service" id="twig" />
+            <argument type="service" id="router" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Action\Backend\MapLayerAction" public="true">
+            <argument type="service" id="contao.framework" />
+            <argument type="service" id="netzmacht.contao_toolkit.repository_manager" />
+            <argument type="service" id="router" />
+        </service>
+
+        <service id="Cowegis\Core\IdFormat\IntegerIdFormat">
+            <tag name="Cowegis\Core\IdFormat\IdFormat" />
+        </service>
+
+        <service id="Cowegis\Core\Schema\Id\IntegerIdSchema">
+            <tag name="Cowegis\Core\Schema\IdSchema" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Hydrator\Hydrator" class="Cowegis\Bundle\Contao\Hydrator\DelegatingHydrator">
+            <argument type="tagged_iterator" tag="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Provider\ContaoBackendProvider">
+            <argument type="service" id="contao.framework" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapRepository" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapLayerRepository" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+            <argument type="tagged_locator" tag="Cowegis\Bundle\Contao\Provider\LayerDataProvider" index-by="type" />
+            <argument type="service" id="Cowegis\Core\IdFormat\IntegerIdFormat" />
+            <tag name="Cowegis\Core\Provider\Provider" />
+        </service>
+
+        <service id="cowegis_contao.slug_generator.options" class="Ausi\SlugGenerator\SlugOptions">
+            <call method="setValidChars">
+                <argument>a-z0-9_</argument>
+            </call>
+            <call method="setDelimiter">
+                <argument>_</argument>
+            </call>
+        </service>
+
+        <service id="cowegis_contao.slug_generator" class="Ausi\SlugGenerator\SlugGenerator">
+            <argument type="service" id="cowegis_contao.slug_generator.options" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry">
+            <argument type="tagged_iterator" tag="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry">
+            <argument type="tagged_iterator" tag="Cowegis\Bundle\Contao\Map\Control\ControlType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry">
+            <argument type="tagged_iterator" tag="Cowegis\Bundle\Contao\Map\Icon\IconType" />
+        </service>
+
+    </services>
+</container>

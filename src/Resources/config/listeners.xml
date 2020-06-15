@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="false"/>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\BackendMenuListener">
+            <argument type="service" id="router" />
+            <argument type="service" id="request_stack" />
+            <tag name="kernel.event_listener" event="contao.backend_menu_build" method="onBuild" priority="-255" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Filter\ApplyFilterRuleMarkerListener">
+            <tag name="kernel.event_listener" event="Cowegis\Bundle\Contao\Event\ApplyFilterRuleEvent" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\LayerDcaListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="netzmacht.contao_toolkit.contao.backend_adapter" />
+            <argument>%cowegis_contao.file_formats%</argument>
+            <argument>%cowegis_contao.amenities%</argument>
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.type.options" method="typeOptions" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.fileFormat.options" method="fileFormatOptions" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.amenityIcons.eval.columnFields.amenity.options" method="amenitiesOptions" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.file.load" method="prepareFileWidget" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="list.label.label" method="rowLabel" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="list.operations.data.button" method="editDataButton" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="list.sorting.paste_button" method="pasteButtons" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\MapLayerSelectionDcaListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapRepository" />
+            <argument type="service" id="database_connection"/>
+            <argument type="service" id="router" />
+            <argument type="service" id="translator" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="config.onload" method="initializeMapView" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\MapDcaListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapRepository" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="session" />
+            <tag name="contao.callback" table="tl_cowegis_map" target="fields.layers.eval.listCallback" method="layerList" />
+            <tag name="contao.callback" table="tl_cowegis_map" target="config.onload" method="showIncompleteConfigurationWarning" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\MapLayerDcaListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapLayerRepository" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapPaneRepository" />
+            <argument type="service" id="Cowegis\Core\Filter\FilterFactory" />
+
+            <tag name="contao.callback" table="tl_cowegis_map_layer" target="config.onload" method="initializePalette" />
+            <tag name="contao.callback" table="tl_cowegis_map_layer" target="list.sorting.child_record" method="rowLabel" />
+            <tag name="contao.callback" table="tl_cowegis_map_layer" target="fields.pane.options" method="paneOptions" />
+            <tag name="contao.callback" table="tl_cowegis_map_layer" target="fields.dataPane.options" method="paneOptions" />
+            <tag name="contao.callback" table="tl_cowegis_map_layer" target="fields.filterRules.options" method="fileRuleOptions" />
+            <tag name="contao.callback" table="tl_cowegis_map_layer" target="fields.layerId.input_field" method="layerFieldLabel" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\MapPaneDcaListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <tag name="contao.callback" table="tl_cowegis_map_pane" target="list.sorting.child_record" method="rowLabel" />
+            <tag name="contao.callback" table="tl_cowegis_map_pane" target="fields.name.save" method="onSaveName" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\MarkerDcaListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument type="service" id="database_connection" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
+            <tag name="contao.callback" table="tl_cowegis_marker" target="list.sorting.child_record" method="rowLabel" />
+            <tag name="contao.callback" table="tl_cowegis_marker" target="fields.coordinates.save" method="saveCoordinates" />
+            <tag name="contao.callback" table="tl_cowegis_marker" target="fields.coordinates.load" method="loadCoordinates" priority="128" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\IconDcaListener" public="true">
+            <argument type="service" id="Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry" />
+            <tag name="contao.callback" table="tl_cowegis_icon" target="fields.type.options" method="iconOptions" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\ControlDcaListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry" />
+            <argument type="service" id="database_connection" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
+
+            <tag name="contao.callback" table="tl_cowegis_control" target="list.sorting.child_record" method="rowLabel" />
+            <tag name="contao.callback" table="tl_cowegis_control" target="fields.type.options" method="typeOptions" />
+            <tag name="contao.callback" table="tl_cowegis_control" target="fields.layers.load" method="loadLayerRelations" />
+            <tag name="contao.callback" table="tl_cowegis_control" target="fields.layers.save" method="saveLayerRelations" />
+            <tag name="contao.callback" table="tl_cowegis_control" target="fields.layers.eval.columnFields.layer.options" method="layerOptions" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\OptionsListener" public="true">
+            <tag name="contao.callback" table="tl_cowegis_map" target="fields.zoom.options" method="zoomOptions" />
+            <tag name="contao.callback" table="tl_cowegis_map" target="fields.minZoom.options" method="zoomOptions" />
+            <tag name="contao.callback" table="tl_cowegis_map" target="fields.maxZoom.options" method="zoomOptions" />
+            <tag name="contao.callback" table="tl_cowegis_map" target="fields.locateMaxZoom.options" method="zoomOptions" />
+
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.minZoom.options" method="zoomOptions" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.maxZoom.options" method="zoomOptions" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.maxNativeZoom.options" method="zoomOptions" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.disableClusteringAtZoom.options" method="zoomOptions" />
+
+            <tag name="contao.callback" table="tl_cowegis_control" target="fields.zoomControl.options" method="zoomOptions" />
+
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\AliasGenerator">
+            <argument type="service" id="cowegis_contao.slug_generator" />
+            <argument type="service" id="database_connection" />
+            <tag name="contao.callback" table="tl_cowegis_map" target="fields.alias.save" priority="128" />
+            <tag name="contao.callback" table="tl_cowegis_marker" target="fields.alias.save" priority="128" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.alias.save" priority="128" />
+            <tag name="contao.callback" table="tl_cowegis_icon" target="fields.alias.save" priority="128" />
+            <tag name="contao.callback" table="tl_cowegis_popup" target="fields.alias.save" priority="128" />
+            <tag name="contao.callback" table="tl_cowegis_control" target="fields.alias.save" priority="128" />
+            <tag name="contao.callback" table="tl_cowegis_style" target="fields.alias.save" priority="128" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\Validator" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument type="service" id="translator" />
+            <tag name="contao.callback" table="tl_cowegis_marker" target="fields.coordinates.save" method="validateCoordinates" priority="128" />
+            <tag name="contao.callback" table="tl_cowegis_map" target="fields.center.save" method="validateCoordinates" priority="128" />
+            <tag name="contao.callback" table="tl_cowegis_popup" target="fields.offset.save" method="validateCoordinates" priority="128" />
+
+            <tag name="contao.callback" table="tl_cowegis_map" target="fields.alias.save" method="validateAlias" />
+            <tag name="contao.callback" table="tl_cowegis_marker" target="fields.alias.save" method="validateAlias" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.alias.save" method="validateAlias" />
+            <tag name="contao.callback" table="tl_cowegis_icon" target="fields.alias.save" method="validateAlias" />
+            <tag name="contao.callback" table="tl_cowegis_popup" target="fields.alias.save" method="validateAlias" />
+            <tag name="contao.callback" table="tl_cowegis_control" target="fields.alias.save" method="validateAlias" />
+            <tag name="contao.callback" table="tl_cowegis_style" target="fields.alias.save" method="validateAlias" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\TranslationListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.contao.system_adapter" />
+            <tag name="contao.callback" table="tl_cowegis_control" target="config.onload" method="onLoad" />
+            <tag name="contao.callback" table="tl_cowegis_icon" target="config.onload" method="onLoad" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="config.onload" method="onLoad" />
+            <tag name="contao.callback" table="tl_cowegis_map" target="config.onload" method="onLoad" />
+            <tag name="contao.callback" table="tl_cowegis_map_layer" target="config.onload" method="onLoad" />
+            <tag name="contao.callback" table="tl_cowegis_map_pane" target="config.onload" method="onLoad" />
+            <tag name="contao.callback" table="tl_cowegis_marker" target="config.onload" method="onLoad" />
+            <tag name="contao.callback" table="tl_cowegis_popup" target="config.onload" method="onLoad" />
+            <tag name="contao.callback" table="tl_cowegis_style" target="config.onload" method="onLoad" />
+        </service>
+    </services>
+</container>

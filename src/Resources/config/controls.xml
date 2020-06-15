@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="false"/>
+
+        <!-- Attribution control -->
+        <service id="Cowegis\Bundle\Contao\Map\Control\Attribution\AttributionControlType">
+            <tag name="Cowegis\Bundle\Contao\Map\Control\ControlType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Control\Attribution\AttributionControlHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Core\Serializer\Control\AttributionControlSerializer">
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\Control\AttributionControl" />
+        </service>
+
+        <!-- Fullscreen control -->
+        <service id="Cowegis\Bundle\Contao\Map\Control\Fullscreen\FullscreenControlType">
+            <tag name="Cowegis\Bundle\Contao\Map\Control\ControlType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Control\Fullscreen\FullscreenControlTypeHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Core\Serializer\Control\FullscreenControlSerializer">
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\Control\FullscreenControl" />
+        </service>
+
+        <!-- Layers control -->
+        <service id="Cowegis\Bundle\Contao\Map\Control\Layers\LayersControlType">
+            <tag name="Cowegis\Bundle\Contao\Map\Control\ControlType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Control\Layers\LayersControlHydrator">
+            <argument type="service" id="database_connection" />
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <!-- Loading control -->
+        <service id="Cowegis\Bundle\Contao\Map\Control\Loading\LoadingControlType">
+            <tag name="Cowegis\Bundle\Contao\Map\Control\ControlType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Control\Loading\LoadingControlHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Core\Serializer\Control\LoadingControlSerializer">
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\Control\LoadingControl" />
+        </service>
+
+        <!-- Scale control -->
+        <service id="Cowegis\Bundle\Contao\Map\Control\Scale\ScaleControlType">
+            <tag name="Cowegis\Bundle\Contao\Map\Control\ControlType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Control\Scale\ScaleControlHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Core\Serializer\Control\ScaleControlSerializer">
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\Control\ScaleControl" />
+        </service>
+
+        <!-- Zoom control -->
+        <service id="Cowegis\Bundle\Contao\Map\Control\Zoom\ZoomControlType">
+            <tag name="Cowegis\Bundle\Contao\Map\Control\ControlType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Control\Zoom\ZoomControlHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Core\Serializer\Control\ZoomControlSerializer">
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\Control\ZoomControl" />
+        </service>
+    </services>
+</container>

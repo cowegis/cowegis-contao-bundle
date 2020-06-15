@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="false"/>
+
+        <!-- Image icon -->
+        <service id="Cowegis\Bundle\Contao\Map\Icon\Image\ImageIconType">
+            <tag name="Cowegis\Bundle\Contao\Map\Icon\IconType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Icon\Image\ImageIconHydrator">
+            <argument type="service" id="netzmacht.contao_toolkit.repository_manager" />
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <!-- Div icon -->
+        <service id="Cowegis\Bundle\Contao\Map\Icon\Div\DivIconType">
+            <tag name="Cowegis\Bundle\Contao\Map\Icon\IconType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Icon\Div\DivIconHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <!-- Svg icon -->
+        <service id="Cowegis\Bundle\Contao\Map\Icon\Svg\SvgIconType">
+            <tag name="Cowegis\Bundle\Contao\Map\Icon\IconType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Icon\Svg\SvgIconHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <!-- Font awesome icon -->
+        <service id="Cowegis\Bundle\Contao\Map\Icon\FontAwesome\FontAwesomeIconType">
+            <tag name="Cowegis\Bundle\Contao\Map\Icon\IconType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Icon\FontAwesome\FontAwesomeIconHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+    </services>
+</container>

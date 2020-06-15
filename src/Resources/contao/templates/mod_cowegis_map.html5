@@ -1,0 +1,14 @@
+<!-- TODO: Remove when assets loader is implemented -->
+<?php $GLOBALS['TL_HEAD']['cowegis'] = <<<'HTML'
+    <script src="bundles/cowegisclient/js/cowegis.js"></script>
+HTML;
+?>
+
+<?php $this->extend('block_unsearchable') ?>
+
+<?php $this->block('content') ?>
+
+<cowegis-map id="<?= $this->mapId ?>" style="<?= $this->mapStyle ?>" map-uri="<?= $this->mapUri ?>">
+</cowegis-map>
+
+<?php $this->endblock() ?>

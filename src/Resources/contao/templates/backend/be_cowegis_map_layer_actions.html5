@@ -1,0 +1,23 @@
+<form class="cowegis-map-layer-actions" method="post" enctype="application/x-www-form-urlencoded" action="<?= $this->action ?>">
+    <input type="hidden" name="REQUEST_TOKEN" value="<?= $this->requestToken ?>">
+
+    <?php if ($this->active): ?>
+        <a href="<?= $this->editUrl ?>" class="cowegis-map-layer-actions-btn" title="<?= $this->editTitle ?>">
+            <?= \Contao\Image::getHtml('edit.svg', $this->editLabel) ?>
+        </a>
+
+        <button type="submit" name="action" value="toggleVisibility" class="cowegis-map-layer-actions-btn" title="<?= $this->toggleVisibilityTitle ?>">
+            <?= \Contao\Image::getHtml($this->initialVisible ? 'bundles/cowegiscontao/img/map.png' : 'bundles/cowegiscontao/img/map_1.png', $this->toggleVisibilityLabel) ?>
+        </button>
+
+        <button type="submit" name="action" value="disable" class="cowegis-map-layer-actions-btn" title="<?= $this->disableTitle ?>">
+            <?= \Contao\Image::getHtml('delete.svg', $this->disableLabel) ?>
+        </button>
+
+    <?php else: ?>
+
+        <button type="submit" name="action" value="activate" class="cowegis-map-layer-actions-btn" title="<?= $this->activateTitle ?>">
+            <?= \Contao\Image::getHtml('copy.svg', $this->activateLabel) ?>
+        </button>
+    <?php endif ?>
+</form>

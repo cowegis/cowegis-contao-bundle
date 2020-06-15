@@ -1,0 +1,6 @@
+<div class="cowegis-map-layer-label">
+    <?php if ($this->type): ?>
+    <img src="<?= $this->type->iconUrl() ?>">
+    <?php endif ?>
+    <?= $this->label ?>
+</div>

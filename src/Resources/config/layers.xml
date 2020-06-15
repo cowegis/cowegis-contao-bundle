@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="false"/>
+
+        <service id="Cowegis\Core\Serializer\Layer\DataLayerSerializer">
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\Layer\DataLayer" />
+        </service>
+
+        <!-- Tile layer -->
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Tile\TileLayerType">
+            <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
+        </service>
+
+        <service id="Cowegis\Core\Schema\Layer\TileLayerSchemaDescriber">
+            <argument>tileLayer</argument>
+            <tag name="Cowegis\Core\Schema\LayerSchemaDescriber" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Tile\TileLayerHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Core\Serializer\Layer\TileLayerSerializer">
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\Layer\TileLayer" />
+        </service>
+
+        <!-- Marker layer -->
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Markers\MarkersLayerType">
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\MarkerRepository" />
+            <argument type="service" id="translator" />
+            <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
+        </service>
+
+        <service id="Cowegis\Core\Schema\Layer\MarkerLayerSchemaDescriber">
+            <argument>markers</argument>
+            <tag name="Cowegis\Core\Schema\LayerSchemaDescriber" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator\MarkerOptionsHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator\MarkersLayerHydrator">
+            <argument type="service" id="router" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Map\Layer\Markers\MarkersLayerDataProvider" />
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator\MarkerHydrator">
+            <argument type="service" id="Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\IconRepository" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Markers\MarkersLayerDataProvider">
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\MarkerRepository" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+            <tag name="Cowegis\Bundle\Contao\Provider\LayerDataProvider" type="markers" />
+        </service>
+
+        <service id="Cowegis\Core\Serializer\Layer\MarkersLayerDataSerializer">
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Provider\LayerData\MarkersLayerData" />
+        </service>
+
+        <service id="Cowegis\Core\Serializer\Layer\MarkerSerializer">
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\UI\Marker" />
+        </service>
+
+        <!-- File layer -->
+        <service id="Cowegis\Bundle\Contao\Map\Layer\File\FileLayerType">
+            <argument type="service" id="netzmacht.contao_toolkit.repository_manager" />
+            <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\File\FileLayerHydrator">
+            <argument type="service" id="netzmacht.contao_toolkit.repository_manager" />
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <!-- Group layer -->
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Group\GroupLayerType">
+            <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Group\GroupLayerHydrator">
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapLayerRepository" />
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <!-- Marker cluster layer -->
+        <service id="Cowegis\Bundle\Contao\Map\Layer\MarkerCluster\MarkerClusterGroupType">
+            <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\MarkerCluster\MarkerClusterGroupHydrator">
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapLayerRepository" />
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <!-- Reference layer -->
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Reference\ReferenceLayerType">
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
+            <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Reference\ReferenceLayerHydrator">
+            <argument type="service" id="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Reference\ReferenceLayerDataProvider">
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
+            <argument type="tagged_locator" tag="Cowegis\Bundle\Contao\Provider\LayerDataProvider" index-by="type" />
+            <tag name="Cowegis\Bundle\Contao\Provider\LayerDataProvider" type="reference" />
+        </service>
+
+        <!-- Overpass layer -->
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Overpass\OverpassLayerType">
+            <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Overpass\OverpassLayerHydrator">
+            <argument type="service" id="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+    </services>
+</container>
