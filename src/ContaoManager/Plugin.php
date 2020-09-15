@@ -34,9 +34,10 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
     {
         $routeCollection = new RouteCollection();
 
-        $loader = $resolver->resolve(__DIR__ . '/Bundle/Api/Resources/config/routing.xml');
+        $apiPath = $kernel->getBundle('CowegisApiBundle')->getPath();
+        $loader  = $resolver->resolve($apiPath . '/Resources/config/routing.xml');
         if ($loader) {
-            $collection = $loader->load(__DIR__ . '/Bundle/Api/Resources/config/routing.xml');
+            $collection = $loader->load($apiPath . '/Resources/config/routing.xml');
 
             if ($collection instanceof RouteCollection) {
                 $routePrefix = $kernel->getContainer()->getParameter('cowegis_api.route_prefix');
@@ -45,9 +46,9 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
             }
         }
 
-        $loader = $resolver->resolve(__DIR__ . '/Bundle/Contao/Resources/config/routing.xml');
+        $loader = $resolver->resolve(__DIR__ . '/../Resources/config/routing.xml');
         if ($loader) {
-            $collection = $loader->load(__DIR__ . '/Bundle/Contao/Resources/config/routing.xml');
+            $collection = $loader->load(__DIR__ . '/../Resources/config/routing.xml');
             if ($collection instanceof RouteCollection) {
                 $routeCollection->addCollection($collection);
             }
