@@ -34,7 +34,10 @@
         "phpspec/phpspec": "^6.1"
     },
     "extra": {
-        "contao-manager-plugin": "Cowegis\\Bundle\\Contao\\ContaoManager\\Plugin"
+        "contao-manager-plugin": "Cowegis\\Bundle\\Contao\\ContaoManager\\Plugin",
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     },
     "autoload": {
         "psr-4": {
