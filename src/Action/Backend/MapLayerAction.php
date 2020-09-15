@@ -83,22 +83,19 @@ final class MapLayerAction
         /** @var MapLayerRepository $repository */
         $repository = $this->repositoryManager->getRepository(MapLayerModel::class);
         $model      = $repository->findLayer($mapModel->id(), $layerModel->id());
+        $data       = [
+            'tstamp'         => time(),
+            'active'         => '1',
+            'initialVisible' => '1',
+            'pid'            => $mapModel->id(),
+            'layerId'        => $layerModel->id(),
+        ];
 
         if ($model === null) {
-            $model = new MapLayerModel();
-            $model->setRow(
-                [
-                    'pid'     => $mapModel->id(),
-                    'layerId' => $layerModel->id(),
-                ]
-            );
+            $this->repositoryManager->getConnection()->insert(MapLayerModel::getTable(), $data);
+        } else {
+            $this->repositoryManager->getConnection()->update(MapLayerModel::getTable(), $data, ['id' => $model->id]);
         }
-
-        $model->tstamp         = time();
-        $model->active         = '1';
-        $model->initialVisible = '1';
-        // Fixme: Do not use repository to save it. It might get translated sometimes
-        $repository->save($model);
 
         $layerRepository = $this->repositoryManager->getRepository(LayerModel::class);
         $collection      = $layerRepository->findBy(['.pid=?'], [$layerModel->id()]) ?: [];
@@ -117,10 +114,11 @@ final class MapLayerAction
             return;
         }
 
-        $model->tstamp = time();
-        $model->active = '';
-        // Fixme: Do not use repository to save it. It might get translated sometimes
-        $repository->save($model);
+        $this->repositoryManager->getConnection()->update(
+            MapLayerModel::getTable(),
+            ['tstamp' => time(), 'active' => ''],
+            ['id' => $model->id]
+        );
     }
 
     private function toggleVisibility(MapModel $mapModel, LayerModel $layerModel) : void
@@ -132,10 +130,11 @@ final class MapLayerAction
             throw new BadRequestHttpException();
         }
 
-        $model->tstamp         = time();
-        $model->initialVisible = $model->initialVisible > 0 ? 0 : 1;
-        // Fixme: Do not use repository to save it. It might get translated sometimes
-        $repository->save($model);
+        $this->repositoryManager->getConnection()->update(
+            MapLayerModel::getTable(),
+            ['tstamp' => time(), 'initialVisible' => $model->initialVisible > 0 ? 0 : 1],
+            ['id' => $model->id]
+        );
     }
 
     private function fetchModel(string $modelClass, int $modelId) : Model
