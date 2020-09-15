@@ -95,7 +95,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
 
     'metapalettes' => [
         'default' => [
-            'title'  => ['title', 'alias'],
+            'title'  => ['title'],
             'config' => [
                 'direction',
                 'opacity',
@@ -125,19 +125,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
             'inputType' => 'text',
             'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => "varchar(255) NOT NULL default ''",
-        ],
-        'alias'      => [
-            'exclude'   => true,
-            'inputType' => 'text',
-            'eval'      => [
-                'mandatory'   => false,
-                'maxlength'   => 255,
-                'tl_class'    => 'w50',
-                'unique'      => true,
-                'doNotCopy'   => true,
-                'nullIfEmpty' => true,
-            ],
-            'sql'       => 'varchar(255) NULL',
         ],
         'direction'  => [
             'exclude'   => true,
