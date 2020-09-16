@@ -3,6 +3,7 @@
 $GLOBALS['TL_LANG']['tl_cowegis_control']['name_legend']   = 'Title and type';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['config_legend'] = 'Configuration';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['active_legend'] = 'Activation';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['expert_legend'] = 'Expert settings';
 
 $GLOBALS['TL_LANG']['tl_cowegis_control']['new'][0]      = 'Create control';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['new'][1]      = 'Create new control';
