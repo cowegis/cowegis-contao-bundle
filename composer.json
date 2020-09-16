@@ -17,6 +17,7 @@
         "contao-community-alliance/meta-palettes": "^2.0",
         "contao/core-bundle": "^4.9",
         "cowegis/cowegis-core": "^1.0@dev",
+        "cowegis/cowegis-geocode-widget": "^1.0@dev",
         "cowegis/cowegis-geojson": "^1.0@dev",
         "goldspecdigital/oooas": "^2.8",
         "menatwork/contao-multicolumnwizard-bundle": "^3.4",
