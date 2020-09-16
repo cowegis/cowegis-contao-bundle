@@ -15,7 +15,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_pane'] = [
     ],
     'metapalettes' => [
         'default' => [
-            'layer' => [
+            'pane' => [
                 'title',
                 'name',
                 'zIndex',
@@ -74,7 +74,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_pane'] = [
             'exclude'   => true,
             'inputType' => 'text',
             'search'    => true,
-            'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr w50'],
+            'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'zIndex'        => [
@@ -86,15 +86,17 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_pane'] = [
         ],
         'pointerEvents' => [
             'exclude'   => true,
-            'inputType' => 'select',
+            'inputType' => 'radio',
             'options'   => ['auto', 'none'],
+            'reference' => &$GLOBALS['TL_LANG']['tl_cowegis_map_pane']['pointerEventsOptions'],
             'default'   => null,
             'search'    => true,
             'eval'      => [
-                'helpwizard' => true,
+                'helpwizard'         => true,
                 'maxlength'          => 255,
                 'tl_class'           => 'clr w50',
                 'includeBlankOption' => true,
+                'nullIfEmpty'        => true,
             ],
             'sql'       => "char(4) default NULL",
         ],

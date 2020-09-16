@@ -31,6 +31,8 @@ $GLOBALS['TL_LANG']['tl_cowegis_map']['delete'][0]   = 'Delete map';
 $GLOBALS['TL_LANG']['tl_cowegis_map']['delete'][1]   = 'Delete map ID %s';
 $GLOBALS['TL_LANG']['tl_cowegis_map']['show'][0]     = 'Show details';
 $GLOBALS['TL_LANG']['tl_cowegis_map']['show'][1]     = 'Show map ID %s details';
+$GLOBALS['TL_LANG']['tl_cowegis_map']['panes'][0]    = 'Manage panes';
+$GLOBALS['TL_LANG']['tl_cowegis_map']['panes'][1]    = 'Manage panes of map ID %s';
 
 $GLOBALS['TL_LANG']['tl_cowegis_map']['title'][0]              = 'Title';
 $GLOBALS['TL_LANG']['tl_cowegis_map']['title'][1]              = 'Title of the map.';

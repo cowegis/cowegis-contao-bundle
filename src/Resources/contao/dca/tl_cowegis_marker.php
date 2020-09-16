@@ -85,7 +85,8 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
         'default' => [
             'title'   => ['title', 'alias', 'coordinates'],
             'icon'    => ['markerSymbol', 'icon', 'tooltip', 'alt'],
-            'content' => ['addPopup', 'addTooltip'],
+            'popup'   => ['addPopup'],
+            'tooltip' => [':hide', 'addTooltip'],
             'expert'  => [':hide', 'featureData', 'options'],
             'active'  => ['active'],
         ],

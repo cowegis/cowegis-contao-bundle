@@ -5,6 +5,7 @@ $GLOBALS['TL_LANG']['tl_cowegis_layer']['active_legend'] = 'Activation';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['expert_legend'] = 'Expert settings';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['config_legend'] = 'Configuration';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['style_legend']  = 'Style';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['marker_legend'] = 'Marker settings';
 
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['map'][0]    = 'Manage maps';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['map'][1]    = 'Manage leaflet maps';
@@ -135,6 +136,22 @@ $GLOBALS['TL_LANG']['tl_cowegis_layer']['fileFormat'][0]                 = 'File
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['fileFormat'][1]                 = 'Choose which file format is used.';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['file'][0]                       = 'File';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['file'][1]                       = 'Choose a file containing geodata. Supported formats are: %s.';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['icon'][0]                       = 'Default icon';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['icon'][1]                       = 'Choose a default icon which is used for each marker within this layer.';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['popup'][0]                      = 'Default popup preset';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['popup'][1]                      = 'Choose a default popup preset which is used as default popup preset for each marker.';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['tooltip'][0]                    = 'Default tooltip preset';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['tooltip'][1]                    = 'Choose a default tooltip preset which is used as default tooltip preset for each marker.';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['draggable'][0]                  = 'Draggable';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['draggable'][1]                  = 'Whether the marker is draggable with mouse/touch or not.';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['interactive'][0]                = 'Interactive';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['interactive'][1]                = 'If false, the layer will not emit mouse events and will act as a part of the underlying map.';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['keyboard'][0]                   = 'Keyboard';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['keyboard'][1]                   = 'Whether the marker can be tabbed to with a keyboard and clicked by pressing enter.';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['zIndexOffset'][0]               = 'zIndex offset';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['zIndexOffset'][1]               = 'By default, marker images zIndex is set automatically based on its latitude. Use this option if you want to put the marker on top of all others (or below), specifying a high value like 1000 (or high negative value, respectively).';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['riseOnHover'][0]                = 'Rise on hover';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['riseOnHover'][1]                = 'If true, the marker will get on top of others when you hover the mouse over it.';
 
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['groupTypes']['layer'][0]   = 'Layer group';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';
