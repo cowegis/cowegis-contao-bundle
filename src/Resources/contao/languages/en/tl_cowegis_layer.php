@@ -86,7 +86,9 @@ $GLOBALS['TL_LANG']['tl_cowegis_layer']['maxNativeZoom'][0]              = 'Maxi
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['maxNativeZoom'][1]              = 'Maximum zoom number the tiles source has available. If it is specified, the tiles on all zoom levels higher than maxNativeZoom will be loaded from maxZoom level and auto-scaled.';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['tileSize'][0]                   = 'Tile size';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['tileSize'][1]                   = 'Tile size (width and height in pixels, assuming tiles are square).';
-$GLOBALS['TL_LANG']['tl_cowegis_layer']['subdomains'][0]                 = 'Subdomain';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['tileUrl'][0]                    = 'Url template';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['tileUrl'][1]                    = 'A string of the following form: <em>http://{s}.somedomain.com/blabla/{z}/{x}/{y}{r}.png</em>. More information see <a href="https://leafletjs.com/reference.html#tilelayer" target="_blank">https://leafletjs.com/reference.html#tilelayer</a>';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['subdomains'][0]                 = 'Subdomains';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['subdomains'][1]                 = 'Subdomains of the tile service. Each letter is handled as a subdomain.';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['errorTileUrl'][0]               = 'Error url';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['errorTileUrl'][1]               = 'URL to the tile image to show in place of the tile that failed to load.';

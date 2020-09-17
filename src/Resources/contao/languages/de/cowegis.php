@@ -39,8 +39,8 @@ $GLOBALS['TL_LANG']['cowegis_layer']['provider']['0']       = 'Vorkonfigurierte 
 $GLOBALS['TL_LANG']['cowegis_layer']['provider']['1']       = 'Leaflet-Kachelanbieter. Lesen Sie für weitere Details die  <a href="https://github.com/leaflet-extras/leaflet-providers" target="_blank">Plugin-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['cowegis_layer']['reference']['0']      = 'Referenz';
 $GLOBALS['TL_LANG']['cowegis_layer']['reference']['1']      = 'Ein Referenzlayer ist ein Link zu einem anderen Layer.';
-$GLOBALS['TL_LANG']['cowegis_layer']['tile']['0']           = 'Kachel-Layer';
-$GLOBALS['TL_LANG']['cowegis_layer']['tile']['1']           = 'Kachel-Layer mit vollständigen Konfigurationsoptionen.';
+$GLOBALS['TL_LANG']['cowegis_layer']['tileLayer']['0']      = 'Kachel-Layer';
+$GLOBALS['TL_LANG']['cowegis_layer']['tileLayer']['1']      = 'Kachel-Layer mit vollständigen Konfigurationsoptionen.';
 $GLOBALS['TL_LANG']['cowegis_layer']['vectors']['0']        = 'Vektoren';
 $GLOBALS['TL_LANG']['cowegis_layer']['vectors']['1']        = 'Vektorlayer beinhalten Vektoren wie Polygone, Polylines, etc.';
 $GLOBALS['TL_LANG']['cowegis_vector']['circle']['0']        = 'Kreis';
