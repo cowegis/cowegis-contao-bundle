@@ -17,7 +17,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
         'sql'               => [
             'keys' => [
                 'id'    => 'primary',
-                'alias' => 'unique',
             ],
         ],
         'onsubmit_callback' => [
