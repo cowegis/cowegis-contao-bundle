@@ -1,2 +1,5 @@
 formatter.name: pretty
-composer_suite_detection: true
+suites:
+  default_suite:
+    namespace: Cowegis\Bundle\Contao
+    psr4_prefix: Cowegis\Bundle\Contao

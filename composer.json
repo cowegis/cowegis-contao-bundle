@@ -17,7 +17,7 @@
         "contao-community-alliance/meta-palettes": "^2.0",
         "contao/core-bundle": "^4.9",
         "cowegis/cowegis-core": "^1.0@dev",
-        "cowegis/cowegis-geocode-widget": "^1.0@dev",
+        "cowegis/cowegis-contao-geocode-widget-bundle": "^1.0@dev",
         "cowegis/cowegis-geojson": "^1.0@dev",
         "goldspecdigital/oooas": "^2.8",
         "menatwork/contao-multicolumnwizard-bundle": "^3.4",
@@ -31,7 +31,7 @@
     },
     "require-dev": {
         "contao/manager-plugin": "~2.0",
-        "doctrine/coding-standard": "^7.0",
+        "doctrine/coding-standard": "^8.0",
         "phpspec/phpspec": "^6.1"
     },
     "extra": {
@@ -44,5 +44,26 @@
         "psr-4": {
             "Cowegis\\Bundle\\Contao\\": "src/"
         }
-    }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\Cowegis\\Bundle\\Contao\\": "spec/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/home/netzmacht/Daten/Projekte/Entwicklung/vcs/cowegis/cowegis-core"
+        },
+        {
+            "type": "path",
+            "url": "/home/netzmacht/Daten/Projekte/Entwicklung/vcs/cowegis/cowegis-geojson"
+        },
+        {
+            "type": "path",
+            "url": "/home/netzmacht/Daten/Projekte/Entwicklung/vcs/cowegis/cowegis-contao-geocode-widget-bundle"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
