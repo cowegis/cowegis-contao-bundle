@@ -128,7 +128,7 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
             return;
         }
 
-        $iconModel = $this->iconRepository->find($iconId->value());
+        $iconModel = $this->iconRepository->find((int) $iconId->value());
         if (! $iconModel instanceof IconModel || !$this->iconTypes->has($iconModel->type)) {
             return;
         }

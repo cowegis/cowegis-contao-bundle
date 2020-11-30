@@ -91,7 +91,7 @@ final class ContaoBackendProvider implements Provider
 
         // TODO: Protect against unsupported id formats
 
-        $mapLayer = $this->mapLayerRepository->findActiveLayer($mapId->value(), $layerId->value());
+        $mapLayer = $this->mapLayerRepository->findActiveLayer((int) $mapId->value(), (int) $layerId->value());
         if ($mapLayer === null) {
             throw LayerNotFound::withLayerId($layerId, $mapId);
         }
