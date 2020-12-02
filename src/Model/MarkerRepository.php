@@ -53,7 +53,7 @@ final class MarkerRepository extends ContaoRepository
                 continue;
             }
 
-            $event = new ApplyFilterRuleEvent($this->getModelClass(), $rule, $columns, $values);
+            $event = new ApplyFilterRuleEvent($this->getModelClass(), $rule, $columns, $values, $options);
             $this->eventDispatcher->dispatch($event);
 
             $columns = $event->columns();
