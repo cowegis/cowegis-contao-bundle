@@ -54,8 +54,11 @@ final class ApplyFilterRuleMarkerListener
 ) <= ?)
 SQL;
 
+        $radius = $rule->radius();
+        $radius = $radius === 0 ? 0 : $radius / 1000;
+
         $event->withColumns($query);
-        $event->withValues($center->latitude(), $center->longitude(), $center->latitude(), ($rule->radius() / 1000));
+        $event->withValues($center->latitude(), $center->longitude(), $center->latitude(), $radius);
     }
 
     private function applyBboxRule(BboxRule $rule, ApplyFilterRuleEvent $event) : void
