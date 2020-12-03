@@ -43,7 +43,7 @@ final class AliasGenerator
         return $unique;
     }
 
-    private function isSlugDuplicate(string $slug, string $table, int $id): bool
+    private function isSlugDuplicate(string $slug, string $table, int $recordId): bool
     {
         $statement = $this->connection->createQueryBuilder()
             ->select('count(id)')
@@ -51,7 +51,7 @@ final class AliasGenerator
             ->where('alias = :alias')
             ->andWhere('id != :id')
             ->setParameter('alias', $slug)
-            ->setParameter('id', $id)
+            ->setParameter('id', $recordId)
             ->execute();
 
         return $statement->fetchColumn() > 0;

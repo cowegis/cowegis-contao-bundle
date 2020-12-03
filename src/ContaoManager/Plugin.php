@@ -19,7 +19,11 @@ use Symfony\Component\Routing\RouteCollection;
 
 final class Plugin implements BundlePluginInterface, RoutingPluginInterface
 {
-    /** @return ConfigInterface[] */
+    /**
+     * @return ConfigInterface[]
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function getBundles(ParserInterface $parser): array
     {
         return [
@@ -32,6 +36,9 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
         ];
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel): ?RouteCollection
     {
         $routeCollection = new RouteCollection();

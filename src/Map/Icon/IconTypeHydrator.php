@@ -48,10 +48,12 @@ abstract class IconTypeHydrator extends ConfigurableOptionsHydrator
         $this->customizeForMarker($data, $definition);
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     protected function hydrateIcon(IconModel $iconModel, Icon $icon): void
     {
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     protected function customizeForMarker(MarkerModel $markerModel, Icon $icon): void
     {
     }

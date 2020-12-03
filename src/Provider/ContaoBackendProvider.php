@@ -116,6 +116,7 @@ final class ContaoBackendProvider implements Provider
         return $layerDataProvider->findLayerData($mapLayer->layerModel(), $layerContext);
     }
 
+    /** @SuppressWarnings(PHPMD.Superglobals) */
     private function initialize(Context $context): void
     {
         $this->framework->initialize();

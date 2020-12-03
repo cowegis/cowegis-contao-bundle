@@ -88,6 +88,8 @@ abstract class MapFragmentAction extends FragmentAction
      *
      * @return array<string, mixed>
      *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     *
      * phpcs:disable Squiz.NamingConventions.ValidVariableName.NotCamelCaps
      */
     protected function getTemplateData(Model $model, string $section, ?array $classes = null): array

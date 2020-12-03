@@ -66,7 +66,7 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
                                 'type'    => 'markers',
                                 'mapId'   => $context->mapId()->value(),
                                 'layerId' => $layer->layerId()->value(),
-                                '_locale' => $GLOBALS['TL_LANGUAGE'],
+                                '_locale' => $context->locale(),
                             ]
                         )
                     )

@@ -223,6 +223,7 @@ final class MapHydrator implements Hydrator
         $map->enableLocate();
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     private function hydrateAssets(Map $definition, MapModel $model, Context $context): void
     {
         if ($model->defaultAssets) {
@@ -244,7 +245,7 @@ final class MapHydrator implements Hydrator
             ];
         }
 
-        $collection = $repository->findMultipleByUuids($order, $options) ?: [];
+        $collection = $repository->findMultipleByUuids($uuids, $options) ?: [];
 
         foreach ($collection as $fileModel) {
             assert($fileModel instanceof FilesModel);

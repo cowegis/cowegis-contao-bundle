@@ -11,7 +11,11 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 final class CowegisContaoExtension extends Extension
 {
-    /** @param array<int, array<string,mixed>> $configs */
+    /**
+     * @param array<int, array<string,mixed>> $configs
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));

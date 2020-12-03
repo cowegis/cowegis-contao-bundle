@@ -6,7 +6,6 @@ namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
 use Contao\Backend;
 use Contao\BackendTemplate;
-use Contao\DataContainer;
 use Contao\Input;
 use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
@@ -53,7 +52,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
         $this->mapRepository = $mapRepository;
     }
 
-    public function initializeMapView(DataContainer $dataContainer): void
+    public function initializeMapView(): void
     {
         if (Input::get('do') !== 'cowegis_map') {
             return;
@@ -83,7 +82,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
             ['list', 'global_operations'],
             [
                 'back'        => [
-                    'label' => [$mapModel->title, $GLOBALS['TL_LANG']['MSC']['backBT'][1]],
+                    'label' => [$mapModel->title, $this->translator->trans('MSC.backBT.1', [], 'contao_default')],
                     'href'  => 'table=tl_cowegis_map&id=',
                     'class' => 'header header_back',
                 ],

@@ -39,7 +39,11 @@ abstract class FragmentAction implements FragmentOptionsAwareInterface
         $this->options = $options;
     }
 
-    /** @param string[]|null $classes */
+    /**
+     * @param string[]|null $classes
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     protected function renderResponse(
         Request $request,
         Model $model,
