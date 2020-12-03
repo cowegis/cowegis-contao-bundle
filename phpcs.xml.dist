@@ -16,6 +16,8 @@
     <file>src</file>
     <file>spec</file>
 
+    <exclude-pattern>/src/Resources/contao/languages/*</exclude-pattern>
+
     <!-- Include full Doctrine Coding Standard -->
     <rule ref="Doctrine">
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix"/>
