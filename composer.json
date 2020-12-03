@@ -13,32 +13,35 @@
         "php": "^7.2",
         "ext-json": "*",
         "ext-pdo": "*",
+        "ausi/slug-generator": "^1.1",
         "beberlei/assert": "^3.2",
         "contao-community-alliance/meta-palettes": "^2.0",
         "contao/core-bundle": "^4.9",
-        "cowegis/cowegis-core": "^1.0@dev",
         "cowegis/cowegis-contao-geocode-widget-bundle": "^1.0@dev",
+        "cowegis/cowegis-core": "^1.0@dev",
         "cowegis/cowegis-geojson": "^1.0@dev",
         "goldspecdigital/oooas": "^2.8",
         "menatwork/contao-multicolumnwizard-bundle": "^3.4",
         "netzmacht/contao-toolkit": "^3.3.3",
         "psr/container": "^1.0",
         "psr/event-dispatcher": "^1.0",
-        "symfony/http-kernel": "^4.4",
-
-
-        "ausi/slug-generator": "^1.1"
+        "symfony/http-kernel": "^4.4"
+    },
+    "conflict": {
+        "hofff/contao-consent-bridge": "<1.0 || >= 2.0"
     },
     "require-dev": {
         "contao/manager-plugin": "~2.0",
         "doctrine/coding-standard": "^8.0",
-        "phpspec/phpspec": "^6.1"
+        "hofff/contao-consent-bridge": "^1.0",
+        "phpspec/phpspec": "^6.1",
+        "phpcq/runner-bootstrap": "^1.0@dev"
     },
     "extra": {
-        "contao-manager-plugin": "Cowegis\\Bundle\\Contao\\ContaoManager\\Plugin",
         "branch-alias": {
             "dev-master": "1.0.x-dev"
-        }
+        },
+        "contao-manager-plugin": "Cowegis\\Bundle\\Contao\\ContaoManager\\Plugin"
     },
     "autoload": {
         "psr-4": {
@@ -52,16 +55,8 @@
     },
     "repositories": [
         {
-            "type": "path",
-            "url": "/home/netzmacht/Daten/Projekte/Entwicklung/vcs/cowegis/cowegis-core"
-        },
-        {
-            "type": "path",
-            "url": "/home/netzmacht/Daten/Projekte/Entwicklung/vcs/cowegis/cowegis-geojson"
-        },
-        {
-            "type": "path",
-            "url": "/home/netzmacht/Daten/Projekte/Entwicklung/vcs/cowegis/cowegis-contao-geocode-widget-bundle"
+            "type": "composer",
+            "url": "https://token:ANU5iWbJuovTQ5j4Mre31crK5Dx36OscQ33uB7tzHtcDvTO55bAkRl8M8P0Mvp9r@packages.netzmacht.de/r/"
         }
     ],
     "minimum-stability": "dev",

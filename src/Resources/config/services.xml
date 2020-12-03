@@ -18,6 +18,10 @@
             <argument type="service" id="router" />
         </service>
 
+        <service id="Cowegis\Bundle\Contao\ConsentBridge\Plugin">
+            <tag name="hofff_contao_consent_bridge.plugin" />
+        </service>
+
         <service id="Cowegis\Core\IdFormat\IntegerIdFormat">
             <tag name="Cowegis\Core\IdFormat\IdFormat" />
         </service>
