@@ -7,6 +7,7 @@ namespace Cowegis\Bundle\Contao\EventListener\Dca;
 use Contao\Backend;
 use Contao\BackendTemplate;
 use Contao\Input;
+use Contao\RequestToken;
 use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
@@ -14,7 +15,6 @@ use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use PDO;
-use RequestToken;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -134,8 +134,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
                 'disableTitle'          => $this->translate('tl_cowegis_map_layer.disable.1'),
                 'toggleVisibilityLabel' => $this->translate('tl_cowegis_map_layer.toggleVisibility.0'),
                 'toggleVisibilityTitle' => $this->translate('tl_cowegis_map_layer.toggleVisibility.1'),
-
-                'requestToken' => RequestToken::get(),
+                'requestToken'          => RequestToken::get(),
             ]
         );
 

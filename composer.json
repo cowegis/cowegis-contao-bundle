@@ -21,12 +21,20 @@
         "cowegis/cowegis-contao-geocode-widget-bundle": "^1.0@dev",
         "cowegis/cowegis-core": "^1.0@dev",
         "cowegis/cowegis-geojson": "^1.0@dev",
+        "doctrine/dbal": "^2.10",
         "goldspecdigital/oooas": "^2.8",
         "menatwork/contao-multicolumnwizard-bundle": "^3.4",
         "netzmacht/contao-toolkit": "^3.3.3",
         "psr/container": "^1.0",
         "psr/event-dispatcher": "^1.0",
-        "symfony/http-kernel": "^4.4"
+        "psr/http-factory": "^1.0.1",
+        "symfony/config": "^4.4",
+        "symfony/dependency-injection": "^4.4",
+        "symfony/http-foundation": "^4.4",
+        "symfony/http-kernel": "^4.4",
+        "symfony/routing": "^4.4",
+        "symfony/translation-contracts": "^1.1.6 || ^2",
+        "twig/twig": "^2.7"
     },
     "conflict": {
         "hofff/contao-consent-bridge": "<1.0 || >= 2.0"
