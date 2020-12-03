@@ -10,6 +10,8 @@ use Cowegis\Core\Definition\LatLng;
 use InvalidArgumentException;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Symfony\Contracts\Translation\TranslatorInterface as Translator;
+use Throwable;
+
 use function explode;
 use function is_array;
 use function preg_match;
@@ -31,8 +33,6 @@ final class Validator
     private $dcaManager;
 
     /**
-     * Validator constructor.
-     *
      * @param Manager    $dcaManager Data container manager.
      * @param Translator $translator Translator.
      */
@@ -52,15 +52,15 @@ final class Validator
      *
      * @throws InvalidArgumentException When invalid coordinates given.
      */
-    public function validateCoordinates($value, $dataContainer)
+    public function validateCoordinates($value, DataContainer $dataContainer)
     {
-        if (!$value && !$this->isRequired($dataContainer)) {
+        if (! $value && ! $this->isRequired($dataContainer)) {
             return $value;
         }
 
         try {
             LatLng::fromString($value);
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             throw new InvalidArgumentException(
                 $this->translator->trans('cowegis.invalidCoordinates', [$value], 'contao_leaflet'),
                 0,
@@ -81,9 +81,9 @@ final class Validator
      *
      * @throws InvalidArgumentException When invalid coordinates given.
      */
-    public function validateMultipleCoordinates($values, $dataContainer)
+    public function validateMultipleCoordinates($values, DataContainer $dataContainer)
     {
-        if (!is_array($values)) {
+        if (! is_array($values)) {
             $lines = explode("\n", $values);
         } else {
             $lines = $values;
@@ -106,7 +106,7 @@ final class Validator
      *
      * @throws InvalidArgumentException When invalid coordinates given.
      */
-    public function validateMultipleCoordinateSets($values, $dataContainer)
+    public function validateMultipleCoordinateSets($values, DataContainer $dataContainer)
     {
         $sets = StringUtil::deserialize($values, true);
         foreach ($sets as $lines) {
@@ -121,10 +121,9 @@ final class Validator
      *
      * @param string $value Given value.
      *
-     * @return string
      * @throws InvalidArgumentException When invalid value given.
      */
-    public function validateAlias($value)
+    public function validateAlias(string $value): string
     {
         if (preg_match('/^[A-Za-z_]+[A-Za-z0-9_]+$/', $value) !== 1) {
             throw new InvalidArgumentException(
@@ -139,17 +138,11 @@ final class Validator
      * Check if value is required.
      *
      * @param DataContainer $dataContainer Data container driver.
-     *
-     * @return bool
      */
-    private function isRequired($dataContainer): bool
+    private function isRequired(DataContainer $dataContainer): bool
     {
         $definition = $this->dcaManager->getDefinition($dataContainer->table);
 
-        if ($definition->get(['fields', $dataContainer->field, 'eval', 'mandatory'])) {
-            return true;
-        }
-
-        return false;
+        return (bool) $definition->get(['fields', $dataContainer->field, 'eval', 'mandatory']);
     }
 }

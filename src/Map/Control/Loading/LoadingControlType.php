@@ -11,12 +11,12 @@ use Cowegis\Core\Definition\Control\LoadingControl;
 
 final class LoadingControlType implements ControlType
 {
-    public function name() : string
+    public function name(): string
     {
         return 'loading';
     }
 
-    public function createDefinition(ControlModel $controlModel) : Control
+    public function createDefinition(ControlModel $controlModel): Control
     {
         return new LoadingControl(
             $controlModel->controlId(),

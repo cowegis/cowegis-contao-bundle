@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
-use Contao\DataContainer;
-use Contao\Input;
 use Contao\StringUtil;
-use Cowegis\Bundle\Contao\Model\LayerRepository;
+use DataContainer;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
+
 use function array_keys;
+use function count;
 
 final class MarkerDcaListener extends AbstractListener
 {
@@ -21,25 +21,19 @@ final class MarkerDcaListener extends AbstractListener
     /** @var Connection */
     private $connection;
 
-    /** @var LayerRepository */
-    private $layerRepository;
-
-    public function __construct(Manager $dcaManager, Connection $connection, LayerRepository $layerRepository)
+    public function __construct(Manager $dcaManager, Connection $connection)
     {
         parent::__construct($dcaManager);
 
-        $this->connection      = $connection;
-        $this->layerRepository = $layerRepository;
+        $this->connection = $connection;
     }
 
     /**
      * Generate the row label.
      *
-     * @param array $row Current data row.
-     *
-     * @return string
+     * @param array<string,mixed> $row Current data row.
      */
-    public function rowLabel(array $row) : string
+    public function rowLabel(array $row): string
     {
         return $row['title'];
     }
@@ -47,10 +41,10 @@ final class MarkerDcaListener extends AbstractListener
     /**
      * Save the coordinates.
      *
-     * @param string         $value         The raw data.
-     * @param \DataContainer $dataContainer The data container driver.
+     * @param string        $value         The raw data.
+     * @param DataContainer $dataContainer The data container driver.
      */
-    public function saveCoordinates($value, $dataContainer) : void
+    public function saveCoordinates(string $value, DataContainer $dataContainer): void
     {
         $combined = [
             'latitude'  => null,
@@ -74,12 +68,12 @@ final class MarkerDcaListener extends AbstractListener
     /**
      * Load the coordinates.
      *
-     * @param string         $value         The raw data.
-     * @param \DataContainer $dataContainer The data container driver.
+     * @param string        $value         The raw data.
+     * @param DataContainer $dataContainer The data container driver.
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function loadCoordinates($value, $dataContainer) : ?string
+    public function loadCoordinates(string $value, DataContainer $dataContainer): ?string
     {
         $query     = 'SELECT latitude, longitude, altitude FROM tl_cowegis_marker WHERE id=:id';
         $statement = $this->connection->prepare($query);
@@ -87,14 +81,15 @@ final class MarkerDcaListener extends AbstractListener
 
         $statement->execute();
 
-        if ($row = $statement->fetch()) {
+        $row = $statement->fetch();
+        if ($row) {
             $buffer = $row['latitude'];
 
-            if ($buffer && $row['longitude']) {
-                $buffer .= ',' . $row['longitude'];
-            } else {
+            if (! $buffer || ! $row['longitude']) {
                 return $buffer;
             }
+
+            $buffer .= ',' . $row['longitude'];
 
             if ($buffer && $row['altitude']) {
                 $buffer .= ',' . $row['altitude'];

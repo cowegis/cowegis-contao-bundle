@@ -21,15 +21,15 @@ final class TileLayerHydrator extends LayerTypeHydrator
         'zoomReverse',
         'detectRetina',
         'crossOrigin',
-        'attribution'
+        'attribution',
     ];
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'tileLayer';
     }
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context) : void
+    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
     {
     }
 }

@@ -16,8 +16,6 @@ final class IconDcaListener
     private $iconTypes;
 
     /**
-     * IconDcaListener constructor.
-     *
      * @param IconTypeRegistry $iconTypes Icon type options.
      */
     public function __construct(IconTypeRegistry $iconTypes)
@@ -28,7 +26,7 @@ final class IconDcaListener
     /**
      * Get icon options.
      *
-     * @return array
+     * @return string[]
      */
     public function iconOptions(): array
     {

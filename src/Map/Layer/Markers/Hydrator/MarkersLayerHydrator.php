@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator;
 
 use Cowegis\Bundle\Contao\Hydrator\Layer\LayerTypeHydrator;
-use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\LayerDataProvider;
+use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Expression\InlineExpression;
 use Cowegis\Core\Definition\GeoJson\UriData;
 use Cowegis\Core\Definition\Layer\DataLayer;
@@ -15,7 +15,9 @@ use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Provider\LayerData\MarkersLayerData;
 use Cowegis\Core\Serializer\Serializer;
 use Symfony\Component\Routing\RouterInterface;
+
 use function array_merge;
+use function assert;
 
 final class MarkersLayerHydrator extends LayerTypeHydrator
 {
@@ -35,12 +37,12 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
         $this->serializer   = $serializer;
     }
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'markers';
     }
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context) : void
+    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
     {
         assert($layer instanceof DataLayer);
 
@@ -75,8 +77,10 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
         }
 
         $layerData = $this->dataProvider->findLayerData($layerModel, $context);
-        if ($layerData instanceof MarkersLayerData) {
-            $layer->withData($this->serializer->serialize($layerData));
+        if (! ($layerData instanceof MarkersLayerData)) {
+            return;
         }
+
+        $layer->withData($this->serializer->serialize($layerData));
     }
 }

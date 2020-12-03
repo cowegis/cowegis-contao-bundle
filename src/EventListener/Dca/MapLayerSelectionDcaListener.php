@@ -22,6 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class MapLayerSelectionDcaListener extends AbstractListener
 {
+    /** @var string */
     protected static $name = 'tl_cowegis_layer';
 
     /** @var Connection */
@@ -52,7 +53,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
         $this->mapRepository = $mapRepository;
     }
 
-    public function initializeMapView(DataContainer $dataContainer) : void
+    public function initializeMapView(DataContainer $dataContainer): void
     {
         if (Input::get('do') !== 'cowegis_map') {
             return;
@@ -99,12 +100,8 @@ final class MapLayerSelectionDcaListener extends AbstractListener
         );
     }
 
-    /**
-     * @param array $row urrent row.
-     *
-     * @return string
-     */
-    public function mapIntegrationButtons(array $row) : string
+    /** @param array<string,mixed> $row */
+    public function mapIntegrationButtons(array $row): string
     {
         $statement = $this->connection->prepare(
             'SELECT * FROM tl_cowegis_map_layer WHERE pid=:mapId AND layerId=:layerId LIMIT 0,1'
@@ -146,7 +143,8 @@ final class MapLayerSelectionDcaListener extends AbstractListener
         return $template->parse();
     }
 
-    private function translate(string $key, array $params = [], ?string $domain = null) : string
+    /** @param array<string,mixed> $params */
+    private function translate(string $key, array $params = [], ?string $domain = null): string
     {
         $domain = $domain ?: 'contao_tl_cowegis_map_layer';
 

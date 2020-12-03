@@ -17,9 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
+use function array_merge;
+use function assert;
 use function strtoupper;
 
-abstract class AbstractMapFragmentAction extends AbstractFragmentAction
+abstract class MapFragmentAction extends FragmentAction
 {
     /** @var RouterInterface */
     protected $router;
@@ -58,18 +61,19 @@ abstract class AbstractMapFragmentAction extends AbstractFragmentAction
         $this->uriFactory    = $uriFactory;
     }
 
-    protected function getType() : string
+    protected function getType(): string
     {
         return 'cowegis_map';
     }
 
+    /** @param string[]|null $classes */
     protected function renderResponse(
         Request $request,
         Model $model,
         string $templateName,
         string $section,
-        array $classes = null
-    ) : Response {
+        ?array $classes = null
+    ): Response {
         if ($this->scopeMatcher->isBackendRequest($request)) {
             return $this->getBackendResponse($model);
         }
@@ -79,7 +83,14 @@ abstract class AbstractMapFragmentAction extends AbstractFragmentAction
         return parent::renderResponse($request, $model, $templateName, $section, $classes);
     }
 
-    protected function getTemplateData(Model $model, string $section, array $classes = null) : array
+    /**
+     * @param string[]|null $classes
+     *
+     * @return array<string, mixed>
+     *
+     * phpcs:disable Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+     */
+    protected function getTemplateData(Model $model, string $section, ?array $classes = null): array
     {
         $data = parent::getTemplateData($model, $section, $classes);
 
@@ -100,40 +111,42 @@ abstract class AbstractMapFragmentAction extends AbstractFragmentAction
         return $data;
     }
 
-    protected function compileMapStyle(Model $model) : string
+    // phpcs:disable Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    protected function compileMapStyle(Model $model): string
     {
         $style  = '';
         $height = StringUtil::deserialize($model->cowegis_height, true);
         $width  = StringUtil::deserialize($model->cowegis_width, true);
 
-        if (!empty($width['value'])) {
+        if (! empty($width['value'])) {
             $style .= 'width:' . $width['value'] . $width['unit'] . ';';
         }
 
-        if (!empty($height['value'])) {
+        if (! empty($height['value'])) {
             $style .= 'height:' . $height['value'] . $height['unit'] . ';';
         }
 
         return $style;
     }
 
-    abstract protected function getIdentifier(Model $model, ?string $identifier) : string;
+    abstract protected function getIdentifier(Model $model, ?string $identifier): string;
 
-    private function getDefaultIdentifier(Model $model) : ?string
+    // phpcs:disable Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    private function getDefaultIdentifier(Model $model): ?string
     {
         if ($model->cowegis_map_cssId) {
             return (string) $model->cowegis_map_cssId;
         }
 
         $cssId = StringUtil::deserialize($model->cssID, true);
-        if (!empty($cssId[0])) {
+        if (! empty($cssId[0])) {
             return 'map_' . $cssId[0];
         }
 
         return null;
     }
 
-    private function getBackendResponse(Model $module) : Response
+    private function getBackendResponse(Model $module): Response
     {
         $href = $this->router->generate(
             'contao_backend',
@@ -142,8 +155,8 @@ abstract class AbstractMapFragmentAction extends AbstractFragmentAction
 
         $name = $this->translator->trans('FMD.' . $this->getType() . '.0', [], 'contao_modules');
 
-        /** @var FrontendTemplate $template */
         $template = $this->contaoFramework->createInstance(FrontendTemplate::class, ['be_wildcard']);
+        assert($template instanceof FrontendTemplate);
         $template->setData(
             [
                 'wildcard' => '### ' . strtoupper($name) . ' ###',
@@ -156,9 +169,10 @@ abstract class AbstractMapFragmentAction extends AbstractFragmentAction
         return $template->getResponse();
     }
 
-    private function createFilter(Request $request) : Filter
+    private function createFilter(Request $request): Filter
     {
         $uri = $this->uriFactory->createUri($request->getUri());
+
         return $this->filterFactory->createFromUri($uri);
     }
 }

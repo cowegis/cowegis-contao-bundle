@@ -13,6 +13,7 @@ use Cowegis\Core\Definition\Icon\ImageIcon;
 use Cowegis\Core\Definition\Options;
 use Cowegis\Core\Definition\Point;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
+
 use function round;
 
 final class ImageIconHydrator extends IconTypeHydrator
@@ -25,12 +26,12 @@ final class ImageIconHydrator extends IconTypeHydrator
         $this->repositoryManager = $repositoryManager;
     }
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'image';
     }
 
-    protected function hydrateIcon(IconModel $iconModel, Icon $icon) : void
+    protected function hydrateIcon(IconModel $iconModel, Icon $icon): void
     {
         $options = $icon->options();
 
@@ -40,33 +41,35 @@ final class ImageIconHydrator extends IconTypeHydrator
         $this->hydrateFileOption($options, 'shadowRetinaUrl', $iconModel->shadowRetinaImage);
     }
 
-    protected function hydrateFileOption(Options $options, string $option, ?string $uuid) : void
+    protected function hydrateFileOption(Options $options, string $option, ?string $uuid): void
     {
         $fileModel = $this->fetchFileModel($uuid);
-        if (!$fileModel) {
+        if (! $fileModel) {
             return;
         }
 
         $options->set($option, $fileModel->path);
     }
 
-    protected function hydrateIconImage(Options $options, ?string $uuid) : void
+    protected function hydrateIconImage(Options $options, ?string $uuid): void
     {
         $fileModel = $this->fetchFileModel($uuid);
-        if (!$fileModel) {
+        if (! $fileModel) {
             return;
         }
 
         $file = $this->hydrateImage($options, 'icon', $uuid);
-        if ($file && ! $options->has('popupAnchor')) {
-            $options->set('popupAnchor', new Point(0, - $file->height));
+        if (! $file || $options->has('popupAnchor')) {
+            return;
         }
+
+        $options->set('popupAnchor', new Point(0, -$file->height));
     }
 
-    protected function hydrateImage(Options $options, string $key, ?string $uuid) : ?File
+    protected function hydrateImage(Options $options, string $key, ?string $uuid): ?File
     {
         $fileModel = $this->fetchFileModel($uuid);
-        if (!$fileModel) {
+        if (! $fileModel) {
             return null;
         }
 
@@ -82,17 +85,18 @@ final class ImageIconHydrator extends IconTypeHydrator
         return $file;
     }
 
-    protected function fetchFileModel(?string $uuid) : ?FilesModel
+    protected function fetchFileModel(?string $uuid): ?FilesModel
     {
-        if (!$uuid) {
+        if (! $uuid) {
             return null;
         }
 
         $repository = $this->repositoryManager->getRepository(FilesModel::class);
+
         return $repository->findByUuid($uuid);
     }
 
-    protected function supportedDefinition() : string
+    protected function supportedDefinition(): string
     {
         return ImageIcon::class;
     }

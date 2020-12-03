@@ -9,7 +9,7 @@ use Cowegis\Core\Definition\DefinitionId;
 
 interface StyleType
 {
-    public function name() : string;
+    public function name(): string;
 
-    public function createDefinition(StyleModel $styleModel) : DefinitionId;
+    public function createDefinition(StyleModel $styleModel): DefinitionId;
 }

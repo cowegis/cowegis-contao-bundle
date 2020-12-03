@@ -10,12 +10,12 @@ use Cowegis\Core\Definition\LayerObject;
 
 abstract class LayerOptionsHydrator extends ConfigurableOptionsHydrator
 {
-    protected function supportsData(object $data) : bool
+    protected function supportsData(object $data): bool
     {
         return $data instanceof MapLayerModel;
     }
 
-    protected function supportsDefinition(object $definition) : bool
+    protected function supportsDefinition(object $definition): bool
     {
         return $definition instanceof LayerObject;
     }

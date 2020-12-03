@@ -9,14 +9,14 @@ use Cowegis\Bundle\Contao\Hydrator\Control\ControlTypeHydrator;
 final class FullscreenControlTypeHydrator extends ControlTypeHydrator
 {
     protected const OPTIONS = [
-        'position',
+        'position'              => 'position',
         'title'                 => 'fullscreenTitle',
         'titleCancel'           => 'fullscreenCancelTitle',
         'forcePseudoFullscreen' => 'simulateFullScreen',
         'forceSeparateButton'   => 'separate',
     ];
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'fullscreen';
     }

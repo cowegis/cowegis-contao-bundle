@@ -9,6 +9,7 @@ use Cowegis\Bundle\Contao\Event\ApplyFilterRuleEvent;
 use Cowegis\Core\Filter\Filter;
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Psr\EventDispatcher\EventDispatcherInterface;
+
 use function in_array;
 
 final class MarkerRepository extends ContaoRepository
@@ -23,7 +24,8 @@ final class MarkerRepository extends ContaoRepository
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function findActiveByLayer(int $layerId, array $options = []) : ?Collection
+    /** @param array<string,mixed> $options */
+    public function findActiveByLayer(int $layerId, array $options = []): ?Collection
     {
         $options['sorting'] = $options['sorting'] ?? '.sorting';
         $columns            = [
@@ -40,11 +42,16 @@ final class MarkerRepository extends ContaoRepository
         return $this->findBy($columns, $values, $options);
     }
 
-    private function applyFilter(array &$columns, array &$values, array $options) : void
+    /**
+     * @param string[]            $columns
+     * @param mixed[]             $values
+     * @param array<string,mixed> $options
+     */
+    private function applyFilter(array &$columns, array &$values, array $options): void
     {
         $filter = $options['filter'] ?? null;
         $rules  = $options['rules'] ?? null;
-        if (!$filter instanceof Filter) {
+        if (! $filter instanceof Filter) {
             return;
         }
 

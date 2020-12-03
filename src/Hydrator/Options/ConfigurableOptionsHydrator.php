@@ -11,8 +11,10 @@ use Cowegis\Core\Definition\HasOptions;
 use Cowegis\Core\Definition\Options;
 use Cowegis\Core\Definition\Point;
 use Cowegis\Core\Provider\Context;
+
 use function array_map;
 use function assert;
+use function count;
 use function is_int;
 
 abstract class ConfigurableOptionsHydrator implements Hydrator
@@ -23,7 +25,7 @@ abstract class ConfigurableOptionsHydrator implements Hydrator
 
     protected const POINT_OPTIONS = [];
 
-    public function supports(object $data, object $definition) : bool
+    public function supports(object $data, object $definition): bool
     {
         if (! $this->supportsDefinition($definition)) {
             return false;
@@ -32,40 +34,47 @@ abstract class ConfigurableOptionsHydrator implements Hydrator
         return $this->supportsData($data);
     }
 
-    public function hydrate(object $data, object $definition, Context $context) : void
+    public function hydrate(object $data, object $definition, Context $context): void
     {
         assert($data instanceof Model);
 
         $options = $this->determineOptions($definition);
 
-        $this->hydrateOptions($data, $options, static::OPTIONS);
-        $this->hydrateConditionalOptions($data, $options, static::CONDITIONAL_OPTIONS);
-        $this->hydratePointOptions($data, $options, static::POINT_OPTIONS);
+        $this->hydrateOptions($data, $options, self::OPTIONS);
+        $this->hydrateConditionalOptions($data, $options, self::CONDITIONAL_OPTIONS);
+        $this->hydratePointOptions($data, $options, self::POINT_OPTIONS);
     }
 
-    protected function hydrateOptions(Model $model, Options $options, array $keys) : void
+    /** @param array<int|string,string> $keys */
+    protected function hydrateOptions(Model $model, Options $options, array $keys): void
     {
         foreach ($keys as $target => $source) {
             if (is_int($target)) {
                 $target = $source;
             }
 
-            if ($model->{$source} !== null) {
-                $options->set($target, $model->{$source});
+            if ($model->{$source} === null) {
+                continue;
             }
+
+            $options->set($target, $model->{$source});
         }
     }
 
-    protected function hydrateConditionalOptions(Model $data, Options $options, array $conditions) : void
+    /** @param array<string,array<int|string,string>> $conditions */
+    protected function hydrateConditionalOptions(Model $data, Options $options, array $conditions): void
     {
         foreach ($conditions as $trigger => $keys) {
-            if ($data->{$trigger}) {
-                $this->hydrateOptions($data, $options, $keys);
+            if (! $data->{$trigger}) {
+                continue;
             }
+
+            $this->hydrateOptions($data, $options, $keys);
         }
     }
 
-    private function hydratePointOptions(Model $model, Options $options, array $keys) : void
+    /** @param array<int|string,string> $keys */
+    private function hydratePointOptions(Model $model, Options $options, array $keys): void
     {
         foreach ($keys as $target => $source) {
             if (is_int($target)) {
@@ -87,17 +96,17 @@ abstract class ConfigurableOptionsHydrator implements Hydrator
         }
     }
 
-    protected function supportsDefinition(object $definition) : bool
+    protected function supportsDefinition(object $definition): bool
     {
         return $definition instanceof HasOptions;
     }
 
-    protected function supportsData(object $data) : bool
+    protected function supportsData(object $data): bool
     {
         return $data instanceof Model;
     }
 
-    protected function determineOptions(object $definition) : Options
+    protected function determineOptions(object $definition): Options
     {
         assert($definition instanceof HasOptions);
 

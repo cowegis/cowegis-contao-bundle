@@ -9,13 +9,14 @@ use Cowegis\Bundle\Contao\Model\MarkerModel;
 use Cowegis\Core\Filter\Rule\BboxRule;
 use Cowegis\Core\Filter\Rule\DistanceRule;
 use Cowegis\Core\Filter\Rule\KeywordRule;
+
 use function is_a;
 
 final class ApplyFilterRuleMarkerListener
 {
-    public function __invoke(ApplyFilterRuleEvent $event) : void
+    public function __invoke(ApplyFilterRuleEvent $event): void
     {
-        if (!is_a($event->modelClass(), MarkerModel::class, true)) {
+        if (! is_a($event->modelClass(), MarkerModel::class, true)) {
             return;
         }
 
@@ -36,16 +37,16 @@ final class ApplyFilterRuleMarkerListener
         }
     }
 
-    private function applyKeywordRule(KeywordRule $rule, ApplyFilterRuleEvent $event) : void
+    private function applyKeywordRule(KeywordRule $rule, ApplyFilterRuleEvent $event): void
     {
         $event->withColumns('.title LIKE ?');
         $event->withValues('%' . $rule->keyword() . '%');
     }
 
-    private function applyDistanceRule(DistanceRule $rule, ApplyFilterRuleEvent $event) : void
+    private function applyDistanceRule(DistanceRule $rule, ApplyFilterRuleEvent $event): void
     {
-        $center   = $rule->coordinates();
-        $query = <<<'SQL'
+        $center = $rule->coordinates();
+        $query  = <<<'SQL'
 (round(
   sqrt(
     power( 2 * pi() / 360 * (? - .latitude) * 6371,2)
@@ -61,7 +62,7 @@ SQL;
         $event->withValues($center->latitude(), $center->longitude(), $center->latitude(), $radius);
     }
 
-    private function applyBboxRule(BboxRule $rule, ApplyFilterRuleEvent $event) : void
+    private function applyBboxRule(BboxRule $rule, ApplyFilterRuleEvent $event): void
     {
         $boundingBox = $rule->boundingBox();
         $southWest   = $boundingBox->southWest();

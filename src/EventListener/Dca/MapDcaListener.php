@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
+use Contao\Database\Result;
 use Contao\DataContainer;
 use Contao\Input;
+use Contao\Model\Collection;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
@@ -15,6 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class MapDcaListener extends AbstractListener
 {
+    /** @var string */
     protected static $name = 'tl_cowegis_map';
 
     /** @var TranslatorInterface */
@@ -40,12 +43,13 @@ final class MapDcaListener extends AbstractListener
         $this->session       = $session;
     }
 
-    public function layerList($records, string $uniqueId) : string
+    /** @param Result|Collection $records */
+    public function layerList($records, string $uniqueId): string
     {
         $strReturn = '';
 
         while ($records->next()) {
-            $strReturn .= '<li>' . $records->name . ' (ID: ' . $records->id . ')' . '</li>';
+            $strReturn .= '<li>' . $records->name . ' (ID: ' . $records->id . ') </li>';
         }
 
         return '<ul id="sort_' . $uniqueId . '">' . $strReturn . '</ul>';
@@ -55,10 +59,8 @@ final class MapDcaListener extends AbstractListener
      * Add warnings for incomplete configurations.
      *
      * @param DataContainer $dataContainer The data container driver.
-     *
-     * @return void
      */
-    public function showIncompleteConfigurationWarning($dataContainer) : void
+    public function showIncompleteConfigurationWarning(DataContainer $dataContainer): void
     {
         if (Input::get('act') !== 'edit') {
             return;
@@ -69,11 +71,13 @@ final class MapDcaListener extends AbstractListener
             return;
         }
 
-        if ($mapModel->zoom === null || $mapModel->zoom === '') {
-            $this->session->getFlashBag()->add(
-                'contao.BE.info',
-                $this->translator->trans('ERR.cowegisMissingZoomLevel', [], 'contao_default')
-            );
+        if ($mapModel->zoom !== null && $mapModel->zoom !== '') {
+            return;
         }
+
+        $this->session->getFlashBag()->add(
+            'contao.BE.info',
+            $this->translator->trans('ERR.cowegisMissingZoomLevel', [], 'contao_default')
+        );
     }
 }

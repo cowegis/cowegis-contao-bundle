@@ -10,8 +10,10 @@ use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Core\Definition\Map\Map;
 use Cowegis\Core\Definition\Options;
 use Cowegis\Core\Definition\Point;
+
 use function array_map;
 use function assert;
+use function count;
 use function ucfirst;
 
 final class BoundsOptionsHydrator extends ConfigurableOptionsHydrator
@@ -21,7 +23,8 @@ final class BoundsOptionsHydrator extends ConfigurableOptionsHydrator
         'maxZoom' => 'maxZoom',
     ];
 
-    protected function hydrateOptions(Model $model, Options $options, array $keys) : void
+    /** @param array<int|string,string> $keys */
+    protected function hydrateOptions(Model $model, Options $options, array $keys): void
     {
         parent::hydrateOptions($model, $options, $keys);
 
@@ -29,24 +32,24 @@ final class BoundsOptionsHydrator extends ConfigurableOptionsHydrator
         $this->hydrateBoundsPadding($model, $options);
     }
 
-    protected function determineOptions(object $definition) : Options
+    protected function determineOptions(object $definition): Options
     {
         assert($definition instanceof Map);
 
         return $definition->boundsOptions();
     }
 
-    protected function supportsDefinition(object $definition) : bool
+    protected function supportsDefinition(object $definition): bool
     {
         return $definition instanceof Map;
     }
 
-    protected function supportsData(object $data) : bool
+    protected function supportsData(object $data): bool
     {
         return $data instanceof MapModel;
     }
 
-    private function hydrateAdjustOptions(Model $model, Options $options) : void
+    private function hydrateAdjustOptions(Model $model, Options $options): void
     {
         $adjustBounds = StringUtil::deserialize($model->adjustBounds, true);
         foreach ($adjustBounds as $mode) {
@@ -54,7 +57,7 @@ final class BoundsOptionsHydrator extends ConfigurableOptionsHydrator
         }
     }
 
-    private function hydrateBoundsPadding(Model $model, Options $options) : void
+    private function hydrateBoundsPadding(Model $model, Options $options): void
     {
         $padding = array_map('intval', StringUtil::trimsplit(',', $model->boundsPadding));
 

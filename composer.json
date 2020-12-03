@@ -17,6 +17,7 @@
         "beberlei/assert": "^3.2",
         "contao-community-alliance/meta-palettes": "^2.0",
         "contao/core-bundle": "^4.9",
+        "cowegis/cowegis-api-bundle": "^1.0@dev",
         "cowegis/cowegis-contao-geocode-widget-bundle": "^1.0@dev",
         "cowegis/cowegis-core": "^1.0@dev",
         "cowegis/cowegis-geojson": "^1.0@dev",
@@ -34,8 +35,8 @@
         "contao/manager-plugin": "~2.0",
         "doctrine/coding-standard": "^8.0",
         "hofff/contao-consent-bridge": "^1.0",
-        "phpspec/phpspec": "^6.1",
-        "phpcq/runner-bootstrap": "^1.0@dev"
+        "phpcq/runner-bootstrap": "^1.0@dev",
+        "phpspec/phpspec": "^6.1"
     },
     "extra": {
         "branch-alias": {

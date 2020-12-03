@@ -12,12 +12,11 @@ use Cowegis\Core\Definition\Icon\Icon;
 final class FontAwesomeIconHydrator extends IconTypeHydrator
 {
     protected const OPTIONS = [
-        'bgColor' => 'backgroundColor',
-        'color' => 'iconColor',
-        'className',
+        'bgColor'   => 'backgroundColor',
+        'color'     => 'iconColor',
+        'className' => 'className',
         'faIconSet' => 'iconSet',
-        'icon',
-        'className',
+        'icon'      => 'icon',
     ];
 
     protected const POINT_OPTIONS = [
@@ -27,19 +26,21 @@ final class FontAwesomeIconHydrator extends IconTypeHydrator
         'tooltipAnchor',
     ];
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'fontAwesome';
     }
 
-    protected function customizeForMarker(MarkerModel $markerModel, Icon $icon) : void
+    protected function customizeForMarker(MarkerModel $markerModel, Icon $icon): void
     {
-        if ($markerModel->markerSymbol) {
-            $icon->options()->set('icon', $markerModel->markerSymbol);
+        if (! $markerModel->markerSymbol) {
+            return;
         }
+
+        $icon->options()->set('icon', $markerModel->markerSymbol);
     }
 
-    protected function supportedDefinition() : string
+    protected function supportedDefinition(): string
     {
         return FontAwesomeIcon::class;
     }

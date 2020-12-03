@@ -9,7 +9,7 @@ use Cowegis\Core\Definition\Control;
 
 interface ControlType
 {
-    public function name() : string;
+    public function name(): string;
 
-    public function createDefinition(ControlModel $controlModel) : Control;
+    public function createDefinition(ControlModel $controlModel): Control;
 }

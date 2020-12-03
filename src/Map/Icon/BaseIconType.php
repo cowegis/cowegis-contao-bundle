@@ -6,7 +6,8 @@ namespace Cowegis\Bundle\Contao\Map\Icon;
 
 abstract class BaseIconType implements IconType
 {
-    public function label(string $label, array $row) : string
+    /** {@inheritDoc} */
+    public function label(string $label, array $row): string
     {
         return $label;
     }

@@ -11,15 +11,17 @@ use Contao\Model;
 use Contao\StringUtil;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use function array_merge;
 use function array_unshift;
+use function assert;
 use function implode;
 use function is_array;
 
-abstract class AbstractFragmentAction implements FragmentOptionsAwareInterface
+abstract class FragmentAction implements FragmentOptionsAwareInterface
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     protected $options = [];
 
@@ -31,18 +33,20 @@ abstract class AbstractFragmentAction implements FragmentOptionsAwareInterface
         $this->contaoFramework = $contaoFramework;
     }
 
-    public function setFragmentOptions(array $options) : void
+    /** @param array<string,mixed> $options */
+    public function setFragmentOptions(array $options): void
     {
         $this->options = $options;
     }
 
+    /** @param string[]|null $classes */
     protected function renderResponse(
         Request $request,
         Model $model,
         string $templateName,
         string $section,
         array $classes = []
-    ) : Response {
+    ): Response {
         if ($model->customTpl) {
             $templateName = $model->customTpl;
         } elseif (isset($this->options['template'])) {
@@ -50,14 +54,19 @@ abstract class AbstractFragmentAction implements FragmentOptionsAwareInterface
         }
 
         array_unshift($classes, $templateName);
-        /** @var FrontendTemplate $template */
         $template = $this->contaoFramework->createInstance(FrontendTemplate::class, [$templateName]);
+        assert($template instanceof FrontendTemplate);
         $template->setData($this->getTemplateData($model, $section, $classes));
 
         return $template->getResponse();
     }
 
-    protected function getTemplateData(Model $model, string $section, array $classes = []) : array
+    /**
+     * @param string[]|null $classes
+     *
+     * @return array<string, mixed>
+     */
+    protected function getTemplateData(Model $model, string $section, array $classes = []): array
     {
         return array_merge(
             $model->row(),
@@ -68,9 +77,11 @@ abstract class AbstractFragmentAction implements FragmentOptionsAwareInterface
     }
 
     /**
-     * @param string|array $headline
+     * @param string|string[] $headline
+     *
+     * @return array<string, string>
      */
-    protected function compileHeadline($headline) : array
+    protected function compileHeadline($headline): array
     {
         $data = StringUtil::deserialize($headline);
 
@@ -88,12 +99,15 @@ abstract class AbstractFragmentAction implements FragmentOptionsAwareInterface
     }
 
     /**
-     * @param string|array $cssID
+     * @param string|string[] $cssID
+     * @param string[]        $classes
+     *
+     * @return array<string, string>
      */
-    protected function compileCssAttributes($cssID, array $classes = []) : array
+    protected function compileCssAttributes($cssID, array $classes = []): array
     {
         $data = StringUtil::deserialize($cssID, true);
-        if (!empty($data[1])) {
+        if (! empty($data[1])) {
             array_unshift($classes, $data[1]);
         }
 
@@ -103,5 +117,5 @@ abstract class AbstractFragmentAction implements FragmentOptionsAwareInterface
         ];
     }
 
-    abstract protected function getType() : string;
+    abstract protected function getType(): string;
 }

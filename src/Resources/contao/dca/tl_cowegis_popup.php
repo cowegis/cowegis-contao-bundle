@@ -1,12 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Leaflet maps for Contao CMS.
  *
- * @package    contao-leaflet-maps
- * @author     David Molineus <david.molineus@netzmacht.de>
- * @copyright  2014-2017 netzmacht David Molineus. All rights reserved.
- * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
  * @filesource
  */
 
@@ -20,9 +18,11 @@ $GLOBALS['TL_DCA']['tl_cowegis_popup'] = [
                 'alias' => 'unique',
             ],
         ],
+        /*
         'onsubmit_callback' => [
-//            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
+            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
         ],
+        */
     ],
 
     'list' => [
@@ -84,9 +84,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_popup'] = [
                     'handleButtonCallback',
                 ],
                 'toolkit'         => [
-                    'state_button' => [
-                        'stateColumn' => 'active',
-                    ],
+                    'state_button' => ['stateColumn' => 'active'],
                 ],
             ],
             'show'   => [
@@ -125,12 +123,8 @@ $GLOBALS['TL_DCA']['tl_cowegis_popup'] = [
     ],
 
     'fields' => [
-        'id'             => [
-            'sql' => 'int(10) unsigned NOT NULL auto_increment',
-        ],
-        'tstamp'         => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
+        'id'             => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
+        'tstamp'         => ['sql' => "int(10) unsigned NOT NULL default '0'"],
         'title'          => [
             'exclude'   => true,
             'inputType' => 'text',
@@ -226,8 +220,8 @@ $GLOBALS['TL_DCA']['tl_cowegis_popup'] = [
             'inputType' => 'select',
             'options'   => ['0', '1'],
             'default'   => null,
-            'eval'      => ['tl_class' => 'w50', 'nullIfEmpty' => true, 'includeBlankOption' => true,],
-            'sql'       => "char(5) default NULL",
+            'eval'      => ['tl_class' => 'w50', 'nullIfEmpty' => true, 'includeBlankOption' => true],
+            'sql'       => 'char(5) default NULL',
         ],
         'closeOnEscapeKey'   => [
             'exclude'   => true,
@@ -251,9 +245,11 @@ $GLOBALS['TL_DCA']['tl_cowegis_popup'] = [
             'flag'          => 12,
             'eval'          => ['tl_class' => 'w50'],
             'sql'           => "char(1) NOT NULL default ''",
+            /*
             'save_callback' => [
-//                ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
+                  ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
             ],
+            */
         ],
     ],
 ];

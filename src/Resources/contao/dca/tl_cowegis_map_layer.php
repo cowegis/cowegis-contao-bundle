@@ -28,13 +28,11 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_layer'] = [
             'config' => [],
         ],
         '_filter_ extends default' => [
-            'filter' => [
-                'filterRules',
-            ],
+            'filter' => ['filterRules'],
         ],
         'markers extends _filter_' => [
             '+config'  => ['adjustBounds'],
-            '+active' => ['dataPane']
+            '+active' => ['dataPane'],
         ],
     ],
     'list'         => [
@@ -51,18 +49,10 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_layer'] = [
         ],
     ],
     'fields'       => [
-        'id'             => [
-            'sql' => 'int(10) unsigned NOT NULL auto_increment',
-        ],
-        'pid'            => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
-        'tstamp'         => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
-        'sorting'        => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
+        'id'             => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
+        'pid'            => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'tstamp'         => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'sorting'        => ['sql' => "int(10) unsigned NOT NULL default '0'"],
         'layerId'        => [
             'foreignKey' => 'tl_cowegis_layer.title',
             'eval'       => [
@@ -77,14 +67,14 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_layer'] = [
             'inputType' => 'select',
             'exclude'   => true,
             'filter'    => true,
-            'eval'      => ['maxlength' => 64, 'tl_class' => 'w50', 'includeBlankOption' => true,],
+            'eval'      => ['maxlength' => 64, 'tl_class' => 'w50', 'includeBlankOption' => true],
             'sql'       => ['type' => 'string', 'length' => 64, 'default' => '', 'notnull' => true],
         ],
         'dataPane'           => [
             'inputType' => 'select',
             'exclude'   => true,
             'filter'    => true,
-            'eval'      => ['maxlength' => 64, 'tl_class' => 'w50', 'includeBlankOption' => true,],
+            'eval'      => ['maxlength' => 64, 'tl_class' => 'w50', 'includeBlankOption' => true],
             'sql'       => ['type' => 'string', 'length' => 64, 'default' => '', 'notnull' => true],
         ],
         'filterRules'    => [

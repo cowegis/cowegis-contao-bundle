@@ -11,12 +11,13 @@ final class DelegatingHydrator implements Hydrator
     /** @var Hydrator[] */
     private $hydrators;
 
+    /** @param Hydrator[] $hydrators */
     public function __construct(iterable $hydrators)
     {
         $this->hydrators = $hydrators;
     }
 
-    public function supports(object $data, object $definition) : bool
+    public function supports(object $data, object $definition): bool
     {
         foreach ($this->hydrators as $hydrator) {
             if ($hydrator->supports($data, $definition)) {
@@ -27,12 +28,14 @@ final class DelegatingHydrator implements Hydrator
         return false;
     }
 
-    public function hydrate(object $data, object $definition, Context $context) : void
+    public function hydrate(object $data, object $definition, Context $context): void
     {
         foreach ($this->hydrators as $hydrator) {
-            if ($hydrator->supports($data, $definition)) {
-                $hydrator->hydrate($data, $definition, $context);
+            if (! $hydrator->supports($data, $definition)) {
+                continue;
             }
+
+            $hydrator->hydrate($data, $definition, $context);
         }
     }
 }

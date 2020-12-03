@@ -8,19 +8,25 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Model;
 use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 use Cowegis\Core\Definition\Layer\LayerId;
-use Exception;
+use Throwable;
 
 /**
- * @property boolean|int|string $active
- * @property boolean|int|string $initialVisible
+ * @property bool|int|string $active
+ * @property bool|int|string $initialVisible
  */
 final class MapLayerModel extends Model
 {
+    /** @var string */
     protected static $strTable = 'tl_cowegis_map_layer';
 
     /** @var LayerModel */
     private $layer;
 
+    /**
+     * @param string|int $key
+     *
+     * @return mixed
+     */
     public function __get($key)
     {
         if (isset($this->arrData[$key])) {
@@ -29,14 +35,15 @@ final class MapLayerModel extends Model
 
         try {
             $layer = $this->layerModel();
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             return null;
         }
 
         return $layer->$key;
     }
 
-    public function __isset($key)
+    /** @param string|int $key */
+    public function __isset($key): bool
     {
         if (parent::__isset($key)) {
             return true;
@@ -44,19 +51,19 @@ final class MapLayerModel extends Model
 
         try {
             $layer = $this->layerModel();
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             return false;
         }
 
         return isset($layer->$key);
     }
 
-    public function layerId() : LayerId
+    public function layerId(): LayerId
     {
         return LayerId::fromValue(IntegerDefinitionId::fromValue((int) $this->layerId));
     }
 
-    public function layerModel() : LayerModel
+    public function layerModel(): LayerModel
     {
         if ($this->layer === null) {
             $this->layer = $this->getRelated('layerId');

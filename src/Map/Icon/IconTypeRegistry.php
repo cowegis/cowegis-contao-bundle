@@ -6,6 +6,7 @@ namespace Cowegis\Bundle\Contao\Map\Icon;
 
 use Cowegis\Bundle\Contao\Exception\InvalidIconType;
 use IteratorAggregate;
+
 use function array_values;
 use function sprintf;
 
@@ -22,7 +23,7 @@ final class IconTypeRegistry implements IteratorAggregate
         }
     }
 
-    public function register(IconType $iconType) : void
+    public function register(IconType $iconType): void
     {
         if (isset($this->iconTypes[$iconType->name()])) {
             throw new InvalidIconType(sprintf('Icon type named "%s" already registered', $iconType->name()));
@@ -31,22 +32,22 @@ final class IconTypeRegistry implements IteratorAggregate
         $this->iconTypes[$iconType->name()] = $iconType;
     }
 
-    public function has(string $iconType) : bool
+    public function has(string $iconType): bool
     {
         return isset($this->iconTypes[$iconType]);
     }
 
-    public function get(string $iconType) : IconType
+    public function get(string $iconType): IconType
     {
-        if (!isset($this->iconTypes[$iconType])) {
+        if (! isset($this->iconTypes[$iconType])) {
             throw new InvalidIconType(sprintf('Unknown Icon type "%s"', $iconType));
         }
 
         return $this->iconTypes[$iconType];
     }
 
-    public function getIterator() : IconTypeIterator
+    public function getIterator(): IconTypeIterator
     {
-        return new IconTypeIterator(... array_values($this->iconTypes));
+        return new IconTypeIterator(...array_values($this->iconTypes));
     }
 }

@@ -8,5 +8,6 @@ use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 
 final class StyleDcaListener extends AbstractListener
 {
+    /** @var string */
     protected static $name = 'tl_cowegis_style';
 }

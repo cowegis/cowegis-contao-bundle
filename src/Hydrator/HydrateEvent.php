@@ -24,17 +24,17 @@ final class HydrateEvent
         $this->context    = $context;
     }
 
-    public function data() : object
+    public function data(): object
     {
         return $this->data;
     }
 
-    public function definition() : object
+    public function definition(): object
     {
         return $this->definition;
     }
 
-    public function context() : Context
+    public function context(): Context
     {
         return $this->context;
     }

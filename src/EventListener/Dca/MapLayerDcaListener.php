@@ -7,7 +7,6 @@ namespace Cowegis\Bundle\Contao\EventListener\Dca;
 use Contao\BackendTemplate;
 use Contao\DataContainer;
 use Contao\Input;
-use Cowegis\Bundle\Contao\Map\Layer\DataLayerType;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
@@ -17,6 +16,7 @@ use Cowegis\Core\Filter\FilterFactory;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
+
 use function iterator_to_array;
 
 final class MapLayerDcaListener extends AbstractListener
@@ -55,14 +55,14 @@ final class MapLayerDcaListener extends AbstractListener
     ) {
         parent::__construct($dcaManager);
 
-        $this->layerTypes = $layerTypes;
-        $this->paneRepository = $paneRepository;
-        $this->filterFactory = $filterFactory;
-        $this->layerRepository = $layerRepository;
+        $this->layerTypes         = $layerTypes;
+        $this->paneRepository     = $paneRepository;
+        $this->filterFactory      = $filterFactory;
+        $this->layerRepository    = $layerRepository;
         $this->mapLayerRepository = $mapLayerRepository;
     }
 
-    public function initializePalette(DataContainer $dataContainer)
+    public function initializePalette(DataContainer $dataContainer): void
     {
         // TODO: Multi edit support
         if (Input::get('act') !== 'edit') {
@@ -88,12 +88,13 @@ final class MapLayerDcaListener extends AbstractListener
         );
     }
 
-    public function rowLabel(array $row) : string
+    /** @param array<string,mixed> $row */
+    public function rowLabel(array $row): string
     {
         return $this->getFormatter()->formatValue('layerId', $row['layerId']);
     }
 
-    public function layerFieldLabel(DataContainer $dataContainer) : string
+    public function layerFieldLabel(DataContainer $dataContainer): string
     {
         $layerModel = $this->layerRepository->find((int) $dataContainer->activeRecord->layerId);
         $label      = $this->rowLabel($dataContainer->activeRecord->row());
@@ -101,7 +102,7 @@ final class MapLayerDcaListener extends AbstractListener
 
         if ($layerModel && $this->layerTypes->has($layerModel->type)) {
             $layerType = $this->layerTypes->get($layerModel->type);
-            $label = $layerType->label($label, $layerModel->row());
+            $label     = $layerType->label($label, $layerModel->row());
         }
 
         $template = new BackendTemplate('be_cowegis_map_layer_label');
@@ -116,7 +117,8 @@ final class MapLayerDcaListener extends AbstractListener
         return $template->parse();
     }
 
-    public function paneOptions(DataContainer $dataContainer) : array
+    /** @return array<string,string> */
+    public function paneOptions(DataContainer $dataContainer): array
     {
         if ($dataContainer->activeRecord) {
             $collection = $this->paneRepository->findByMap((int) $dataContainer->activeRecord->pid);
@@ -127,7 +129,8 @@ final class MapLayerDcaListener extends AbstractListener
         return [];
     }
 
-    public function fileRuleOptions() : array
+    /** @return array<int,string> */
+    public function fileRuleOptions(): array
     {
         return iterator_to_array($this->filterFactory->ruleNames());
     }

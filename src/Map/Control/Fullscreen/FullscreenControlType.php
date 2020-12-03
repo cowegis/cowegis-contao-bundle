@@ -11,12 +11,12 @@ use Cowegis\Core\Definition\Control\FullscreenControl;
 
 final class FullscreenControlType implements ControlType
 {
-    public function name() : string
+    public function name(): string
     {
         return 'fullscreen';
     }
 
-    public function createDefinition(ControlModel $controlModel) : Control
+    public function createDefinition(ControlModel $controlModel): Control
     {
         return new FullscreenControl(
             $controlModel->controlId(),

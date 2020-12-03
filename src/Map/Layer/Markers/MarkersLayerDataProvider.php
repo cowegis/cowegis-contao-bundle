@@ -8,7 +8,6 @@ use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator\MarkerContext;
 use Cowegis\Bundle\Contao\Model\LayerModel;
-use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
 use Cowegis\Bundle\Contao\Model\MarkerModel;
 use Cowegis\Bundle\Contao\Model\MarkerRepository;
 use Cowegis\Bundle\Contao\Provider\LayerDataProvider;
@@ -16,7 +15,6 @@ use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 use Cowegis\Core\Definition\Icon\IconId;
 use Cowegis\Core\Definition\LatLng;
-use Cowegis\Core\Definition\Map\PaneId;
 use Cowegis\Core\Definition\Preset\PopupPresetId;
 use Cowegis\Core\Definition\Preset\TooltipPresetId;
 use Cowegis\Core\Definition\UI\Marker;
@@ -24,6 +22,9 @@ use Cowegis\Core\Definition\UI\MarkerId;
 use Cowegis\Core\Exception\InvalidArgument;
 use Cowegis\Core\Provider\LayerData;
 use Cowegis\Core\Provider\LayerData\MarkersLayerData;
+
+use function assert;
+use function sprintf;
 
 final class MarkersLayerDataProvider implements LayerDataProvider
 {
@@ -39,7 +40,7 @@ final class MarkersLayerDataProvider implements LayerDataProvider
         $this->hydrator          = $hydrator;
     }
 
-    public function findLayerData(LayerModel $layerModel, MapLayerContext $context) : LayerData
+    public function findLayerData(LayerModel $layerModel, MapLayerContext $context): LayerData
     {
         if ($layerModel->type !== 'markers') {
             throw new InvalidArgument(sprintf('Unsupported layer type "%s"', $layerModel->type));
@@ -48,12 +49,12 @@ final class MarkersLayerDataProvider implements LayerDataProvider
         // TODO: Only pass filter if activated
         $filter     = $context->filter();
         $options    = ['filter' => $filter, 'rules' => StringUtil::deserialize($layerModel->filterRules, true)];
-        $collection = $this->markersRepository->findActiveByLayer((int) $layerModel->layerId()->value(), $options) ?: [];
+        $collection = $this->markersRepository->findActiveByLayer((int) $layerModel->layerId()->value(), $options);
         $markers    = [];
         $context    = $this->determineLocalContext($layerModel, $context);
 
-        /** @var MarkerModel $markerModel */
-        foreach ($collection as $markerModel) {
+        foreach ($collection ?: [] as $markerModel) {
+            assert($markerModel instanceof MarkerModel);
             $marker = new Marker(
                 MarkerId::fromValue(IntegerDefinitionId::fromValue((int) $markerModel->id())),
                 $markerModel->alias ?: 'marker_' . $markerModel->id,
@@ -75,7 +76,7 @@ final class MarkersLayerDataProvider implements LayerDataProvider
     private function determineLocalContext(
         LayerModel $layerModel,
         MapLayerContext $context
-    ) : MarkerContext {
+    ): MarkerContext {
         $popupPresetId   = null;
         $iconId          = null;
         $tooltipPresetId = null;

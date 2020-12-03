@@ -16,7 +16,7 @@ final class TranslationListener
         $this->systemAdapter = $systemAdapter;
     }
 
-    public function onLoad() : void
+    public function onLoad(): void
     {
         $this->systemAdapter->__call('loadLanguageFile', ['cowegis']);
     }

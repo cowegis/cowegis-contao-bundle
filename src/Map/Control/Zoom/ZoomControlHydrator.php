@@ -8,6 +8,7 @@ use Cowegis\Bundle\Contao\Hydrator\Control\ControlTypeHydrator;
 use Cowegis\Bundle\Contao\Model\ControlModel;
 use Cowegis\Core\Definition\Control\ZoomControl;
 use Cowegis\Core\Provider\Context;
+
 use function assert;
 
 final class ZoomControlHydrator extends ControlTypeHydrator
@@ -20,19 +21,21 @@ final class ZoomControlHydrator extends ControlTypeHydrator
         'zoomOutTitle',
     ];
 
-    public function hydrate(object $controlModel, object $definition, Context $context) : void
+    public function hydrate(object $controlModel, object $definition, Context $context): void
     {
         parent::hydrate($controlModel, $definition, $context);
 
         assert($controlModel instanceof ControlModel);
         assert($definition instanceof ZoomControl);
 
-        if ($controlModel->disableDefault) {
-            $definition->replaceDefault();
+        if (! $controlModel->disableDefault) {
+            return;
         }
+
+        $definition->replaceDefault();
     }
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'zoom';
     }

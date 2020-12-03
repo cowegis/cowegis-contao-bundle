@@ -11,12 +11,12 @@ use Cowegis\Core\Definition\Icon\SvgIcon;
 
 final class SvgIconType extends BaseIconType
 {
-    public function name() : string
+    public function name(): string
     {
         return 'svg';
     }
 
-    public function createDefinition(IconModel $iconModel) : Icon
+    public function createDefinition(IconModel $iconModel): Icon
     {
         return new SvgIcon($iconModel->iconId());
     }

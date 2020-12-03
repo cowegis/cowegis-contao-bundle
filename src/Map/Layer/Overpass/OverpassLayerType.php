@@ -16,12 +16,12 @@ final class OverpassLayerType implements LayerType
 {
     use MapLayerType;
 
-    public function name() : string
+    public function name(): string
     {
         return 'overpass';
     }
 
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel) : Layer
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
     {
         return new OverpassLayer(
             $layerModel->layerId(),
@@ -30,7 +30,8 @@ final class OverpassLayerType implements LayerType
         );
     }
 
-    public function label(string $label, array $row) : string
+    /** {@inheritDoc} */
+    public function label(string $label, array $row): string
     {
         if ($row['overpassQuery']) {
             $label .= '<span class="tl_gray"> ' . StringUtil::substr($row['overpassQuery'], 50) . '</span>';

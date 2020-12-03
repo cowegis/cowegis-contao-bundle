@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Action\Backend;
 
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
@@ -23,13 +22,13 @@ final class DocsAction
         $this->router = $router;
     }
 
-    public function __invoke() : Response
+    public function __invoke(): Response
     {
         return new Response(
             $this->twig->render(
                 '@CowegisContao/backend/docs.html.twig',
                 [
-                    'schemaUri' => $this->router->generate('cowegis_api_docs_schema')
+                    'schemaUri' => $this->router->generate('cowegis_api_docs_schema'),
                 ]
             )
         );

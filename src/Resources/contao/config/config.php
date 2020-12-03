@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Cowegis\Bundle\Contao\Model\Map\MapModel;
-
 array_insert(
     $GLOBALS['BE_MOD'],
     1,
@@ -16,13 +14,13 @@ array_insert(
                     'tl_cowegis_map_pane',
                     'tl_cowegis_control',
                     'tl_cowegis_layer',
-                ]
+                ],
             ],
             'cowegis_layer' => [
                 'tables' => [
                     'tl_cowegis_layer',
                     'tl_cowegis_marker',
-                ]
+                ],
             ],
             'cowegis_presets' => [
                 'tables' => [
@@ -30,7 +28,7 @@ array_insert(
                     'tl_cowegis_style',
                     'tl_cowegis_popup',
                     'tl_cowegis_tooltip',
-                ]
+                ],
             ],
         ],
     ]

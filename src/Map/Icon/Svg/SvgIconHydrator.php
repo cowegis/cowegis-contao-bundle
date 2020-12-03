@@ -10,11 +10,10 @@ use Cowegis\Core\Definition\Icon\SvgIcon;
 final class SvgIconHydrator extends IconTypeHydrator
 {
     protected const OPTIONS = [
-        'backgroundColor',
-        'iconColor',
-        'className',
-        'html' => 'content',
-        'className',
+        'backgroundColor' => 'backgroundColor',
+        'iconColor'       => 'iconColor',
+        'className'       => 'className',
+        'html'            => 'content',
     ];
 
     protected const POINT_OPTIONS = [
@@ -24,12 +23,12 @@ final class SvgIconHydrator extends IconTypeHydrator
         'tooltipAnchor',
     ];
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'svg';
     }
 
-    protected function supportedDefinition() : string
+    protected function supportedDefinition(): string
     {
         return SvgIcon::class;
     }

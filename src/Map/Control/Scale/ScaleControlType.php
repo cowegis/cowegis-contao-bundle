@@ -11,12 +11,12 @@ use Cowegis\Core\Definition\Control\ScaleControl;
 
 final class ScaleControlType implements ControlType
 {
-    public function name() : string
+    public function name(): string
     {
         return 'scale';
     }
 
-    public function createDefinition(ControlModel $controlModel) : Control
+    public function createDefinition(ControlModel $controlModel): Control
     {
         return new ScaleControl(
             $controlModel->controlId(),

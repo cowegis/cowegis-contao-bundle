@@ -10,11 +10,12 @@ use Cowegis\Core\Definition\Layer\Layer;
 
 interface LayerType
 {
-    public function name() : string;
+    public function name(): string;
 
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel) : Layer;
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer;
 
-    public function label(string $label, array $row) : string;
+    /** @param array<string,string|null> $row */
+    public function label(string $label, array $row): string;
 
-    public function iconUrl() : string;
+    public function iconUrl(): string;
 }

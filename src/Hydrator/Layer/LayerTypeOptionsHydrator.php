@@ -6,7 +6,7 @@ namespace Cowegis\Bundle\Contao\Hydrator\Layer;
 
 trait LayerTypeOptionsHydrator
 {
-    public function supports(object $data, object $definition) : bool
+    public function supports(object $data, object $definition): bool
     {
         if (! parent::supports($data, $definition)) {
             return false;
@@ -15,5 +15,5 @@ trait LayerTypeOptionsHydrator
         return $data->type === $this->supportedType();
     }
 
-    abstract protected function supportedType() : string;
+    abstract protected function supportedType(): string;
 }

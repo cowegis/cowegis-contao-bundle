@@ -51,18 +51,10 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_pane'] = [
         ],
     ],
     'fields'       => [
-        'id'            => [
-            'sql' => 'int(10) unsigned NOT NULL auto_increment',
-        ],
-        'pid'           => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
-        'tstamp'        => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
-        'sorting'       => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
+        'id'            => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
+        'pid'           => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'tstamp'        => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'sorting'       => ['sql' => "int(10) unsigned NOT NULL default '0'"],
         'title'         => [
             'exclude'   => true,
             'inputType' => 'text',
@@ -98,7 +90,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_pane'] = [
                 'includeBlankOption' => true,
                 'nullIfEmpty'        => true,
             ],
-            'sql'       => "char(4) default NULL",
+            'sql'       => 'char(4) default NULL',
         ],
     ],
 ];

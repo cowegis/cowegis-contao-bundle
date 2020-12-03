@@ -12,6 +12,8 @@ use Cowegis\Core\Exception\RuntimeException;
 use Cowegis\Core\Provider\LayerData;
 use Psr\Container\ContainerInterface;
 
+use function assert;
+
 final class ReferenceLayerDataProvider implements LayerDataProvider
 {
     /** @var LayerRepository */
@@ -26,7 +28,7 @@ final class ReferenceLayerDataProvider implements LayerDataProvider
         $this->layerDataProviders = $layerDataProviders;
     }
 
-    public function findLayerData(LayerModel $layerModel, MapLayerContext $context) : LayerData
+    public function findLayerData(LayerModel $layerModel, MapLayerContext $context): LayerData
     {
         if ($layerModel->type !== 'reference') {
             // TODO: Exception
@@ -44,8 +46,8 @@ final class ReferenceLayerDataProvider implements LayerDataProvider
             throw new RuntimeException();
         }
 
-        /** @var LayerDataProvider $layerDataProvider */
         $layerDataProvider = $this->layerDataProviders->get($referenceLayer->type);
+        assert($layerDataProvider instanceof LayerDataProvider);
 
         return $layerDataProvider->findLayerData($referenceLayer, $context);
     }

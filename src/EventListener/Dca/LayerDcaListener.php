@@ -16,6 +16,7 @@ use Cowegis\Bundle\Contao\Map\Layer\NodeLayerType;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
 use function array_keys;
 use function implode;
 use function is_array;
@@ -39,13 +40,17 @@ final class LayerDcaListener extends AbstractListener
     /**
      * File formats.
      *
-     * @var array
+     * @var string[]
      */
     private $fileFormats;
 
     /** @var string[] */
     private $amenities;
 
+    /**
+     * @param string[] $fileFormats
+     * @param string[] $amenities
+     */
     public function __construct(
         Manager $dcaManager,
         LayerTypeRegistry $typeRegistry,
@@ -66,12 +71,10 @@ final class LayerDcaListener extends AbstractListener
     /**
      * Generate a row.
      *
-     * @param array  $row   The data row.
-     * @param string $label Current row label.
-     *
-     * @return string
+     * @param array<string,mixed> $row   The data row.
+     * @param string              $label Current row label.
      */
-    public function rowLabel(array $row, string $label)
+    public function rowLabel(array $row, string $label): string
     {
         $layerType = null;
         if ($row['type'] && $this->layerTypes->has($row['type'])) {
@@ -104,23 +107,27 @@ final class LayerDcaListener extends AbstractListener
     /**
      * Generate the markers button.
      *
-     * @param array  $row        Current row.
-     * @param string $href       The button href.
-     * @param string $label      The button label.
-     * @param string $title      The button title.
-     * @param string $icon       The button icon.
-     * @param string $attributes Optional attributes.
-     *
-     * @return string
+     * @param array<string,mixed> $row        The data row.
+     * @param string              $href       The button href.
+     * @param string              $label      The button label.
+     * @param string              $title      The button title.
+     * @param string              $icon       The button icon.
+     * @param string              $attributes Optional attributes.
      */
-    public function editDataButton(array $row, $href, $label, $title, $icon, $attributes) : string
-    {
-        if (!$this->layerTypes->has($row['type'])) {
+    public function editDataButton(
+        array $row,
+        string $href,
+        string $label,
+        string $title,
+        string $icon,
+        string $attributes
+    ): string {
+        if (! $this->layerTypes->has($row['type'])) {
             return '';
         }
 
         $type = $this->layerTypes->get($row['type']);
-        if (!$type instanceof DataLayerType) {
+        if (! $type instanceof DataLayerType) {
             return '';
         }
 
@@ -129,12 +136,13 @@ final class LayerDcaListener extends AbstractListener
         return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
     }
 
-    public function typeOptions() : array
+    /** @return string[] */
+    public function typeOptions(): array
     {
         $options = [];
 
         foreach ($this->layerTypes as $layerType) {
-            if (!$layerType instanceof LayerType) {
+            if (! $layerType instanceof LayerType) {
                 continue;
             }
 
@@ -144,12 +152,14 @@ final class LayerDcaListener extends AbstractListener
         return $options;
     }
 
-    public function fileFormatOptions() : array
+    /** @return string[] */
+    public function fileFormatOptions(): array
     {
         return array_keys($this->fileFormats);
     }
 
-    public function amenitiesOptions() : array
+    /** @return string[] */
+    public function amenitiesOptions(): array
     {
         return $this->amenities;
     }
@@ -162,7 +172,7 @@ final class LayerDcaListener extends AbstractListener
      *
      * @return mixed
      */
-    public function prepareFileWidget($value, $dataContainer)
+    public function prepareFileWidget($value, DataContainer $dataContainer)
     {
         if ($dataContainer->activeRecord) {
             $fileFormat = $dataContainer->activeRecord->fileFormat;
@@ -190,17 +200,21 @@ final class LayerDcaListener extends AbstractListener
     /**
      * Generate a button.
      *
-     * @param array  $row        Current row.
-     * @param string $href       The button href.
-     * @param string $label      The button label.
-     * @param string $title      The button title.
-     * @param string $icon       The button icon.
-     * @param string $attributes Optional attributes.
-     *
-     * @return string
+     * @param array<string,mixed> $row        The data row.
+     * @param string              $href       The button href.
+     * @param string              $label      The button label.
+     * @param string              $title      The button title.
+     * @param string              $icon       The button icon.
+     * @param string              $attributes Optional attributes.
      */
-    protected function generateButton($row, $href, $label, $title, $icon, $attributes) : string
-    {
+    protected function generateButton(
+        array $row,
+        string $href,
+        string $label,
+        string $title,
+        string $icon,
+        string $attributes
+    ): string {
         return sprintf(
             '<a href="%s" title="%s">%s</a> ',
             Backend::addToUrl($href . '&amp;id=' . $row['id']),
@@ -212,21 +226,24 @@ final class LayerDcaListener extends AbstractListener
     /**
      * Get the paste buttons depending on the layer type.
      *
-     * @param \DataContainer $dataContainer The dataContainer driver.
-     * @param array          $row           The data row.
-     * @param string         $table         The table name.
-     * @param null           $whatever      Who knows what the purpose of this var is.
-     * @param array          $children      The child content.
-     *
-     * @return string
+     * @param DataContainer        $dataContainer The dataContainer driver.
+     * @param array<string,mixed>  $row           The data row.
+     * @param string               $table         The table name.
+     * @param mixed                $whatever      Who knows what the purpose of this var is.
+     * @param array<string,string> $children      The child content.
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function pasteButtons($dataContainer, $row, $table, $whatever, $children) : string
-    {
+    public function pasteButtons(
+        DataContainer $dataContainer,
+        array $row,
+        string $table,
+        $whatever,
+        array $children
+    ): string {
         $pasteAfterUrl = $this->backendAdapter->addToUrl(
             'act=' . $children['mode'] . '&amp;mode=1&amp;pid=' . $row['id']
-            . (!is_array($children['id']) ? '&amp;id=' . $children['id'] : '')
+            . (! is_array($children['id']) ? '&amp;id=' . $children['id'] : '')
         );
 
         $buffer = sprintf(
@@ -239,7 +256,8 @@ final class LayerDcaListener extends AbstractListener
             )
         );
 
-        if ($row['type']
+        if (
+            $row['type']
             && $this->layerTypes->has($row['type'])
             && $this->layerTypes->get($row['type']) instanceof NodeLayerType
         ) {
@@ -248,7 +266,7 @@ final class LayerDcaListener extends AbstractListener
                     'act=%s&amp;mode=2&amp;pid=%s%s',
                     $children['mode'],
                     $row['id'],
-                    !is_array($children['id']) ? '&amp;id=' . $children['id'] : ''
+                    ! is_array($children['id']) ? '&amp;id=' . $children['id'] : ''
                 )
             );
 

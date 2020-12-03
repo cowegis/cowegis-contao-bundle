@@ -11,12 +11,12 @@ use Cowegis\Core\Definition\Control\AttributionControl;
 
 final class AttributionControlType implements ControlType
 {
-    public function name() : string
+    public function name(): string
     {
         return 'attribution';
     }
 
-    public function createDefinition(ControlModel $controlModel) : Control
+    public function createDefinition(ControlModel $controlModel): Control
     {
         return new AttributionControl(
             $controlModel->controlId(),

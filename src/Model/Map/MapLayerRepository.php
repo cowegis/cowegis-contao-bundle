@@ -21,14 +21,16 @@ final class MapLayerRepository extends ContaoRepository
         $this->connection = $connection;
     }
 
-    public function findActive(int $mapId, array $options = []) : ?Collection
+    /** @param array<string,mixed> $options */
+    public function findActive(int $mapId, array $options = []): ?Collection
     {
         $options['sorting'] = $options['sorting'] ?? '.sorting';
 
         return $this->findBy(['.pid=?', '.active=?'], [$mapId, 1], $options);
     }
 
-    public function findChildren(int $layerId, array $options = []) : ?Collection
+    /** @param array<string,mixed> $options */
+    public function findChildren(int $layerId, array $options = []): ?Collection
     {
         $options['sorting'] = $options['sorting'] ?? '.sorting';
 
@@ -49,11 +51,13 @@ SQL;
         return $this->findMultipleByIds($statement->fetchAll(PDO::FETCH_COLUMN));
     }
 
-    public function findActiveLayer(int $mapId, int $mapLayerId, array $options = []) : ?MapLayerModel
+    /** @param array<string,mixed> $options */
+    public function findActiveLayer(int $mapId, int $mapLayerId, array $options = []): ?MapLayerModel
     {
         return $this->findOneBy(['.pid=?', '.layerId=?', 'active=?'], [$mapId, $mapLayerId, '1'], $options);
     }
 
+    /** @param array<string,mixed> $options */
     public function findLayer(int $mapId, int $layerId, array $options = []): ?MapLayerModel
     {
         return $this->findOneBy(['.pid=?', '.layerId=?'], [$mapId, $layerId], $options);

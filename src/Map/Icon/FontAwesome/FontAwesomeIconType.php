@@ -11,12 +11,12 @@ use Cowegis\Core\Definition\Icon\Icon;
 
 final class FontAwesomeIconType extends BaseIconType
 {
-    public function name() : string
+    public function name(): string
     {
         return 'fontAwesome';
     }
 
-    public function createDefinition(IconModel $iconModel) : Icon
+    public function createDefinition(IconModel $iconModel): Icon
     {
         return new FontAwesomeIcon($iconModel->iconId());
     }

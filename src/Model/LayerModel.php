@@ -18,9 +18,10 @@ use Cowegis\Core\Definition\Layer\LayerId;
  */
 class LayerModel extends Model
 {
+    /** @var string */
     protected static $strTable = 'tl_cowegis_layer';
 
-    public function layerId() : LayerId
+    public function layerId(): LayerId
     {
         return LayerId::fromValue(IntegerDefinitionId::fromValue($this->id()));
     }

@@ -9,11 +9,12 @@ use Cowegis\Core\Definition\Icon\Icon;
 
 interface IconType
 {
-    public function name() : string;
+    public function name(): string;
 
-    public function createDefinition(IconModel $iconModel) : Icon;
+    public function createDefinition(IconModel $iconModel): Icon;
 
-    public function label(string $label, array $row) : string;
+    /** @param array<string,string|null> $row */
+    public function label(string $label, array $row): string;
 
     // TODO: Support icons
     // public function iconUrl() : string;

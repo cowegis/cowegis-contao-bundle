@@ -35,27 +35,27 @@ final class MarkerContext extends ContextDecorator
         $this->tooltipPresetId = $tooltipPresetId;
     }
 
-    public function iconId() : ?IconId
+    public function iconId(): ?IconId
     {
         return $this->iconId;
     }
 
-    public function popupPresetId() : ?PopupPresetId
+    public function popupPresetId(): ?PopupPresetId
     {
         return $this->popupPresetId;
     }
 
-    public function tooltipPresetId() : ?TooltipPresetId
+    public function tooltipPresetId(): ?TooltipPresetId
     {
         return $this->tooltipPresetId;
     }
 
-    public function paneId() : ?PaneId
+    public function paneId(): ?PaneId
     {
         return $this->inner()->paneId();
     }
 
-    public function dataPaneId() : ?PaneId
+    public function dataPaneId(): ?PaneId
     {
         return $this->inner()->dataPaneId();
     }

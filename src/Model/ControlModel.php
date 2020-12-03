@@ -9,9 +9,10 @@ use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 
 class ControlModel extends Model
 {
+    /** @var string */
     protected static $strTable = 'tl_cowegis_control';
 
-    public function controlId() : ControlId
+    public function controlId(): ControlId
     {
         return ControlId::fromValue(IntegerDefinitionId::fromValue($this->id()));
     }

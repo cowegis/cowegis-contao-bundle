@@ -6,15 +6,15 @@ namespace Cowegis\Bundle\Contao\Map\Layer\File;
 
 use Contao\FilesModel;
 use Cowegis\Bundle\Contao\Hydrator\Layer\LayerTypeHydrator;
-use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Bundle\Contao\Model\LayerModel;
-use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
-use Cowegis\Core\Definition\GeoJson\ExternalData;
+use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Expression\InlineExpression;
+use Cowegis\Core\Definition\GeoJson\ExternalData;
 use Cowegis\Core\Definition\Layer\DataLayer;
 use Cowegis\Core\Definition\Layer\Layer;
-use Cowegis\Core\Provider\Context;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
+
+use function assert;
 
 final class FileLayerHydrator extends LayerTypeHydrator
 {
@@ -28,12 +28,12 @@ final class FileLayerHydrator extends LayerTypeHydrator
         $this->repositoryManager = $repositoryManager;
     }
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'file';
     }
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context) : void
+    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
     {
         assert($layer instanceof DataLayer);
 
@@ -45,7 +45,7 @@ final class FileLayerHydrator extends LayerTypeHydrator
         }
 
         $repository = $this->repositoryManager->getRepository(FilesModel::class);
-        $fileModel = $repository->findOneBy(['.uuid=?'], [$layerModel->file]);
+        $fileModel  = $repository->findOneBy(['.uuid=?'], [$layerModel->file]);
 
         if (! $fileModel instanceof FilesModel || $fileModel->type !== 'file') {
             return;

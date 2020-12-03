@@ -9,12 +9,12 @@ use Contao\CoreBundle\Migration\MigrationResult;
 
 final class LeafletMigration extends AbstractMigration
 {
-    public function shouldRun() : bool
+    public function shouldRun(): bool
     {
         // TODO: Implement shouldRun() method.
     }
 
-    public function run() : MigrationResult
+    public function run(): MigrationResult
     {
         // TODO:
         // Migrate tl_leaflet_map to tl_cowegis_map

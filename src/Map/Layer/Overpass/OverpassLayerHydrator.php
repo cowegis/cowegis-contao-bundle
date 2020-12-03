@@ -16,17 +16,17 @@ use Cowegis\Core\Definition\Layer\Layer;
 final class OverpassLayerHydrator extends LayerTypeHydrator
 {
     protected const OPTIONS = [
-        'query' => 'overpassQuery',
-        'minZoom',
-        'endpoint' => 'overpassEndpoint'
+        'query'    => 'overpassQuery',
+        'minZoom'  => 'minZoom',
+        'endpoint' => 'overpassEndpoint',
     ];
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'overpass';
     }
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context) : void
+    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
     {
         $layer->options()->set('amenityIcons', $this->buildAmenityIcons($layerModel));
 
@@ -44,21 +44,24 @@ final class OverpassLayerHydrator extends LayerTypeHydrator
             );
         }
 
-        if ($layerModel->overpassPopup) {
-            $layer->options()->set(
-                'overpassPopup',
-                $context->callbacks()->add(new InlineExpression($layerModel->overpassPopup))
-            );
+        if (! $layerModel->overpassPopup) {
+            return;
         }
+
+        $layer->options()->set(
+            'overpassPopup',
+            $context->callbacks()->add(new InlineExpression($layerModel->overpassPopup))
+        );
     }
 
-    private function buildAmenityIcons(LayerModel $layerModel) : array
+    /** @return array<string,IconId> */
+    private function buildAmenityIcons(LayerModel $layerModel): array
     {
         $amenityIconsConfig = StringUtil::deserialize($layerModel->amenityIcons, true);
         $amenityIconsMap    = [];
 
         foreach ($amenityIconsConfig as $config) {
-            if (!$config['amenity'] || !$config['icon']) {
+            if (! $config['amenity'] || ! $config['icon']) {
                 continue;
             }
 

@@ -35,8 +35,10 @@ use Cowegis\Core\Definition\Preset\TooltipPreset;
 use Cowegis\Core\Definition\Preset\TooltipPresetId;
 use Cowegis\Core\Provider\Context;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
+
 use function array_map;
 use function assert;
+use function count;
 use function implode;
 use function sprintf;
 
@@ -71,16 +73,16 @@ final class MapHydrator implements Hydrator
         $this->repositoryManager = $repositoryManager;
     }
 
-    public function supports(object $data, object $definition) : bool
+    public function supports(object $data, object $definition): bool
     {
-        if (!$data instanceof MapModel) {
+        if (! $data instanceof MapModel) {
             return false;
         }
 
         return $definition instanceof Map;
     }
 
-    public function hydrate(object $data, object $definition, Context $context) : void
+    public function hydrate(object $data, object $definition, Context $context): void
     {
         assert($data instanceof MapModel);
         assert($definition instanceof Map);
@@ -100,17 +102,17 @@ final class MapHydrator implements Hydrator
         $this->hydrator->hydrate($data, $definition->view(), $context);
     }
 
-    private function hydratePanes(Map $map, MapModel $mapModel) : void
+    private function hydratePanes(Map $map, MapModel $mapModel): void
     {
-        /** @var MapPaneRepository $repository */
         $repository = $this->repositoryManager->getRepository(MapPaneModel::class);
+        assert($repository instanceof MapPaneRepository);
         $collection = $repository->findByMap((int) $mapModel->id) ?: [];
 
-        /** @var MapPaneModel $paneModel */
         foreach ($collection as $paneModel) {
+            assert($paneModel instanceof MapPaneModel);
             $map->panes()->add(
                 new Pane(
-                    PaneId::fromValue(new IntegerDefinitionId((int ) $paneModel->id)),
+                    PaneId::fromValue(new IntegerDefinitionId((int) $paneModel->id)),
                     $paneModel->name,
                     $paneModel->zIndex === null ? null : ((int) $paneModel->zIndex),
                     $paneModel->pointerEvents
@@ -119,16 +121,16 @@ final class MapHydrator implements Hydrator
         }
     }
 
-    private function hydrateLayers(Map $map, MapModel $mapModel, Context $context) : void
+    private function hydrateLayers(Map $map, MapModel $mapModel, Context $context): void
     {
-        /** @var MapLayerRepository $repository */
         $repository = $this->repositoryManager->getRepository(MapLayerModel::class);
+        assert($repository instanceof MapLayerRepository);
         $collection = $repository->findActive((int) $mapModel->id) ?: [];
 
-        /** @var MapLayerModel $layerModel */
         foreach ($collection as $mapLayerModel) {
-            /** @var LayerModel $layerModel */
+            assert($mapLayerModel instanceof MapLayerModel);
             $layerModel = $mapLayerModel->layerModel();
+            assert($layerModel instanceof LayerModel);
             $layerType  = $this->layerTypes->get($layerModel->type);
             $definition = $layerType->createDefinition($layerModel, $mapLayerModel);
             $paneId     = $mapLayerModel->pane > 0 ? PaneId::fromValue(
@@ -145,14 +147,14 @@ final class MapHydrator implements Hydrator
         }
     }
 
-    private function hydrateControls(Map $map, MapModel $mapModel, Context $context) : void
+    private function hydrateControls(Map $map, MapModel $mapModel, Context $context): void
     {
-        /** @var ControlRepository $repository */
         $repository = $this->repositoryManager->getRepository(ControlModel::class);
+        assert($repository instanceof ControlRepository);
         $collection = $repository->findActive((int) $mapModel->id) ?: [];
 
-        /** @var ControlModel $controlModel */
         foreach ($collection as $controlModel) {
+            assert($controlModel instanceof ControlModel);
             $controlType = $this->controlTypes->get($controlModel->type);
             $definition  = $controlType->createDefinition($controlModel);
 
@@ -161,15 +163,15 @@ final class MapHydrator implements Hydrator
         }
     }
 
-    private function hydrateIconPresets(Map $map, Context $context) : void
+    private function hydrateIconPresets(Map $map, Context $context): void
     {
-        /** @var IconRepository $repository */
         $repository = $this->repositoryManager->getRepository(IconModel::class);
+        assert($repository instanceof IconRepository);
         $collection = $repository->findAllActive() ?: [];
 
-        /** @var IconModel $model */
         foreach ($collection as $model) {
-            if (!$this->iconTypes->has($model->type)) {
+            assert($model instanceof IconModel);
+            if (! $this->iconTypes->has($model->type)) {
                 continue;
             }
 
@@ -180,14 +182,14 @@ final class MapHydrator implements Hydrator
         }
     }
 
-    private function hydratePopupPresets(Map $map, Context $context) : void
+    private function hydratePopupPresets(Map $map, Context $context): void
     {
-        /** @var PopupRepository $repository */
         $repository = $this->repositoryManager->getRepository(PopupModel::class);
+        assert($repository instanceof PopupRepository);
         $collection = $repository->findAllActive() ?: [];
 
-        /** @var PopupModel $model */
         foreach ($collection as $model) {
+            assert($model instanceof PopupModel);
             $presetId = PopupPresetId::fromValue(IntegerDefinitionId::fromValue((int) $model->id));
             $preset   = new PopupPreset($presetId);
 
@@ -196,14 +198,14 @@ final class MapHydrator implements Hydrator
         }
     }
 
-    private function hydrateTooltipPresets(Map $map, Context $context) : void
+    private function hydrateTooltipPresets(Map $map, Context $context): void
     {
-        /** @var TooltipRepository $repository */
         $repository = $this->repositoryManager->getRepository(TooltipModel::class);
+        assert($repository instanceof TooltipRepository);
         $collection = $repository->findAll() ?: [];
 
-        /** @var TooltipModel $model */
         foreach ($collection as $model) {
+            assert($model instanceof TooltipModel);
             $presetId = TooltipPresetId::fromValue(IntegerDefinitionId::fromValue((int) $model->id));
             $preset   = new TooltipPreset($presetId);
 
@@ -212,16 +214,16 @@ final class MapHydrator implements Hydrator
         }
     }
 
-    private function hydrateLocate(Map $map, MapModel $model) : void
+    private function hydrateLocate(Map $map, MapModel $model): void
     {
-        if (!$model->locate) {
+        if (! $model->locate) {
             return;
         }
 
         $map->enableLocate();
     }
 
-    private function hydrateAssets(Map $definition, MapModel $model, Context $context)
+    private function hydrateAssets(Map $definition, MapModel $model, Context $context): void
     {
         if ($model->defaultAssets) {
             $context->assets()->add(Asset::STYLESHEET('bundles/cowegisclient/css/cowegis.css'));
@@ -244,8 +246,8 @@ final class MapHydrator implements Hydrator
 
         $collection = $repository->findMultipleByUuids($order, $options) ?: [];
 
-        /** @var FilesModel $fileModel */
         foreach ($collection as $fileModel) {
+            assert($fileModel instanceof FilesModel);
             if ($fileModel->type !== 'file') {
                 continue;
             }
@@ -255,9 +257,11 @@ final class MapHydrator implements Hydrator
                 continue;
             }
 
-            if ($fileModel->extension === 'css') {
-                $context->assets()->add(Asset::STYLESHEET($fileModel->path));
+            if ($fileModel->extension !== 'css') {
+                continue;
             }
+
+            $context->assets()->add(Asset::STYLESHEET($fileModel->path));
         }
     }
 }

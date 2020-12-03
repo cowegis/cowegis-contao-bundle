@@ -9,5 +9,5 @@ use Cowegis\Core\Provider\LayerData;
 
 interface LayerDataProvider
 {
-    public function findLayerData(LayerModel $layerModel, MapLayerContext $context) : LayerData;
+    public function findLayerData(LayerModel $layerModel, MapLayerContext $context): LayerData;
 }

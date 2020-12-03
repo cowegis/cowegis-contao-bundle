@@ -13,9 +13,9 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
                 'alias' => 'unique',
             ],
         ],
-        'onsubmit_callback' => [
+//        'onsubmit_callback' => [
 //            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
-        ],
+//        ],
     ],
 
     'list' => [
@@ -135,18 +135,12 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
             'locateMaximumAge',
             'enableHighAccuracy',
         ],
-        'cache'           => [
-            'cacheLifeTime',
-        ],
+        'cache'           => ['cacheLifeTime'],
     ],
 
     'fields' => [
-        'id'                 => [
-            'sql' => 'int(10) unsigned NOT NULL auto_increment',
-        ],
-        'tstamp'             => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
+        'id'                 => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
+        'tstamp'             => ['sql' => "int(10) unsigned NOT NULL default '0'"],
         'title'              => [
             'exclude'   => true,
             'inputType' => 'text',
@@ -466,11 +460,11 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
                 'orderField' => 'assetsOrder',
                 'tl_class'   => 'clr',
             ],
-            'sql'       => "blob NULL",
+            'sql'       => 'blob NULL',
         ],
         'assetsOrder'        => [
             'label' => &$GLOBALS['TL_LANG']['MSC']['sortOrder'],
-            'sql'   => "blob NULL",
+            'sql'   => 'blob NULL',
         ],
         'cache'              => [
             'exclude'   => true,

@@ -17,18 +17,14 @@ final class AliasGenerator
     /** @var Connection */
     private $connection;
 
-    /**
-     * AliasGenerator constructor.
-     *
-     * @param $slugGenerator
-     */
     public function __construct(SlugGeneratorInterface $slugGenerator, Connection $connection)
     {
         $this->slugGenerator = $slugGenerator;
         $this->connection    = $connection;
     }
 
-    public function __invoke($value, DataContainer $dataContainer) : string
+    /** @param mixed $value */
+    public function __invoke($value, DataContainer $dataContainer): string
     {
         if ($value) {
             return $value;
@@ -47,7 +43,7 @@ final class AliasGenerator
         return $unique;
     }
 
-    private function isSlugDuplicate(string $slug, string $table, int $id) : bool
+    private function isSlugDuplicate(string $slug, string $table, int $id): bool
     {
         $statement = $this->connection->createQueryBuilder()
             ->select('count(id)')

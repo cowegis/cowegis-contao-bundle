@@ -13,6 +13,7 @@ use Cowegis\Core\Definition\Layer\LayerId;
 use Cowegis\Core\Provider\Context;
 use Doctrine\DBAL\Connection;
 use PDO;
+
 use function assert;
 
 final class LayersControlHydrator extends ControlTypeHydrator
@@ -33,7 +34,7 @@ final class LayersControlHydrator extends ControlTypeHydrator
         $this->connection = $connection;
     }
 
-    public function hydrate(object $controlModel, object $control, Context $context) : void
+    public function hydrate(object $controlModel, object $control, Context $context): void
     {
         assert($controlModel instanceof ControlModel);
         assert($control instanceof LayersControl);
@@ -45,12 +46,12 @@ final class LayersControlHydrator extends ControlTypeHydrator
         $this->hydrateNameFunction($controlModel, $control, $context);
     }
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'layers';
     }
 
-    private function hydrateLayers(ControlModel $controlModel, LayersControl $control) : void
+    private function hydrateLayers(ControlModel $controlModel, LayersControl $control): void
     {
         $statement = $this->connection->prepare(
             'SELECT * FROM tl_cowegis_control_layer WHERE cid=:controlId ORDER BY sorting'
@@ -69,7 +70,7 @@ final class LayersControlHydrator extends ControlTypeHydrator
         }
     }
 
-    private function hydrateSortingFunction(ControlModel $controlModel, LayersControl $control, Context $context) : void
+    private function hydrateSortingFunction(ControlModel $controlModel, LayersControl $control, Context $context): void
     {
         if (! $controlModel->sortLayers || ! $controlModel->sortFunction) {
             return;
@@ -81,7 +82,7 @@ final class LayersControlHydrator extends ControlTypeHydrator
         );
     }
 
-    private function hydrateNameFunction(ControlModel $controlModel, LayersControl $control, Context $context) : void
+    private function hydrateNameFunction(ControlModel $controlModel, LayersControl $control, Context $context): void
     {
         if (! $controlModel->nameFunction) {
             return;

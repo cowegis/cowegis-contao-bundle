@@ -31,17 +31,17 @@ final class ReferenceLayerType implements LayerType, LayerTypeRegistryAware
         $this->layerRepository = $layerRepository;
     }
 
-    public function setRegistry(LayerTypeRegistry $layerTypes) : void
+    public function setRegistry(LayerTypeRegistry $layerTypes): void
     {
         $this->layerTypes = $layerTypes;
     }
 
-    public function name() : string
+    public function name(): string
     {
         return 'reference';
     }
 
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel) : Layer
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
     {
         $referenceModel = $this->layerRepository->find((int) $layerModel->reference);
         if ($referenceModel === null) {
@@ -54,7 +54,8 @@ final class ReferenceLayerType implements LayerType, LayerTypeRegistryAware
         return $this->layerTypes->get($referenceModel->type)->createDefinition($referenceModel, $mapLayerModel);
     }
 
-    public function label(string $label, array $row) : string
+    /** {@inheritDoc} */
+    public function label(string $label, array $row): string
     {
         $reference = $this->layerRepository->find((int) $row['reference']);
 

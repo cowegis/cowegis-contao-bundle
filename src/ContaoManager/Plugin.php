@@ -7,6 +7,7 @@ namespace Cowegis\Bundle\Contao\ContaoManager;
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
+use Contao\ManagerPlugin\Bundle\Config\ConfigInterface;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
 use Cowegis\Bundle\Api\CowegisApiBundle;
@@ -18,7 +19,8 @@ use Symfony\Component\Routing\RouteCollection;
 
 final class Plugin implements BundlePluginInterface, RoutingPluginInterface
 {
-    public function getBundles(ParserInterface $parser) : array
+    /** @return ConfigInterface[] */
+    public function getBundles(ParserInterface $parser): array
     {
         return [
             BundleConfig::create(CowegisApiBundle::class),
@@ -30,7 +32,7 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
         ];
     }
 
-    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel) : ?RouteCollection
+    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel): ?RouteCollection
     {
         $routeCollection = new RouteCollection();
 

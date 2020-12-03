@@ -9,7 +9,8 @@ use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 
 final class ControlRepository extends ContaoRepository
 {
-    public function findActive(int $mapId, array $options = []) : ?Collection
+    /** @param array<string,mixed> $options */
+    public function findActive(int $mapId, array $options = []): ?Collection
     {
         $options['sorting'] = $options['sorting'] ?? '.sorting';
 

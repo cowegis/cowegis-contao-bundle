@@ -15,17 +15,18 @@ final class MarkerClusterGroupType implements NodeLayerType
 {
     use MapLayerType;
 
-    public function name() : string
+    public function name(): string
     {
         return 'markerCluster';
     }
 
-    public function label(string $label, array $row) : string
+    /** {@inheritDoc} */
+    public function label(string $label, array $row): string
     {
         return $label;
     }
 
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel) : Layer
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
     {
         return new MarkerClusterGroup(
             $mapLayerModel->layerId(),

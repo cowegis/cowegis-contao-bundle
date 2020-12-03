@@ -11,12 +11,12 @@ use Cowegis\Core\Definition\Icon\Icon;
 
 final class DivIconType extends BaseIconType
 {
-    public function name() : string
+    public function name(): string
     {
         return 'div';
     }
 
-    public function createDefinition(IconModel $iconModel) : Icon
+    public function createDefinition(IconModel $iconModel): Icon
     {
         return new DivIcon($iconModel->iconId());
     }

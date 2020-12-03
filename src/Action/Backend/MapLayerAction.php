@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\RouterInterface;
+
+use function assert;
 use function time;
 
 final class MapLayerAction
@@ -41,16 +43,16 @@ final class MapLayerAction
         $this->repositoryManager = $repositoryManager;
     }
 
-    public function __invoke(int $mapId, int $layerId, Request $request) : Response
+    public function __invoke(int $mapId, int $layerId, Request $request): Response
     {
         $this->framework->initialize();
 
         // TODO: Guard user have access to the map
 
-        /** @var MapModel $mapModel */
-        /** @var LayerModel $layerModel */
-        $mapModel   = $this->fetchModel(MapModel::class, $mapId);
+        $mapModel = $this->fetchModel(MapModel::class, $mapId);
+        assert($mapModel instanceof MapModel);
         $layerModel = $this->fetchModel(LayerModel::class, $layerId);
+        assert($layerModel instanceof LayerModel);
 
         switch ($request->request->get('action')) {
             case 'activate':
@@ -78,12 +80,12 @@ final class MapLayerAction
         );
     }
 
-    private function activateLayer(MapModel $mapModel, LayerModel $layerModel) : void
+    private function activateLayer(MapModel $mapModel, LayerModel $layerModel): void
     {
-        /** @var MapLayerRepository $repository */
         $repository = $this->repositoryManager->getRepository(MapLayerModel::class);
-        $model      = $repository->findLayer($mapModel->id(), $layerModel->id());
-        $data       = [
+        assert($repository instanceof MapLayerRepository);
+        $model = $repository->findLayer($mapModel->id(), $layerModel->id());
+        $data  = [
             'tstamp'         => time(),
             'active'         => '1',
             'initialVisible' => '1',
@@ -105,11 +107,11 @@ final class MapLayerAction
         }
     }
 
-    private function disableLayer(MapModel $mapModel, LayerModel $layerModel) : void
+    private function disableLayer(MapModel $mapModel, LayerModel $layerModel): void
     {
-        /** @var MapLayerRepository $repository */
         $repository = $this->repositoryManager->getRepository(MapLayerModel::class);
-        $model      = $repository->findLayer($mapModel->id(), $layerModel->id());
+        assert($repository instanceof MapLayerRepository);
+        $model = $repository->findLayer($mapModel->id(), $layerModel->id());
         if ($model === null) {
             return;
         }
@@ -121,11 +123,11 @@ final class MapLayerAction
         );
     }
 
-    private function toggleVisibility(MapModel $mapModel, LayerModel $layerModel) : void
+    private function toggleVisibility(MapModel $mapModel, LayerModel $layerModel): void
     {
-        /** @var MapLayerRepository $repository */
         $repository = $this->repositoryManager->getRepository(MapLayerModel::class);
-        $model      = $repository->findLayer($mapModel->id(), $layerModel->id());
+        assert($repository instanceof MapLayerRepository);
+        $model = $repository->findLayer($mapModel->id(), $layerModel->id());
         if ($model === null) {
             throw new BadRequestHttpException();
         }
@@ -137,11 +139,11 @@ final class MapLayerAction
         );
     }
 
-    private function fetchModel(string $modelClass, int $modelId) : Model
+    private function fetchModel(string $modelClass, int $modelId): Model
     {
         $repository = $this->repositoryManager->getRepository($modelClass);
         $model      = $repository->find($modelId);
-        if (!$model instanceof $modelClass) {
+        if (! $model instanceof $modelClass) {
             throw new BadRequestHttpException();
         }
 

@@ -8,7 +8,8 @@ use function range;
 
 final class OptionsListener
 {
-    public function zoomOptions() : array
+    /** @return int[] */
+    public function zoomOptions(): array
     {
         return range(1, 20);
     }

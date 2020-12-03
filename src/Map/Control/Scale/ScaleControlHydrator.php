@@ -16,7 +16,7 @@ final class ScaleControlHydrator extends ControlTypeHydrator
         'updateWhenIdle',
     ];
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'scale';
     }

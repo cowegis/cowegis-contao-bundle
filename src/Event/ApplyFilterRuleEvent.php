@@ -26,10 +26,6 @@ final class ApplyFilterRuleEvent
     private $options;
 
     /**
-     * ApplyFilterRuleEvent constructor.
-     *
-     * @param string   $modelClass
-     * @param Rule     $rule
      * @param string[] $columns
      * @param mixed[]  $values
      * @param mixed[]  $options
@@ -43,39 +39,43 @@ final class ApplyFilterRuleEvent
         $this->options    = $options;
     }
 
-    public function columns() : array
+    /** @return string[] */
+    public function columns(): array
     {
         return $this->columns;
     }
 
-    public function values() : array
+    /** @return string[] */
+    public function values(): array
     {
         return $this->values;
     }
 
-    public function modelClass() : string
+    public function modelClass(): string
     {
         return $this->modelClass;
     }
 
-    public function options() : array
+    /** @return array<string,mixed> */
+    public function options(): array
     {
         return $this->options;
     }
 
-    public function rule() : Rule
+    public function rule(): Rule
     {
         return $this->rule;
     }
 
-    public function withColumns(string ...$columns) : void
+    public function withColumns(string ...$columns): void
     {
         foreach ($columns as $column) {
             $this->columns[] = $column;
         }
     }
 
-    public function withValues(...$values) : void
+    /** @param mixed ...$values */
+    public function withValues(...$values): void
     {
         foreach ($values as $value) {
             $this->values[] = $value;

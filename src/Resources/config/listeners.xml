@@ -76,7 +76,6 @@
         <service id="Cowegis\Bundle\Contao\EventListener\Dca\MarkerDcaListener" public="true">
             <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
             <argument type="service" id="database_connection" />
-            <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
             <tag name="contao.callback" table="tl_cowegis_marker" target="list.sorting.child_record" method="rowLabel" />
             <tag name="contao.callback" table="tl_cowegis_marker" target="fields.coordinates.save" method="saveCoordinates" />
             <tag name="contao.callback" table="tl_cowegis_marker" target="fields.coordinates.load" method="loadCoordinates" priority="128" />

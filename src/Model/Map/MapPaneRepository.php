@@ -14,7 +14,8 @@ final class MapPaneRepository extends ContaoRepository
         parent::__construct(MapPaneModel::class);
     }
 
-    public function findByMap(int $mapId, array $options = []) : ?Collection
+    /** @param array<string,mixed> $options */
+    public function findByMap(int $mapId, array $options = []): ?Collection
     {
         $options['sorting'] = $options['sorting'] ?? '.sorting';
 

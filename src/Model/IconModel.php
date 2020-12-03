@@ -12,9 +12,10 @@ use Cowegis\Core\Definition\Icon\IconId;
  */
 final class IconModel extends Model
 {
+    /** @var string */
     protected static $strTable = 'tl_cowegis_icon';
 
-    public function iconId() : IconId
+    public function iconId(): IconId
     {
         return IconId::fromValue(IntegerDefinitionId::fromValue($this->id()));
     }

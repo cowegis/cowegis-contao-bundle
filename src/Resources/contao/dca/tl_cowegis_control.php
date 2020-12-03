@@ -68,9 +68,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
                     'handleButtonCallback',
                 ],
                 'toolkit'         => [
-                    'state_button' => [
-                        'stateColumn' => 'active',
-                    ],
+                    'state_button' => ['stateColumn' => 'active'],
                 ],
             ],
             'show'   => [
@@ -118,15 +116,9 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
     ],
 
     'fields' => [
-        'id'                    => [
-            'sql' => 'int(10) unsigned NOT NULL auto_increment',
-        ],
-        'pid'                   => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
-        'tstamp'                => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
+        'id'                    => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
+        'pid'                   => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'tstamp'                => ['sql' => "int(10) unsigned NOT NULL default '0'"],
         'sorting'               => [
             'sql'     => "int(10) unsigned NOT NULL default '0'",
             'sorting' => true,
@@ -187,7 +179,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
                 'nullIfEmpty'        => true,
                 'includeBlankOption' => true,
             ],
-            'sql'       => "varchar(255) default NULL",
+            'sql'       => 'varchar(255) default NULL',
         ],
         'active'                => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['active'],
@@ -205,28 +197,28 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'nullIfEmpty' => true],
-            'sql'       => "varchar(255) default NULL",
+            'sql'       => 'varchar(255) default NULL',
         ],
         'zoomOutText'           => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['zoomInText'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'nullIfEmpty' => true],
-            'sql'       => "varchar(255) default NULL",
+            'sql'       => 'varchar(255) default NULL',
         ],
         'zoomInTitle'           => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['zoomInTitle'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'nullIfEmpty' => true],
-            'sql'       => "varchar(255) default NULL",
+            'sql'       => 'varchar(255) default NULL',
         ],
         'zoomOutTitle'          => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['zoomOutTitle'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'nullIfEmpty' => true],
-            'sql'       => "varchar(255) default NULL",
+            'sql'       => 'varchar(255) default NULL',
         ],
         'collapsed'             => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['collapsed'],
@@ -313,7 +305,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
-            'sql'       => "varchar(255) default NULL",
+            'sql'       => 'varchar(255) default NULL',
         ],
         'attributions'          => [
             'exclude'   => true,
@@ -388,7 +380,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'inputType' => 'text',
             'default'   => true,
             'eval'      => ['tl_class' => 'w50', 'maxlength' => 4, 'rgxp' => 'natural', 'nullIfEmpty' => true],
-            'sql'       => "integer(4) UNSIGNED default NULL",
+            'sql'       => 'integer(4) UNSIGNED default NULL',
         ],
         'hideSingleBase'        => [
             'exclude'   => true,

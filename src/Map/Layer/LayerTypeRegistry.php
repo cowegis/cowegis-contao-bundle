@@ -6,6 +6,7 @@ namespace Cowegis\Bundle\Contao\Map\Layer;
 
 use Cowegis\Bundle\Contao\Exception\InvalidIconType;
 use IteratorAggregate;
+
 use function array_values;
 use function sprintf;
 
@@ -22,7 +23,7 @@ final class LayerTypeRegistry implements IteratorAggregate
         }
     }
 
-    public function register(LayerType $layerType) : void
+    public function register(LayerType $layerType): void
     {
         if (isset($this->layerTypes[$layerType->name()])) {
             throw new InvalidIconType(sprintf('Layer type named "%s" already registered', $layerType->name()));
@@ -35,22 +36,22 @@ final class LayerTypeRegistry implements IteratorAggregate
         $this->layerTypes[$layerType->name()] = $layerType;
     }
 
-    public function has(string $layerType) : bool
+    public function has(string $layerType): bool
     {
         return isset($this->layerTypes[$layerType]);
     }
 
-    public function get(string $layerType) : LayerType
+    public function get(string $layerType): LayerType
     {
-        if (!isset($this->layerTypes[$layerType])) {
+        if (! isset($this->layerTypes[$layerType])) {
             throw new InvalidIconType(sprintf('Unknown layer type "%s"', $layerType));
         }
 
         return $this->layerTypes[$layerType];
     }
 
-    public function getIterator() : LayerTypeIterator
+    public function getIterator(): LayerTypeIterator
     {
-        return new LayerTypeIterator(... array_values($this->layerTypes));
+        return new LayerTypeIterator(...array_values($this->layerTypes));
     }
 }

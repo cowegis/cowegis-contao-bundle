@@ -19,6 +19,7 @@ use Cowegis\Core\Definition\UI\Marker;
 use Cowegis\Core\Definition\UI\Popup;
 use Cowegis\Core\Definition\UI\Tooltip;
 use Cowegis\Core\Provider\Context;
+
 use function assert;
 use function is_array;
 use function json_decode;
@@ -26,8 +27,8 @@ use function json_decode;
 final class MarkerHydrator extends ConfigurableOptionsHydrator
 {
     protected const OPTIONS = [
-        'alt',
-        'title' => 'tooltip'
+        'alt'   => 'alt',
+        'title' => 'tooltip',
     ];
 
     /** @var IconTypeRegistry */
@@ -46,7 +47,7 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         $this->hydrator       = $hydrator;
     }
 
-    public function hydrate(object $markerModel, object $definition, Context $context) : void
+    public function hydrate(object $markerModel, object $definition, Context $context): void
     {
         assert($markerModel instanceof MarkerModel);
         assert($definition instanceof Marker);
@@ -66,22 +67,27 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
             }
         }
 
-        if (($context instanceof MarkerContext || $context instanceof MapLayerContext) && $context->dataPaneId()) {
-            $definition->options()->set('pane', $context->dataPaneId());
+        if (
+            ! ($context instanceof MarkerContext) && ! ($context instanceof MapLayerContext)
+            || ! $context->dataPaneId()
+        ) {
+            return;
         }
+
+        $definition->options()->set('pane', $context->dataPaneId());
     }
 
-    protected function supportsDefinition(object $definition) : bool
+    protected function supportsDefinition(object $definition): bool
     {
         return $definition instanceof Marker;
     }
 
-    protected function supportsData(object $data) : bool
+    protected function supportsData(object $data): bool
     {
         return $data instanceof MarkerModel;
     }
 
-    private function hydratePopup(MarkerModel $markerModel, Marker $definition, Context $context) : void
+    private function hydratePopup(MarkerModel $markerModel, Marker $definition, Context $context): void
     {
         if (! $markerModel->addPopup) {
             return;
@@ -91,14 +97,14 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         if ($context instanceof MarkerContext) {
             $presetId = $context->popupPresetId();
         }
-        if($markerModel->popup > 0) {
+        if ($markerModel->popup > 0) {
             $presetId = PopupPresetId::fromValue(IntegerDefinitionId::fromValue((int) $markerModel->popup));
         }
 
         $definition->openPopup(new Popup($markerModel->popupContent, $presetId));
     }
 
-    private function hydrateTooltip(MarkerModel $markerModel, Marker $definition, Context $context) : void
+    private function hydrateTooltip(MarkerModel $markerModel, Marker $definition, Context $context): void
     {
         if (! $markerModel->addTooltip) {
             return;
@@ -108,28 +114,28 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         if ($context instanceof MarkerContext) {
             $presetId = $context->tooltipPresetId();
         }
-        if($markerModel->tooltipPreset > 0) {
+        if ($markerModel->tooltipPreset > 0) {
             $presetId = TooltipPresetId::fromValue(IntegerDefinitionId::fromValue((int) $markerModel->tooltipPreset));
         }
 
-        $toolTip = New Tooltip($markerModel->tooltipContent, null, $presetId);
+        $toolTip = new Tooltip($markerModel->tooltipContent, null, $presetId);
 
         $definition->showTooltip($toolTip);
     }
 
-    private function hydrateIcon(MarkerModel $markerModel, Marker $definition, MarkerContext $context) : void
+    private function hydrateIcon(MarkerModel $markerModel, Marker $definition, MarkerContext $context): void
     {
         $iconId = $context->iconId();
         if ($markerModel->icon) {
             $iconId = IconId::fromValue(IntegerDefinitionId::fromValue((int) $markerModel->icon));
         }
 
-        if (!$iconId) {
+        if (! $iconId) {
             return;
         }
 
         $iconModel = $this->iconRepository->find((int) $iconId->value());
-        if (! $iconModel instanceof IconModel || !$this->iconTypes->has($iconModel->type)) {
+        if (! $iconModel instanceof IconModel || ! $this->iconTypes->has($iconModel->type)) {
             return;
         }
 

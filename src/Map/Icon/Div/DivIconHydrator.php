@@ -11,7 +11,7 @@ final class DivIconHydrator extends IconTypeHydrator
 {
     protected const OPTIONS = [
         'html',
-        'className'
+        'className',
     ];
 
     protected const POINT_OPTIONS = [
@@ -21,12 +21,12 @@ final class DivIconHydrator extends IconTypeHydrator
         'tooltipAnchor',
     ];
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'div';
     }
 
-    protected function supportedDefinition() : string
+    protected function supportedDefinition(): string
     {
         return DivIcon::class;
     }

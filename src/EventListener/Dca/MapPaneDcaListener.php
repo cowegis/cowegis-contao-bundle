@@ -6,7 +6,9 @@ namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use RuntimeException;
+
 use function in_array;
+use function sprintf;
 
 final class MapPaneDcaListener extends AbstractListener
 {
@@ -17,18 +19,19 @@ final class MapPaneDcaListener extends AbstractListener
         'shadowPane',
         'markerPane',
         'tooltipPane',
-        'popupPane'
+        'popupPane',
     ];
 
     /** @var string */
     protected static $name = 'tl_cowegis_map_pane';
 
-    public function rowLabel(array $row) : string
+    /** @param array<string,mixed> $row */
+    public function rowLabel(array $row): string
     {
         return sprintf('%s <span class="tl_gray">[%s]</span>', $row['title'], $row['name']);
     }
 
-    public function onSaveName(string $value) : string
+    public function onSaveName(string $value): string
     {
         if (in_array($value, self::RESERVED_PANE_NAMES, true)) {
             throw new RuntimeException(sprintf('"%s" is a reserved pane name.', $value));

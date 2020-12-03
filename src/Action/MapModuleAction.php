@@ -9,9 +9,10 @@ use Contao\ModuleModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class MapModuleAction extends AbstractMapFragmentAction
+final class MapModuleAction extends MapFragmentAction
 {
-    public function __invoke(Request $request, ModuleModel $model, string $section, array $classes = null): Response
+    /** @param string[]|null $classes */
+    public function __invoke(Request $request, ModuleModel $model, string $section, ?array $classes = null): Response
     {
         return $this->renderResponse($request, $model, 'mod_' . $model->type, $section, $classes ?: []);
     }

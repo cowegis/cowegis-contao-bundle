@@ -6,7 +6,5 @@ namespace Cowegis\Bundle\Contao\Hydrator\Layer;
 
 final class LayerObjectOptionsHydrator extends LayerOptionsHydrator
 {
-    protected const OPTIONS = [
-        'attribution'
-    ];
+    protected const OPTIONS = ['attribution'];
 }

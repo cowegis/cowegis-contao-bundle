@@ -12,6 +12,7 @@ use Cowegis\Core\Definition\Expression\InlineExpression;
 use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Definition\Layer\MarkerClusterGroup;
 use Cowegis\Core\Definition\Options;
+
 use function assert;
 use function is_array;
 use function json_decode;
@@ -27,29 +28,33 @@ final class MarkerClusterGroupHydrator extends GroupLayerHydrator
         'spiderfyDistanceMultiplier',
         'disableClusteringAtZoom',
         'maxClusterRadius',
-        'singleMarkerMode'
+        'singleMarkerMode',
     ];
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context) : void
+    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
     {
         parent::hydrateLayer($layerModel, $layer, $context);
 
         assert($layer instanceof MarkerClusterGroup);
 
-        if ($layerModel->iconCreateFunction) {
-            $layer->options()->set(
-                'iconCreateFunction',
-                $context->callbacks()->add(new InlineExpression($layerModel->iconCreateFunction))
-            );
+        if (! $layerModel->iconCreateFunction) {
+            return;
         }
+
+        $layer->options()->set(
+            'iconCreateFunction',
+            $context->callbacks()->add(new InlineExpression($layerModel->iconCreateFunction))
+        );
+
+        $this->hydrateCustomOptions($layerModel, $layer->options());
     }
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'markerCluster';
     }
 
-    private function hydrateCustomOptions(Model $model, Options $options) : void
+    private function hydrateCustomOptions(Model $model, Options $options): void
     {
         if (! $model->options) {
             return;

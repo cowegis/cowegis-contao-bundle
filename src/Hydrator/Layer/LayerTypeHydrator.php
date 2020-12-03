@@ -9,11 +9,12 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Provider\Context;
+
 use function assert;
 
 abstract class LayerTypeHydrator extends ConfigurableOptionsHydrator
 {
-    public function supports(object $data, object $definition) : bool
+    public function supports(object $data, object $definition): bool
     {
         if (! $definition instanceof Layer) {
             return false;
@@ -26,7 +27,7 @@ abstract class LayerTypeHydrator extends ConfigurableOptionsHydrator
         return $data->type === $this->supportedType();
     }
 
-    public function hydrate(object $data, object $definition, Context $context) : void
+    public function hydrate(object $data, object $definition, Context $context): void
     {
         assert($data instanceof LayerModel);
         assert($definition instanceof Layer);
@@ -39,14 +40,17 @@ abstract class LayerTypeHydrator extends ConfigurableOptionsHydrator
         $this->hydrateLayer($data, $definition, $context);
     }
 
-    abstract protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context) : void;
+    abstract protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void;
 
-    abstract protected function supportedType() : string;
+    abstract protected function supportedType(): string;
 
-    private function hydratePane(Layer $definition, MapLayerContext $context) : void
+    private function hydratePane(Layer $definition, MapLayerContext $context): void
     {
-        if ($paneId = $context->paneId()) {
-            $definition->options()->set('pane', $paneId);
+        $paneId = $context->paneId();
+        if ($paneId === null) {
+            return;
         }
+
+        $definition->options()->set('pane', $paneId);
     }
 }

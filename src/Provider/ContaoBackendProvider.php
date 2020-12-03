@@ -20,8 +20,10 @@ use Cowegis\Core\IdFormat\IdFormat;
 use Cowegis\Core\Provider\Context;
 use Cowegis\Core\Provider\LayerData;
 use Cowegis\Core\Provider\Provider;
-use Netzmacht\Contao\Leaflet\Frontend\PageIdDeterminator;
 use Psr\Container\ContainerInterface;
+
+use function assert;
+use function sprintf;
 
 final class ContaoBackendProvider implements Provider
 {
@@ -59,19 +61,19 @@ final class ContaoBackendProvider implements Provider
         $this->idFormat           = $idFormat;
     }
 
-    public function idFormat() : IdFormat
+    public function idFormat(): IdFormat
     {
         return $this->idFormat;
     }
 
-    public function findMap(MapId $mapId, Context $context) : Map
+    public function findMap(MapId $mapId, Context $context): Map
     {
         $this->initialize($context);
 
         // TODO: Protect against unsupported id formats
 
         $mapModel = $this->mapRepository->find((int) $mapId->value());
-        if (null === $mapModel) {
+        if ($mapModel === null) {
             throw MapNotFound::withMapId($mapId);
         }
 
@@ -85,7 +87,7 @@ final class ContaoBackendProvider implements Provider
         return $definition;
     }
 
-    public function findLayerData(MapId $mapId, LayerId $layerId, Context $context) : LayerData
+    public function findLayerData(MapId $mapId, LayerId $layerId, Context $context): LayerData
     {
         $this->initialize($context);
 
@@ -96,14 +98,14 @@ final class ContaoBackendProvider implements Provider
             throw LayerNotFound::withLayerId($layerId, $mapId);
         }
 
-        if (!$this->layerDataProviders->has($mapLayer->type)) {
+        if (! $this->layerDataProviders->has($mapLayer->type)) {
             throw new InvalidArgument(sprintf('Unsupported layer type "%s".', $mapLayer->type));
         }
 
         $layerDataProvider = $this->layerDataProviders->get($mapLayer->type);
         assert($layerDataProvider instanceof LayerDataProvider);
 
-        $paneId = $mapLayer->pane > 0 ? $this->idFormat->createDefinitionId(PaneId::class, $mapLayer->pane) : null;
+        $paneId     = $mapLayer->pane > 0 ? $this->idFormat->createDefinitionId(PaneId::class, $mapLayer->pane) : null;
         $dataPaneId = $mapLayer->dataPane > 0 ? $this->idFormat->createDefinitionId(
             PaneId::class,
             $mapLayer->dataPane
@@ -114,12 +116,14 @@ final class ContaoBackendProvider implements Provider
         return $layerDataProvider->findLayerData($mapLayer->layerModel(), $layerContext);
     }
 
-    private function initialize(Context $context) : void
+    private function initialize(Context $context): void
     {
         $this->framework->initialize();
 
-        if ($context->locale()) {
-            $GLOBALS['TL_LANGUAGE'] = $context->locale();
+        if (! $context->locale()) {
+            return;
         }
+
+        $GLOBALS['TL_LANGUAGE'] = $context->locale();
     }
 }

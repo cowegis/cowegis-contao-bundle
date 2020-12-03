@@ -11,5 +11,6 @@ use Cowegis\Bundle\Contao\Model\Model;
  */
 final class MapPaneModel extends Model
 {
+    /** @var string */
     protected static $strTable = 'tl_cowegis_map_pane';
 }

@@ -10,7 +10,9 @@ use Cowegis\Core\Definition\Control\ControlId;
 use Cowegis\Core\Definition\Control\LoadingControl;
 use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 use Cowegis\Core\Provider\Context;
+
 use function assert;
+use function count;
 use function is_array;
 use function json_decode;
 
@@ -20,10 +22,10 @@ final class LoadingControlHydrator extends ControlTypeHydrator
         'position',
         'separate',
         'delayIndicator',
-        'spinjs'
+        'spinjs',
     ];
 
-    public function hydrate(object $controlModel, object $control, Context $context) : void
+    public function hydrate(object $controlModel, object $control, Context $context): void
     {
         parent::hydrate($controlModel, $control, $context);
 
@@ -37,15 +39,17 @@ final class LoadingControlHydrator extends ControlTypeHydrator
             }
         }
 
-        if ($controlModel->zoomControl) {
-            $control->options()->set(
-                'zoomControl',
-                ControlId::fromValue(IntegerDefinitionId::fromValue((int) $controlModel->zoomControl))
-            );
+        if (! $controlModel->zoomControl) {
+            return;
         }
+
+        $control->options()->set(
+            'zoomControl',
+            ControlId::fromValue(IntegerDefinitionId::fromValue((int) $controlModel->zoomControl))
+        );
     }
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'loading';
     }

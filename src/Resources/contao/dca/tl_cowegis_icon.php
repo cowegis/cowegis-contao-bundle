@@ -74,9 +74,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                     'handleButtonCallback',
                 ],
                 'toolkit'         => [
-                    'state_button' => [
-                        'stateColumn' => 'active',
-                    ],
+                    'state_button' => ['stateColumn' => 'active'],
                 ],
             ],
             'show'   => [
@@ -112,9 +110,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                 'shadowRetinaImage',
                 'shadowAnchor',
             ],
-            'active' => [
-                'active',
-            ],
+            'active' => ['active'],
         ],
 
         'div extends default' => [
@@ -123,9 +119,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                 'iconSize',
                 'className',
             ],
-            'active' => [
-                'active',
-            ],
+            'active' => ['active'],
         ],
 
         'extra extends default' => [
@@ -140,9 +134,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                 ':hide',
                 'assets',
             ],
-            'active' => [
-                'active',
-            ],
+            'active' => ['active'],
         ],
 
         'svg extends default' => [
@@ -153,9 +145,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                 'iconSize',
                 'className',
             ],
-            'active' => [
-                'active',
-            ],
+            'active' => ['active'],
         ],
 
         'fontAwesome extends default' => [
@@ -167,19 +157,13 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                 'iconSize',
                 'className',
             ],
-            'active' => [
-                'active',
-            ],
+            'active' => ['active'],
         ],
     ],
 
     'fields' => [
-        'id'                => [
-            'sql' => 'int(10) unsigned NOT NULL auto_increment',
-        ],
-        'tstamp'            => [
-            'sql' => "int(10) unsigned NOT NULL default '0'",
-        ],
+        'id'                => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
+        'tstamp'            => ['sql' => "int(10) unsigned NOT NULL default '0'"],
         'title'             => [
             'exclude'   => true,
             'inputType' => 'text',
@@ -189,10 +173,10 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
         'alias'             => [
             'exclude'       => true,
             'inputType'     => 'text',
-            'save_callback' => [
+//            'save_callback' => [
 //                ['netzmacht.contao_toolkit.dca.listeners.alias_generator', 'handleSaveCallback'],
 //                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateAlias'],
-            ],
+//],
             'eval'          => [
                 'mandatory'   => false,
                 'maxlength'   => 255,
@@ -386,9 +370,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
             'inputType' => 'radio',
             'default'   => 'circle',
             'options'   => ['circle', 'square', 'star', 'penta'],
-            'eval'      => [
-                'tl_class' => 'w50',
-            ],
+            'eval'      => ['tl_class' => 'w50'],
             'sql'       => 'varchar(64) NULL',
         ],
         'iconColor'         => [
@@ -451,9 +433,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
             'inputType' => 'radio',
             'default'   => 'solid',
             'options'   => ['solid', 'brands', 'regular'],
-            'eval'      => [
-                'tl_class' => 'w50',
-            ],
+            'eval'      => ['tl_class' => 'w50'],
             'sql'       => 'varchar(64) NULL',
         ],
         'assets'            => [
@@ -467,18 +447,16 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                 'orderField' => 'assetsOrder',
                 'tl_class'   => 'clr',
             ],
-            'sql'       => "blob NULL",
+            'sql'       => 'blob NULL',
         ],
         'assetsOrder'       => [
             'label' => &$GLOBALS['TL_LANG']['MSC']['sortOrder'],
-            'sql'   => "blob NULL",
+            'sql'   => 'blob NULL',
         ],
         'content'           => [
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => [
-                'tl_class' => 'w50',
-            ],
+            'eval'      => ['tl_class' => 'w50'],
             'sql'       => 'varchar(64) NOT NULL default \'\'',
         ],
     ],

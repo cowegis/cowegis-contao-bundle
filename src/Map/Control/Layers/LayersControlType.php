@@ -11,12 +11,12 @@ use Cowegis\Core\Definition\Control\LayersControl;
 
 final class LayersControlType implements ControlType
 {
-    public function name() : string
+    public function name(): string
     {
         return 'layers';
     }
 
-    public function createDefinition(ControlModel $controlModel) : Control
+    public function createDefinition(ControlModel $controlModel): Control
     {
         return new LayersControl(
             $controlModel->controlId(),

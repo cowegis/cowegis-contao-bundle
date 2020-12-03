@@ -14,7 +14,7 @@ final class PopupRepository extends ContaoRepository
         parent::__construct(PopupModel::class);
     }
 
-    public function findAllActive() : ?Collection
+    public function findAllActive(): ?Collection
     {
         return $this->findBy(['.active=?'], [1]);
     }

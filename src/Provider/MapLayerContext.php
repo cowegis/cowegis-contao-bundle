@@ -26,22 +26,22 @@ final class MapLayerContext extends ContextDecorator
     {
         parent::__construct($context);
 
-        $this->pane       = $pane;
-        $this->dataPaneId = $dataPaneId;
+        $this->pane          = $pane;
+        $this->dataPaneId    = $dataPaneId;
         $this->mapLayerModel = $mapLayerModel;
     }
 
-    public function paneId() : ?PaneId
+    public function paneId(): ?PaneId
     {
         return $this->pane;
     }
 
-    public function dataPaneId() : ?PaneId
+    public function dataPaneId(): ?PaneId
     {
         return $this->dataPaneId;
     }
 
-    public function mapLayerModel() : MapLayerModel
+    public function mapLayerModel(): MapLayerModel
     {
         return $this->mapLayerModel;
     }

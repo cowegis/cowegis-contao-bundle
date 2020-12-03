@@ -11,12 +11,12 @@ use Cowegis\Core\Definition\Control\ZoomControl;
 
 final class ZoomControlType implements ControlType
 {
-    public function name() : string
+    public function name(): string
     {
         return 'zoom';
     }
 
-    public function createDefinition(ControlModel $controlModel) : Control
+    public function createDefinition(ControlModel $controlModel): Control
     {
         return new ZoomControl(
             $controlModel->controlId(),
