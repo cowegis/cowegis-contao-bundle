@@ -30,5 +30,8 @@ final class CowegisContaoExtension extends Extension
         $loader->load('listeners.xml');
         $loader->load('services.xml');
         $loader->load('repositories.xml');
+
+        $installed = isset($container->getParameter('kernel.bundles')['CowegisClientBundle']);
+        $container->setParameter('cowegis_contao.client_bundle', $installed);
     }
 }

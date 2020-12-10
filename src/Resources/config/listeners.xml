@@ -17,6 +17,13 @@
             <tag name="kernel.event_listener" event="Cowegis\Bundle\Contao\Event\ApplyFilterRuleEvent" />
         </service>
 
+        <service id="Cowegis\Bundle\Contao\EventListener\Dca\ContentDcaListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager"/>
+            <argument>%cowegis_contao.client_bundle%</argument>
+            <tag name="contao.callback" table="tl_content" target="config.onload" method="onLoad" />
+            <tag name="contao.callback" table="tl_content" target="fields.cowegis_client.options" method="clientOptions" />
+        </service>
+
         <service id="Cowegis\Bundle\Contao\EventListener\Dca\LayerDcaListener" public="true">
             <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry" />

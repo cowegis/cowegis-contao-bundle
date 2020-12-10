@@ -1,8 +1,6 @@
-<!-- TODO: Remove when assets loader is implemented -->
-<?php $GLOBALS['TL_HEAD']['cowegis'] = <<<'HTML'
-    <script src="bundles/cowegisclient/js/cowegis.js"></script>
-HTML;
-?>
+<?php if ($this->clientJs): ?>
+<?php $GLOBALS['TL_HEAD']['cowegis'] = sprintf('<script src="%s"></script>', $this->clientJs); ?>
+<?php endif ?>
 
 <?php $this->extend('block_unsearchable') ?>
 

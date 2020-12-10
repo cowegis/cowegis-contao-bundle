@@ -6,11 +6,13 @@ namespace Cowegis\Bundle\Contao\Action;
 
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Routing\ScopeMatcher;
+use Contao\FilesModel;
 use Contao\FrontendTemplate;
 use Contao\Model;
 use Contao\StringUtil;
 use Cowegis\Core\Filter\Filter;
 use Cowegis\Core\Filter\FilterFactory;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,21 +46,26 @@ abstract class MapFragmentAction extends FragmentAction
     /** @var Filter */
     private $filter;
 
+    /** @var RepositoryManager */
+    private $repositoryManager;
+
     public function __construct(
         RouterInterface $router,
         FilterFactory $filterFactory,
         UriFactoryInterface $uriFactory,
         TranslatorInterface $translator,
         ScopeMatcher $scopeMatcher,
-        ContaoFramework $contaoFramework
+        ContaoFramework $contaoFramework,
+        RepositoryManager $repositoryManager
     ) {
         parent::__construct($contaoFramework);
 
-        $this->router        = $router;
-        $this->translator    = $translator;
-        $this->scopeMatcher  = $scopeMatcher;
-        $this->filterFactory = $filterFactory;
-        $this->uriFactory    = $uriFactory;
+        $this->router            = $router;
+        $this->translator        = $translator;
+        $this->scopeMatcher      = $scopeMatcher;
+        $this->filterFactory     = $filterFactory;
+        $this->uriFactory        = $uriFactory;
+        $this->repositoryManager = $repositoryManager;
     }
 
     protected function getType(): string
@@ -98,6 +105,7 @@ abstract class MapFragmentAction extends FragmentAction
 
         $data['mapStyle']     = $this->compileMapStyle($model);
         $data['definitionId'] = $this->getIdentifier($model, $this->getDefaultIdentifier($model));
+        $data['clientJs']     = $this->getClientJs($model);
 
         try {
             $data['mapUri'] = $this->router->generate(
@@ -176,5 +184,21 @@ abstract class MapFragmentAction extends FragmentAction
         $uri = $this->uriFactory->createUri($request->getUri());
 
         return $this->filterFactory->createFromUri($uri);
+    }
+
+    private function getClientJs(Model $model)
+    {
+        switch ($model->cowegis_client) {
+            case 'client':
+                return 'bundles/cowegisclient/js/cowegis.js';
+
+            case 'custom':
+                $repository = $this->repositoryManager->getRepository(FilesModel::class);
+                $model      = $repository->findOneByUuid($model->cowegis_client_custom);
+
+                return $model ? $model->path : null;
+        }
+
+        return null;
     }
 }
