@@ -103,6 +103,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
             'config' => [
                 'iconImage',
                 'iconRetinaImage',
+                'iconSize',
                 'className',
             ],
             'shadow' => [

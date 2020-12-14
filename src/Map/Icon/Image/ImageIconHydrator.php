@@ -6,6 +6,7 @@ namespace Cowegis\Bundle\Contao\Map\Icon\Image;
 
 use Contao\File;
 use Contao\FilesModel;
+use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Map\Icon\IconTypeHydrator;
 use Cowegis\Bundle\Contao\Model\IconModel;
 use Cowegis\Core\Definition\Icon\Icon;
@@ -14,6 +15,8 @@ use Cowegis\Core\Definition\Options;
 use Cowegis\Core\Definition\Point;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 
+use function dump;
+use function explode;
 use function round;
 
 final class ImageIconHydrator extends IconTypeHydrator
@@ -35,8 +38,8 @@ final class ImageIconHydrator extends IconTypeHydrator
     {
         $options = $icon->options();
 
-        $this->hydrateIconImage($options, $iconModel->iconImage);
-        $this->hydrateImage($options, 'shadow', $iconModel->shadowImage);
+        $this->hydrateIconImage($options, $iconModel);
+        $this->hydrateImage($options, 'shadow', $iconModel->shadowImage, $iconModel);
         $this->hydrateFileOption($options, 'iconRetinaUrl', $iconModel->iconRetinaImage);
         $this->hydrateFileOption($options, 'shadowRetinaUrl', $iconModel->shadowRetinaImage);
     }
@@ -51,22 +54,20 @@ final class ImageIconHydrator extends IconTypeHydrator
         $options->set($option, $fileModel->path);
     }
 
-    protected function hydrateIconImage(Options $options, ?string $uuid): void
+    protected function hydrateIconImage(Options $options, IconModel $iconModel): void
     {
-        $fileModel = $this->fetchFileModel($uuid);
+        $fileModel = $this->fetchFileModel($iconModel->iconImage);
         if (! $fileModel) {
             return;
         }
 
-        $file = $this->hydrateImage($options, 'icon', $uuid);
-        if (! $file || $options->has('popupAnchor')) {
-            return;
+        $file = $this->hydrateImage($options, 'icon', $iconModel->iconImage, $iconModel);
+        if ($file && !$options->has('popupAnchor')) {
+            $options->set('popupAnchor', new Point(0, -$options->get('iconSize')->y()));
         }
-
-        $options->set('popupAnchor', new Point(0, -$file->height));
     }
 
-    protected function hydrateImage(Options $options, string $key, ?string $uuid): ?File
+    protected function hydrateImage(Options $options, string $key, ?string $uuid, IconModel $iconModel): ?File
     {
         $fileModel = $this->fetchFileModel($uuid);
         if (! $fileModel) {
@@ -76,10 +77,23 @@ final class ImageIconHydrator extends IconTypeHydrator
         $file = new File($fileModel->path);
 
         $options->set($key . 'Url', $fileModel->path);
-        $options->set($key . 'Size', new Point($file->width, $file->height));
+
+        if ($iconModel->{$key . 'Size'}) {
+            $size     = StringUtil::trimsplit(',', $iconModel->{$key . 'Size'});
+            $iconSize = new Point((int) $size[0], (int) $size[1]);
+        } else {
+            $iconSize = new Point($file->width, $file->height);
+        }
+
+        $options->set($key . 'Size', $iconSize);
 
         if (! $options->has($key . 'Anchor')) {
-            $options->set($key . 'Anchor', new Point((int) round($file->width / 2), $file->height));
+            if ($iconModel->{$key . 'Anchor'}) {
+                $size = StringUtil::trimsplit(',', $iconModel->{$key . 'Anchor'});
+                $options->set($key . 'Size', new Point((int) $size[0], (int) $size[1]));
+            } else {
+                $options->set($key . 'Anchor', new Point((int) round($iconSize->x() / 2), $iconSize->y()));
+            }
         }
 
         return $file;
