@@ -40,9 +40,9 @@ abstract class ConfigurableOptionsHydrator implements Hydrator
 
         $options = $this->determineOptions($definition);
 
-        $this->hydrateOptions($data, $options, self::OPTIONS);
-        $this->hydrateConditionalOptions($data, $options, self::CONDITIONAL_OPTIONS);
-        $this->hydratePointOptions($data, $options, self::POINT_OPTIONS);
+        $this->hydrateOptions($data, $options, static::OPTIONS);
+        $this->hydrateConditionalOptions($data, $options, static::CONDITIONAL_OPTIONS);
+        $this->hydratePointOptions($data, $options, static::POINT_OPTIONS);
     }
 
     /** @param array<int|string,string> $keys */
