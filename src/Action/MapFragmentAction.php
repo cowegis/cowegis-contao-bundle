@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Action;
 
+use Contao\CoreBundle\Framework\Adapter;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\FilesModel;
 use Contao\FrontendTemplate;
+use Contao\Input;
 use Contao\Model;
 use Contao\StringUtil;
 use Cowegis\Core\Filter\Filter;
@@ -49,6 +51,10 @@ abstract class MapFragmentAction extends FragmentAction
     /** @var RepositoryManager */
     private $repositoryManager;
 
+    /** @var Adapter<Input> */
+    private $inputAdapter;
+
+    /** @param Adapter<Input> $inputAdapter */
     public function __construct(
         RouterInterface $router,
         FilterFactory $filterFactory,
@@ -56,7 +62,8 @@ abstract class MapFragmentAction extends FragmentAction
         TranslatorInterface $translator,
         ScopeMatcher $scopeMatcher,
         ContaoFramework $contaoFramework,
-        RepositoryManager $repositoryManager
+        RepositoryManager $repositoryManager,
+        Adapter $inputAdapter
     ) {
         parent::__construct($contaoFramework);
 
@@ -66,6 +73,7 @@ abstract class MapFragmentAction extends FragmentAction
         $this->filterFactory     = $filterFactory;
         $this->uriFactory        = $uriFactory;
         $this->repositoryManager = $repositoryManager;
+        $this->inputAdapter      = $inputAdapter;
     }
 
     protected function getType(): string
@@ -181,7 +189,13 @@ abstract class MapFragmentAction extends FragmentAction
 
     private function createFilter(Request $request): Filter
     {
-        $uri = $this->uriFactory->createUri($request->getUri());
+        $uri      = $this->uriFactory->createUri($request->getUri());
+        $autoItem = $this->inputAdapter->get('auto_item');
+
+        if ($autoItem) {
+            $query = $uri->getQuery();
+            $uri   = $uri->withQuery(($query ? '&' : '') . 'auto_item=' . $autoItem);
+        }
 
         return $this->filterFactory->createFromUri($uri);
     }
