@@ -41,7 +41,7 @@ final class MarkerDcaListener extends AbstractListener
     /**
      * Save the coordinates.
      *
-     * @param string        $value         The raw data.
+     * @param string|null   $value         The raw data.
      * @param DataContainer $dataContainer The data container driver.
      */
     public function saveCoordinates(string $value, DataContainer $dataContainer): void
@@ -52,7 +52,7 @@ final class MarkerDcaListener extends AbstractListener
             'altitude'  => null,
         ];
 
-        $values = StringUtil::trimsplit(',', $value);
+        $values = StringUtil::trimsplit(',', (string) $value);
         $keys   = array_keys($combined);
         $count  = count($values);
 
@@ -73,7 +73,7 @@ final class MarkerDcaListener extends AbstractListener
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function loadCoordinates(string $value, DataContainer $dataContainer): ?string
+    public function loadCoordinates(?string $value, DataContainer $dataContainer): ?string
     {
         $query     = 'SELECT latitude, longitude, altitude FROM tl_cowegis_marker WHERE id=:id';
         $statement = $this->connection->prepare($query);
