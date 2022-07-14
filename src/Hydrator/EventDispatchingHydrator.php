@@ -21,8 +21,8 @@ final class EventDispatchingHydrator implements Hydrator
         return true;
     }
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
-        $this->eventDispatcher->dispatch(new HydrateEvent($data, $definition, $context));
+        $this->eventDispatcher->dispatch(new HydrateEvent($data, $definition, $context, $hydrator));
     }
 }

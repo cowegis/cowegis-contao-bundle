@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Hydrator\Presets;
 
 use Contao\StringUtil;
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Hydrator\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\TooltipModel;
 use Cowegis\Core\Definition\Point;
@@ -27,12 +28,12 @@ final class TooltipPresetHydrator extends ConfigurableOptionsHydrator
         'opacity',
     ];
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
         assert($data instanceof TooltipModel);
         assert($definition instanceof TooltipPreset);
 
-        parent::hydrate($data, $definition, $context);
+        parent::hydrate($data, $definition, $context, $hydrator);
 
         if (! $data->offset) {
             return;

@@ -57,7 +57,6 @@
         <service id="Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator\MarkerHydrator">
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry" />
             <argument type="service" id="Cowegis\Bundle\Contao\Model\IconRepository" />
-            <argument type="service" id="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 
@@ -115,7 +114,6 @@
         </service>
 
         <service id="Cowegis\Bundle\Contao\Map\Layer\Reference\ReferenceLayerHydrator">
-            <argument type="service" id="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
             <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
@@ -132,7 +130,6 @@
         </service>
 
         <service id="Cowegis\Bundle\Contao\Map\Layer\Overpass\OverpassLayerHydrator">
-            <argument type="service" id="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
     </services>

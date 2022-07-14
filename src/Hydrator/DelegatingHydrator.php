@@ -9,7 +9,7 @@ use Cowegis\Core\Provider\Context;
 final class DelegatingHydrator implements Hydrator
 {
     /** @var Hydrator[] */
-    private array $hydrators;
+    private iterable $hydrators;
 
     /** @param Hydrator[] $hydrators */
     public function __construct(iterable $hydrators)
@@ -28,14 +28,14 @@ final class DelegatingHydrator implements Hydrator
         return false;
     }
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
-        foreach ($this->hydrators as $hydrator) {
-            if (! $hydrator->supports($data, $definition)) {
+        foreach ($this->hydrators as $delegate) {
+            if (! $delegate->supports($data, $definition)) {
                 continue;
             }
 
-            $hydrator->hydrate($data, $definition, $context);
+            $delegate->hydrate($data, $definition, $context, $hydrator);
         }
     }
 }

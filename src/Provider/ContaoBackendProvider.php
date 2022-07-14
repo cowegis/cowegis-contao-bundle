@@ -76,7 +76,7 @@ final class ContaoBackendProvider implements Provider
             $mapModel->alias ?: 'map_' . $mapModel->id
         );
 
-        $this->hydrator->hydrate($mapModel, $definition, $context);
+        $this->hydrator->hydrate($mapModel, $definition, $context, $this->hydrator);
 
         return $definition;
     }

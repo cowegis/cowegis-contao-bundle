@@ -34,7 +34,7 @@ abstract class ConfigurableOptionsHydrator implements Hydrator
         return $this->supportsData($data);
     }
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
         assert($data instanceof Model);
 

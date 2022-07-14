@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Hydrator\Presets;
 
 use Contao\StringUtil;
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Hydrator\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\PopupModel;
 use Cowegis\Core\Definition\Point;
@@ -29,12 +30,12 @@ final class PopupPresetHydrator extends ConfigurableOptionsHydrator
         'closeOnEscapeKey',
     ];
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
         assert($data instanceof PopupModel);
         assert($definition instanceof PopupPreset);
 
-        parent::hydrate($data, $definition, $context);
+        parent::hydrate($data, $definition, $context, $hydrator);
 
         if ($data->offset) {
             $definition->options()->set(

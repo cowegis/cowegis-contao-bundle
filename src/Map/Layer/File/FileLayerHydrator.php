@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Map\Layer\File;
 
 use Contao\FilesModel;
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Hydrator\Layer\LayerTypeHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
@@ -30,8 +31,12 @@ final class FileLayerHydrator extends LayerTypeHydrator
         return 'file';
     }
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
-    {
+    protected function hydrateLayer(
+        LayerModel $layerModel,
+        Layer $layer,
+        MapLayerContext $context,
+        Hydrator $hydrator
+    ): void {
         assert($layer instanceof DataLayer);
 
         if ($layerModel->pointToLayer) {

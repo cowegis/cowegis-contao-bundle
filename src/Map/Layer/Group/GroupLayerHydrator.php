@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Map\Layer\Group;
 
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Hydrator\Layer\LayerTypeHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
@@ -23,8 +24,12 @@ class GroupLayerHydrator extends LayerTypeHydrator
         $this->repository = $repository;
     }
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
-    {
+    protected function hydrateLayer(
+        LayerModel $layerModel,
+        Layer $layer,
+        MapLayerContext $context,
+        Hydrator $hydrator
+    ): void {
         assert($layer instanceof LayerGroup);
 
         $children = $this->repository->findChildren((int) $layerModel->layerId()->value()) ?: [];

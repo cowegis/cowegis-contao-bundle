@@ -51,18 +51,14 @@ final class MapHydrator implements Hydrator
 
     private IconTypeRegistry $iconTypes;
 
-    private Hydrator $hydrator;
-
     private RepositoryManager $repositoryManager;
 
     public function __construct(
-        Hydrator $hydrator,
         LayerTypeRegistry $layerTypes,
         ControlTypeRegistry $controlTypes,
         IconTypeRegistry $iconTypes,
         RepositoryManager $repositoryManager
     ) {
-        $this->hydrator          = $hydrator;
         $this->layerTypes        = $layerTypes;
         $this->controlTypes      = $controlTypes;
         $this->iconTypes         = $iconTypes;
@@ -78,7 +74,7 @@ final class MapHydrator implements Hydrator
         return $definition instanceof Map;
     }
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
         assert($data instanceof MapModel);
         assert($definition instanceof Map);
@@ -88,14 +84,14 @@ final class MapHydrator implements Hydrator
         }
 
         $this->hydratePanes($definition, $data);
-        $this->hydrateLayers($definition, $data, $context);
-        $this->hydrateControls($definition, $data, $context);
+        $this->hydrateLayers($definition, $data, $context, $hydrator);
+        $this->hydrateControls($definition, $data, $context, $hydrator);
         $this->hydrateLocate($definition, $data);
-        $this->hydrateIconPresets($definition, $context);
-        $this->hydratePopupPresets($definition, $context);
-        $this->hydrateTooltipPresets($definition, $context);
+        $this->hydrateIconPresets($definition, $context, $hydrator);
+        $this->hydratePopupPresets($definition, $context, $hydrator);
+        $this->hydrateTooltipPresets($definition, $context, $hydrator);
         $this->hydrateAssets($definition, $data, $context);
-        $this->hydrator->hydrate($data, $definition->view(), $context);
+        $hydrator->hydrate($data, $definition->view(), $context, $hydrator);
     }
 
     private function hydratePanes(Map $map, MapModel $mapModel): void
@@ -117,7 +113,7 @@ final class MapHydrator implements Hydrator
         }
     }
 
-    private function hydrateLayers(Map $map, MapModel $mapModel, Context $context): void
+    private function hydrateLayers(Map $map, MapModel $mapModel, Context $context, Hydrator $hydrator): void
     {
         $repository = $this->repositoryManager->getRepository(MapLayerModel::class);
         assert($repository instanceof MapLayerRepository);
@@ -137,12 +133,12 @@ final class MapHydrator implements Hydrator
 
             $layerContext = new MapLayerContext($context, $mapLayerModel, $paneId, $dataPaneId);
 
-            $this->hydrator->hydrate($layerModel, $definition, $layerContext);
+            $hydrator->hydrate($layerModel, $definition, $layerContext, $hydrator);
             $definition->addTo($map);
         }
     }
 
-    private function hydrateControls(Map $map, MapModel $mapModel, Context $context): void
+    private function hydrateControls(Map $map, MapModel $mapModel, Context $context, Hydrator $hydrator): void
     {
         $repository = $this->repositoryManager->getRepository(ControlModel::class);
         assert($repository instanceof ControlRepository);
@@ -153,12 +149,12 @@ final class MapHydrator implements Hydrator
             $controlType = $this->controlTypes->get($controlModel->type);
             $definition  = $controlType->createDefinition($controlModel);
 
-            $this->hydrator->hydrate($controlModel, $definition, $context);
+            $hydrator->hydrate($controlModel, $definition, $context, $hydrator);
             $definition->addTo($map);
         }
     }
 
-    private function hydrateIconPresets(Map $map, Context $context): void
+    private function hydrateIconPresets(Map $map, Context $context, Hydrator $hydrator): void
     {
         $repository = $this->repositoryManager->getRepository(IconModel::class);
         assert($repository instanceof IconRepository);
@@ -172,12 +168,12 @@ final class MapHydrator implements Hydrator
 
             $preset = $this->iconTypes->get($model->type)->createDefinition($model);
 
-            $this->hydrator->hydrate($model, $preset, $context);
+            $hydrator->hydrate($model, $preset, $context, $hydrator);
             $map->presets()->addIcon($preset);
         }
     }
 
-    private function hydratePopupPresets(Map $map, Context $context): void
+    private function hydratePopupPresets(Map $map, Context $context, Hydrator $hydrator): void
     {
         $repository = $this->repositoryManager->getRepository(PopupModel::class);
         assert($repository instanceof PopupRepository);
@@ -188,12 +184,12 @@ final class MapHydrator implements Hydrator
             $presetId = PopupPresetId::fromValue(IntegerDefinitionId::fromValue((int) $model->id));
             $preset   = new PopupPreset($presetId);
 
-            $this->hydrator->hydrate($model, $preset, $context);
+            $hydrator->hydrate($model, $preset, $context, $hydrator);
             $map->presets()->addPopup($preset);
         }
     }
 
-    private function hydrateTooltipPresets(Map $map, Context $context): void
+    private function hydrateTooltipPresets(Map $map, Context $context, Hydrator $hydrator): void
     {
         $repository = $this->repositoryManager->getRepository(TooltipModel::class);
         assert($repository instanceof TooltipRepository);
@@ -208,7 +204,7 @@ final class MapHydrator implements Hydrator
             $presetId = TooltipPresetId::fromValue(IntegerDefinitionId::fromValue((int) $model->id));
             $preset   = new TooltipPreset($presetId);
 
-            $this->hydrator->hydrate($model, $preset, $context);
+            $hydrator->hydrate($model, $preset, $context, $hydrator);
             $map->presets()->addTooltip($preset);
         }
     }

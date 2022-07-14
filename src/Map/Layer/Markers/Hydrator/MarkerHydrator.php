@@ -35,26 +35,23 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
 
     private IconRepository $iconRepository;
 
-    private Hydrator $hydrator;
-
-    public function __construct(IconTypeRegistry $iconTypes, IconRepository $iconRepository, Hydrator $hydrator)
+    public function __construct(IconTypeRegistry $iconTypes, IconRepository $iconRepository)
     {
         $this->iconTypes      = $iconTypes;
         $this->iconRepository = $iconRepository;
-        $this->hydrator       = $hydrator;
     }
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
         assert($data instanceof MarkerModel);
         assert($definition instanceof Marker);
 
-        parent::hydrate($data, $definition, $context);
+        parent::hydrate($data, $definition, $context, $hydrator);
 
         $definition->changeTitle($data->title);
 
         if ($context instanceof MarkerContext) {
-            $this->hydrateIcon($data, $definition, $context);
+            $this->hydrateIcon($data, $definition, $context, $hydrator);
         }
 
         $this->hydratePopup($data, $definition, $context);
@@ -125,8 +122,12 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         $definition->showTooltip($toolTip);
     }
 
-    private function hydrateIcon(MarkerModel $markerModel, Marker $definition, MarkerContext $context): void
-    {
+    private function hydrateIcon(
+        MarkerModel $markerModel,
+        Marker $definition,
+        MarkerContext $context,
+        Hydrator $hydrator
+    ): void {
         $iconId = $context->iconId();
         if ($markerModel->icon) {
             $iconId = IconId::fromValue(IntegerDefinitionId::fromValue((int) $markerModel->icon));
@@ -143,8 +144,8 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
 
         $iconType = $this->iconTypes->get($iconModel->type);
         $icon     = $iconType->createDefinition($iconModel);
-        $this->hydrator->hydrate($iconModel, $icon, $context);
-        $this->hydrator->hydrate($markerModel, $icon, $context);
+        $hydrator->hydrate($iconModel, $icon, $context, $hydrator);
+        $hydrator->hydrate($markerModel, $icon, $context, $hydrator);
         $definition->customizeIcon($icon);
     }
 }

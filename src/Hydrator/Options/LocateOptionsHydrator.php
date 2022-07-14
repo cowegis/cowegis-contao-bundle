@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Hydrator\Options;
 
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Core\Definition\Map\Map;
 use Cowegis\Core\Definition\Options;
@@ -22,7 +23,7 @@ final class LocateOptionsHydrator extends ConfigurableOptionsHydrator
         'maximumAge'         => 'locateMaximumAge',
     ];
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
         assert($definition instanceof Map);
 
@@ -30,7 +31,7 @@ final class LocateOptionsHydrator extends ConfigurableOptionsHydrator
             return;
         }
 
-        parent::hydrate($data, $definition, $context);
+        parent::hydrate($data, $definition, $context, $hydrator);
     }
 
     protected function determineOptions(object $definition): Options

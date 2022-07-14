@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Hydrator\Layer;
 
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 use Cowegis\Core\Definition\Layer\GridLayer;
 use Cowegis\Core\Definition\Map\PaneId;
@@ -28,9 +29,9 @@ final class GridLayerOptionsHydrator extends LayerOptionsHydrator
         'keepBuffer',
     ];
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
-        parent::hydrate($data, $definition, $context);
+        parent::hydrate($data, $definition, $context, $hydrator);
 
         assert($definition instanceof GridLayer);
 

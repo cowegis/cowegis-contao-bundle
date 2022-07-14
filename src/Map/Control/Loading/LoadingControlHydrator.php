@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Map\Control\Loading;
 
 use Cowegis\Bundle\Contao\Hydrator\Control\ControlTypeHydrator;
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Model\ControlModel;
 use Cowegis\Core\Definition\Control\ControlId;
 use Cowegis\Core\Definition\Control\LoadingControl;
@@ -25,9 +26,9 @@ final class LoadingControlHydrator extends ControlTypeHydrator
         'spinjs',
     ];
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
-        parent::hydrate($data, $definition, $context);
+        parent::hydrate($data, $definition, $context, $hydrator);
 
         assert($data instanceof ControlModel);
         assert($definition instanceof LoadingControl);

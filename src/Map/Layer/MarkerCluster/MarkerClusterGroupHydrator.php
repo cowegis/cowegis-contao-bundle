@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Map\Layer\MarkerCluster;
 
 use Contao\Model;
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Map\Layer\Group\GroupLayerHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
@@ -31,9 +32,13 @@ final class MarkerClusterGroupHydrator extends GroupLayerHydrator
         'singleMarkerMode',
     ];
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
-    {
-        parent::hydrateLayer($layerModel, $layer, $context);
+    protected function hydrateLayer(
+        LayerModel $layerModel,
+        Layer $layer,
+        MapLayerContext $context,
+        Hydrator $hydrator
+    ): void {
+        parent::hydrateLayer($layerModel, $layer, $context, $hydrator);
 
         assert($layer instanceof MarkerClusterGroup);
 

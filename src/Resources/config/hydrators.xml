@@ -12,7 +12,6 @@
         </instanceof>
 
         <service id="Cowegis\Bundle\Contao\Hydrator\MapHydrator">
-            <argument type="service" id="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry" />
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry" />
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry" />

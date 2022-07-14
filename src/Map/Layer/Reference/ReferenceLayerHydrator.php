@@ -14,18 +14,19 @@ use Cowegis\Core\Exception\LayerNotFound;
 
 final class ReferenceLayerHydrator extends LayerTypeHydrator
 {
-    private Hydrator $hydrator;
-
     private LayerRepository $layerRepository;
 
-    public function __construct(Hydrator $hydrator, LayerRepository $layerRepository)
+    public function __construct(LayerRepository $layerRepository)
     {
-        $this->hydrator        = $hydrator;
         $this->layerRepository = $layerRepository;
     }
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
-    {
+    protected function hydrateLayer(
+        LayerModel $layerModel,
+        Layer $layer,
+        MapLayerContext $context,
+        Hydrator $hydrator
+    ): void {
         $referenceModel = $this->layerRepository->find((int) $layerModel->reference);
         if ($referenceModel === null) {
             throw LayerNotFound::withLayerId(
@@ -34,7 +35,7 @@ final class ReferenceLayerHydrator extends LayerTypeHydrator
             );
         }
 
-        $this->hydrator->hydrate($referenceModel, $layer, $context);
+        $hydrator->hydrate($referenceModel, $layer, $context, $hydrator);
     }
 
     protected function supportedType(): string

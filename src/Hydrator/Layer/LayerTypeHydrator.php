@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Hydrator\Layer;
 
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Hydrator\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
@@ -27,20 +28,25 @@ abstract class LayerTypeHydrator extends ConfigurableOptionsHydrator
         return $data->type === $this->supportedType();
     }
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
         assert($data instanceof LayerModel);
         assert($definition instanceof Layer);
         assert($context instanceof MapLayerContext);
 
-        parent::hydrate($data, $definition, $context);
+        parent::hydrate($data, $definition, $context, $hydrator);
 
         $definition->changeTitle($data->title);
         $this->hydratePane($definition, $context);
-        $this->hydrateLayer($data, $definition, $context);
+        $this->hydrateLayer($data, $definition, $context, $hydrator);
     }
 
-    abstract protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void;
+    abstract protected function hydrateLayer(
+        LayerModel $layerModel,
+        Layer $layer,
+        MapLayerContext $context,
+        Hydrator $hydrator
+    ): void;
 
     abstract protected function supportedType(): string;
 

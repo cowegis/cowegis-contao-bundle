@@ -14,11 +14,14 @@ final class HydrateEvent
 
     private Context $context;
 
-    public function __construct(object $data, object $definition, Context $context)
+    private Hydrator $hydrator;
+
+    public function __construct(object $data, object $definition, Context $context, Hydrator $hydrator)
     {
         $this->data       = $data;
         $this->definition = $definition;
         $this->context    = $context;
+        $this->hydrator   = $hydrator;
     }
 
     public function data(): object
@@ -34,5 +37,10 @@ final class HydrateEvent
     public function context(): Context
     {
         return $this->context;
+    }
+
+    public function hydrator(): Hydrator
+    {
+        return $this->hydrator;
     }
 }

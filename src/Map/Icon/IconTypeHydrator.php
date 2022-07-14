@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Map\Icon;
 
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Hydrator\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\IconModel;
 use Cowegis\Bundle\Contao\Model\MarkerModel;
@@ -33,12 +34,12 @@ abstract class IconTypeHydrator extends ConfigurableOptionsHydrator
         return false;
     }
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
         assert($definition instanceof Icon);
 
         if ($data instanceof IconModel) {
-            parent::hydrate($data, $definition, $context);
+            parent::hydrate($data, $definition, $context, $hydrator);
             $this->hydrateIcon($data, $definition);
         }
 

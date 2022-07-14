@@ -63,8 +63,8 @@ final class MarkersLayerDataProvider implements LayerDataProvider
                 )
             );
 
-            $this->hydrator->hydrate($layerModel, $marker, $context);
-            $this->hydrator->hydrate($markerModel, $marker, $context);
+            $this->hydrator->hydrate($layerModel, $marker, $context, $this->hydrator);
+            $this->hydrator->hydrate($markerModel, $marker, $context, $this->hydrator);
             $markers[] = $marker;
         }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Hydrator\Options;
 
 use Contao\Model;
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Core\Definition\Map\Map;
 use Cowegis\Core\Definition\Options;
@@ -36,12 +37,12 @@ final class MapOptionsHydrator extends ConfigurableOptionsHydrator
         'keyboard' => ['keyboardPanOffset', 'keyboardZoomOffset'],
     ];
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
         assert($data instanceof MapModel);
         assert($definition instanceof Map);
 
-        parent::hydrate($data, $definition, $context);
+        parent::hydrate($data, $definition, $context, $hydrator);
 
         $options = $definition->options();
 

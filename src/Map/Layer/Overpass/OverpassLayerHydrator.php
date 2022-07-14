@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Map\Layer\Overpass;
 
 use Contao\StringUtil;
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Hydrator\Layer\LayerTypeHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
@@ -26,8 +27,12 @@ final class OverpassLayerHydrator extends LayerTypeHydrator
         return 'overpass';
     }
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
-    {
+    protected function hydrateLayer(
+        LayerModel $layerModel,
+        Layer $layer,
+        MapLayerContext $context,
+        Hydrator $hydrator
+    ): void {
         $layer->options()->set('amenityIcons', $this->buildAmenityIcons($layerModel));
 
         if ($layerModel->pointToLayer) {

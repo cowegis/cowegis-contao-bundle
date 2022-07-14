@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Map\Control\Layers;
 
 use Cowegis\Bundle\Contao\Hydrator\Control\ControlTypeHydrator;
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Model\ControlModel;
 use Cowegis\Core\Definition\Control\LayersControl;
 use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
@@ -32,12 +33,12 @@ final class LayersControlHydrator extends ControlTypeHydrator
         $this->connection = $connection;
     }
 
-    public function hydrate(object $data, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {
         assert($data instanceof ControlModel);
         assert($definition instanceof LayersControl);
 
-        parent::hydrate($data, $definition, $context);
+        parent::hydrate($data, $definition, $context, $hydrator);
 
         $this->hydrateLayers($data, $definition);
         $this->hydrateSortingFunction($data, $definition, $context);
