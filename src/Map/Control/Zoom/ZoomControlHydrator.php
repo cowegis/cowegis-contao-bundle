@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Map\Control\Zoom;
 
-use Cowegis\Bundle\Contao\Hydrator\Control\ControlTypeHydrator;
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
+use Cowegis\Bundle\Contao\Map\Control\ControlTypeHydrator;
 use Cowegis\Bundle\Contao\Model\ControlModel;
 use Cowegis\Core\Definition\Control\ZoomControl;
 use Cowegis\Core\Provider\Context;

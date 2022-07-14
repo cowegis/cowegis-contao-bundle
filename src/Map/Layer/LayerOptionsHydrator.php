@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cowegis\Bundle\Contao\Hydrator\Layer;
+namespace Cowegis\Bundle\Contao\Map\Layer;
 
-use Cowegis\Bundle\Contao\Hydrator\Options\ConfigurableOptionsHydrator;
+use Cowegis\Bundle\Contao\Map\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
 use Cowegis\Core\Definition\LayerObject;
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator;
 
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
-use Cowegis\Bundle\Contao\Hydrator\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry;
+use Cowegis\Bundle\Contao\Map\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\IconModel;
 use Cowegis\Bundle\Contao\Model\IconRepository;
 use Cowegis\Bundle\Contao\Model\MarkerModel;

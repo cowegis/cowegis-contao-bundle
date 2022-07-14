@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Map\Control\Fullscreen;
 
-use Cowegis\Bundle\Contao\Hydrator\Control\ControlTypeHydrator;
+use Cowegis\Bundle\Contao\Map\Control\ControlTypeHydrator;
 
 final class FullscreenControlTypeHydrator extends ControlTypeHydrator
 {

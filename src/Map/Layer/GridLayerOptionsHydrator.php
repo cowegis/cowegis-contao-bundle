@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cowegis\Bundle\Contao\Hydrator\Layer;
+namespace Cowegis\Bundle\Contao\Map\Layer;
 
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;

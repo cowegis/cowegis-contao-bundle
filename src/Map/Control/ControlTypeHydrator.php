@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cowegis\Bundle\Contao\Hydrator\Control;
+namespace Cowegis\Bundle\Contao\Map\Control;
 
-use Cowegis\Bundle\Contao\Hydrator\Options\ConfigurableOptionsHydrator;
+use Cowegis\Bundle\Contao\Map\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\ControlModel;
 use Cowegis\Core\Definition\Control;
 

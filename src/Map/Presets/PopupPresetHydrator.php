@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Cowegis\Bundle\Contao\Hydrator\Presets;
+namespace Cowegis\Bundle\Contao\Map\Presets;
 
 use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
-use Cowegis\Bundle\Contao\Hydrator\Options\ConfigurableOptionsHydrator;
+use Cowegis\Bundle\Contao\Map\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\PopupModel;
 use Cowegis\Core\Definition\Point;
 use Cowegis\Core\Definition\Preset\PopupPreset;

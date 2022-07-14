@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cowegis\Bundle\Contao\Hydrator\Options;
+namespace Cowegis\Bundle\Contao\Map\Options;
 
 use Contao\Model;
 use Contao\StringUtil;

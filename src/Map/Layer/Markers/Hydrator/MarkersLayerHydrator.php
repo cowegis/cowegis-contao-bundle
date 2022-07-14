@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator;
 
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
-use Cowegis\Bundle\Contao\Hydrator\Layer\LayerTypeHydrator;
+use Cowegis\Bundle\Contao\Map\Layer\LayerTypeHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\LayerDataProvider;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;

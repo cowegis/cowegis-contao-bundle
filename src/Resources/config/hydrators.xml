@@ -11,32 +11,32 @@
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </instanceof>
 
-        <service id="Cowegis\Bundle\Contao\Hydrator\MapHydrator">
+        <service id="Cowegis\Bundle\Contao\Map\MapHydrator">
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry" />
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry" />
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry" />
             <argument type="service" id="netzmacht.contao_toolkit.repository_manager" />
         </service>
 
-        <service id="Cowegis\Bundle\Contao\Hydrator\Options\MapOptionsHydrator" />
+        <service id="Cowegis\Bundle\Contao\Map\Options\MapOptionsHydrator" />
 
-        <service id="Cowegis\Bundle\Contao\Hydrator\Options\LocateOptionsHydrator">
+        <service id="Cowegis\Bundle\Contao\Map\Options\LocateOptionsHydrator">
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" priority="-32" />
         </service>
 
-        <service id="Cowegis\Bundle\Contao\Hydrator\Options\BoundsOptionsHydrator">
+        <service id="Cowegis\Bundle\Contao\Map\Options\BoundsOptionsHydrator">
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" priority="-32" />
         </service>
 
-        <service id="Cowegis\Bundle\Contao\Hydrator\Options\ViewHydrator" />
+        <service id="Cowegis\Bundle\Contao\Map\Options\ViewHydrator" />
 
-        <service id="Cowegis\Bundle\Contao\Hydrator\Layer\LayerObjectOptionsHydrator" />
+        <service id="Cowegis\Bundle\Contao\Map\Layer\LayerObjectOptionsHydrator" />
 
-        <service id="Cowegis\Bundle\Contao\Hydrator\Layer\GridLayerOptionsHydrator" />
+        <service id="Cowegis\Bundle\Contao\Map\Layer\GridLayerOptionsHydrator" />
 
-        <service id="Cowegis\Bundle\Contao\Hydrator\Presets\PopupPresetHydrator" />
+        <service id="Cowegis\Bundle\Contao\Map\Presets\PopupPresetHydrator" />
 
-        <service id="Cowegis\Bundle\Contao\Hydrator\Presets\TooltipPresetHydrator" />
+        <service id="Cowegis\Bundle\Contao\Map\Presets\TooltipPresetHydrator" />
 
         <service id="Cowegis\Bundle\Contao\Hydrator\EventDispatchingHydrator">
             <argument type="service" id="event_dispatcher" />

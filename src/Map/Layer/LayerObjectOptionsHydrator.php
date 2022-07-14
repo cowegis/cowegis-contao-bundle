@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cowegis\Bundle\Contao\Hydrator\Layer;
+namespace Cowegis\Bundle\Contao\Map\Layer;
 
 final class LayerObjectOptionsHydrator extends LayerOptionsHydrator
 {

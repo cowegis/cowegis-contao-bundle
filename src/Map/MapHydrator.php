@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Cowegis\Bundle\Contao\Hydrator;
+namespace Cowegis\Bundle\Contao\Map;
 
 use Contao\FilesModel;
 use Contao\Model\Collection;
 use Contao\StringUtil;
+use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry;
 use Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry;

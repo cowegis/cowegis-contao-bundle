@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Map\Control\Scale;
 
-use Cowegis\Bundle\Contao\Hydrator\Control\ControlTypeHydrator;
+use Cowegis\Bundle\Contao\Map\Control\ControlTypeHydrator;
 
 final class ScaleControlHydrator extends ControlTypeHydrator
 {
