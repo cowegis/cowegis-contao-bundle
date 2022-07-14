@@ -19,16 +19,14 @@ use function time;
 final class ControlDcaListener extends AbstractListener
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_control';
 
-    /** @var ControlTypeRegistry */
-    private $controlTypes;
+    private ControlTypeRegistry $controlTypes;
 
-    /** @var LayerRepository */
-    private $layerRepository;
+    private LayerRepository $layerRepository;
 
-    /** @var Connection */
-    private $connection;
+    private Connection $connection;
 
     public function __construct(
         DcaManager $dcaManager,

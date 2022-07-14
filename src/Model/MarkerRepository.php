@@ -15,8 +15,7 @@ use function in_array;
 /** @extends ContaoRepository<MarkerModel> */
 final class MarkerRepository extends ContaoRepository
 {
-    /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     /** @psalm-param class-string<MarkerModel> $modelClass */
     public function __construct(string $modelClass, EventDispatcherInterface $eventDispatcher)

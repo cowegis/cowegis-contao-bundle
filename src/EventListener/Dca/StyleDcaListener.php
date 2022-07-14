@@ -9,5 +9,6 @@ use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 final class StyleDcaListener extends AbstractListener
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_style';
 }

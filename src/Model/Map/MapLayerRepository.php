@@ -11,8 +11,7 @@ use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 /** @extends ContaoRepository<MapLayerModel> */
 final class MapLayerRepository extends ContaoRepository
 {
-    /** @var Connection */
-    private $connection;
+    private Connection $connection;
 
     public function __construct(Connection $connection)
     {

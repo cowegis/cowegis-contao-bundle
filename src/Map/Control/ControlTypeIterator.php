@@ -12,10 +12,9 @@ use function count;
 final class ControlTypeIterator implements Countable, Iterator
 {
     /** @var ControlType[] */
-    private $controlTypes;
+    private array $controlTypes;
 
-    /** @var int */
-    private $position;
+    private int $position;
 
     public function __construct(ControlType ...$controlTypes)
     {

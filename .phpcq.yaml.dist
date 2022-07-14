@@ -114,7 +114,7 @@ tasks:
         - ./vendor/doctrine/coding-standard/lib
 
   phpcbf:
-    plugin: phpcbf
+    plugin: phpcs
     config:
       <<: *phpcs-config
       fix: true

@@ -9,8 +9,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 final class EventDispatchingHydrator implements Hydrator
 {
-    /** @var EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {

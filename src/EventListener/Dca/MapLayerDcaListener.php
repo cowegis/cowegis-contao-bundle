@@ -24,22 +24,18 @@ use function iterator_to_array;
 final class MapLayerDcaListener extends AbstractListener
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_map_layer';
 
-    /** @var MapPaneRepository */
-    private $paneRepository;
+    private MapPaneRepository $paneRepository;
 
-    /** @var FilterFactory */
-    private $filterFactory;
+    private FilterFactory $filterFactory;
 
-    /** @var LayerTypeRegistry */
-    private $layerTypes;
+    private LayerTypeRegistry $layerTypes;
 
-    /** @var LayerRepository */
-    private $layerRepository;
+    private LayerRepository $layerRepository;
 
-    /** @var MapLayerRepository */
-    private $mapLayerRepository;
+    private MapLayerRepository $mapLayerRepository;
 
     public function __construct(
         Manager $dcaManager,

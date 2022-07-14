@@ -19,11 +19,9 @@ final class MarkersLayerType implements DataLayerType
 {
     use MapLayerType;
 
-    /** @var MarkerRepository */
-    private $markerRepository;
+    private MarkerRepository $markerRepository;
 
-    /** @var TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(MarkerRepository $markerRepository, TranslatorInterface $translator)
     {

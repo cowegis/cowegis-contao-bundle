@@ -12,10 +12,9 @@ use function count;
 final class StyleTypeIterator implements Countable, Iterator
 {
     /** @var StyleType[] */
-    private $controlTypes;
+    private array $controlTypes;
 
-    /** @var int */
-    private $position;
+    private int $position;
 
     public function __construct(StyleType ...$controlTypes)
     {

@@ -23,6 +23,7 @@ final class MapPaneDcaListener extends AbstractListener
     ];
 
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_map_pane';
 
     /** @param array<string,mixed> $row */

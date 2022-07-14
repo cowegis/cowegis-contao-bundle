@@ -13,11 +13,9 @@ use function is_object;
 
 final class AliasGenerator
 {
-    /** @var SlugGeneratorInterface */
-    private $slugGenerator;
+    private SlugGeneratorInterface $slugGenerator;
 
-    /** @var Connection */
-    private $connection;
+    private Connection $connection;
 
     public function __construct(SlugGeneratorInterface $slugGenerator, Connection $connection)
     {

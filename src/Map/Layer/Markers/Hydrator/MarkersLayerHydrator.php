@@ -21,14 +21,11 @@ use function assert;
 
 final class MarkersLayerHydrator extends LayerTypeHydrator
 {
-   /** @var RouterInterface */
-    private $router;
+    private RouterInterface $router;
 
-    /** @var LayerDataProvider */
-    private $dataProvider;
+    private LayerDataProvider $dataProvider;
 
-    /** @var Serializer */
-    private $serializer;
+    private Serializer $serializer;
 
     public function __construct(RouterInterface $router, LayerDataProvider $dataProvider, Serializer $serializer)
     {

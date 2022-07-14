@@ -13,7 +13,7 @@ use function sprintf;
 final class IconTypeRegistry implements IteratorAggregate
 {
     /** @var array<string, IconType> */
-    private $iconTypes = [];
+    private array $iconTypes = [];
 
     /** @param IconType[] $iconTypes */
     public function __construct(iterable $iconTypes = [])

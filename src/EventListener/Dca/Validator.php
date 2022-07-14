@@ -20,17 +20,13 @@ final class Validator
 {
     /**
      * Translator.
-     *
-     * @var Translator
      */
-    private $translator;
+    private Translator $translator;
 
     /**
      * Data container manager.
-     *
-     * @var Manager
      */
-    private $dcaManager;
+    private Manager $dcaManager;
 
     /**
      * @param Manager    $dcaManager Data container manager.

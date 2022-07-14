@@ -16,8 +16,7 @@ use function assert;
 
 class GroupLayerHydrator extends LayerTypeHydrator
 {
-    /** @var MapLayerRepository */
-    private $repository;
+    private MapLayerRepository $repository;
 
     public function __construct(MapLayerRepository $repository)
     {

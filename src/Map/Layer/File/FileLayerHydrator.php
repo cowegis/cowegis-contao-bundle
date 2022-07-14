@@ -18,8 +18,7 @@ use function assert;
 
 final class FileLayerHydrator extends LayerTypeHydrator
 {
-    /** @var RepositoryManager */
-    private $repositoryManager;
+    private RepositoryManager $repositoryManager;
 
     public function __construct(RepositoryManager $repositoryManager)
     {

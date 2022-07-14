@@ -13,7 +13,7 @@ use function sprintf;
 final class ControlTypeRegistry implements IteratorAggregate
 {
     /** @var array<string, ControlType> */
-    private $controlTypes = [];
+    private array $controlTypes = [];
 
     /**
      * @param ControlType[] $controlTypes

@@ -31,14 +31,11 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         'title' => 'tooltip',
     ];
 
-    /** @var IconTypeRegistry */
-    private $iconTypes;
+    private IconTypeRegistry $iconTypes;
 
-    /** @var IconRepository */
-    private $iconRepository;
+    private IconRepository $iconRepository;
 
-    /** @var Hydrator */
-    private $hydrator;
+    private Hydrator $hydrator;
 
     public function __construct(IconTypeRegistry $iconTypes, IconRepository $iconRepository, Hydrator $hydrator)
     {

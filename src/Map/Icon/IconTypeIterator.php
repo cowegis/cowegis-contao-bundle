@@ -12,10 +12,9 @@ use function count;
 final class IconTypeIterator implements Countable, Iterator
 {
     /** @var IconType[] */
-    private $iconTypes;
+    private array $iconTypes;
 
-    /** @var int */
-    private $position;
+    private int $position;
 
     public function __construct(IconType ...$iconTypes)
     {

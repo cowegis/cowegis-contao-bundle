@@ -16,10 +16,10 @@ use function count;
 final class MarkerDcaListener extends AbstractListener
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_marker';
 
-    /** @var Connection */
-    private $connection;
+    private Connection $connection;
 
     public function __construct(Manager $dcaManager, Connection $connection)
     {

@@ -12,5 +12,6 @@ namespace Cowegis\Bundle\Contao\Model;
 final class PopupModel extends Model
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $strTable = 'tl_cowegis_popup';
 }

@@ -19,16 +19,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class MapDcaListener extends AbstractListener
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_map';
 
-    /** @var TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var SessionInterface */
-    private $session;
+    private SessionInterface $session;
 
-    /** @var MapRepository */
-    private $mapRepository;
+    private MapRepository $mapRepository;
 
     public function __construct(
         Manager $dcaManager,

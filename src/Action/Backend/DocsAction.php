@@ -10,11 +10,9 @@ use Twig\Environment;
 
 final class DocsAction
 {
-    /** @var Environment */
-    private $twig;
+    private Environment $twig;
 
-    /** @var RouterInterface */
-    private $router;
+    private RouterInterface $router;
 
     public function __construct(Environment $twig, RouterInterface $router)
     {

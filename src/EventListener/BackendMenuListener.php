@@ -10,11 +10,9 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class BackendMenuListener
 {
-    /** @var RouterInterface */
-    private $router;
+    private RouterInterface $router;
 
-    /** @var RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     public function __construct(RouterInterface $router, RequestStack $requestStack)
     {

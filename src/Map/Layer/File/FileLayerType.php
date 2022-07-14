@@ -22,10 +22,8 @@ final class FileLayerType implements LayerType
 
     /**
      * Repository manager.
-     *
-     * @var RepositoryManager
      */
-    private $repositoryManager;
+    private RepositoryManager $repositoryManager;
 
     /**
      * @param RepositoryManager $repositoryManager Repository manager.

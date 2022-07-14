@@ -30,6 +30,7 @@ use Cowegis\Core\Definition\Layer\LayerId;
 class LayerModel extends Model
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $strTable = 'tl_cowegis_layer';
 
     public function layerId(): LayerId

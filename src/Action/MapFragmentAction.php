@@ -29,26 +29,20 @@ use function strtoupper;
 
 abstract class MapFragmentAction extends FragmentAction
 {
-    /** @var RouterInterface */
-    protected $router;
+    protected RouterInterface $router;
 
-    /** @var TranslatorInterface */
-    protected $translator;
+    protected TranslatorInterface $translator;
 
-    /** @var ScopeMatcher */
-    protected $scopeMatcher;
+    protected ScopeMatcher $scopeMatcher;
 
-    /** @var FilterFactory */
-    private $filterFactory;
+    private FilterFactory $filterFactory;
 
-    /** @var UriFactoryInterface */
-    private $uriFactory;
+    private UriFactoryInterface $uriFactory;
 
-    /** @var RepositoryManager */
-    private $repositoryManager;
+    private RepositoryManager $repositoryManager;
 
     /** @var Adapter<Input> */
-    private $inputAdapter;
+    private Adapter $inputAdapter;
 
     /** @param Adapter<Input> $inputAdapter */
     public function __construct(

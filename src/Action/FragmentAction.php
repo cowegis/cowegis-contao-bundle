@@ -21,10 +21,9 @@ use function is_array;
 abstract class FragmentAction implements FragmentOptionsAwareInterface
 {
     /** @var array<string, mixed> */
-    protected $options = [];
+    protected array $options = [];
 
-    /** @var ContaoFramework */
-    protected $contaoFramework;
+    protected ContaoFramework $contaoFramework;
 
     public function __construct(ContaoFramework $contaoFramework)
     {

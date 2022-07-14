@@ -24,10 +24,10 @@ use Throwable;
 final class MapLayerModel extends Model
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $strTable = 'tl_cowegis_map_layer';
 
-    /** @var LayerModel|null */
-    private $layer = null;
+    private ?LayerModel $layer = null;
 
     /**
      * {@inheritDoc}

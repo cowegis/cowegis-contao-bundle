@@ -28,11 +28,9 @@ use function sprintf;
 
 final class MarkersLayerDataProvider implements LayerDataProvider
 {
-    /** @var MarkerRepository */
-    private $markersRepository;
+    private MarkerRepository $markersRepository;
 
-    /** @var Hydrator */
-    private $hydrator;
+    private Hydrator $hydrator;
 
     public function __construct(MarkerRepository $markersRepository, Hydrator $hydrator)
     {

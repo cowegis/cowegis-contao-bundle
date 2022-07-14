@@ -20,5 +20,6 @@ use Cowegis\Bundle\Contao\Model\Model;
 final class MapModel extends Model
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $strTable = 'tl_cowegis_map';
 }

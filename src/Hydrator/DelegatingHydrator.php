@@ -9,7 +9,7 @@ use Cowegis\Core\Provider\Context;
 final class DelegatingHydrator implements Hydrator
 {
     /** @var Hydrator[] */
-    private $hydrators;
+    private array $hydrators;
 
     /** @param Hydrator[] $hydrators */
     public function __construct(iterable $hydrators)

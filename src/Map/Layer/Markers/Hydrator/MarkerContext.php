@@ -13,14 +13,11 @@ use Cowegis\Core\Provider\ContextDecorator;
 
 final class MarkerContext extends ContextDecorator
 {
-    /** @var IconId|null */
-    private $iconId;
+    private ?IconId $iconId = null;
 
-    /** @var PopupPresetId|null */
-    private $popupPresetId;
+    private ?PopupPresetId $popupPresetId = null;
 
-    /** @var TooltipPresetId|null */
-    private $tooltipPresetId;
+    private ?TooltipPresetId $tooltipPresetId = null;
 
     private MapLayerContext $inner;
 

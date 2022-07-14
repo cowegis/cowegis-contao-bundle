@@ -25,8 +25,7 @@ final class LayersControlHydrator extends ControlTypeHydrator
         'sortLayers',
     ];
 
-    /** @var Connection */
-    private $connection;
+    private Connection $connection;
 
     public function __construct(Connection $connection)
     {

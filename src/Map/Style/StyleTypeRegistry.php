@@ -13,7 +13,7 @@ use function sprintf;
 final class StyleTypeRegistry implements IteratorAggregate
 {
     /** @var array<string, StyleType> */
-    private $controlTypes = [];
+    private array $controlTypes = [];
 
     /**
      * @param iterable|StyleType[] $controlTypes

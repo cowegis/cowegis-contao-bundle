@@ -10,10 +10,8 @@ final class IconDcaListener
 {
     /**
      * Icon type options.
-     *
-     * @var IconTypeRegistry
      */
-    private $iconTypes;
+    private IconTypeRegistry $iconTypes;
 
     /**
      * @param IconTypeRegistry $iconTypes Icon type options.

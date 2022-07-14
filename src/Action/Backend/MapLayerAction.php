@@ -26,14 +26,11 @@ use function time;
  */
 final class MapLayerAction
 {
-    /** @var ContaoFramework */
-    private $framework;
+    private ContaoFramework $framework;
 
-    /** @var RouterInterface */
-    private $router;
+    private RouterInterface $router;
 
-    /** @var RepositoryManager */
-    private $repositoryManager;
+    private RepositoryManager $repositoryManager;
 
     private CsrfTokenProvider $csrfTokenProvider;
 

@@ -8,14 +8,11 @@ use Cowegis\Core\Provider\Context;
 
 final class HydrateEvent
 {
-    /** @var object */
-    private $data;
+    private object $data;
 
-    /** @var object */
-    private $definition;
+    private object $definition;
 
-    /** @var Context */
-    private $context;
+    private Context $context;
 
     public function __construct(object $data, object $definition, Context $context)
     {

@@ -21,22 +21,18 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class MapLayerSelectionDcaListener extends AbstractListener
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_layer';
 
-    /** @var Connection */
-    private $connection;
+    private Connection $connection;
 
-    /** @var RouterInterface */
-    private $router;
+    private RouterInterface $router;
 
-    /** @var TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var MapRepository */
-    private $mapRepository;
+    private MapRepository $mapRepository;
 
-    /** @var CsrfTokenProvider */
-    private $csrfTokenProvider;
+    private CsrfTokenProvider $csrfTokenProvider;
 
     public function __construct(
         Manager $dcaManager,

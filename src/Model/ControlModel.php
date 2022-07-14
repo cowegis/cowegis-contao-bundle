@@ -22,6 +22,7 @@ use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 class ControlModel extends Model
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $strTable = 'tl_cowegis_control';
 
     public function controlId(): ControlId

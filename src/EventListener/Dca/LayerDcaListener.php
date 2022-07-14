@@ -27,26 +27,24 @@ use function strip_tags;
 final class LayerDcaListener extends AbstractListener
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_layer';
 
-    /** @var LayerTypeRegistry */
-    private $layerTypes;
+    private LayerTypeRegistry $layerTypes;
 
-    /** @var TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var Adapter */
-    private $backendAdapter;
+    private Adapter $backendAdapter;
 
     /**
      * File formats.
      *
      * @var array<string,list<string>>
      */
-    private $fileFormats;
+    private array $fileFormats;
 
     /** @var string[] */
-    private $amenities;
+    private array $amenities;
 
     /**
      * @param array<string,list<string>> $fileFormats

@@ -14,11 +14,9 @@ use Cowegis\Core\Exception\LayerNotFound;
 
 final class ReferenceLayerHydrator extends LayerTypeHydrator
 {
-    /** @var Hydrator */
-    private $hydrator;
+    private Hydrator $hydrator;
 
-    /** @var LayerRepository */
-    private $layerRepository;
+    private LayerRepository $layerRepository;
 
     public function __construct(Hydrator $hydrator, LayerRepository $layerRepository)
     {

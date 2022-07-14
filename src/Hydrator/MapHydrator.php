@@ -45,20 +45,15 @@ use function sprintf;
 
 final class MapHydrator implements Hydrator
 {
-    /** @var LayerTypeRegistry */
-    private $layerTypes;
+    private LayerTypeRegistry $layerTypes;
 
-    /** @var ControlTypeRegistry */
-    private $controlTypes;
+    private ControlTypeRegistry $controlTypes;
 
-    /** @var IconTypeRegistry */
-    private $iconTypes;
+    private IconTypeRegistry $iconTypes;
 
-    /** @var Hydrator */
-    private $hydrator;
+    private Hydrator $hydrator;
 
-    /** @var RepositoryManager */
-    private $repositoryManager;
+    private RepositoryManager $repositoryManager;
 
     public function __construct(
         Hydrator $hydrator,

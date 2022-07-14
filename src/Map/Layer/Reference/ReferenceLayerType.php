@@ -21,11 +21,9 @@ final class ReferenceLayerType implements LayerType, LayerTypeRegistryAware
 {
     use MapLayerType;
 
-    /** @var LayerTypeRegistry|null */
-    private $layerTypes = null;
+    private ?LayerTypeRegistry $layerTypes = null;
 
-    /** @var LayerRepository */
-    private $layerRepository;
+    private LayerRepository $layerRepository;
 
     public function __construct(LayerRepository $layerRepository)
     {

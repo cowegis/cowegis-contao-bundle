@@ -8,20 +8,18 @@ use Cowegis\Core\Filter\Rule;
 
 final class ApplyFilterRuleEvent
 {
-    /** @var string */
-    private $modelClass;
+    private string $modelClass;
 
-    /** @var Rule */
-    private $rule;
+    private Rule $rule;
 
     /** @var string[] */
-    private $columns;
+    private array $columns;
 
     /** @var mixed[] */
-    private $values;
+    private array $values;
 
     /** @var mixed[] */
-    private $options;
+    private array $options;
 
     /**
      * @param string[] $columns

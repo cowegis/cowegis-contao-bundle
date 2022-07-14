@@ -21,8 +21,7 @@ use function round;
 
 final class ImageIconHydrator extends IconTypeHydrator
 {
-    /** @var RepositoryManager */
-    private $repositoryManager;
+    private RepositoryManager $repositoryManager;
 
     public function __construct(RepositoryManager $repositoryManager)
     {

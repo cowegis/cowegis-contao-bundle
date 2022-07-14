@@ -8,8 +8,7 @@ use Contao\CoreBundle\Framework\Adapter;
 
 final class TranslationListener
 {
-    /** @var Adapter */
-    private $systemAdapter;
+    private Adapter $systemAdapter;
 
     public function __construct(Adapter $systemAdapter)
     {

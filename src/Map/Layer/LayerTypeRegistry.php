@@ -13,7 +13,7 @@ use function sprintf;
 final class LayerTypeRegistry implements IteratorAggregate
 {
     /** @var array<string, LayerType> */
-    private $layerTypes = [];
+    private array $layerTypes = [];
 
     /** @param LayerType[] $layerTypes */
     public function __construct(iterable $layerTypes = [])

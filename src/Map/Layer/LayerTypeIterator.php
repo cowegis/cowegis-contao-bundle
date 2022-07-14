@@ -12,10 +12,9 @@ use function count;
 final class LayerTypeIterator implements Countable, Iterator
 {
     /** @var LayerType[] */
-    private $layerTypes;
+    private array $layerTypes;
 
-    /** @var int */
-    private $position;
+    private int $position;
 
     public function __construct(LayerType ...$layerTypes)
     {

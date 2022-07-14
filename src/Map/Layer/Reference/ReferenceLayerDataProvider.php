@@ -16,11 +16,9 @@ use function assert;
 
 final class ReferenceLayerDataProvider implements LayerDataProvider
 {
-    /** @var LayerRepository */
-    private $layerRepository;
+    private LayerRepository $layerRepository;
 
-    /** @var ContainerInterface */
-    private $layerDataProviders;
+    private ContainerInterface $layerDataProviders;
 
     public function __construct(LayerRepository $layerRepository, ContainerInterface $layerDataProviders)
     {

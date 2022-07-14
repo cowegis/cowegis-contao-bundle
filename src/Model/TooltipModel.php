@@ -10,5 +10,6 @@ namespace Cowegis\Bundle\Contao\Model;
 final class TooltipModel extends Model
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $strTable = 'tl_cowegis_tooltip';
 }

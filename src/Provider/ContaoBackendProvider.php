@@ -27,23 +27,17 @@ use function sprintf;
 
 final class ContaoBackendProvider implements Provider
 {
-    /** @var MapRepository */
-    private $mapRepository;
+    private MapRepository $mapRepository;
 
-    /** @var MapLayerRepository */
-    private $mapLayerRepository;
+    private MapLayerRepository $mapLayerRepository;
 
-    /** @var Hydrator */
-    private $hydrator;
+    private Hydrator $hydrator;
 
-    /** @var ContaoFramework */
-    private $framework;
+    private ContaoFramework $framework;
 
-    /** @var ContainerInterface */
-    private $layerDataProviders;
+    private ContainerInterface $layerDataProviders;
 
-    /** @var IdFormat */
-    private $idFormat;
+    private IdFormat $idFormat;
 
     public function __construct(
         ContaoFramework $framework,
