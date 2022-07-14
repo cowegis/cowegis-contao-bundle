@@ -12,11 +12,13 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 use function in_array;
 
+/** @extends ContaoRepository<MarkerModel> */
 final class MarkerRepository extends ContaoRepository
 {
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
+    /** @psalm-param class-string<MarkerModel> $modelClass */
     public function __construct(string $modelClass, EventDispatcherInterface $eventDispatcher)
     {
         parent::__construct($modelClass);

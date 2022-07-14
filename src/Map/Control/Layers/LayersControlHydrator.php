@@ -12,7 +12,6 @@ use Cowegis\Core\Definition\Expression\InlineExpression;
 use Cowegis\Core\Definition\Layer\LayerId;
 use Cowegis\Core\Provider\Context;
 use Doctrine\DBAL\Connection;
-use PDO;
 
 use function assert;
 
@@ -34,16 +33,16 @@ final class LayersControlHydrator extends ControlTypeHydrator
         $this->connection = $connection;
     }
 
-    public function hydrate(object $controlModel, object $control, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context): void
     {
-        assert($controlModel instanceof ControlModel);
-        assert($control instanceof LayersControl);
+        assert($data instanceof ControlModel);
+        assert($definition instanceof LayersControl);
 
-        parent::hydrate($controlModel, $control, $context);
+        parent::hydrate($data, $definition, $context);
 
-        $this->hydrateLayers($controlModel, $control);
-        $this->hydrateSortingFunction($controlModel, $control, $context);
-        $this->hydrateNameFunction($controlModel, $control, $context);
+        $this->hydrateLayers($data, $definition);
+        $this->hydrateSortingFunction($data, $definition, $context);
+        $this->hydrateNameFunction($data, $definition, $context);
     }
 
     protected function supportedType(): string
@@ -53,13 +52,12 @@ final class LayersControlHydrator extends ControlTypeHydrator
 
     private function hydrateLayers(ControlModel $controlModel, LayersControl $control): void
     {
-        $statement = $this->connection->prepare(
-            'SELECT * FROM tl_cowegis_control_layer WHERE cid=:controlId ORDER BY sorting'
+        $result = $this->connection->executeQuery(
+            'SELECT * FROM tl_cowegis_control_layer WHERE cid=:controlId ORDER BY sorting',
+            ['controlId' => $controlModel->id()]
         );
-        $statement->bindValue('controlId', $controlModel->id());
-        $statement->execute();
 
-        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $result->fetchAssociative()) {
             $layerId = LayerId::fromValue(IntegerDefinitionId::fromValue((int) $row['lid']));
 
             if ($row['mode'] === 'overlay') {

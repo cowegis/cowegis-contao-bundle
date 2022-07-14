@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 final class CowegisContaoExtension extends Extension
 {
     /**
-     * @param array<int, array<string,mixed>> $configs
+     * {@inheritDoc}
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
@@ -31,7 +31,9 @@ final class CowegisContaoExtension extends Extension
         $loader->load('services.xml');
         $loader->load('repositories.xml');
 
-        $installed = isset($container->getParameter('kernel.bundles')['CowegisClientBundle']);
+        /** @psalm-var array<string,string> $bundles */
+        $bundles   = $container->getParameter('kernel.bundles');
+        $installed = isset($bundles['CowegisClientBundle']);
         $container->setParameter('cowegis_contao.client_bundle', $installed);
     }
 }

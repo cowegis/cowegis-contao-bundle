@@ -21,14 +21,14 @@ final class ZoomControlHydrator extends ControlTypeHydrator
         'zoomOutTitle',
     ];
 
-    public function hydrate(object $controlModel, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context): void
     {
-        parent::hydrate($controlModel, $definition, $context);
+        parent::hydrate($data, $definition, $context);
 
-        assert($controlModel instanceof ControlModel);
+        assert($data instanceof ControlModel);
         assert($definition instanceof ZoomControl);
 
-        if (! $controlModel->disableDefault) {
+        if (! $data->disableDefault) {
             return;
         }
 

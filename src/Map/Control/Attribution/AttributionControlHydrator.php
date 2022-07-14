@@ -25,19 +25,19 @@ final class AttributionControlHydrator extends ControlTypeHydrator
         return 'attribution';
     }
 
-    public function hydrate(object $controlModel, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context): void
     {
-        parent::hydrate($controlModel, $definition, $context);
+        parent::hydrate($data, $definition, $context);
 
-        assert($controlModel instanceof ControlModel);
+        assert($data instanceof ControlModel);
         assert($definition instanceof AttributionControl);
 
-        $attributions = array_filter(StringUtil::deserialize($controlModel->attributions, true));
+        $attributions = array_filter(StringUtil::deserialize($data->attributions, true));
         foreach ($attributions as $attribution) {
             $definition->addAttribution($attribution);
         }
 
-        if (! $controlModel->disableDefault) {
+        if (! $data->disableDefault) {
             return;
         }
 

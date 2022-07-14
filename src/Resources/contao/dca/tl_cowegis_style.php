@@ -37,19 +37,16 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
         ],
         'global_operations' => [
             'icons'  => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_style']['icons'],
                 'href'       => 'table=tl_cowegis_icon',
                 'icon'       => 'bundles/cowegiscontao/img/icons.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
             ],
             'popups' => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_style']['popups'],
                 'href'       => 'table=tl_cowegis_popup',
                 'icon'       => 'bundles/cowegiscontao/img/popup.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
             ],
             'all'    => [
-                'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'       => 'act=select',
                 'class'      => 'header_edit_all',
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
@@ -57,24 +54,20 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
         ],
         'operations'        => [
             'edit'   => [
-                'label' => &$GLOBALS['TL_LANG']['tl_cowegis_style']['edit'],
                 'href'  => 'act=edit',
                 'icon'  => 'edit.gif',
             ],
             'copy'   => [
-                'label' => &$GLOBALS['TL_LANG']['tl_cowegis_style']['copy'],
                 'href'  => 'act=copy',
                 'icon'  => 'copy.gif',
             ],
             'delete' => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_style']['delete'],
                 'href'       => 'act=delete',
                 'icon'       => 'delete.gif',
-                'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                'attributes' => 'onclick="if(!confirm(\'' . ($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? '')
                     . '\'))return false;Backend.getScrollOffset()"',
             ],
             'toggle' => [
-                'label'           => &$GLOBALS['TL_LANG']['tl_cowegis_style']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
                 'button_callback' => [
@@ -86,7 +79,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
                 ],
             ],
             'show'   => [
-                'label' => &$GLOBALS['TL_LANG']['tl_cowegis_style']['show'],
                 'href'  => 'act=show',
                 'icon'  => 'show.gif',
             ],
@@ -117,14 +109,12 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
         'id'          => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
         'tstamp'      => ['sql' => "int(10) unsigned NOT NULL default '0'"],
         'title'       => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['title'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'alias'       => [
-            'label'         => &$GLOBALS['TL_LANG']['tl_cowegis_style']['alias'],
             'exclude'       => true,
             'inputType'     => 'text',
             'eval'          => [
@@ -144,7 +134,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'           => 'varchar(255) NULL',
         ],
         'type'        => [
-            'label'            => &$GLOBALS['TL_LANG']['tl_cowegis_style']['type'],
             'exclude'          => true,
             'inputType'        => 'select',
             'eval'             => [
@@ -159,7 +148,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'              => "varchar(32) NOT NULL default ''",
         ],
         'stroke'      => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['stroke'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
@@ -167,7 +155,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'       => "char(1) NOT NULL default '1'",
         ],
         'color'       => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['color'],
             'exclude'   => true,
             'inputType' => 'text',
             'wizard'    => [
@@ -181,7 +168,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'       => "varchar(8) NOT NULL default ''",
         ],
         'weight'      => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['weight'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => 5,
@@ -189,7 +175,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'       => "int(4) NOT NULL default '5'",
         ],
         'opacity'     => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['opacity'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '0.5',
@@ -197,14 +182,12 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'       => "varchar(4) NOT NULL default '0.5'",
         ],
         'fill'        => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['fill'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'eval'      => ['tl_class' => 'clr w50', 'submitOnChange' => true],
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'fillColor'   => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['fillColor'],
             'exclude'   => true,
             'inputType' => 'text',
             'wizard'    => [
@@ -218,7 +201,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'       => "varchar(8) NOT NULL default ''",
         ],
         'fillOpacity' => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['fillOpacity'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '0.2',
@@ -226,14 +208,12 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'       => "varchar(4) NOT NULL default '0.2'",
         ],
         'dashArray'   => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['dashArray'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 32, 'tl_class' => 'w50'],
             'sql'       => "varchar(32) NOT NULL default ''",
         ],
         'lineCap'     => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['lineCap'],
             'exclude'   => true,
             'inputType' => 'select',
             'options'   => ['butt', 'round', 'square', 'inherit'],
@@ -247,7 +227,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'       => "varchar(8) NOT NULL default ''",
         ],
         'lineJoin'    => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_style']['lineJoin'],
             'exclude'   => true,
             'inputType' => 'select',
             'options'   => ['miter', 'round', 'bevel', 'inherit'],
@@ -256,7 +235,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'       => "varchar(8) NOT NULL default ''",
         ],
         'active'      => [
-            'label'         => &$GLOBALS['TL_LANG']['tl_cowegis_style']['active'],
             'exclude'       => true,
             'inputType'     => 'checkbox',
             'filter'        => true,

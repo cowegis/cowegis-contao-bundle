@@ -7,8 +7,8 @@ namespace Cowegis\Bundle\Contao\Model\Map;
 use Contao\Model\Collection;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
-use PDO;
 
+/** @extends ContaoRepository<MapLayerModel> */
 final class MapLayerRepository extends ContaoRepository
 {
     /** @var Connection */
@@ -32,8 +32,6 @@ final class MapLayerRepository extends ContaoRepository
     /** @param array<string,mixed> $options */
     public function findChildren(int $layerId, array $options = []): ?Collection
     {
-        $options['sorting'] = $options['sorting'] ?? '.sorting';
-
         $sql = <<<'SQL'
       SELECT ml.id 
         FROM tl_cowegis_map_layer ml 
@@ -44,11 +42,9 @@ final class MapLayerRepository extends ContaoRepository
        ORDER BY l.sorting
 SQL;
 
-        $statement = $this->connection->prepare($sql);
-        $statement->bindValue('pid', $layerId);
-        $statement->execute();
+        $result = $this->connection->executeQuery($sql, ['pid' => $layerId]);
 
-        return $this->findMultipleByIds($statement->fetchAll(PDO::FETCH_COLUMN));
+        return $this->findMultipleByIds($result->fetchFirstColumn(), $options);
     }
 
     /** @param array<string,mixed> $options */

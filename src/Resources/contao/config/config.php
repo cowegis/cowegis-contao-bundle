@@ -35,6 +35,6 @@ array_insert(
 );
 
 // TODO: Move to a listener
-if (TL_MODE === 'BE') {
+if (defined('TL_MODE') && TL_MODE === 'BE') {
     $GLOBALS['TL_CSS'][] = 'bundles/cowegiscontao/css/backend.css|static';
 }

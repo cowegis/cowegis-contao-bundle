@@ -106,11 +106,12 @@ final class ContaoBackendProvider implements Provider
         assert($layerDataProvider instanceof LayerDataProvider);
 
         $paneId     = $mapLayer->pane > 0 ? $this->idFormat->createDefinitionId(PaneId::class, $mapLayer->pane) : null;
-        $dataPaneId = $mapLayer->dataPane > 0 ? $this->idFormat->createDefinitionId(
-            PaneId::class,
-            $mapLayer->dataPane
-        ) : null;
+        $dataPaneId = $mapLayer->dataPane > 0
+            ? $this->idFormat->createDefinitionId(PaneId::class, $mapLayer->dataPane)
+            : null;
 
+        // Psalm does not detect correct type even though the template syntax is correct
+        /** @psalm-suppress ArgumentTypeCoercion */
         $layerContext = new MapLayerContext($context, $mapLayer, $paneId, $dataPaneId);
 
         return $layerDataProvider->findLayerData($mapLayer->layerModel(), $layerContext);

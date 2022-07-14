@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace spec\Cowegis\Bundle\ContaoMaps;
+namespace spec\Cowegis\Bundle\Contao;
 
 use Cowegis\Bundle\Contao\CowegisContaoBundle;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class CowegisContaoMapsBundleSpec extends ObjectBehavior
+final class CowegisContaoBundleSpec extends ObjectBehavior
 {
     public function it_is_initializable(): void
     {

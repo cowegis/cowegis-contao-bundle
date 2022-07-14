@@ -14,6 +14,7 @@ use Contao\Model;
 use Contao\StringUtil;
 use Cowegis\Core\Filter\Filter;
 use Cowegis\Core\Filter\FilterFactory;
+use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,17 +37,12 @@ abstract class MapFragmentAction extends FragmentAction
 
     /** @var ScopeMatcher */
     protected $scopeMatcher;
-    /**
-     * @var FilterFactory
-     */
-    private $filterFactory;
-    /**
-     * @var UriFactoryInterface
-     */
-    private $uriFactory;
 
-    /** @var Filter */
-    private $filter;
+    /** @var FilterFactory */
+    private $filterFactory;
+
+    /** @var UriFactoryInterface */
+    private $uriFactory;
 
     /** @var RepositoryManager */
     private $repositoryManager;
@@ -81,35 +77,29 @@ abstract class MapFragmentAction extends FragmentAction
         return 'cowegis_map';
     }
 
-    /** @param string[]|null $classes */
+    /** {@inheritDoc} */
     protected function renderResponse(
         Request $request,
         Model $model,
         string $templateName,
         string $section,
-        ?array $classes = null
+        array $classes = []
     ): Response {
         if ($this->scopeMatcher->isBackendRequest($request)) {
             return $this->getBackendResponse($model);
         }
 
-        $this->filter = $this->createFilter($request);
-
         return parent::renderResponse($request, $model, $templateName, $section, $classes);
     }
 
     /**
-     * @param string[]|null $classes
-     *
-     * @return array<string, mixed>
+     * {@inheritDoc}
      *
      * @SuppressWarnings(PHPMD.Superglobals)
-     *
-     * phpcs:disable Squiz.NamingConventions.ValidVariableName.NotCamelCaps
      */
-    protected function getTemplateData(Model $model, string $section, ?array $classes = null): array
+    protected function getTemplateData(Model $model, Request $request, string $section, array $classes = []): array
     {
-        $data = parent::getTemplateData($model, $section, $classes);
+        $data = parent::getTemplateData($model, $request, $section, $classes);
 
         $data['mapStyle']     = $this->compileMapStyle($model);
         $data['definitionId'] = $this->getIdentifier($model, $this->getDefaultIdentifier($model));
@@ -119,7 +109,7 @@ abstract class MapFragmentAction extends FragmentAction
             $data['mapUri'] = $this->router->generate(
                 'cowegis_api_map',
                 array_merge(
-                    $this->filter->toQuery()->toArray(),
+                    $this->createFilter($request)->toQuery()->toArray(),
                     ['mapId' => $model->cowegis_map, '_locale' => $GLOBALS['TL_LANGUAGE']]
                 )
             );
@@ -200,7 +190,7 @@ abstract class MapFragmentAction extends FragmentAction
         return $this->filterFactory->createFromUri($uri);
     }
 
-    private function getClientJs(Model $model)
+    private function getClientJs(Model $model): ?string
     {
         switch ($model->cowegis_client) {
             case 'client':
@@ -208,7 +198,8 @@ abstract class MapFragmentAction extends FragmentAction
 
             case 'custom':
                 $repository = $this->repositoryManager->getRepository(FilesModel::class);
-                $model      = $repository->findOneByUuid($model->cowegis_client_custom);
+                assert($repository instanceof ContaoRepository);
+                $model = $repository->findOneByUuid($model->cowegis_client_custom);
 
                 return $model ? $model->path : null;
         }

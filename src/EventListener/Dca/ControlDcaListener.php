@@ -11,7 +11,6 @@ use Cowegis\Bundle\Contao\Model\LayerRepository;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
-use PDO;
 
 use function array_map;
 use function defined;
@@ -28,9 +27,7 @@ final class ControlDcaListener extends AbstractListener
     /** @var LayerRepository */
     private $layerRepository;
 
-    /**
-     * @var Connection
-     */
+    /** @var Connection */
     private $connection;
 
     public function __construct(
@@ -71,16 +68,12 @@ final class ControlDcaListener extends AbstractListener
             return [];
         }
 
-        $statement = $this->connection->prepare(
-            'SELECT layerId from tl_cowegis_map_layer WHERE pid=:mapId AND active=\'1\''
+        $result = $this->connection->executeQuery(
+            'SELECT layerId from tl_cowegis_map_layer WHERE pid=:mapId AND active=\'1\'',
+            ['mapId' => CURRENT_ID]
         );
-        $statement->bindValue('mapId', CURRENT_ID);
-        $statement->execute();
 
-        $collection = $this->layerRepository->findMultipleByIds(
-            $statement->fetchAll(PDO::FETCH_COLUMN),
-            ['order' => 'sorting']
-        );
+        $collection = $this->layerRepository->findMultipleByIds($result->fetchFirstColumn(), ['order' => 'sorting']);
 
         $options = [];
         foreach ($collection ?: [] as $model) {
@@ -102,13 +95,10 @@ final class ControlDcaListener extends AbstractListener
      */
     public function loadLayerRelations($value, DataContainer $dataContainer): array
     {
-        $query     = 'SELECT lid As layer, mode FROM tl_cowegis_control_layer WHERE cid=:cid ORDER BY sorting';
-        $statement = $this->connection->prepare($query);
+        $query  = 'SELECT lid As layer, mode FROM tl_cowegis_control_layer WHERE cid=:cid ORDER BY sorting';
+        $result = $this->connection->executeQuery($query, ['cid' => $dataContainer->id]);
 
-        $statement->bindValue('cid', $dataContainer->id);
-        $statement->execute();
-
-        return $statement->fetchAll();
+        return $result->fetchAllAssociative();
     }
 
     /**
@@ -124,11 +114,9 @@ final class ControlDcaListener extends AbstractListener
         $new       = StringUtil::deserialize($layers, true);
         $values    = [];
         $query     = 'SELECT * FROM tl_cowegis_control_layer WHERE cid=:cid order BY sorting';
-        $statement = $this->connection->prepare($query);
-        $statement->bindValue('cid', $dataContainer->id);
-        $statement->execute();
+        $statement = $this->connection->executeQuery($query, ['cid' => $dataContainer->id]);
 
-        while ($row = $statement->fetch()) {
+        while ($row = $statement->fetchAssociative()) {
             $values[$row['lid']] = $row;
         }
 
@@ -165,14 +153,15 @@ final class ControlDcaListener extends AbstractListener
         }
 
         $ids = array_map(
-            static function ($item) {
-                return $item['id'];
+            /** @param array<string,mixed> $item */
+            static function (array $item): int {
+                return (int) $item['id'];
             },
             $values
         );
 
         if ($ids) {
-            $this->connection->executeUpdate(
+            $this->connection->executeStatement(
                 'DELETE FROM tl_cowegis_control_layer WHERE id IN(?)',
                 [$ids],
                 [Connection::PARAM_INT_ARRAY]

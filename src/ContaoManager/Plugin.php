@@ -17,6 +17,9 @@ use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouteCollection;
 
+use function assert;
+use function is_string;
+
 final class Plugin implements BundlePluginInterface, RoutingPluginInterface
 {
     /**
@@ -50,6 +53,7 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
 
             if ($collection instanceof RouteCollection) {
                 $routePrefix = $kernel->getContainer()->getParameter('cowegis_api.route_prefix');
+                assert(is_string($routePrefix));
                 $collection->addPrefix($routePrefix);
                 $routeCollection->addCollection($collection);
             }

@@ -20,9 +20,7 @@ final class ApplyFilterRuleEvent
     /** @var mixed[] */
     private $values;
 
-    /**
-     * @var mixed[]
-     */
+    /** @var mixed[] */
     private $options;
 
     /**

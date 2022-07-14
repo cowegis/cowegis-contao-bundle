@@ -8,24 +8,29 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Model;
 use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 use Cowegis\Core\Definition\Layer\LayerId;
+use RuntimeException;
 use Throwable;
 
 /**
- * @property bool|int|string $active
- * @property bool|int|string $initialVisible
+ * @property numeric-string|int $pid
+ * @property string             $type
+ * @property string             $pane
+ * @property string             $dataPane
+ * @property bool|int|string    $active
+ * @property bool|int|string    $initialVisible
+ * @property numeric-string|int $layerId
+ * @property bool|int|string    $adjustBounds
  */
 final class MapLayerModel extends Model
 {
     /** @var string */
     protected static $strTable = 'tl_cowegis_map_layer';
 
-    /** @var LayerModel */
-    private $layer;
+    /** @var LayerModel|null */
+    private $layer = null;
 
     /**
-     * @param string|int $key
-     *
-     * @return mixed
+     * {@inheritDoc}
      */
     public function __get($key)
     {
@@ -42,7 +47,9 @@ final class MapLayerModel extends Model
         return $layer->$key;
     }
 
-    /** @param string|int $key */
+    /**
+     * {@inheritDoc}
+     */
     public function __isset($key): bool
     {
         if (parent::__isset($key)) {
@@ -66,7 +73,14 @@ final class MapLayerModel extends Model
     public function layerModel(): LayerModel
     {
         if ($this->layer === null) {
-            $this->layer = $this->getRelated('layerId');
+            $layer = $this->getRelated('layerId');
+
+            /** @psalm-suppress RedundantConditionGivenDocblockType */
+            if (! $layer instanceof LayerModel) {
+                throw new RuntimeException('No associated layer model found');
+            }
+
+            $this->layer = $layer;
         }
 
         return $this->layer;

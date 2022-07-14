@@ -6,5 +6,5 @@ namespace Cowegis\Bundle\Contao\Map\Layer;
 
 interface LayerTypeRegistryAware
 {
-    public function setRegistry(LayerTypeRegistry $layerTypeRegistry): void;
+    public function setRegistry(LayerTypeRegistry $layerTypes): void;
 }

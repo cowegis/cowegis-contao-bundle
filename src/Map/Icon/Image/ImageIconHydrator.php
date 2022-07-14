@@ -13,10 +13,10 @@ use Cowegis\Core\Definition\Icon\Icon;
 use Cowegis\Core\Definition\Icon\ImageIcon;
 use Cowegis\Core\Definition\Options;
 use Cowegis\Core\Definition\Point;
+use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 
-use function dump;
-use function explode;
+use function assert;
 use function round;
 
 final class ImageIconHydrator extends IconTypeHydrator
@@ -62,9 +62,11 @@ final class ImageIconHydrator extends IconTypeHydrator
         }
 
         $file = $this->hydrateImage($options, 'icon', $iconModel->iconImage, $iconModel);
-        if ($file && !$options->has('popupAnchor')) {
-            $options->set('popupAnchor', new Point(0, -$options->get('iconSize')->y()));
+        if (! $file || $options->has('popupAnchor')) {
+            return;
         }
+
+        $options->set('popupAnchor', new Point(0, -$options->get('iconSize')->y()));
     }
 
     protected function hydrateImage(Options $options, string $key, ?string $uuid, IconModel $iconModel): ?File
@@ -106,6 +108,7 @@ final class ImageIconHydrator extends IconTypeHydrator
         }
 
         $repository = $this->repositoryManager->getRepository(FilesModel::class);
+        assert($repository instanceof ContaoRepository);
 
         return $repository->findByUuid($uuid);
     }

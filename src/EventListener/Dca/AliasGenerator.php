@@ -9,6 +9,8 @@ use Contao\DataContainer;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 
+use function is_object;
+
 final class AliasGenerator
 {
     /** @var SlugGeneratorInterface */
@@ -26,7 +28,7 @@ final class AliasGenerator
     /** @param mixed $value */
     public function __invoke($value, DataContainer $dataContainer): string
     {
-        if ($value) {
+        if ($value || ! $dataContainer->activeRecord) {
             return $value;
         }
 
@@ -54,6 +56,10 @@ final class AliasGenerator
             ->setParameter('id', $recordId)
             ->execute();
 
-        return $statement->fetchColumn() > 0;
+        if (! is_object($statement)) {
+            return false;
+        }
+
+        return $statement->fetchOne() > 0;
     }
 }

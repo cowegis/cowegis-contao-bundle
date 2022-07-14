@@ -35,7 +35,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
         ],
         'global_operations' => [
             'all' => [
-                'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'       => 'act=select',
                 'class'      => 'header_edit_all',
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
@@ -43,24 +42,20 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
         ],
         'operations'        => [
             'edit'   => [
-                'label' => &$GLOBALS['TL_LANG']['tl_cowegis_control']['edit'],
                 'href'  => 'act=edit',
                 'icon'  => 'header.gif',
             ],
             'copy'   => [
-                'label' => &$GLOBALS['TL_LANG']['tl_cowegis_control']['copy'],
                 'href'  => 'act=copy',
                 'icon'  => 'copy.gif',
             ],
             'delete' => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_control']['delete'],
                 'href'       => 'act=delete',
                 'icon'       => 'delete.gif',
-                'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                'attributes' => 'onclick="if(!confirm(\'' . ($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? '')
                     . '\'))return false;Backend.getScrollOffset()"',
             ],
             'toggle' => [
-                'label'           => &$GLOBALS['TL_LANG']['tl_cowegis_control']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
                 'button_callback' => [
@@ -72,7 +67,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
                 ],
             ],
             'show'   => [
-                'label' => &$GLOBALS['TL_LANG']['tl_cowegis_control']['show'],
                 'href'  => 'act=show',
                 'icon'  => 'show.gif',
             ],
@@ -124,7 +118,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sorting' => true,
         ],
         'title'                 => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['title'],
             'exclude'   => true,
             'inputType' => 'text',
             'sorting'   => true,
@@ -134,7 +127,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'alias'                 => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['alias'],
             'exclude'   => true,
             'inputType' => 'text',
             'search'    => true,
@@ -148,7 +140,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sql'       => 'varchar(255) NULL',
         ],
         'type'                  => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['type'],
             'exclude'   => true,
             'inputType' => 'select',
             'filter'    => true,
@@ -165,7 +156,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sql'       => "varchar(32) NOT NULL default ''",
         ],
         'position'              => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['position'],
             'exclude'   => true,
             'inputType' => 'select',
             'filter'    => true,
@@ -182,7 +172,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sql'       => 'varchar(255) default NULL',
         ],
         'active'                => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['active'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'filter'    => true,
@@ -193,35 +182,30 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
 //            ],
         ],
         'zoomInText'            => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['zoomInText'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'nullIfEmpty' => true],
             'sql'       => 'varchar(255) default NULL',
         ],
         'zoomOutText'           => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['zoomInText'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'nullIfEmpty' => true],
             'sql'       => 'varchar(255) default NULL',
         ],
         'zoomInTitle'           => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['zoomInTitle'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'nullIfEmpty' => true],
             'sql'       => 'varchar(255) default NULL',
         ],
         'zoomOutTitle'          => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['zoomOutTitle'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'nullIfEmpty' => true],
             'sql'       => 'varchar(255) default NULL',
         ],
         'collapsed'             => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['collapsed'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => '1',
@@ -229,7 +213,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'autoZIndex'            => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['autoZIndex'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => '1',
@@ -237,7 +220,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'layers'                => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['layers'],
             'exclude'   => true,
             'inputType' => 'multiColumnWizard',
             'eval'      => [
@@ -245,7 +227,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
                 'style'        => 'max-width: 800px',
                 'columnFields' => [
                     'layer' => [
-                        'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['layer'],
                         'exclude'   => true,
                         'inputType' => 'select',
 //                        'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.control', 'getLayers'],
@@ -271,7 +252,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sql'       => 'mediumblob NULL',
         ],
         'maxWidth'              => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['maxWidth'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => 100,
@@ -279,7 +259,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sql'       => "int(5) NOT NULL default '100'",
         ],
         'metric'                => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['metric'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => '1',
@@ -287,7 +266,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sql'       => "char(1) NOT NULL default '1'",
         ],
         'imperial'              => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['imperial'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => '1',
@@ -295,7 +273,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'sql'       => "char(1) NOT NULL default '1'",
         ],
         'updateWhenIdle'        => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_control']['updateWhenIdle'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'eval'      => ['tl_class' => 'w50'],

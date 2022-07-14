@@ -15,13 +15,14 @@ use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Definition\Map\MapId;
 use Cowegis\Core\Exception\LayerNotFound;
+use RuntimeException;
 
 final class ReferenceLayerType implements LayerType, LayerTypeRegistryAware
 {
     use MapLayerType;
 
-    /** @var LayerTypeRegistry */
-    private $layerTypes;
+    /** @var LayerTypeRegistry|null */
+    private $layerTypes = null;
 
     /** @var LayerRepository */
     private $layerRepository;
@@ -43,8 +44,12 @@ final class ReferenceLayerType implements LayerType, LayerTypeRegistryAware
 
     public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
     {
+        if ($this->layerTypes === null) {
+            throw new RuntimeException('Layer registry has to be set.');
+        }
+
         $referenceModel = $this->layerRepository->find((int) $layerModel->reference);
-        if ($referenceModel === null) {
+        if (! $referenceModel instanceof LayerModel) {
             throw LayerNotFound::withLayerId(
                 $layerModel->layerId(),
                 MapId::fromValue(IntegerDefinitionId::fromValue((int) $mapLayerModel->pid))

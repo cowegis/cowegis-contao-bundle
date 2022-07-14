@@ -28,7 +28,7 @@ class GroupLayerHydrator extends LayerTypeHydrator
     {
         assert($layer instanceof LayerGroup);
 
-        $children = $this->repository->findChildren($layerModel->layerId()->value()) ?: [];
+        $children = $this->repository->findChildren((int) $layerModel->layerId()->value()) ?: [];
         foreach ($children as $child) {
             assert($child instanceof MapLayerModel);
             $layer->layers()->addLayer($child->layerId());

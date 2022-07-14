@@ -6,6 +6,7 @@ namespace Cowegis\Bundle\Contao\Model;
 
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 
+/** @extends ContaoRepository<TooltipModel> */
 final class TooltipRepository extends ContaoRepository
 {
     public function __construct()

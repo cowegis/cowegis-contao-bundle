@@ -47,23 +47,26 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         $this->hydrator       = $hydrator;
     }
 
-    public function hydrate(object $markerModel, object $definition, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context): void
     {
-        assert($markerModel instanceof MarkerModel);
+        assert($data instanceof MarkerModel);
         assert($definition instanceof Marker);
 
-        parent::hydrate($markerModel, $definition, $context);
+        parent::hydrate($data, $definition, $context);
 
-        $definition->changeTitle($markerModel->title);
+        $definition->changeTitle($data->title);
 
-        $this->hydrateIcon($markerModel, $definition, $context);
-        $this->hydratePopup($markerModel, $definition, $context);
-        $this->hydrateTooltip($markerModel, $definition, $context);
+        if ($context instanceof MarkerContext) {
+            $this->hydrateIcon($data, $definition, $context);
+        }
 
-        if ($markerModel->featureData) {
-            $data = json_decode($markerModel->featureData, true);
-            if (is_array($data)) {
-                $definition->properties()->merge($data);
+        $this->hydratePopup($data, $definition, $context);
+        $this->hydrateTooltip($data, $definition, $context);
+
+        if ($data->featureData) {
+            $featureData = json_decode($data->featureData, true);
+            if (is_array($featureData)) {
+                $definition->properties()->merge($featureData);
             }
         }
 
@@ -97,11 +100,12 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         if ($context instanceof MarkerContext) {
             $presetId = $context->popupPresetId();
         }
+
         if ($markerModel->popup > 0) {
             $presetId = PopupPresetId::fromValue(IntegerDefinitionId::fromValue((int) $markerModel->popup));
         }
 
-        $definition->openPopup(new Popup($markerModel->popupContent, $presetId));
+        $definition->openPopup(new Popup((string) $markerModel->popupContent, $presetId));
     }
 
     private function hydrateTooltip(MarkerModel $markerModel, Marker $definition, Context $context): void
@@ -114,11 +118,12 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         if ($context instanceof MarkerContext) {
             $presetId = $context->tooltipPresetId();
         }
+
         if ($markerModel->tooltipPreset > 0) {
             $presetId = TooltipPresetId::fromValue(IntegerDefinitionId::fromValue((int) $markerModel->tooltipPreset));
         }
 
-        $toolTip = new Tooltip($markerModel->tooltipContent, null, $presetId);
+        $toolTip = new Tooltip((string) $markerModel->tooltipContent, null, $presetId);
 
         $definition->showTooltip($toolTip);
     }

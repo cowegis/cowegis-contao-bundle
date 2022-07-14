@@ -40,6 +40,7 @@ abstract class ConfigurableOptionsHydrator implements Hydrator
 
         $options = $this->determineOptions($definition);
 
+        // phpcs:disable SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants.DisallowedLateStaticBindingForConstant
         $this->hydrateOptions($data, $options, static::OPTIONS);
         $this->hydrateConditionalOptions($data, $options, static::CONDITIONAL_OPTIONS);
         $this->hydratePointOptions($data, $options, static::POINT_OPTIONS);

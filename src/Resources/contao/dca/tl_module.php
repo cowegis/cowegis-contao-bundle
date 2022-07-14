@@ -10,9 +10,8 @@ $GLOBALS['TL_DCA']['tl_module']['metapalettes']['cowegis_map'] = [
     'expert'    => [':hide', 'guests', 'cssID', 'space'],
     'invisible' => [':hide', 'invisible', 'start', 'start'],
 ];
-$GLOBALS['TL_DCA']['tl_module']['metasubselectpalettes']['cowegis_client']['custom'] = [
-    'cowegis_client_custom',
-];
+
+$GLOBALS['TL_DCA']['tl_module']['metasubselectpalettes']['cowegis_client']['custom'] = ['cowegis_client_custom'];
 
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_map'] = [
@@ -40,7 +39,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_mapId'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_width'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_module']['cowegis_width'],
     'inputType' => 'inputUnit',
     'options'   => $GLOBALS['TL_CSS_UNITS'],
     'search'    => false,
@@ -51,7 +49,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_width'] = [
 
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_height'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_module']['cowegis_height'],
     'inputType' => 'inputUnit',
     'options'   => $GLOBALS['TL_CSS_UNITS'],
     'search'    => false,
@@ -61,7 +58,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_height'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_client'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_module']['cowegis_client'],
     'inputType' => 'select',
     'exclude'   => true,
     'eval'      => [
@@ -74,11 +70,9 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_client'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_client_custom'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_module']['cowegis_client_custom'],
     'inputType' => 'fileTree',
     'search'    => false,
     'exclude'   => true,
     'eval'      => ['filesOnly' => true, 'tl_class' => 'clr long', 'mandatory' => true, 'extensions' => 'js'],
-    'sql'       => "binary(16) NULL",
+    'sql'       => 'binary(16) NULL',
 ];
-

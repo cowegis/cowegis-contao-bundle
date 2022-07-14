@@ -7,7 +7,15 @@ namespace Cowegis\Bundle\Contao\Model\Map;
 use Cowegis\Bundle\Contao\Model\Model;
 
 /**
- * @property mixed|null panes
+ * @property string                $type
+ * @property string                $title
+ * @property mixed|null            $panes
+ * @property string|int|float|null $zoom
+ * @property string                $center
+ * @property string|list<string>   $assets
+ * @property string|list<string>   $assetsOrder
+ * @property string|list<string>   $defaultAssets
+ * @property string|int|bool       $locate
  */
 final class MapModel extends Model
 {

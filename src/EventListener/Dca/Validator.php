@@ -21,7 +21,7 @@ final class Validator
     /**
      * Translator.
      *
-     * @var Translator;
+     * @var Translator
      */
     private $translator;
 

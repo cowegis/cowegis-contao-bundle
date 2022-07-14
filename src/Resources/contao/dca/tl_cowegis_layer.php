@@ -41,7 +41,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
                 'showOnSelect' => true,
             ],
             'all'         => [
-                'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'       => 'act=select',
                 'class'      => 'header_edit_all',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
@@ -206,7 +205,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
         'sorting'                        => ['sql' => "int(10) unsigned NOT NULL default '0'"],
         'tstamp'                         => ['sql' => "int(10) unsigned NOT NULL default '0'"],
         'title'                          => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['title'],
             'exclude'   => true,
             'inputType' => 'text',
             'search'    => true,
@@ -214,7 +212,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'alias'                          => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['alias'],
             'exclude'   => true,
             'inputType' => 'text',
             'search'    => true,
@@ -239,7 +236,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'varchar(255) NULL',
         ],
         'type'                           => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['type'],
             'exclude'   => true,
             'inputType' => 'select',
             'filter'    => true,
@@ -256,7 +252,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "varchar(32) NOT NULL default ''",
         ],
         'deferred'                       => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['deferred'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
@@ -264,7 +259,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default '1'",
         ],
         'groupType'                      => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['groupType'],
             'exclude'   => true,
             'inputType' => 'select',
             'eval'      => [
@@ -279,7 +273,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "varchar(32) NOT NULL default ''",
         ],
         'reference'                      => [
-            'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['reference'],
             'exclude'    => true,
             'inputType'  => 'select',
 //            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'getLayers'],
@@ -293,7 +286,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'        => "int(10) unsigned NOT NULL default '0'",
         ],
         'standalone'                     => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['standalone'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
@@ -301,7 +293,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'onEachFeature'                  => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['onEachFeature'],
             'exclude'   => true,
             'inputType' => 'textarea',
             'eval'      => [
@@ -314,7 +305,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'mediumtext NULL',
         ],
         'pointToLayer'                   => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['pointToLayer'],
             'exclude'   => true,
             'inputType' => 'textarea',
             'eval'      => [
@@ -327,7 +317,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'mediumtext NULL',
         ],
         'showCoverageOnHover'            => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['showCoverageOnHover'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
@@ -335,7 +324,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default '1'",
         ],
         'zoomToBoundsOnClick'            => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['zoomToBoundsOnClick'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
@@ -343,7 +331,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default '1'",
         ],
         'spiderfyOnMaxZoom'              => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['spiderfyOnMaxZoom'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
@@ -351,7 +338,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default '1'",
         ],
         'removeOutsideVisibleBounds'     => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['removeOutsideVisibleBounds'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
@@ -359,7 +345,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default '1'",
         ],
         'animateAddingMarkers'           => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['animateAddingMarkers'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
@@ -367,7 +352,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'disableClusteringAtZoom'        => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['disableClusteringAtZoom'],
             'exclude'   => true,
             'inputType' => 'select',
 //            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'getZoomLevels'],
@@ -382,7 +366,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'int(4) NULL',
         ],
         'maxClusterRadius'               => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['maxClusterRadius'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => null,
@@ -390,7 +373,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'int(5) NULL',
         ],
         'singleMarkerMode'               => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['singleMarkerMode'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
@@ -398,7 +380,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'polygonOptions'                 => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['polygonOptions'],
             'exclude'   => true,
             'inputType' => 'textarea',
             'eval'      => [
@@ -411,7 +392,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'mediumtext NULL',
         ],
         'spiderfyDistanceMultiplier'     => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['spiderfyDistanceMultiplier'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => null,
@@ -419,7 +399,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'int(5) NULL',
         ],
         'iconCreateFunction'             => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['iconCreateFunction'],
             'exclude'   => true,
             'inputType' => 'textarea',
             'eval'      => [
@@ -432,7 +411,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'mediumtext NULL',
         ],
         'tileUrl'                        => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['tileUrl'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',
@@ -440,7 +418,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'minZoom'                        => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['minZoom'],
             'exclude'   => true,
             'inputType' => 'select',
             'eval'      => [
@@ -453,7 +430,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'int(4) NULL',
         ],
         'maxZoom'                        => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['maxZoom'],
             'exclude'   => true,
             'inputType' => 'select',
             'eval'      => [
@@ -466,7 +442,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'int(4) NULL',
         ],
         'maxNativeZoom'                  => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['maxNativeZoom'],
             'exclude'   => true,
             'inputType' => 'select',
             'eval'      => [
@@ -479,7 +454,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'int(4) NULL',
         ],
         'tileSize'                       => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['tileSize'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => null,
@@ -487,7 +461,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'int(5) NULL',
         ],
         'subdomains'                     => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['subdomains'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',
@@ -495,7 +468,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'varchar(16) default NULL',
         ],
         'errorTileUrl'                   => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['errorTileUrl'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',
@@ -515,7 +487,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'varchar(255) default NULL',
         ],
         'tms'                            => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['tms'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
@@ -523,7 +494,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'noWrap'                         => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['noWrap'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
@@ -531,7 +501,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'zoomOffset'                     => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['zoomOffset'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => null,
@@ -539,7 +508,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'int(5) NULL',
         ],
         'zoomReverse'                    => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['zoomReverse'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
@@ -554,7 +522,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "varchar(4) NOT NULL default ''",
         ],
         'zIndex'                         => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['zIndex'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => null,
@@ -562,7 +529,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'int(5) NULL',
         ],
         'unloadvisibleTiles'             => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['unloadvisibleTiles'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
@@ -570,7 +536,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'updateWhenIdle'                 => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['updateWhenIdle'],
             'exclude'   => true,
             'inputType' => 'select',
             'options'   => ['0', '1'],
@@ -579,7 +544,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'char(5) default NULL',
         ],
         'detectRetina'                   => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['detectRetina'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
@@ -587,7 +551,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'bounds'                         => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['bounds'],
             'exclude'   => true,
             'inputType' => 'leaflet_geocode',
             'eval'      => [
@@ -600,7 +563,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'mediumblob NULL',
         ],
         'cache'                          => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['cache'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
@@ -608,7 +570,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'cacheLifeTime'                  => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['cacheLifeTime'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => 0,
@@ -616,7 +577,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "int(10) unsigned NOT NULL default '0'",
         ],
         'overpassQuery'                  => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['overpassQuery'],
             'exclude'   => true,
             'inputType' => 'textarea',
             'eval'      => [
@@ -629,7 +589,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'mediumtext NULL',
         ],
         'overpassEndpoint'               => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['overpassEndpoint'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => null,
@@ -637,7 +596,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'varchar(255) NULL default NULL',
         ],
         'overpassCallback'               => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['overpassCallback'],
             'exclude'   => true,
             'inputType' => 'textarea',
             'eval'      => [
@@ -650,7 +608,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'mediumtext NULL',
         ],
         'minZoomIndicatorPosition'       => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['minZoomIndicatorPosition'],
             'exclude'   => true,
             'inputType' => 'select',
             'options'   => ['topleft', 'topright', 'bottomleft', 'bottomright'],
@@ -659,7 +616,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'minZoomIndicatorMessage'        => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['minZoomIndicatorMessage'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',
@@ -667,7 +623,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'minZoomIndicatorMessageNoLayer' => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['minZoomIndicatorMessageNoLayer'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',
@@ -675,7 +630,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'debug'                          => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['debug'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
@@ -683,7 +637,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'amenityIcons'                   => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['amenityIcons'],
             'exclude'   => true,
             'inputType' => 'multiColumnWizard',
             'eval'      => [
@@ -691,7 +644,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
                 'style'        => 'max-width: 800px',
                 'columnFields' => [
                     'amenity' => [
-                        'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['amenity'],
                         'exclude'   => true,
                         'inputType' => 'select',
                         'eval'      => [
@@ -716,7 +668,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'blob NULL',
         ],
         'overpassPopup'                  => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['overpassPopup'],
             'exclude'   => true,
             'inputType' => 'textarea',
             'eval'      => [
@@ -729,7 +680,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => 'mediumtext NULL',
         ],
         'fileFormat'                     => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['fileFormat'],
             'exclude'   => true,
             'inputType' => 'select',
             'filter'    => true,
@@ -746,7 +696,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'sql'       => "varchar(32) NOT NULL default ''",
         ],
         'file'                           => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['file'],
             'exclude'   => true,
             'inputType' => 'fileTree',
             'eval'      => [

@@ -15,25 +15,23 @@ final class MapLayerContext extends ContextDecorator
     private $dataPaneId;
 
     /** @var PaneId|null */
-    private $pane;
+    private $paneId;
 
-    /**
-     * @var MapLayerModel
-     */
+    /** @var MapLayerModel */
     private $mapLayerModel;
 
-    public function __construct(Context $context, MapLayerModel $mapLayerModel, ?PaneId $pane, ?PaneId $dataPaneId)
+    public function __construct(Context $context, MapLayerModel $mapLayerModel, ?PaneId $paneId, ?PaneId $dataPaneId)
     {
         parent::__construct($context);
 
-        $this->pane          = $pane;
+        $this->paneId        = $paneId;
         $this->dataPaneId    = $dataPaneId;
         $this->mapLayerModel = $mapLayerModel;
     }
 
     public function paneId(): ?PaneId
     {
-        return $this->pane;
+        return $this->paneId;
     }
 
     public function dataPaneId(): ?PaneId

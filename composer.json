@@ -1,73 +1,80 @@
 {
-    "name": "cowegis/cowegis-contao-bundle",
-    "type": "contao-bundle",
-    "description": "Cowegis Maps Contao Integration",
-    "license": "LGPL-3.0-or-later",
-    "authors": [
-        {
-            "name": "David Molineus",
-            "email": "david.molineus@netzmacht.de"
-        }
-    ],
-    "require": {
-        "php": "^7.2",
-        "ext-json": "*",
-        "ext-pdo": "*",
-        "ausi/slug-generator": "^1.1",
-        "beberlei/assert": "^3.2",
-        "contao-community-alliance/meta-palettes": "^2.0",
-        "contao/core-bundle": "^4.9",
-        "cowegis/cowegis-api-bundle": "^1.0@dev",
-        "cowegis/cowegis-contao-geocode-widget-bundle": "^1.0@dev",
-        "cowegis/cowegis-core": "^1.0@dev",
-        "cowegis/cowegis-geojson": "^1.0@dev",
-        "doctrine/dbal": "^2.10",
-        "goldspecdigital/oooas": "^2.8",
-        "menatwork/contao-multicolumnwizard-bundle": "^3.4",
-        "netzmacht/contao-toolkit": "^3.3.3",
-        "psr/container": "^1.0",
-        "psr/event-dispatcher": "^1.0",
-        "psr/http-factory": "^1.0.1",
-        "symfony/config": "^4.4",
-        "symfony/dependency-injection": "^4.4",
-        "symfony/http-foundation": "^4.4",
-        "symfony/http-kernel": "^4.4",
-        "symfony/routing": "^4.4",
-        "symfony/translation-contracts": "^1.1.6 || ^2",
-        "twig/twig": "^2.7"
+  "name": "cowegis/cowegis-contao-bundle",
+  "description": "Cowegis Maps Contao Integration",
+  "license": "LGPL-3.0-or-later",
+  "type": "contao-bundle",
+  "authors": [
+    {
+      "name": "David Molineus",
+      "email": "david.molineus@netzmacht.de"
+    }
+  ],
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "ausi/slug-generator": "^1.1",
+    "beberlei/assert": "^3.2",
+    "contao-community-alliance/meta-palettes": "^2.0",
+    "contao/core-bundle": "^4.9",
+    "cowegis/cowegis-api-bundle": "^1.0@dev",
+    "cowegis/cowegis-contao-geocode-widget-bundle": "^1.0@dev",
+    "cowegis/cowegis-core": "^1.0@dev",
+    "cowegis/cowegis-geojson": "^1.0@dev",
+    "doctrine/dbal": "^2.11 || ^3.0",
+    "goldspecdigital/oooas": "^2.8",
+    "menatwork/contao-multicolumnwizard-bundle": "^3.5",
+    "netzmacht/contao-toolkit": "^3.8",
+    "psr/container": "^1.0",
+    "psr/event-dispatcher": "^1.0",
+    "psr/http-factory": "^1.0.1",
+    "symfony/config": "^4.4",
+    "symfony/dependency-injection": "^4.4 || ^5.4",
+    "symfony/http-foundation": "^4.4 || ^5.4",
+    "symfony/http-kernel": "^4.4 || ^5.4",
+    "symfony/routing": "^4.4 || ^5.4",
+    "symfony/translation-contracts": "^1.1.6 || ^2",
+    "twig/twig": "^2.7 || ^3.0"
+  },
+  "require-dev": {
+    "contao/manager-plugin": "~2.0",
+    "doctrine/coding-standard": "^8.0",
+    "hofff/contao-consent-bridge": "^1.0",
+    "phpcq/runner-bootstrap": "^1.0@dev",
+    "phpspec/phpspec": "^6.1 || ^7.0"
+  },
+  "conflict": {
+    "hofff/contao-consent-bridge": "<1.0 || >= 2.0"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://token:ANU5iWbJuovTQ5j4Mre31crK5Dx36OscQ33uB7tzHtcDvTO55bAkRl8M8P0Mvp9r@packages.netzmacht.de/r/"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Cowegis\\Bundle\\Contao\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "spec\\Cowegis\\Bundle\\Contao\\": "spec/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "contao-components/installer": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "contao/manager-plugin": true
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
     },
-    "conflict": {
-        "hofff/contao-consent-bridge": "<1.0 || >= 2.0"
-    },
-    "require-dev": {
-        "contao/manager-plugin": "~2.0",
-        "doctrine/coding-standard": "^8.0",
-        "hofff/contao-consent-bridge": "^1.0",
-        "phpcq/runner-bootstrap": "^1.0@dev",
-        "phpspec/phpspec": "^6.1"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev"
-        },
-        "contao-manager-plugin": "Cowegis\\Bundle\\Contao\\ContaoManager\\Plugin"
-    },
-    "autoload": {
-        "psr-4": {
-            "Cowegis\\Bundle\\Contao\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "spec\\Cowegis\\Bundle\\Contao\\": "spec/"
-        }
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://token:ANU5iWbJuovTQ5j4Mre31crK5Dx36OscQ33uB7tzHtcDvTO55bAkRl8M8P0Mvp9r@packages.netzmacht.de/r/"
-        }
-    ],
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "contao-manager-plugin": "Cowegis\\Bundle\\Contao\\ContaoManager\\Plugin"
+  }
 }

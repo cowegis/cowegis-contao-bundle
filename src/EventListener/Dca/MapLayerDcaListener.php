@@ -17,6 +17,8 @@ use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 
+use function assert;
+use function is_string;
 use function iterator_to_array;
 
 final class MapLayerDcaListener extends AbstractListener
@@ -27,22 +29,16 @@ final class MapLayerDcaListener extends AbstractListener
     /** @var MapPaneRepository */
     private $paneRepository;
 
-    /**
-     * @var FilterFactory
-     */
+    /** @var FilterFactory */
     private $filterFactory;
 
-    /**
-     * @var LayerTypeRegistry
-     */
+    /** @var LayerTypeRegistry */
     private $layerTypes;
-    /**
-     * @var LayerRepository
-     */
+
+    /** @var LayerRepository */
     private $layerRepository;
-    /**
-     * @var MapLayerRepository
-     */
+
+    /** @var MapLayerRepository */
     private $mapLayerRepository;
 
     public function __construct(
@@ -89,15 +85,22 @@ final class MapLayerDcaListener extends AbstractListener
     }
 
     /** @param array<string,mixed> $row */
-    public function rowLabel(array $row): string
+    public function rowLabel(array $row, DataContainer $dataContainer): string
     {
-        return $this->getFormatter()->formatValue('layerId', $row['layerId']);
+        $formatted = $this->getFormatter()->formatValue('layerId', $row['layerId'], $dataContainer);
+        assert(is_string($formatted) || $formatted === null);
+
+        return (string) $formatted;
     }
 
     public function layerFieldLabel(DataContainer $dataContainer): string
     {
+        if (! $dataContainer->activeRecord) {
+            return (string) $dataContainer->id;
+        }
+
         $layerModel = $this->layerRepository->find((int) $dataContainer->activeRecord->layerId);
-        $label      = $this->rowLabel($dataContainer->activeRecord->row());
+        $label      = $this->rowLabel($dataContainer->activeRecord->row(), $dataContainer);
         $layerType  = null;
 
         if ($layerModel && $this->layerTypes->has($layerModel->type)) {
@@ -108,7 +111,7 @@ final class MapLayerDcaListener extends AbstractListener
         $template = new BackendTemplate('be_cowegis_map_layer_label');
         $template->setData(
             [
-                'row' => $dataContainer->activeRecord,
+                'row'   => $dataContainer->activeRecord,
                 'label' => $label,
                 'type'  => $layerType,
             ]
@@ -117,7 +120,7 @@ final class MapLayerDcaListener extends AbstractListener
         return $template->parse();
     }
 
-    /** @return array<string,string> */
+    /** @return array<string, array<string, string>|string> */
     public function paneOptions(DataContainer $dataContainer): array
     {
         if ($dataContainer->activeRecord) {

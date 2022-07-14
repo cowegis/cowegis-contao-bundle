@@ -7,6 +7,7 @@ namespace Cowegis\Bundle\Contao\Map\Icon;
 use Cowegis\Bundle\Contao\Hydrator\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\IconModel;
 use Cowegis\Bundle\Contao\Model\MarkerModel;
+use Cowegis\Core\Definition\Definition;
 use Cowegis\Core\Definition\Icon\Icon;
 use Cowegis\Core\Provider\Context;
 
@@ -60,5 +61,6 @@ abstract class IconTypeHydrator extends ConfigurableOptionsHydrator
 
     abstract protected function supportedType(): string;
 
+    /** @return class-string<Definition> */
     abstract protected function supportedDefinition(): string;
 }

@@ -7,7 +7,10 @@ namespace Cowegis\Bundle\Contao\Model\Map;
 use Cowegis\Bundle\Contao\Model\Model;
 
 /**
- * @property string $name
+ * @property string                  $type
+ * @property string                  $name
+ * @property numeric-string|int|null $zIndex
+ * @property string                  $pointerEvents
  */
 final class MapPaneModel extends Model
 {

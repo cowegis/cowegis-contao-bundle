@@ -31,7 +31,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
         ],
         'global_operations' => [
             'all' => [
-                'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'       => 'act=select',
                 'class'      => 'header_edit_all',
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
@@ -39,43 +38,35 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
         ],
         'operations'        => [
             'edit'     => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_map']['edit'],
                 'href'       => 'act=edit',
                 'icon'       => 'header.gif',
                 'attributes' => 'accesskey="e"',
             ],
             'layers'   => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_map']['layers'],
                 'href'       => 'table=tl_cowegis_layer',
                 'icon'       => 'bundles/cowegiscontao/img/layers.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="l"',
             ],
             'controls' => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_map']['controls'],
                 'href'       => 'table=tl_cowegis_control',
                 'icon'       => 'bundles/cowegiscontao/img/control.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="c"',
             ],
             'panes'    => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_map']['panes'],
                 'href'       => 'table=tl_cowegis_map_pane',
                 'icon'       => 'bundles/cowegiscontao/img/panes.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="p"',
             ],
             'copy'     => [
-                'label' => &$GLOBALS['TL_LANG']['tl_cowegis_map']['copy'],
                 'href'  => 'act=copy',
                 'icon'  => 'copy.gif',
             ],
             'delete'   => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_map']['delete'],
-                'href'       => 'act=delete',
                 'icon'       => 'delete.gif',
-                'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                'attributes' => 'onclick="if(!confirm(\'' . ($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? '')
                     . '\'))return false;Backend.getScrollOffset()"',
             ],
             'show'     => [
-                'label' => &$GLOBALS['TL_LANG']['tl_cowegis_map']['show'],
                 'href'  => 'act=show',
                 'icon'  => 'show.gif',
             ],

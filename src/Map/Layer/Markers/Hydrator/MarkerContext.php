@@ -22,6 +22,8 @@ final class MarkerContext extends ContextDecorator
     /** @var TooltipPresetId|null */
     private $tooltipPresetId;
 
+    private MapLayerContext $inner;
+
     public function __construct(
         MapLayerContext $inner,
         ?IconId $iconPresetId,
@@ -33,6 +35,7 @@ final class MarkerContext extends ContextDecorator
         $this->iconId          = $iconPresetId;
         $this->popupPresetId   = $popupPresetId;
         $this->tooltipPresetId = $tooltipPresetId;
+        $this->inner           = $inner;
     }
 
     public function iconId(): ?IconId
@@ -52,11 +55,11 @@ final class MarkerContext extends ContextDecorator
 
     public function paneId(): ?PaneId
     {
-        return $this->inner()->paneId();
+        return $this->inner->paneId();
     }
 
     public function dataPaneId(): ?PaneId
     {
-        return $this->inner()->dataPaneId();
+        return $this->inner->dataPaneId();
     }
 }

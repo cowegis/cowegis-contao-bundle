@@ -8,13 +8,24 @@ use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 use Cowegis\Core\Definition\Layer\LayerId;
 
 /**
- * @property string            $type
- * @property string            $alias
- * @property string            $tileUrl
- * @property string|null       $pointToLayer
- * @property string|null       $onEachFeature
- * @property string|null       $overpassPopup
- * @property string|array|null $amenityIcons
+ * @property string|array|null       $amenityIcons
+ * @property string                  $alias
+ * @property numeric-string|int|bool $deferred
+ * @property string|list<string>     $filterRules
+ * @property string                  $file
+ * @property string                  $fileFormat
+ * @property string                  $groupType
+ * @property numeric-string|int      $icon
+ * @property string|null             $iconCreateFunction
+ * @property string|null             $onEachFeature
+ * @property string|null             $overpassPopup
+ * @property string|null             $pointToLayer
+ * @property string|null             $popup
+ * @property numeric-string|int      $reference
+ * @property string                  $title
+ * @property string                  $tileUrl
+ * @property string|null             $tooltip
+ * @property string                  $type
  */
 class LayerModel extends Model
 {

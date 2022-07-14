@@ -25,27 +25,27 @@ final class LoadingControlHydrator extends ControlTypeHydrator
         'spinjs',
     ];
 
-    public function hydrate(object $controlModel, object $control, Context $context): void
+    public function hydrate(object $data, object $definition, Context $context): void
     {
-        parent::hydrate($controlModel, $control, $context);
+        parent::hydrate($data, $definition, $context);
 
-        assert($controlModel instanceof ControlModel);
-        assert($control instanceof LoadingControl);
+        assert($data instanceof ControlModel);
+        assert($definition instanceof LoadingControl);
 
-        if ($controlModel->spinjs && $controlModel->spin) {
-            $config = json_decode($controlModel->spin, true);
+        if ($data->spinjs && $data->spin) {
+            $config = json_decode($data->spin, true);
             if (is_array($config) && count($config) > 0) {
-                $control->options()->set('spin', $config);
+                $definition->options()->set('spin', $config);
             }
         }
 
-        if (! $controlModel->zoomControl) {
+        if (! $data->zoomControl) {
             return;
         }
 
-        $control->options()->set(
+        $definition->options()->set(
             'zoomControl',
-            ControlId::fromValue(IntegerDefinitionId::fromValue((int) $controlModel->zoomControl))
+            ControlId::fromValue(IntegerDefinitionId::fromValue((int) $data->zoomControl))
         );
     }
 

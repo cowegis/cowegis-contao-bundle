@@ -7,14 +7,13 @@ namespace Cowegis\Bundle\Contao\EventListener\Dca;
 use Contao\Backend;
 use Contao\BackendTemplate;
 use Contao\Input;
-use Contao\RequestToken;
 use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
-use PDO;
+use Netzmacht\Contao\Toolkit\Security\Csrf\CsrfTokenProvider;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -32,24 +31,28 @@ final class MapLayerSelectionDcaListener extends AbstractListener
 
     /** @var TranslatorInterface */
     private $translator;
-    /**
-     * @var MapRepository
-     */
+
+    /** @var MapRepository */
     private $mapRepository;
+
+    /** @var CsrfTokenProvider */
+    private $csrfTokenProvider;
 
     public function __construct(
         Manager $dcaManager,
         MapRepository $mapRepository,
         Connection $connection,
         RouterInterface $router,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        CsrfTokenProvider $csrfTokenProvider
     ) {
         parent::__construct($dcaManager);
 
-        $this->connection    = $connection;
-        $this->router        = $router;
-        $this->translator    = $translator;
-        $this->mapRepository = $mapRepository;
+        $this->connection        = $connection;
+        $this->router            = $router;
+        $this->translator        = $translator;
+        $this->mapRepository     = $mapRepository;
+        $this->csrfTokenProvider = $csrfTokenProvider;
     }
 
     public function initializeMapView(): void
@@ -102,28 +105,29 @@ final class MapLayerSelectionDcaListener extends AbstractListener
     /** @param array<string,mixed> $row */
     public function mapIntegrationButtons(array $row): string
     {
-        $statement = $this->connection->prepare(
-            'SELECT * FROM tl_cowegis_map_layer WHERE pid=:mapId AND layerId=:layerId LIMIT 0,1'
+        $result = $this->connection->executeQuery(
+            'SELECT * FROM tl_cowegis_map_layer WHERE pid=:mapId AND layerId=:layerId LIMIT 0,1',
+            [
+                'mapId'   => Input::get('id'),
+                'layerId' => $row['id'],
+            ]
         );
-        $statement->bindValue('mapId', Input::get('id'));
-        $statement->bindValue('layerId', $row['id']);
-        $statement->execute();
 
-        $layer    = $statement->fetch(PDO::FETCH_ASSOC);
+        $layer    = $result->fetchAssociative();
         $template = new BackendTemplate('be_cowegis_map_layer_actions');
         $template->setData(
             [
-                'exists'                => $statement->rowCount() > 0,
+                'exists'                => $result->rowCount() > 0,
                 'active'                => $layer['active'] ?? false,
                 'action'                => $this->router->generate(
                     'cowegis_contao_backend_map_layer_actions',
                     [
                         'mapId'   => Input::get('id'),
                         'layerId' => $row['id'],
-                    ]
+                    ],
                 ),
-                'editUrl'               => $statement->rowCount()
-                    ? Backend::addToUrl('table=tl_cowegis_map_layer&amp;act=edit&amp;id=' . $layer['id'])
+                'editUrl'               => $result->rowCount() > 0
+                    ? Backend::addToUrl('table=tl_cowegis_map_layer&amp;act=edit&amp;id=' . ($layer['id'] ?? ''))
                     : null,
                 'editLabel'             => $this->translate('tl_cowegis_map_layer.edit.0'),
                 'editTitle'             => $this->translate('tl_cowegis_map_layer.edit.1'),
@@ -134,7 +138,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
                 'disableTitle'          => $this->translate('tl_cowegis_map_layer.disable.1'),
                 'toggleVisibilityLabel' => $this->translate('tl_cowegis_map_layer.toggleVisibility.0'),
                 'toggleVisibilityTitle' => $this->translate('tl_cowegis_map_layer.toggleVisibility.1'),
-                'requestToken'          => RequestToken::get(),
+                'requestToken'          => $this->csrfTokenProvider->getTokenValue(),
             ]
         );
 

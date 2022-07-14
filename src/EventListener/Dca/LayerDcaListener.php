@@ -10,7 +10,6 @@ use Contao\DataContainer;
 use Contao\Image;
 use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Map\Layer\DataLayerType;
-use Cowegis\Bundle\Contao\Map\Layer\LayerType;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry;
 use Cowegis\Bundle\Contao\Map\Layer\NodeLayerType;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
@@ -18,8 +17,10 @@ use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function array_keys;
+use function assert;
 use function implode;
 use function is_array;
+use function is_string;
 use function sprintf;
 use function strip_tags;
 
@@ -40,7 +41,7 @@ final class LayerDcaListener extends AbstractListener
     /**
      * File formats.
      *
-     * @var string[]
+     * @var array<string,list<string>>
      */
     private $fileFormats;
 
@@ -48,8 +49,8 @@ final class LayerDcaListener extends AbstractListener
     private $amenities;
 
     /**
-     * @param string[] $fileFormats
-     * @param string[] $amenities
+     * @param array<string,list<string>> $fileFormats
+     * @param string[]                   $amenities
      */
     public function __construct(
         Manager $dcaManager,
@@ -89,6 +90,7 @@ final class LayerDcaListener extends AbstractListener
 
         $activeIcon = $src;
         $alt        = $this->getFormatter()->formatValue('type', $row['type']);
+        assert(is_string($alt));
         $attributes = sprintf(
             'class="list-icon" title="%s" data-icon="%s"',
             StringUtil::specialchars(strip_tags($alt)),
@@ -142,10 +144,6 @@ final class LayerDcaListener extends AbstractListener
         $options = [];
 
         foreach ($this->layerTypes as $layerType) {
-            if (! $layerType instanceof LayerType) {
-                continue;
-            }
-
             $options[] = $layerType->name();
         }
 
@@ -226,11 +224,11 @@ final class LayerDcaListener extends AbstractListener
     /**
      * Get the paste buttons depending on the layer type.
      *
-     * @param DataContainer        $dataContainer The dataContainer driver.
-     * @param array<string,mixed>  $row           The data row.
-     * @param string               $table         The table name.
-     * @param mixed                $whatever      Who knows what the purpose of this var is.
-     * @param array<string,string> $children      The child content.
+     * @param DataContainer       $dataContainer The dataContainer driver.
+     * @param array<string,mixed> $row           The data row.
+     * @param string              $table         The table name.
+     * @param mixed               $whatever      Who knows what the purpose of this var is.
+     * @param array<string,mixed> $children      The child content.
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */

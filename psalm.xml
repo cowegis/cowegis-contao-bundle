@@ -1,25 +1,50 @@
 <?xml version="1.0"?>
 <psalm
-        totallyTyped="true"
-        errorLevel="1"
+        errorLevel="3"
         resolveFromConfigFile="true"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="https://getpsalm.org/schema/config"
-        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+        xsi:schemaLocation="https://getpsalm.org/schema/config https://getpsalm.org/schema/config"
 >
     <projectFiles>
         <directory name="src" />
         <ignoreFiles>
             <directory name="vendor"/>
             <directory name="src/Resources/contao/languages"/>
+            <directory name="src/Resources/contao/dca"/>
         </ignoreFiles>
     </projectFiles>
-    
+
     <issueHandlers>
         <InvalidCatch>
             <errorLevel type="suppress">
                 <referencedClass name="Psr\Container\NotFoundExceptionInterface"/>
             </errorLevel>
         </InvalidCatch>
+
+        <InternalMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Contao\CoreBundle\Framework\ContaoFramework::createInstance"/>
+                <referencedMethod name="Contao\CoreBundle\Framework\ContaoFramework::initialize"/>
+                <referencedMethod name="Contao\CoreBundle\Framework\Adapter::__call"/>
+            </errorLevel>
+        </InternalMethod>
+
+        <UndefinedFunction>
+            <errorLevel type="suppress">
+                <referencedFunction name="array_insert"/>
+            </errorLevel>
+        </UndefinedFunction>
+
+        <UndefinedDocblockClass>
+            <errorLevel type="suppress">
+                <referencedClass name="UnitEnum"/>
+            </errorLevel>
+        </UndefinedDocblockClass>
     </issueHandlers>
+
+    <universalObjectCrates>
+        <class name="Contao\Model"/>
+        <class name="Contao\Database\Result"/>
+    </universalObjectCrates>
 </psalm>

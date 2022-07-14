@@ -11,7 +11,10 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
 use Cowegis\Core\Definition\Layer\DataLayer;
 use Cowegis\Core\Definition\Layer\Layer;
+use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
+
+use function assert;
 
 final class FileLayerType implements LayerType
 {
@@ -41,7 +44,8 @@ final class FileLayerType implements LayerType
     public function label(string $label, array $row): string
     {
         $repository = $this->repositoryManager->getRepository(FilesModel::class);
-        $file       = $repository->findByUuid($row['file']);
+        assert($repository instanceof ContaoRepository);
+        $file = $repository->findByUuid($row['file']);
 
         if ($file) {
             $label .= ' <span class="tl_gray">(' . $file->path . ')</span>';

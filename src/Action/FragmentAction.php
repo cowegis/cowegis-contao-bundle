@@ -20,9 +20,7 @@ use function is_array;
 
 abstract class FragmentAction implements FragmentOptionsAwareInterface
 {
-    /**
-     * @var array<string, mixed>
-     */
+    /** @var array<string, mixed> */
     protected $options = [];
 
     /** @var ContaoFramework */
@@ -33,14 +31,14 @@ abstract class FragmentAction implements FragmentOptionsAwareInterface
         $this->contaoFramework = $contaoFramework;
     }
 
-    /** @param array<string,mixed> $options */
+    /** {@inheritDoc} */
     public function setFragmentOptions(array $options): void
     {
         $this->options = $options;
     }
 
     /**
-     * @param string[]|null $classes
+     * {@inheritDoc}
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
@@ -60,22 +58,24 @@ abstract class FragmentAction implements FragmentOptionsAwareInterface
         array_unshift($classes, $templateName);
         $template = $this->contaoFramework->createInstance(FrontendTemplate::class, [$templateName]);
         assert($template instanceof FrontendTemplate);
-        $template->setData($this->getTemplateData($model, $section, $classes));
+        $template->setData($this->getTemplateData($model, $request, $section, $classes));
 
         return $template->getResponse();
     }
 
     /**
-     * @param string[]|null $classes
+     * @param array<array-key, mixed> $classes
      *
      * @return array<string, mixed>
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    protected function getTemplateData(Model $model, string $section, array $classes = []): array
+    protected function getTemplateData(Model $model, Request $request, string $section, array $classes = []): array
     {
         return array_merge(
             $model->row(),
             ['inColumn' => $section],
-            $this->compileCssAttributes($model->cssID, $classes ?? []),
+            $this->compileCssAttributes($model->cssID, $classes),
             $this->compileHeadline($model->headline)
         );
     }

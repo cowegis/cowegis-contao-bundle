@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Hydrator;
 
 use Contao\FilesModel;
+use Contao\Model\Collection;
 use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry;
 use Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry;
@@ -13,7 +14,6 @@ use Cowegis\Bundle\Contao\Model\ControlModel;
 use Cowegis\Bundle\Contao\Model\ControlRepository;
 use Cowegis\Bundle\Contao\Model\IconModel;
 use Cowegis\Bundle\Contao\Model\IconRepository;
-use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerRepository;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
@@ -34,6 +34,7 @@ use Cowegis\Core\Definition\Preset\PopupPresetId;
 use Cowegis\Core\Definition\Preset\TooltipPreset;
 use Cowegis\Core\Definition\Preset\TooltipPresetId;
 use Cowegis\Core\Provider\Context;
+use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 
 use function array_map;
@@ -130,7 +131,6 @@ final class MapHydrator implements Hydrator
         foreach ($collection as $mapLayerModel) {
             assert($mapLayerModel instanceof MapLayerModel);
             $layerModel = $mapLayerModel->layerModel();
-            assert($layerModel instanceof LayerModel);
             $layerType  = $this->layerTypes->get($layerModel->type);
             $definition = $layerType->createDefinition($layerModel, $mapLayerModel);
             $paneId     = $mapLayerModel->pane > 0 ? PaneId::fromValue(
@@ -202,7 +202,11 @@ final class MapHydrator implements Hydrator
     {
         $repository = $this->repositoryManager->getRepository(TooltipModel::class);
         assert($repository instanceof TooltipRepository);
-        $collection = $repository->findAll() ?: [];
+        $collection = $repository->findAll();
+
+        if (! $collection instanceof Collection) {
+            return;
+        }
 
         foreach ($collection as $model) {
             assert($model instanceof TooltipModel);
@@ -230,7 +234,6 @@ final class MapHydrator implements Hydrator
             $context->assets()->add(Asset::STYLESHEET('bundles/cowegisclient/css/cowegis.css'));
         }
 
-//        /** @var Repository $repository */
         $uuids      = StringUtil::deserialize($model->assets, true);
         $order      = StringUtil::deserialize($model->assetsOrder, true);
         $repository = $this->repositoryManager->getRepository(FilesModel::class);
@@ -245,6 +248,7 @@ final class MapHydrator implements Hydrator
             ];
         }
 
+        assert($repository instanceof ContaoRepository);
         $collection = $repository->findMultipleByUuids($uuids, $options) ?: [];
 
         foreach ($collection as $fileModel) {

@@ -6,10 +6,10 @@ namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
 use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
-use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
 
 final class ContentDcaListener extends AbstractListener
 {
+    /** @var string */
     protected static $name = 'tl_content';
 
     /** @var bool */
@@ -24,7 +24,7 @@ final class ContentDcaListener extends AbstractListener
 
     public function onLoad(): void
     {
-        if (!$this->clientAvailable) {
+        if (! $this->clientAvailable) {
             return;
         }
 
@@ -32,6 +32,7 @@ final class ContentDcaListener extends AbstractListener
         $definition->set(['fields', 'cowegis_client', 'default'], 'client');
     }
 
+    /** @return list<string> */
     public function clientOptions(): array
     {
         $options = ['custom'];

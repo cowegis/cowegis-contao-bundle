@@ -11,12 +11,9 @@ $GLOBALS['TL_DCA']['tl_content']['metapalettes']['cowegis_map'] = [
     'invisible' => [':hide', 'invisible', 'start', 'start'],
 ];
 
-$GLOBALS['TL_DCA']['tl_content']['metasubselectpalettes']['cowegis_client']['custom'] = [
-    'cowegis_client_custom',
-];
+$GLOBALS['TL_DCA']['tl_content']['metasubselectpalettes']['cowegis_client']['custom'] = ['cowegis_client_custom'];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_map'] = [
-    'label'      => &$GLOBALS['TL_LANG']['tl_content']['cowegis_map'],
     'inputType'  => 'select',
     'exclude'    => true,
     'eval'       => [
@@ -29,7 +26,6 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_map'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_mapId'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_content']['cowegis_mapId'],
     'inputType' => 'text',
     'exclude'   => true,
     'eval'      => [
@@ -40,7 +36,6 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_mapId'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_width'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_content']['cowegis_width'],
     'inputType' => 'inputUnit',
     'options'   => $GLOBALS['TL_CSS_UNITS'],
     'search'    => false,
@@ -50,7 +45,6 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_width'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_height'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_content']['cowegis_height'],
     'inputType' => 'inputUnit',
     'options'   => $GLOBALS['TL_CSS_UNITS'],
     'search'    => false,
@@ -60,7 +54,6 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_height'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_client'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_content']['cowegis_client'],
     'inputType' => 'select',
     'exclude'   => true,
     'eval'      => [
@@ -73,10 +66,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_client'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['cowegis_client_custom'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_content']['cowegis_client_custom'],
     'inputType' => 'fileTree',
     'search'    => false,
     'exclude'   => true,
     'eval'      => ['filesOnly' => true, 'tl_class' => 'clr long', 'mandatory' => true, 'extensions' => 'js'],
-    'sql'       => "binary(16) NULL",
+    'sql'       => 'binary(16) NULL',
 ];

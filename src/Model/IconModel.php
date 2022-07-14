@@ -8,7 +8,11 @@ use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 use Cowegis\Core\Definition\Icon\IconId;
 
 /**
- * @property string type
+ * @property string      $type
+ * @property string|null $iconImage
+ * @property string|null $iconRetinaImage
+ * @property string|null $shadowImage
+ * @property string|null $shadowRetinaImage
  */
 final class IconModel extends Model
 {

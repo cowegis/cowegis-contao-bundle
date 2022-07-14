@@ -12,6 +12,7 @@ use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -25,9 +26,8 @@ final class MapDcaListener extends AbstractListener
 
     /** @var SessionInterface */
     private $session;
-    /**
-     * @var MapRepository
-     */
+
+    /** @var MapRepository */
     private $mapRepository;
 
     public function __construct(
@@ -72,6 +72,10 @@ final class MapDcaListener extends AbstractListener
         }
 
         if ($mapModel->zoom !== null && $mapModel->zoom !== '') {
+            return;
+        }
+
+        if (! $this->session instanceof Session) {
             return;
         }
 

@@ -6,12 +6,12 @@ namespace Cowegis\Bundle\Contao\Action\Backend;
 
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\Model;
-use Contao\RequestToken;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerRepository;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
+use Netzmacht\Contao\Toolkit\Security\Csrf\CsrfTokenProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +21,9 @@ use Symfony\Component\Routing\RouterInterface;
 use function assert;
 use function time;
 
+/**
+ * @template T of Model
+ */
 final class MapLayerAction
 {
     /** @var ContaoFramework */
@@ -28,19 +31,22 @@ final class MapLayerAction
 
     /** @var RouterInterface */
     private $router;
-    /**
-     * @var RepositoryManager
-     */
+
+    /** @var RepositoryManager */
     private $repositoryManager;
+
+    private CsrfTokenProvider $csrfTokenProvider;
 
     public function __construct(
         ContaoFramework $framework,
         RepositoryManager $repositoryManager,
-        RouterInterface $router
+        RouterInterface $router,
+        CsrfTokenProvider $csrfTokenProvider
     ) {
         $this->framework         = $framework;
         $this->router            = $router;
         $this->repositoryManager = $repositoryManager;
+        $this->csrfTokenProvider = $csrfTokenProvider;
     }
 
     public function __invoke(int $mapId, int $layerId, Request $request): Response
@@ -49,9 +55,10 @@ final class MapLayerAction
 
         // TODO: Guard user have access to the map
 
-        $mapModel = $this->fetchModel(MapModel::class, $mapId);
-        assert($mapModel instanceof MapModel);
+        $mapModel   = $this->fetchModel(MapModel::class, $mapId);
         $layerModel = $this->fetchModel(LayerModel::class, $layerId);
+
+        assert($mapModel instanceof MapModel);
         assert($layerModel instanceof LayerModel);
 
         switch ($request->request->get('action')) {
@@ -75,7 +82,12 @@ final class MapLayerAction
             $this->router->generate(
                 'contao_backend',
                 // TODO: Add ref
-                ['do' => 'cowegis_map', 'table' => 'tl_cowegis_layer', 'id' => $mapId, 'rt' => RequestToken::get()]
+                [
+                    'do'    => 'cowegis_map',
+                    'table' => 'tl_cowegis_layer',
+                    'id'    => $mapId,
+                    'rt'    => $this->csrfTokenProvider->getTokenValue(),
+                ]
             )
         );
     }
@@ -139,6 +151,11 @@ final class MapLayerAction
         );
     }
 
+    /**
+     * @param class-string<T> $modelClass
+     *
+     * @psalm-return T
+     */
     private function fetchModel(string $modelClass, int $modelId): Model
     {
         $repository = $this->repositoryManager->getRepository($modelClass);

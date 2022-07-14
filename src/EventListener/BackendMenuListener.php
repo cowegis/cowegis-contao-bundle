@@ -40,8 +40,12 @@ final class BackendMenuListener
             ->createItem('my-module')
             ->setUri($this->router->generate('cowegis_contao_backend_api_docs'))
             ->setLabel('API docs')
-            ->setLinkAttribute('title', 'Cowegis API docs')
-            ->setCurrent($this->requestStack->getCurrentRequest()->get('_backend_module') === 'cowegis-api-docs');
+            ->setLinkAttribute('title', 'Cowegis API docs');
+
+        $request = $this->requestStack->getCurrentRequest();
+        if ($request) {
+            $node->setCurrent($request->attributes->get('_backend_module') === 'cowegis-api-docs');
+        }
 
         $contentNode->addChild($node);
     }

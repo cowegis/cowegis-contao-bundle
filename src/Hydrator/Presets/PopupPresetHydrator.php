@@ -63,7 +63,8 @@ final class PopupPresetHydrator extends ConfigurableOptionsHydrator
         }
 
         $padding = array_map(
-            static function ($value) {
+            /** return list<int> */
+            static function (string $value): array {
                 return array_map('intval', StringUtil::trimsplit(',', $value));
             },
             StringUtil::deserialize($model->autoPanPadding, true)
@@ -80,6 +81,7 @@ final class PopupPresetHydrator extends ConfigurableOptionsHydrator
         if ($padding[0]) {
             $definition->options()->set('autoPanPaddingTopLeft', Point::fromArray($padding[0]));
         }
+
         if (! $padding[1]) {
             return;
         }

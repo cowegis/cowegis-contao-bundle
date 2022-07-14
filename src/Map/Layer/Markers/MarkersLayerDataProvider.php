@@ -56,7 +56,7 @@ final class MarkersLayerDataProvider implements LayerDataProvider
         foreach ($collection ?: [] as $markerModel) {
             assert($markerModel instanceof MarkerModel);
             $marker = new Marker(
-                MarkerId::fromValue(IntegerDefinitionId::fromValue((int) $markerModel->id())),
+                MarkerId::fromValue(IntegerDefinitionId::fromValue($markerModel->id())),
                 $markerModel->alias ?: 'marker_' . $markerModel->id,
                 new LatLng(
                     (float) $markerModel->latitude,

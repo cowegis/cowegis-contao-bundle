@@ -12,6 +12,7 @@ final class LeafletMigration extends AbstractMigration
     public function shouldRun(): bool
     {
         // TODO: Implement shouldRun() method.
+        return false;
     }
 
     public function run(): MigrationResult
@@ -21,5 +22,7 @@ final class LeafletMigration extends AbstractMigration
         //  - Rename closeOnClick to closePopupOnClick
 
         // Migrate tl_leaflet_layer to tl_cowegis_layer
+
+        return $this->createResult(false, 'Implementation is not implemented yet.');
     }
 }

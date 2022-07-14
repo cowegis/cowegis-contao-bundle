@@ -58,10 +58,10 @@ final class ViewHydrator extends ConfigurableOptionsHydrator
         $value = array_map('intval', explode(',', $model->boundsPadding, 4));
 
         if (count($value) === 4) {
-            $options->set('boundsPaddingTopLeft', new Point((int) $value[0], (int) $value[1]));
-            $options->set('boundsPaddingBottomRight', new Point((int) $value[2], (int) $value[3]));
+            $options->set('boundsPaddingTopLeft', new Point($value[0], $value[1]));
+            $options->set('boundsPaddingBottomRight', new Point($value[2], $value[3]));
         } elseif (count($value) === 2) {
-            $options->set('boundsPadding', new Point((int) $value[0], (int) $value[1]));
+            $options->set('boundsPadding', new Point($value[0], $value[1]));
         }
     }
 }

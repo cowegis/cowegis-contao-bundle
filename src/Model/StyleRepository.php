@@ -6,6 +6,7 @@ namespace Cowegis\Bundle\Contao\Model;
 
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 
+/** @extends ContaoRepository<StyleModel> */
 final class StyleRepository extends ContaoRepository
 {
 }

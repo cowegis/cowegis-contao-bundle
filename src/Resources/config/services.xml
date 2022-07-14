@@ -16,6 +16,7 @@
             <argument type="service" id="contao.framework" />
             <argument type="service" id="netzmacht.contao_toolkit.repository_manager" />
             <argument type="service" id="router" />
+            <argument type="service" id="netzmacht.contao_toolkit.csrf.token_provider"/>
         </service>
 
         <service id="Cowegis\Bundle\Contao\ConsentBridge\Plugin">
