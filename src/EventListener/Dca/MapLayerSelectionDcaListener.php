@@ -11,12 +11,16 @@ use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
 use Doctrine\DBAL\Connection;
+use Netzmacht\Contao\Toolkit\Callback\Invoker;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Security\Csrf\CsrfTokenProvider;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
+use function is_array;
+use function sprintf;
 
 final class MapLayerSelectionDcaListener extends AbstractListener
 {
@@ -34,13 +38,16 @@ final class MapLayerSelectionDcaListener extends AbstractListener
 
     private CsrfTokenProvider $csrfTokenProvider;
 
+    private Invoker $callbackInvoker;
+
     public function __construct(
         Manager $dcaManager,
         MapRepository $mapRepository,
         Connection $connection,
         RouterInterface $router,
         TranslatorInterface $translator,
-        CsrfTokenProvider $csrfTokenProvider
+        CsrfTokenProvider $csrfTokenProvider,
+        Invoker $callbackInvoker
     ) {
         parent::__construct($dcaManager);
 
@@ -49,6 +56,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
         $this->translator        = $translator;
         $this->mapRepository     = $mapRepository;
         $this->csrfTokenProvider = $csrfTokenProvider;
+        $this->callbackInvoker   = $callbackInvoker;
     }
 
     public function initializeMapView(): void
@@ -95,6 +103,50 @@ final class MapLayerSelectionDcaListener extends AbstractListener
                     'button_callback' => [self::class, 'mapIntegrationButtons'],
                 ],
             ]
+        );
+        $definition->set(
+            ['list', 'label', 'origin_label_callback'],
+            $definition->get(['list', 'label', 'label_callback'])
+        );
+        $definition->set(
+            ['list', 'label', 'label_callback'],
+            [self::class, 'rowLabel']
+        );
+    }
+
+    /**
+     * Generate a row.
+     *
+     * @param array<string,mixed> $row   The data row.
+     * @param string              $label Current row label.
+     */
+    public function rowLabel(array $row, string $label): string
+    {
+        $callback = $this->getDefinition()->get(['list', 'label', 'origin_label_callback']);
+        if ($callback !== null) {
+            $label = $this->callbackInvoker->invoke($callback, [$row, $label]);
+        }
+
+        $result = $this->connection->executeQuery(
+            'SELECT * FROM tl_cowegis_map_layer WHERE pid=:mapId AND layerId=:layerId LIMIT 0,1',
+            [
+                'mapId'   => Input::get('id'),
+                'layerId' => $row['id'],
+            ]
+        );
+
+        $exists = false;
+        if ($result->rowCount() > 0) {
+            $result = $result->fetchAssociative();
+            if (is_array($result)) {
+                $exists = (bool) $result['active'];
+            }
+        }
+
+        return sprintf(
+            '<div class="cowegis-map-layer-item cowegis-map-layer-item--%s">%s</div>',
+            $exists ? 'active' : 'inactive',
+            $label
         );
     }
 

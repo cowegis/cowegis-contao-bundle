@@ -47,6 +47,7 @@
             <argument type="service" id="router" />
             <argument type="service" id="translator" />
             <argument type="service" id="netzmacht.contao_toolkit.csrf.token_provider" />
+            <argument type="service" id="netzmacht.contao_toolkit.callback_invoker"/>
             <tag name="contao.callback" table="tl_cowegis_layer" target="config.onload" method="initializeMapView" />
         </service>
 

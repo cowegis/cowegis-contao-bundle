@@ -9,6 +9,18 @@
     background: #f3f3f5;
 }
 
+.cowegis-map-layer-item {
+    display: inline-block;
+}
+
+.cowegis-map-layer-item--inactive {
+    color: #999;
+}
+
+.cowegis-map-layer-item--inactive img {
+    filter: grayscale(1.0) opacity(0.5);
+}
+
 #tl_cowegis_map_layer fieldset.tl_tbox.nolegend {
     padding: 0;
 }
