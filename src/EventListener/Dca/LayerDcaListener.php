@@ -18,6 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function array_keys;
 use function assert;
+use function dump;
 use function implode;
 use function is_array;
 use function is_string;
@@ -253,7 +254,7 @@ final class LayerDcaListener extends AbstractListener
         );
 
         if (
-            $row['type']
+            isset($row['type'])
             && $this->layerTypes->has($row['type'])
             && $this->layerTypes->get($row['type']) instanceof NodeLayerType
         ) {
