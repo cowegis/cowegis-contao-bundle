@@ -5,6 +5,9 @@
 {% block error %}{% endblock %}
 
 {% block main %}
+    <div id="tl_buttons">
+        <a href="{{ backUrl }}" class="header_back" title="" accesskey="b" onclick="Backend.getScrollOffset()">{{ 'MSC.backBT'|trans({}, 'contao_default') }}</a>
+    </div>
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/cowegisapi/swagger/swagger-ui.css') }}" >
     <style>
         html

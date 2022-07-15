@@ -6,24 +6,24 @@ namespace Cowegis\Bundle\Contao\EventListener;
 
 use Contao\CoreBundle\Event\MenuEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\RouterInterface;
 
 final class BackendMenuListener
 {
-    private RouterInterface $router;
-
     private RequestStack $requestStack;
 
-    public function __construct(RouterInterface $router, RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->router       = $router;
         $this->requestStack = $requestStack;
     }
 
     public function onBuild(MenuEvent $event): void
     {
-        $factory = $event->getFactory();
-        $tree    = $event->getTree();
+        $request = $this->requestStack->getCurrentRequest();
+        if ($request === null) {
+            return;
+        }
+
+        $tree = $event->getTree();
 
         if ($tree->getName() !== 'mainMenu') {
             return;
@@ -34,17 +34,15 @@ final class BackendMenuListener
             return;
         }
 
-        $node = $factory
-            ->createItem('my-module')
-            ->setUri($this->router->generate('cowegis_contao_backend_api_docs'))
-            ->setLabel('API docs')
-            ->setLinkAttribute('title', 'Cowegis API docs');
-
-        $request = $this->requestStack->getCurrentRequest();
-        if ($request) {
-            $node->setCurrent($request->attributes->get('_backend_module') === 'cowegis-api-docs');
+        $mapNode = $contentNode->getChild('cowegis_map');
+        if ($mapNode === null) {
+            return;
         }
 
-        $contentNode->addChild($node);
+        if ($request->attributes->get('_backend_module') !== 'cowegis-api-docs') {
+            return;
+        }
+
+        $mapNode->setCurrent(true);
     }
 }

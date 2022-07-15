@@ -8,7 +8,6 @@
         <defaults autowire="false" autoconfigure="false" public="false"/>
 
         <service id="Cowegis\Bundle\Contao\EventListener\BackendMenuListener">
-            <argument type="service" id="router" />
             <argument type="service" id="request_stack" />
             <tag name="kernel.event_listener" event="contao.backend_menu_build" method="onBuild" priority="-255" />
         </service>

@@ -18,6 +18,8 @@ $GLOBALS['TL_LANG']['tl_cowegis_map']['expert_legend']      = 'Expert settings';
 $GLOBALS['TL_LANG']['tl_cowegis_map']['behaviour_legend']   = 'Behaviour';
 $GLOBALS['TL_LANG']['tl_cowegis_map']['assets_legend']      = 'Assets';
 
+$GLOBALS['TL_LANG']['tl_cowegis_map']['api_docs'][0] = 'API documentation';
+$GLOBALS['TL_LANG']['tl_cowegis_map']['api_docs'][1] = 'Shows the API documentation';
 $GLOBALS['TL_LANG']['tl_cowegis_map']['new'][0]      = 'Create map';
 $GLOBALS['TL_LANG']['tl_cowegis_map']['new'][1]      = 'Create new map';
 $GLOBALS['TL_LANG']['tl_cowegis_map']['edit'][0]     = 'Edit map';

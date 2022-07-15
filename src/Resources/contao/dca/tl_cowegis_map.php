@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
     'config' => [
-        'dataContainer'     => 'Table',
-        'enableVersioning'  => true,
-        'ctable'            => ['tl_cowegis_map_layer', 'tl_cowegis_map_pane', 'tl_cowegis_control'],
-        'sql'               => [
+        'dataContainer'    => 'Table',
+        'enableVersioning' => true,
+        'ctable'           => ['tl_cowegis_map_layer', 'tl_cowegis_map_pane', 'tl_cowegis_control'],
+        'sql'              => [
             'keys' => [
                 'id'    => 'primary',
                 'alias' => 'unique',
@@ -30,7 +30,11 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
             'format' => '%s <span class="tl_gray">[%s]</span>',
         ],
         'global_operations' => [
-            'all' => [
+            'api_docs' => [
+                'icon'  => 'bundles/cowegiscontao/img/api_docs.png',
+                'route' => 'cowegis_contao_backend_api_docs',
+            ],
+            'all'      => [
                 'href'       => 'act=select',
                 'class'      => 'header_edit_all',
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
@@ -58,8 +62,8 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="p"',
             ],
             'copy'     => [
-                'href'  => 'act=copy',
-                'icon'  => 'copy.gif',
+                'href' => 'act=copy',
+                'icon' => 'copy.gif',
             ],
             'delete'   => [
                 'icon'       => 'delete.gif',
@@ -67,8 +71,8 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
                     . '\'))return false;Backend.getScrollOffset()"',
             ],
             'show'     => [
-                'href'  => 'act=show',
-                'icon'  => 'show.gif',
+                'href' => 'act=show',
+                'icon' => 'show.gif',
             ],
         ],
     ],
