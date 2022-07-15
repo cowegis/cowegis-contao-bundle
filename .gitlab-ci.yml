@@ -19,8 +19,6 @@ job_test_ci:
     - composer self-update -vvv && composer --version
     - composer install --prefer-dist --no-interaction --no-progress --no-scripts
     - vendor/bin/phpcq self-update --unsigned
-    - apk add --update npm
-    - npm install
   script:
     - vendor/bin/phpcq update -vvv
     - vendor/bin/phpcq run -v -o default -r code-climate -r file-report
