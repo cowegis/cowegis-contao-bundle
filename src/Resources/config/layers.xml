@@ -97,6 +97,16 @@
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 
+        <service id="Cowegis\Core\Schema\Layer\FeatureGroupLayerSchemaDescriber">
+            <argument>featureGroup</argument>
+            <tag name="Cowegis\Core\Schema\LayerSchemaDescriber" />
+        </service>
+
+        <service id="Cowegis\Core\Schema\Layer\LayerGroupLayerSchemaDescriber">
+            <argument>layerGroup</argument>
+            <tag name="Cowegis\Core\Schema\LayerSchemaDescriber" />
+        </service>
+
         <!-- Marker cluster layer -->
         <service id="Cowegis\Bundle\Contao\Map\Layer\MarkerCluster\MarkerClusterGroupType">
             <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
@@ -105,6 +115,11 @@
         <service id="Cowegis\Bundle\Contao\Map\Layer\MarkerCluster\MarkerClusterGroupHydrator">
             <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapLayerRepository" />
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Core\Schema\Layer\MarkerClusterLayerSchemaDescriber">
+            <argument>markerCluster</argument>
+            <tag name="Cowegis\Core\Schema\LayerSchemaDescriber" />
         </service>
 
         <!-- Reference layer -->

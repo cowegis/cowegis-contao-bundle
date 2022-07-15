@@ -10,7 +10,7 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\LayerDataProvider;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Expression\InlineExpression;
-use Cowegis\Core\Definition\GeoJson\UriData;
+use Cowegis\Core\Definition\GeoData\UriData;
 use Cowegis\Core\Definition\Layer\DataLayer;
 use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Provider\LayerData\MarkersLayerData;
@@ -71,7 +71,8 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
                                 '_locale' => $context->locale(),
                             ]
                         )
-                    )
+                    ),
+                    'geojson'
                 )
             );
 

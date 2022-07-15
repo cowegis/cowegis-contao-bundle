@@ -10,7 +10,7 @@ use Cowegis\Bundle\Contao\Map\Layer\LayerTypeHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Expression\InlineExpression;
-use Cowegis\Core\Definition\GeoJson\ExternalData;
+use Cowegis\Core\Definition\GeoData\ExternalData;
 use Cowegis\Core\Definition\Layer\DataLayer;
 use Cowegis\Core\Definition\Layer\Layer;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;

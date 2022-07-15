@@ -18,7 +18,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function array_keys;
 use function assert;
-use function dump;
 use function implode;
 use function is_array;
 use function is_string;

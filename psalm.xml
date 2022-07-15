@@ -47,8 +47,13 @@
                 <referencedProperty name="Contao\ContentModel::$cowegis_map"/>
                 <referencedProperty name="Contao\ModuleModel::$cowegis_map"/>
             </errorLevel>
-
         </UndefinedMagicPropertyFetch>
+
+        <DeprecatedMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Doctrine\DBAL\Query\QueryBuilder::execute"/>
+            </errorLevel>
+        </DeprecatedMethod>
     </issueHandlers>
 
     <universalObjectCrates>
