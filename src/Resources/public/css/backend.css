@@ -11,13 +11,18 @@
 
 .cowegis-map-layer-item {
     display: inline-block;
+    transition: 0.2s color;
 }
 
-.cowegis-map-layer-item--inactive {
+.cowegis-map-layer-item img {
+    transition: 0.2s filter;
+}
+
+.tl_listing li:not(:hover) .cowegis-map-layer-item--inactive {
     color: #999;
 }
 
-.cowegis-map-layer-item--inactive img {
+.tl_listing li:not(:hover) .cowegis-map-layer-item--inactive img {
     filter: grayscale(1.0) opacity(0.5);
 }
 
