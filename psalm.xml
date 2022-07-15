@@ -41,6 +41,14 @@
                 <referencedClass name="UnitEnum"/>
             </errorLevel>
         </UndefinedDocblockClass>
+
+        <UndefinedMagicPropertyFetch>
+            <errorLevel type="suppress">
+                <referencedProperty name="Contao\ContentModel::$cowegis_map"/>
+                <referencedProperty name="Contao\ModuleModel::$cowegis_map"/>
+            </errorLevel>
+
+        </UndefinedMagicPropertyFetch>
     </issueHandlers>
 
     <universalObjectCrates>

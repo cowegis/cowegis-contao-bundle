@@ -5,85 +5,63 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Action;
 
 use Contao\CoreBundle\Framework\Adapter;
-use Contao\CoreBundle\Framework\ContaoFramework;
-use Contao\CoreBundle\Routing\ScopeMatcher;
+use Contao\CoreBundle\Security\Authentication\Token\TokenChecker;
 use Contao\FilesModel;
-use Contao\FrontendTemplate;
-use Contao\Input;
 use Contao\Model;
 use Contao\StringUtil;
 use Cowegis\Core\Filter\Filter;
 use Cowegis\Core\Filter\FilterFactory;
+use Netzmacht\Contao\Toolkit\Controller\Hybrid\AbstractHybridController;
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
+use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
+use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
+use Netzmacht\Contao\Toolkit\View\Template\TemplateRenderer;
 use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function array_merge;
 use function assert;
-use function strtoupper;
 
-abstract class MapFragmentAction extends FragmentAction
+abstract class MapFragmentAction extends AbstractHybridController
 {
-    protected RouterInterface $router;
-
-    protected TranslatorInterface $translator;
-
-    protected ScopeMatcher $scopeMatcher;
-
     private FilterFactory $filterFactory;
 
     private UriFactoryInterface $uriFactory;
 
     private RepositoryManager $repositoryManager;
 
-    /** @var Adapter<Input> */
-    private Adapter $inputAdapter;
-
-    /** @param Adapter<Input> $inputAdapter */
+    /**
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     */
     public function __construct(
-        RouterInterface $router,
         FilterFactory $filterFactory,
         UriFactoryInterface $uriFactory,
-        TranslatorInterface $translator,
-        ScopeMatcher $scopeMatcher,
-        ContaoFramework $contaoFramework,
         RepositoryManager $repositoryManager,
+        TemplateRenderer $templateRenderer,
+        RequestScopeMatcher $scopeMatcher,
+        ResponseTagger $responseTagger,
+        RouterInterface $router,
+        TranslatorInterface $translator,
+        TokenChecker $tokenChecker,
         Adapter $inputAdapter
     ) {
-        parent::__construct($contaoFramework);
+        parent::__construct(
+            $templateRenderer,
+            $scopeMatcher,
+            $responseTagger,
+            $router,
+            $translator,
+            $tokenChecker,
+            $inputAdapter
+        );
 
-        $this->router            = $router;
-        $this->translator        = $translator;
-        $this->scopeMatcher      = $scopeMatcher;
         $this->filterFactory     = $filterFactory;
         $this->uriFactory        = $uriFactory;
         $this->repositoryManager = $repositoryManager;
-        $this->inputAdapter      = $inputAdapter;
-    }
-
-    protected function getType(): string
-    {
-        return 'cowegis_map';
-    }
-
-    /** {@inheritDoc} */
-    protected function renderResponse(
-        Request $request,
-        Model $model,
-        string $templateName,
-        string $section,
-        array $classes = []
-    ): Response {
-        if ($this->scopeMatcher->isBackendRequest($request)) {
-            return $this->getBackendResponse($model);
-        }
-
-        return parent::renderResponse($request, $model, $templateName, $section, $classes);
     }
 
     /**
@@ -91,10 +69,8 @@ abstract class MapFragmentAction extends FragmentAction
      *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected function getTemplateData(Model $model, Request $request, string $section, array $classes = []): array
+    protected function prepareTemplateData(array $data, Request $request, Model $model): array
     {
-        $data = parent::getTemplateData($model, $request, $section, $classes);
-
         $data['mapStyle']     = $this->compileMapStyle($model);
         $data['definitionId'] = $this->getIdentifier($model, $this->getDefaultIdentifier($model));
         $data['clientJs']     = $this->getClientJs($model);
@@ -148,33 +124,14 @@ abstract class MapFragmentAction extends FragmentAction
         return null;
     }
 
-    private function getBackendResponse(Model $module): Response
-    {
-        $href = $this->router->generate(
-            'contao_backend',
-            ['do' => 'themes', 'table' => 'tl_module', 'act' => 'edit', 'id' => $module->id]
-        );
-
-        $name = $this->translator->trans('FMD.' . $this->getType() . '.0', [], 'contao_modules');
-
-        $template = $this->contaoFramework->createInstance(FrontendTemplate::class, ['be_wildcard']);
-        assert($template instanceof FrontendTemplate);
-        $template->setData(
-            [
-                'wildcard' => '### ' . strtoupper($name) . ' ###',
-                'id'       => $module->id,
-                'link'     => $module->name,
-                'href'     => $href,
-            ]
-        );
-
-        return $template->getResponse();
-    }
-
     private function createFilter(Request $request): Filter
     {
         $uri      = $this->uriFactory->createUri($request->getUri());
-        $autoItem = $this->inputAdapter->get('auto_item');
+        $autoItem = null;
+
+        if ($this->inputAdapter) {
+            $autoItem = $this->inputAdapter->get('auto_item');
+        }
 
         if ($autoItem) {
             $query = $uri->getQuery();

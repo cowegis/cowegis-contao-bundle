@@ -8,29 +8,33 @@
         <defaults autowire="false" autoconfigure="false" public="false"/>
 
         <service id="Cowegis\Bundle\Contao\Action\MapContentElementAction">
-            <argument type="service" id="router" />
-            <argument type="service" id="Cowegis\Core\Filter\FilterFactory" />
+            <argument type="service" id="Cowegis\Core\Filter\FilterFactory"/>
             <!-- Todo: Use own uri factory -->
-            <argument type="service" id="psr18.http_client" />
-            <argument type="service" id="translator" />
-            <argument type="service" id="contao.routing.scope_matcher" />
-            <argument type="service" id="contao.framework" />
-            <argument type="service" id="netzmacht.contao_toolkit.repository_manager" />
-            <argument type="service" id="netzmacht.contao_toolkit.contao.input_adapter" />
-            <tag name="contao.content_element" category="includes" type="cowegis_map" />
+            <argument type="service" id="psr18.http_client"/>
+            <argument type="service" id="netzmacht.contao_toolkit.repository_manager"/>
+            <argument type="service" id="netzmacht.contao_toolkit.template_renderer"/>
+            <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher"/>
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
+            <argument type="service" id="router" />
+            <argument type="service" id="translator"/>
+            <argument type="service" id="contao.security.token_checker"/>
+            <argument type="service" id="netzmacht.contao_toolkit.contao.input_adapter"/>
+            <tag name="contao.content_element" category="includes" type="cowegis_map" method="renderAsContentElement"/>
         </service>
 
         <service id="Cowegis\Bundle\Contao\Action\MapModuleAction">
-            <argument type="service" id="router" />
-            <argument type="service" id="Cowegis\Core\Filter\FilterFactory" />
+            <argument type="service" id="Cowegis\Core\Filter\FilterFactory"/>
             <!-- Todo: Use own uri factory -->
-            <argument type="service" id="psr18.http_client" />
-            <argument type="service" id="translator" />
-            <argument type="service" id="contao.routing.scope_matcher" />
-            <argument type="service" id="contao.framework" />
-            <argument type="service" id="netzmacht.contao_toolkit.repository_manager" />
-            <argument type="service" id="netzmacht.contao_toolkit.contao.input_adapter" />
-            <tag name="contao.frontend_module" category="includes" type="cowegis_map" />
+            <argument type="service" id="psr18.http_client"/>
+            <argument type="service" id="netzmacht.contao_toolkit.repository_manager"/>
+            <argument type="service" id="netzmacht.contao_toolkit.template_renderer"/>
+            <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher"/>
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
+            <argument type="service" id="router" />
+            <argument type="service" id="translator"/>
+            <argument type="service" id="contao.security.token_checker"/>
+            <argument type="service" id="netzmacht.contao_toolkit.contao.input_adapter"/>
+            <tag name="contao.frontend_module" category="includes" type="cowegis_map" method="renderAsFrontendModule"/>
         </service>
 
     </services>
