@@ -281,7 +281,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
         'prefix'                => [
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'allowHtml' => true],
             'sql'       => 'varchar(255) default NULL',
         ],
         'attributions'          => [
