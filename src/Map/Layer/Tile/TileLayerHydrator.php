@@ -12,7 +12,8 @@ use Cowegis\Core\Definition\Layer\Layer;
 
 final class TileLayerHydrator extends LayerTypeHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'minZoom',
         'maxZoom',
         'subdomains',

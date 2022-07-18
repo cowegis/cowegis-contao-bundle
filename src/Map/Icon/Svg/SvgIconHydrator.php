@@ -9,14 +9,16 @@ use Cowegis\Core\Definition\Icon\SvgIcon;
 
 final class SvgIconHydrator extends IconTypeHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'backgroundColor' => 'backgroundColor',
         'iconColor'       => 'iconColor',
         'className'       => 'className',
         'html'            => 'content',
     ];
 
-    protected const POINT_OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $pointOptions = [
         'iconSize',
         'iconAnchor',
         'popupAnchor',

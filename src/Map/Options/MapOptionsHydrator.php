@@ -17,7 +17,8 @@ use function json_decode;
 
 final class MapOptionsHydrator extends ConfigurableOptionsHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'zoomControl',
         'dragging',
         'touchZoom',
@@ -32,7 +33,8 @@ final class MapOptionsHydrator extends ConfigurableOptionsHydrator
         'gestureHandling',
     ];
 
-    protected const CONDITIONAL_OPTIONS = [
+    /** @var array<string,array<int|string,string>> */
+    protected static array $conditionalOptions = [
         'adjustZoomExtra' => ['minZoom', 'maxZoom', 'zoomSnap', 'zoomDelta'],
         'keyboard' => ['keyboardPanOffset', 'keyboardZoomOffset'],
     ];

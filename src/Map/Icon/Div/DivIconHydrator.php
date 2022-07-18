@@ -9,12 +9,14 @@ use Cowegis\Core\Definition\Icon\DivIcon;
 
 final class DivIconHydrator extends IconTypeHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'html',
         'className',
     ];
 
-    protected const POINT_OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $pointOptions = [
         'iconSize',
         'iconAnchor',
         'popupAnchor',

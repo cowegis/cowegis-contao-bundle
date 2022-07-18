@@ -11,7 +11,8 @@ use Cowegis\Core\Definition\Icon\Icon;
 
 final class FontAwesomeIconHydrator extends IconTypeHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'bgColor'   => 'backgroundColor',
         'color'     => 'iconColor',
         'className' => 'className',
@@ -19,7 +20,8 @@ final class FontAwesomeIconHydrator extends IconTypeHydrator
         'icon'      => 'icon',
     ];
 
-    protected const POINT_OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $pointOptions = [
         'iconSize',
         'iconAnchor',
         'popupAnchor',

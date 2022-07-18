@@ -18,7 +18,8 @@ use function assert;
 
 final class LayersControlHydrator extends ControlTypeHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'position',
         'collapsed',
         'autoZIndex',

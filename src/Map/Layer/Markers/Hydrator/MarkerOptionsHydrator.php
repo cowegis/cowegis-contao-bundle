@@ -12,7 +12,8 @@ use Cowegis\Core\Provider\Context;
 
 final class MarkerOptionsHydrator extends ConfigurableOptionsHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'interactive',
         'draggable',
         'keyboard',
@@ -21,7 +22,8 @@ final class MarkerOptionsHydrator extends ConfigurableOptionsHydrator
         'riseOnHover',
     ];
 
-    protected const CONDITIONAL_OPTIONS = [
+    /** @var array<string,array<int|string,string>> */
+    protected static array $conditionalOptions = [
         'riseOnHover' => ['riseOffset'],
     ];
 

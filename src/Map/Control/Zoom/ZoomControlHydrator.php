@@ -14,7 +14,8 @@ use function assert;
 
 final class ZoomControlHydrator extends ControlTypeHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'position',
         'zoomInText',
         'zoomInTitle',

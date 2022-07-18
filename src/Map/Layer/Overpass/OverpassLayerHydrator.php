@@ -16,7 +16,8 @@ use Cowegis\Core\Definition\Layer\Layer;
 
 final class OverpassLayerHydrator extends LayerTypeHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'query'    => 'overpassQuery',
         'minZoom'  => 'minZoom',
         'endpoint' => 'overpassEndpoint',

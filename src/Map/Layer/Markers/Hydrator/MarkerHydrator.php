@@ -26,7 +26,8 @@ use function json_decode;
 
 final class MarkerHydrator extends ConfigurableOptionsHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'alt'   => 'alt',
         'title' => 'tooltip',
     ];

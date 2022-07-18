@@ -18,7 +18,8 @@ use function ucfirst;
 
 final class BoundsOptionsHydrator extends ConfigurableOptionsHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'dynamic' => 'dynamicLoad',
         'maxZoom' => 'maxZoom',
     ];

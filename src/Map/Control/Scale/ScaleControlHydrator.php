@@ -8,7 +8,8 @@ use Cowegis\Bundle\Contao\Map\Control\ControlTypeHydrator;
 
 final class ScaleControlHydrator extends ControlTypeHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'position',
         'maxWidth',
         'metric',

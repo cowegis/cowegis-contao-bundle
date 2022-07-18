@@ -19,11 +19,14 @@ use function is_int;
 
 abstract class ConfigurableOptionsHydrator implements Hydrator
 {
-    protected const OPTIONS = [];
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [];
 
-    protected const CONDITIONAL_OPTIONS = [];
+    /** @var array<string,array<int|string,string>> */
+    protected static array $conditionalOptions = [];
 
-    protected const POINT_OPTIONS = [];
+    /** @var list<string>|array<string,string> */
+    protected static array $pointOptions = [];
 
     public function supports(object $data, object $definition): bool
     {
@@ -41,9 +44,9 @@ abstract class ConfigurableOptionsHydrator implements Hydrator
         $options = $this->determineOptions($definition);
 
         // phpcs:disable SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants.DisallowedLateStaticBindingForConstant
-        $this->hydrateOptions($data, $options, static::OPTIONS);
-        $this->hydrateConditionalOptions($data, $options, static::CONDITIONAL_OPTIONS);
-        $this->hydratePointOptions($data, $options, static::POINT_OPTIONS);
+        $this->hydrateOptions($data, $options, static::$options);
+        $this->hydrateConditionalOptions($data, $options, static::$conditionalOptions);
+        $this->hydratePointOptions($data, $options, static::$pointOptions);
     }
 
     /** @param array<int|string,string> $keys */

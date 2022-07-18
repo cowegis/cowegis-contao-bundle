@@ -6,5 +6,6 @@ namespace Cowegis\Bundle\Contao\Map\Layer;
 
 final class LayerObjectOptionsHydrator extends LayerOptionsHydrator
 {
-    protected const OPTIONS = ['attribution'];
+    /** @var list<string>|array<string,string> */
+    protected static array $options = ['attribution'];
 }

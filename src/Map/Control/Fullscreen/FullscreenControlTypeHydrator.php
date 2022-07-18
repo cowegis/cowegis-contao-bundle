@@ -8,7 +8,8 @@ use Cowegis\Bundle\Contao\Map\Control\ControlTypeHydrator;
 
 final class FullscreenControlTypeHydrator extends ControlTypeHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'position'              => 'position',
         'title'                 => 'fullscreenTitle',
         'titleCancel'           => 'fullscreenCancelTitle',

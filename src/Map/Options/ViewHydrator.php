@@ -21,7 +21,8 @@ use function explode;
 
 final class ViewHydrator extends ConfigurableOptionsHydrator
 {
-    protected const OPTIONS = ['maxZoom'];
+    /** @var list<string>|array<string,string> */
+    protected static array $options = ['maxZoom'];
 
     public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
     {

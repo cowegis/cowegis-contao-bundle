@@ -16,7 +16,8 @@ use function assert;
 
 final class AttributionControlHydrator extends ControlTypeHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'position',
         'prefix',
     ];

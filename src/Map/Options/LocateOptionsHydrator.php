@@ -14,7 +14,8 @@ use function assert;
 
 final class LocateOptionsHydrator extends ConfigurableOptionsHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'setView'            => 'locateSetView',
         'watch'              => 'locateWatch',
         'enableHighAccuracy' => 'enableHighAccuracy',

@@ -17,7 +17,8 @@ use function assert;
 
 final class TooltipPresetHydrator extends ConfigurableOptionsHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'attribution',
         'className',
         'pane',

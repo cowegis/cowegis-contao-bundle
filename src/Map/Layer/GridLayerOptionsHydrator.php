@@ -14,7 +14,8 @@ use function assert;
 
 final class GridLayerOptionsHydrator extends LayerOptionsHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'tileSize',
         'opacity',
         'updateWhenIdle',

@@ -20,7 +20,8 @@ use function json_decode;
 
 final class MarkerClusterGroupHydrator extends GroupLayerHydrator
 {
-    protected const OPTIONS = [
+    /** @var list<string>|array<string,string> */
+    protected static array $options = [
         'showCoverageOnHover',
         'zoomToBoundsOnClick',
         'removeOutsideVisibleBounds',
