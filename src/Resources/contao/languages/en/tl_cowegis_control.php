@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+$this->loadLanguageFile('cowegis');
+
 $GLOBALS['TL_LANG']['tl_cowegis_control']['name_legend']   = 'Title and type';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['config_legend'] = 'Configuration';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['active_legend'] = 'Activation';
@@ -90,6 +94,28 @@ $GLOBALS['TL_LANG']['tl_cowegis_control']['sortFunction'][0]          = 'Sort fu
 $GLOBALS['TL_LANG']['tl_cowegis_control']['sortFunction'][1]          = 'A compare function that will be used for sorting the layers. The function receives both the L.Layer instances and their names, as in <em>sortFunction(layerA, layerB, nameA, nameB)</em>.';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['nameFunction'][0]          = 'Name function';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['nameFunction'][1]          = 'Callback to generate the name of the layer.';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['defaultMarkGeocode'][0]    = 'Mark result on map';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['defaultMarkGeocode'][1]    = 'Whether to mark a geocoding result on the map by default';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['errorMessage'][0]          = 'Error message';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['errorMessage'][1]          = 'Message when no result found / geocoding error occurs';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['expand'][0]                = 'Expand';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['expand'][1]                = 'How to expand a collapsed control: touch or click or hover';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['iconLabel'][0]             = 'Icon label';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['iconLabel'][1]             = 'Accessibility label for the search icon used by screen readers';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['placeholder'][0]           = 'Placeholder';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['placeholder'][1]           = 'Placeholder text for text input';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['geocodeQuery'][0]          = 'Query string';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['geocodeQuery'][1]          = 'Initial query string for text input';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['queryMinLength'][0]        = 'Query minimum length';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['queryMinLength'][1]        = 'Minimum number of characters in search text before performing a query';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['showResultIcons'][0]       = 'Show result icons';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['showResultIcons'][1]       = 'Show icons for geocoding results (if available); supported by Nominatim';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['showUniqueResult'][0]      = 'Show unique result';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['showUniqueResult'][1]      = 'Immediately show the unique result without prompting for alternatives';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['suggestMinLength'][0]      = 'Suggest minimum length';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['suggestMinLength'][1]      = 'Minimum number characters before suggest functionality is used (if available from geocoder)';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['suggestTimeout'][0]        = 'Suggest timeout';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['suggestTimeout'][1]        = 'Number of milliseconds after typing stopped before suggest functionality is used (if available from geocoder)';
 
 $GLOBALS['TL_LANG']['tl_cowegis_control']['bottomleft'][0]  = 'Bottom left';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['bottomleft'][1]  = 'Bottom left of the map.';

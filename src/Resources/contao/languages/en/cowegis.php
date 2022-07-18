@@ -20,7 +20,9 @@ $GLOBALS['TL_LANG']['cowegis_control']['scale'][1]       = 'A simple scale contr
 $GLOBALS['TL_LANG']['cowegis_control']['loading'][0]     = 'Loading indicator';
 $GLOBALS['TL_LANG']['cowegis_control']['loading'][1]     = 'Leaflet.loading is a simple loading indicator implemented as control. For more details read the <a href="https://github.com/ebrelsford/Leaflet.loading" target="_blank">Plugin documentation</a>.';
 $GLOBALS['TL_LANG']['cowegis_control']['fullscreen'][0]  = 'Fullscreen control';
-$GLOBALS['TL_LANG']['cowegis_control']['fullscreen'][1]  = 'Add a fullscreen toggle button. For more details read the <a href="https://github.com/brunob/leaflet.fullscreen" target="_blank">Plugin documentation</a>.';
+$GLOBALS['TL_LANG']['cowegis_control']['fullscreen'][1]  = 'Add a fullscreen toggle button. For more details read the <a href="https://github.com/brunob/leaflet.fullscreen" target="_blank">plugin documentation</a>.';
+$GLOBALS['TL_LANG']['cowegis_control']['geocoder'][0]        = 'Geocoder';
+$GLOBALS['TL_LANG']['cowegis_control']['geocoder'][1]        = 'A simple geocoder for Leaflet that by default uses OSM/Nominatim. For more details read the <a href="https://www.liedman.net/leaflet-control-geocoder/docs/" target="_blank">plugin documentation</a>.';
 
 $GLOBALS['TL_LANG']['cowegis_layer']['provider'][0]      = 'Leaflet provider';
 $GLOBALS['TL_LANG']['cowegis_layer']['provider'][1]      = 'Leaflet tile provider. For more details read the <a href="https://github.com/leaflet-extras/leaflet-providers" target="_blank">plugin documentation</a>.';

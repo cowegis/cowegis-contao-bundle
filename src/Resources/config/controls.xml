@@ -86,5 +86,19 @@
             <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
             <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\Control\ZoomControl" />
         </service>
+
+        <!-- Geocoder control -->
+        <service id="Cowegis\Bundle\Contao\Map\Control\Geocoder\GeocoderControlType">
+            <tag name="Cowegis\Bundle\Contao\Map\Control\ControlType" />
+        </service>
+
+        <service id="Cowegis\Core\Serializer\Control\GeocoderControlSerializer">
+            <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\Control\GeocoderControl" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Control\Geocoder\GeocoderControlTypeHydrator">
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
     </services>
 </container>
