@@ -68,7 +68,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
             'delete' => [
                 'href'       => 'act=delete',
                 'icon'       => 'delete.gif',
-                'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                'attributes' => 'onclick="if(!confirm(\'' . ($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? '')
                     . '\'))return false;Backend.getScrollOffset()"',
             ],
             'show'   => [
