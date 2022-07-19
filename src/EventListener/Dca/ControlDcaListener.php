@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
+use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
@@ -28,17 +31,21 @@ final class ControlDcaListener extends AbstractListener
 
     private Connection $connection;
 
+    private ?Geocoder $geocoder;
+
     public function __construct(
         DcaManager $dcaManager,
         ControlTypeRegistry $controlTypes,
         Connection $connection,
-        LayerRepository $layerRepository
+        LayerRepository $layerRepository,
+        ?Geocoder $geocoder
     ) {
         parent::__construct($dcaManager);
 
         $this->controlTypes    = $controlTypes;
         $this->connection      = $connection;
         $this->layerRepository = $layerRepository;
+        $this->geocoder        = $geocoder;
     }
 
     /** @param array<string,mixed> $row */
@@ -167,5 +174,37 @@ final class ControlDcaListener extends AbstractListener
         }
 
         return null;
+    }
+
+    /** @Callback(table="tl_cowegis_control", target="config.onload") */
+    public function initializeGeocoderPalette(): void
+    {
+        if ($this->geocoder === null) {
+            return;
+        }
+
+        PaletteManipulator::create()
+            ->addField('geocoder', 'config_legend', PaletteManipulator::POSITION_PREPEND)
+            ->applyToPalette('geocoder', 'tl_cowegis_control');
+    }
+
+    /**
+     * @return array<string,string>
+     *
+     * @Callback(table="tl_cowegis_control", target="fields.geocoder.options")
+     */
+    public function geocoderOptions(): array
+    {
+        $options = [];
+
+        if ($this->geocoder === null) {
+            return $options;
+        }
+
+        foreach ($this->geocoder as $provider) {
+            $options[$provider->providerId()] = $provider->title();
+        }
+
+        return $options;
     }
 }

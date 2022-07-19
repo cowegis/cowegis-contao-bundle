@@ -417,7 +417,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
-            'eval'      => ['tl_class' => 'w50'],
+            'eval'      => ['tl_class' => 'w50 clr'],
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'showResultIcons'       => [
@@ -493,6 +493,17 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'default'   => 250,
             'eval'      => ['tl_class' => 'w50', 'rgxp' => 'digit', 'maxlength' => 5],
             'sql'       => "int(5) NOT NULL default '250'",
+        ],
+        'geocoder'              => [
+            'exclude'   => true,
+            'inputType' => 'select',
+            'eval'      => [
+                'mandatory'          => false,
+                'tl_class'           => 'w50',
+                'chosen'             => true,
+                'includeBlankOption' => true,
+            ],
+            'sql'       => "varchar(255) NOT NULL default ''",
         ],
     ],
 ];

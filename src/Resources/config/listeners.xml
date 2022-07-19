@@ -99,6 +99,7 @@
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry" />
             <argument type="service" id="database_connection" />
             <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
+            <argument type="service" on-invalid="ignore" id="Cowegis\ContaoGeocoder\Provider\Geocoder"/>
 
             <tag name="contao.callback" table="tl_cowegis_control" target="list.sorting.child_record" method="rowLabel" />
             <tag name="contao.callback" table="tl_cowegis_control" target="fields.type.options" method="typeOptions" />

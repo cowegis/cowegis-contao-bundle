@@ -114,6 +114,8 @@ $GLOBALS['TL_LANG']['tl_cowegis_control']['suggestMinLength'][0]      = 'Suggest
 $GLOBALS['TL_LANG']['tl_cowegis_control']['suggestMinLength'][1]      = 'Minimum number characters before suggest functionality is used (if available from geocoder)';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['suggestTimeout'][0]        = 'Suggest timeout';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['suggestTimeout'][1]        = 'Number of milliseconds after typing stopped before suggest functionality is used (if available from geocoder)';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['geocoder'][0]              = 'Geocoder';
+$GLOBALS['TL_LANG']['tl_cowegis_control']['geocoder'][1]              = 'Use a custom geocoder for this control.';
 
 $GLOBALS['TL_LANG']['tl_cowegis_control']['bottomleft'][0]  = 'Bottom left';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['bottomleft'][1]  = 'Bottom left of the map.';
