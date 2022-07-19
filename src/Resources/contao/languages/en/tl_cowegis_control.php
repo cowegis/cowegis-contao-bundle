@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-$this->loadLanguageFile('cowegis');
-
 $GLOBALS['TL_LANG']['tl_cowegis_control']['name_legend']   = 'Title and type';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['config_legend'] = 'Configuration';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['active_legend'] = 'Activation';

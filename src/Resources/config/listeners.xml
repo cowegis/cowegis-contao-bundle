@@ -150,17 +150,8 @@
             <tag name="contao.callback" table="tl_cowegis_style" target="fields.alias.save" method="validateAlias" />
         </service>
 
-        <service id="Cowegis\Bundle\Contao\EventListener\Dca\TranslationListener" public="true">
-            <argument type="service" id="netzmacht.contao_toolkit.contao.system_adapter" />
-            <tag name="contao.callback" table="tl_cowegis_control" target="config.onload" method="onLoad" />
-            <tag name="contao.callback" table="tl_cowegis_icon" target="config.onload" method="onLoad" />
-            <tag name="contao.callback" table="tl_cowegis_layer" target="config.onload" method="onLoad" />
-            <tag name="contao.callback" table="tl_cowegis_map" target="config.onload" method="onLoad" />
-            <tag name="contao.callback" table="tl_cowegis_map_layer" target="config.onload" method="onLoad" />
-            <tag name="contao.callback" table="tl_cowegis_map_pane" target="config.onload" method="onLoad" />
-            <tag name="contao.callback" table="tl_cowegis_marker" target="config.onload" method="onLoad" />
-            <tag name="contao.callback" table="tl_cowegis_popup" target="config.onload" method="onLoad" />
-            <tag name="contao.callback" table="tl_cowegis_style" target="config.onload" method="onLoad" />
+        <service id="Cowegis\Bundle\Contao\EventListener\Hook\LanguageFileListener">
+            <argument type="service" id="netzmacht.contao_toolkit.contao.system_adapter"/>
         </service>
     </services>
 </container>
