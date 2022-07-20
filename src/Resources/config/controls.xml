@@ -98,8 +98,7 @@
         </service>
 
         <service id="Cowegis\Bundle\Contao\Map\Control\Geocoder\GeocoderControlTypeHydrator">
-            <argument type="service" id="router"/>
-            <argument type="service" on-invalid="ignore" id="Cowegis\ContaoGeocoder\Provider\Geocoder"/>
+            <argument type="service" on-invalid="ignore" id="Cowegis\ContaoGeocoder\Routing\SearchUrlGenerator"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
     </services>

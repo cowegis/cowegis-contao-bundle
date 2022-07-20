@@ -7,7 +7,7 @@ namespace Cowegis\Bundle\Contao\Map\Control\Geocoder;
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Map\Control\ControlTypeHydrator;
 use Cowegis\Bundle\Contao\Model\ControlModel;
-use Cowegis\ContaoGeocoder\Provider\Geocoder;
+use Cowegis\ContaoGeocoder\Routing\SearchUrlGenerator;
 use Cowegis\Core\Definition\Control\GeocoderControl;
 use Cowegis\Core\Provider\Context;
 use Symfony\Component\Routing\RouterInterface;
@@ -33,14 +33,11 @@ final class GeocoderControlTypeHydrator extends ControlTypeHydrator
         'suggestTimeout'     => 'suggestTimeout',
     ];
 
-    private RouterInterface $router;
+    private ?SearchUrlGenerator $searchUrlGenerator;
 
-    private ?Geocoder $geocoder;
-
-    public function __construct(RouterInterface $router, ?Geocoder $geocoder)
+    public function __construct(SearchUrlGenerator $searchUrlGenerator)
     {
-        $this->geocoder = $geocoder;
-        $this->router   = $router;
+        $this->searchUrlGenerator = $searchUrlGenerator;
     }
 
     protected function supportedType(): string
@@ -55,13 +52,11 @@ final class GeocoderControlTypeHydrator extends ControlTypeHydrator
         assert($data instanceof ControlModel);
         assert($definition instanceof GeocoderControl);
 
-        if ($this->geocoder === null || ! $data->geocoder) {
+        if ($this->searchUrlGenerator === null || ! $data->geocoder) {
             return;
         }
 
-        // leaflet-control-geocoder nominatim
-        $serviceUrl = $this->router->generate(
-            'cowegis_geocoder_provider_search',
+        $serviceUrl = $this->searchUrlGenerator->generate(
             ['providerId' => $data->geocoder],
             RouterInterface::ABSOLUTE_URL
         );
