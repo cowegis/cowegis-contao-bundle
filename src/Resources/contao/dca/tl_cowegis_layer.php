@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
     'config' => [
-        'dataContainer'     => 'Table',
-        'enableVersioning'  => true,
-        'ctable'            => [/*'tl_leaflet_vector', */'tl_cowegis_marker'],
+        'dataContainer'    => 'Table',
+        'enableVersioning' => true,
+        'ctable'           => ['tl_cowegis_marker'],
 //        'ondelete_callback' => [
 //            ['netzmacht.contao_leaflet.listeners.dca.layer', 'deleteRelations'],
 //        ],
-        'sql'               => [
+        'sql'              => [
             'keys' => [
                 'id'  => 'primary',
                 'pid' => 'index',
@@ -118,7 +118,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
         ],
         'vectors extends default'       => [
             '+expert' => ['onEachFeature', 'pointToLayer'],
-            '+config' => ['deferred'],
+            '+config' => ['vectors', 'deferred'],
         ],
         'reference extends default'     => [
             '+title' => ['reference', 'standalone'],
@@ -187,7 +187,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
     ],
 
     'metasubselectpalettes' => [
-        'fileFormat'    => [
+        'fileFormat' => [
             '!' => ['file'],
         ],
     ],
@@ -783,6 +783,14 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'default'   => 0,
             'eval'      => ['maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'clr w50', 'nullIfEmpty' => true],
             'sql'       => 'int(5) NULL',
+        ],
+        'vectors' => [
+            'inputType' => 'textarea',
+            'eval'      => [
+                'rte'               => 'ace|json',
+                'useRawRequestData' => true,
+            ],
+            'sql'       => 'blob NULL',
         ],
     ],
 ];

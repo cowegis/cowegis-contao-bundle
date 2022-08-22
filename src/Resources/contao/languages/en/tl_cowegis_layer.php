@@ -154,6 +154,8 @@ $GLOBALS['TL_LANG']['tl_cowegis_layer']['zIndexOffset'][0]               = 'zInd
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['zIndexOffset'][1]               = 'By default, marker images zIndex is set automatically based on its latitude. Use this option if you want to put the marker on top of all others (or below), specifying a high value like 1000 (or high negative value, respectively).';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['riseOnHover'][0]                = 'Rise on hover';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['riseOnHover'][1]                = 'If true, the marker will get on top of others when you hover the mouse over it.';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['vectors'][0]                    = 'Vectors';
+$GLOBALS['TL_LANG']['tl_cowegis_layer']['vectors'][1]                    = 'Vectors data as valid GEOJSON.';
 
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['groupTypes']['layer'][0]   = 'Layer group';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';

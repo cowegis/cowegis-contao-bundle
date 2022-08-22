@@ -147,5 +147,21 @@
         <service id="Cowegis\Bundle\Contao\Map\Layer\Overpass\OverpassLayerHydrator">
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
+
+        <!-- Vector layer -->
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsLayerType">
+            <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsLayerHydrator">
+            <argument type="service" id="Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsDataLayerProvider"/>
+            <argument type="service" id="router"/>
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsDataLayerProvider">
+            <tag name="Cowegis\Bundle\Contao\Provider\LayerDataProvider" type="vectors" />
+        </service>
+
     </services>
 </container>

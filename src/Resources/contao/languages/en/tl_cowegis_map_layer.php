@@ -1,5 +1,6 @@
 <?php
 
+$GLOBALS['TL_LANG']['tl_cowegis_map_layer']['config_legend']          = 'Configuration';
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['filter_legend']          = 'Filter rules';
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['active_legend']          = 'Activation';
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['edit']['0']              = 'Edit map layer';
@@ -24,3 +25,5 @@ $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['rules']['keyword']['0']  = 'Keyword
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['rules']['keyword']['1']  = 'Keyword filter rule';
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['rules']['bbox']['0']     = 'Bounding box';
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['rules']['bbox']['1']     = 'Bounding box based filter rule';
+$GLOBALS['TL_LANG']['tl_cowegis_map_layer']['adjustBounds'][0]        = 'Adjust bounds';
+$GLOBALS['TL_LANG']['tl_cowegis_map_layer']['adjustBounds'][1]        = 'If enabled the layer will affect the map bounds.';

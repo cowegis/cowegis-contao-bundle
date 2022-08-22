@@ -34,6 +34,10 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_layer'] = [
             '+config'  => ['adjustBounds'],
             '+active' => ['dataPane'],
         ],
+        'vectors extends default' => [
+            '+config'  => ['adjustBounds'],
+            '+active' => ['dataPane'],
+        ],
     ],
     'list'         => [
         'sorting'    => [
