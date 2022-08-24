@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Map\Layer;
 
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
+use Cowegis\Bundle\Contao\Hydrator\ResponseTaggerPlugin;
 use Cowegis\Bundle\Contao\Map\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
@@ -15,6 +16,8 @@ use function assert;
 
 abstract class LayerTypeHydrator extends ConfigurableOptionsHydrator
 {
+    use ResponseTaggerPlugin;
+
     public function supports(object $data, object $definition): bool
     {
         if (! $definition instanceof Layer) {
@@ -33,6 +36,8 @@ abstract class LayerTypeHydrator extends ConfigurableOptionsHydrator
         assert($data instanceof LayerModel);
         assert($definition instanceof Layer);
         assert($context instanceof MapLayerContext);
+
+        $this->tagResponseForData($context->mapLayerModel());
 
         parent::hydrate($data, $definition, $context, $hydrator);
 

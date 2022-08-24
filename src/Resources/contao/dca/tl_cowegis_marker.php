@@ -19,9 +19,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
                 'pid' => 'index',
             ],
         ],
-//        'onsubmit_callback' => [
-//            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
-//        ],
     ],
 
     'list' => [
@@ -175,9 +172,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'inputType' => 'checkbox',
             'eval'      => ['tl_class' => 'w50'],
             'sql'       => "char(1) NOT NULL default ''",
-//            'save_callback' => [
-//                ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
-//            ],
         ],
         'tooltip'         => [
             'exclude'   => true,

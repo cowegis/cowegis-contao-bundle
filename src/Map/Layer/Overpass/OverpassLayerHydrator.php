@@ -14,6 +14,7 @@ use Cowegis\Core\Definition\Expression\InlineExpression;
 use Cowegis\Core\Definition\Icon\IconId;
 use Cowegis\Core\Definition\Layer\Layer;
 
+/** @psalm-suppress PropertyNotSetInConstructor - see https://github.com/vimeo/psalm/issues/5062 */
 final class OverpassLayerHydrator extends LayerTypeHydrator
 {
     /** @var list<string>|array<string,string> */

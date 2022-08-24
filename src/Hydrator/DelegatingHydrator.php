@@ -5,15 +5,23 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Hydrator;
 
 use Cowegis\Core\Provider\Context;
+use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 
+/** @psalm-suppress PropertyNotSetInConstructor - see https://github.com/vimeo/psalm/issues/5062 */
 final class DelegatingHydrator implements Hydrator
 {
+    use ResponseTaggerPlugin {
+        ResponseTaggerPlugin::__construct as private responseTaggerConstruct;
+    }
+
     /** @var Hydrator[] */
     private iterable $hydrators;
 
     /** @param Hydrator[] $hydrators */
-    public function __construct(iterable $hydrators)
+    public function __construct(iterable $hydrators, ResponseTagger $responseTagger)
     {
+        $this->responseTaggerConstruct($responseTagger);
+
         $this->hydrators = $hydrators;
     }
 
@@ -35,6 +43,7 @@ final class DelegatingHydrator implements Hydrator
                 continue;
             }
 
+            $this->tagResponseForData($data);
             $delegate->hydrate($data, $definition, $context, $hydrator);
         }
     }

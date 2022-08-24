@@ -16,9 +16,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
                 'pid' => 'index',
             ],
         ],
-//        'onsubmit_callback' => [
-//            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
-//        ],
     ],
     'list'   => [
         'sorting'           => [

@@ -15,11 +15,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
         'sql'               => [
             'keys' => ['id' => 'primary'],
         ],
-        /*
-        'onsubmit_callback' => [
-            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
-        ],
-        */
     ],
 
     'list' => [

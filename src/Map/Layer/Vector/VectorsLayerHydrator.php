@@ -14,6 +14,7 @@ use Cowegis\Core\Definition\GeoData\GeoData;
 use Cowegis\Core\Definition\GeoData\UriData;
 use Cowegis\Core\Definition\Layer\DataLayer;
 use Cowegis\Core\Definition\Layer\Layer;
+use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 use Symfony\Component\Routing\RouterInterface;
 
 use function array_merge;
@@ -25,8 +26,13 @@ final class VectorsLayerHydrator extends LayerTypeHydrator
 
     private RouterInterface $router;
 
-    public function __construct(LayerDataProvider $dataProvider, RouterInterface $router)
-    {
+    public function __construct(
+        LayerDataProvider $dataProvider,
+        RouterInterface $router,
+        ResponseTagger $responseTagger
+    ) {
+        parent::__construct($responseTagger);
+
         $this->dataProvider = $dataProvider;
         $this->router       = $router;
     }

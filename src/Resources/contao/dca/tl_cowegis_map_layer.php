@@ -110,9 +110,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_layer'] = [
             'filter'    => true,
             'eval'      => ['tl_class' => 'clr w50'],
             'sql'       => ['type' => 'string', 'length' => '1', 'default' => ''],
-//            'save_callback' => [
-//                ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
-//            ],
         ],
     ],
 ];

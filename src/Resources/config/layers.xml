@@ -23,6 +23,7 @@
         </service>
 
         <service id="Cowegis\Bundle\Contao\Map\Layer\Tile\TileLayerHydrator">
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 
@@ -51,6 +52,7 @@
             <argument type="service" id="router" />
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Layer\Markers\MarkersLayerDataProvider" />
             <argument type="service" id="Cowegis\Core\Serializer\Serializer" />
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 
@@ -84,6 +86,7 @@
 
         <service id="Cowegis\Bundle\Contao\Map\Layer\File\FileLayerHydrator">
             <argument type="service" id="netzmacht.contao_toolkit.repository_manager" />
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 
@@ -94,6 +97,7 @@
 
         <service id="Cowegis\Bundle\Contao\Map\Layer\Group\GroupLayerHydrator">
             <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapLayerRepository" />
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 
@@ -114,6 +118,7 @@
 
         <service id="Cowegis\Bundle\Contao\Map\Layer\MarkerCluster\MarkerClusterGroupHydrator">
             <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapLayerRepository" />
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 
@@ -130,6 +135,7 @@
 
         <service id="Cowegis\Bundle\Contao\Map\Layer\Reference\ReferenceLayerHydrator">
             <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 
@@ -145,6 +151,7 @@
         </service>
 
         <service id="Cowegis\Bundle\Contao\Map\Layer\Overpass\OverpassLayerHydrator">
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 
@@ -156,6 +163,7 @@
         <service id="Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsLayerHydrator">
             <argument type="service" id="Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsDataLayerProvider"/>
             <argument type="service" id="router"/>
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 

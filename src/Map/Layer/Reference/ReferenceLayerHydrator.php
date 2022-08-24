@@ -11,13 +11,16 @@ use Cowegis\Bundle\Contao\Model\LayerRepository;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Exception\LayerNotFound;
+use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 
 final class ReferenceLayerHydrator extends LayerTypeHydrator
 {
     private LayerRepository $layerRepository;
 
-    public function __construct(LayerRepository $layerRepository)
+    public function __construct(LayerRepository $layerRepository, ResponseTagger $responseTagger)
     {
+        parent::__construct($responseTagger);
+
         $this->layerRepository = $layerRepository;
     }
 

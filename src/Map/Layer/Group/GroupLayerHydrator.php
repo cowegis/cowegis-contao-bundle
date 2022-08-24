@@ -12,6 +12,7 @@ use Cowegis\Bundle\Contao\Model\Map\MapLayerRepository;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Definition\Layer\LayerGroup;
+use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 
 use function assert;
 
@@ -19,8 +20,10 @@ class GroupLayerHydrator extends LayerTypeHydrator
 {
     private MapLayerRepository $repository;
 
-    public function __construct(MapLayerRepository $repository)
+    public function __construct(MapLayerRepository $repository, ResponseTagger $responseTagger)
     {
+        parent::__construct($responseTagger);
+
         $this->repository = $repository;
     }
 

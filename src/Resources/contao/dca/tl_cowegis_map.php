@@ -13,9 +13,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
                 'alias' => 'unique',
             ],
         ],
-//        'onsubmit_callback' => [
-//            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
-//        ],
     ],
 
     'list' => [

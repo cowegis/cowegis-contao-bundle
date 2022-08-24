@@ -13,9 +13,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
                 'pid' => 'index',
             ],
         ],
-//        'onsubmit_callback' => [
-//            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
-//        ],
     ],
 
     // List configuration
@@ -193,9 +190,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'filter'    => true,
             'eval'      => ['tl_class' => 'w50'],
             'sql'       => "char(1) NOT NULL default ''",
-//            'save_callback' => [
-//                ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
-//            ],
         ],
         'zoomInText'            => [
             'exclude'   => true,

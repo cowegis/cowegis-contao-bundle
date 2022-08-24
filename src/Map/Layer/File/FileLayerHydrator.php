@@ -14,6 +14,7 @@ use Cowegis\Core\Definition\GeoData\ExternalData;
 use Cowegis\Core\Definition\Layer\DataLayer;
 use Cowegis\Core\Definition\Layer\Layer;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
+use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 
 use function assert;
 
@@ -21,8 +22,10 @@ final class FileLayerHydrator extends LayerTypeHydrator
 {
     private RepositoryManager $repositoryManager;
 
-    public function __construct(RepositoryManager $repositoryManager)
+    public function __construct(RepositoryManager $repositoryManager, ResponseTagger $responseTagger)
     {
+        parent::__construct($responseTagger);
+
         $this->repositoryManager = $repositoryManager;
     }
 

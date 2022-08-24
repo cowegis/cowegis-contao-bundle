@@ -15,6 +15,7 @@ use Cowegis\Core\Definition\Layer\DataLayer;
 use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Provider\LayerData\MarkersLayerData;
 use Cowegis\Core\Serializer\Serializer;
+use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 use Symfony\Component\Routing\RouterInterface;
 
 use function array_merge;
@@ -28,8 +29,14 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
 
     private Serializer $serializer;
 
-    public function __construct(RouterInterface $router, LayerDataProvider $dataProvider, Serializer $serializer)
-    {
+    public function __construct(
+        RouterInterface $router,
+        LayerDataProvider $dataProvider,
+        Serializer $serializer,
+        ResponseTagger $responseTagger
+    ) {
+        parent::__construct($responseTagger);
+
         $this->router       = $router;
         $this->dataProvider = $dataProvider;
         $this->serializer   = $serializer;

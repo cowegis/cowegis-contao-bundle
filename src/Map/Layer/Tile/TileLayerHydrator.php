@@ -10,6 +10,7 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Layer\Layer;
 
+/** @psalm-suppress PropertyNotSetInConstructor - see https://github.com/vimeo/psalm/issues/5062 */
 final class TileLayerHydrator extends LayerTypeHydrator
 {
     /** @var list<string>|array<string,string> */
