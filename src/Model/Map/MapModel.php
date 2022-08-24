@@ -16,6 +16,8 @@ use Cowegis\Bundle\Contao\Model\Model;
  * @property string|list<string>   $assetsOrder
  * @property string|list<string>   $defaultAssets
  * @property string|int|bool       $locate
+ * @property string|int            $cacheLifeTime
+ * @property string|int|bool       $cache
  */
 final class MapModel extends Model
 {

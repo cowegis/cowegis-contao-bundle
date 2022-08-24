@@ -9,6 +9,7 @@
     "Contao\\ManagerPlugin\\Bundle\\Parser\\ParserInterface",
     "Contao\\ManagerPlugin\\Routing\\RoutingPluginInterface",
     "Cowegis\\ContaoGeocoder\\Provider\\Geocoder",
+    "Cowegis\\ContaoGeocoder\\Routing\\SearchUrlGenerator",
     "Hofff\\Contao\\Consent\\Bridge\\Bridge",
     "Hofff\\Contao\\Consent\\Bridge\\Plugin",
     "Hofff\\Contao\\Consent\\Bridge\\Render\\RenderInformation"
