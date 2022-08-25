@@ -16,10 +16,10 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
 
     'list' => [
         'sorting'           => [
-            'mode'         => 1,
-            'fields'       => ['type', 'title'],
-            'flag'         => 11,
-            'panelLayout'  => 'limit',
+            'mode'         => 2,
+            'fields'       => ['title'],
+            'flag'         => 1,
+            'panelLayout'  => 'sort,search,limit',
             'headerFields' => ['title', 'type'],
         ],
         'label'             => [
@@ -165,6 +165,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
         'title'             => [
             'exclude'   => true,
             'inputType' => 'text',
+            'sorting'   => true,
             'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
@@ -184,6 +185,8 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
         'type'              => [
             'exclude'   => true,
             'inputType' => 'select',
+            'sorting'   => true,
+            'flag'      => 11,
             'eval'      => [
                 'mandatory'          => true,
                 'tl_class'           => 'w50',
