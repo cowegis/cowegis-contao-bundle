@@ -24,7 +24,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'flag'         => 1,
             'sorting'      => 2,
             'panelLayout'  => 'filter,sort;search,limit',
-//            'child_record_callback' => ['netzmacht.contao_leaflet.listeners.dca.control', 'generateRow'],
         ],
         'label'             => [
             'fields' => ['title'],
@@ -239,7 +238,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
                     'layer' => [
                         'exclude'   => true,
                         'inputType' => 'select',
-//                        'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.control', 'getLayers'],
                         'eval'      => [
                             'style'              => 'width: 100%',
                             'chosen'             => true,

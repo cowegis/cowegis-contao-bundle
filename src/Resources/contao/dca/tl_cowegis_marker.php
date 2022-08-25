@@ -28,7 +28,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'flag'         => 1,
             'panelLayout'  => 'sort,filter;search,limit',
             'headerFields' => ['title', 'type'],
-//            'child_record_callback' => ['netzmacht.contao_leaflet.listeners.dca.marker', 'generateRow'],
         ],
         'label'             => [
             'fields' => ['title'],
@@ -109,10 +108,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'exclude'   => true,
             'inputType' => 'text',
             'search'    => true,
-//            'save_callback' => [
-//                ['netzmacht.contao_toolkit.dca.listeners.alias_generator', 'handleSaveCallback'],
-//                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateAlias'],
-//            ],
             'eval'      => [
                 'mandatory'   => false,
                 'maxlength'   => 255,
@@ -121,24 +116,11 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
                 'doNotCopy'   => true,
                 'nullIfEmpty' => true,
             ],
-            'toolkit'   => [
-                'alias_generator' => [
-                    'factory' => 'netzmacht.contao_leaflet.definition.alias_generator.factory_default',
-                    'fields'  => ['title'],
-                ],
-            ],
             'sql'       => 'varchar(255) NULL',
         ],
         'coordinates'     => [
             'exclude'   => true,
             'inputType' => 'cowegis_geocode',
-//            'save_callback' => [
-//                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateCoordinates'],
-//                ['netzmacht.contao_leaflet.listeners.dca.marker', 'saveCoordinates'],
-//            ],
-//            'load_callback' => [
-//                ['netzmacht.contao_leaflet.listeners.dca.marker', 'loadCoordinates'],
-//            ],
             'eval'      => [
                 'maxlength'      => 255,
                 'tl_class'       => 'clr',

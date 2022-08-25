@@ -7,9 +7,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
         'dataContainer'    => 'Table',
         'enableVersioning' => true,
         'ctable'           => ['tl_cowegis_marker'],
-//        'ondelete_callback' => [
-//            ['netzmacht.contao_leaflet.listeners.dca.layer', 'deleteRelations'],
-//        ],
         'sql'              => [
             'keys' => [
                 'id'  => 'primary',
@@ -24,12 +21,10 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'flag'        => 1,
             'icon'        => 'bundles/cowegiscontao/img/layers.png',
             'panelLayout' => 'filter;search,limit',
-//            'paste_button_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'getPasteButtons'],
         ],
         'label'             => [
             'fields' => ['title'],
             'format' => '%s',
-//            'label_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'generateRow'],
         ],
         'global_operations' => [
             'toggleNodes' => [
@@ -47,7 +42,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'data'   => [
                 'href' => '',
                 'icon' => 'edit.svg',
-//                'button_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'editDataButton'],
             ],
             'edit'   => [
                 'label' => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['edit'],
@@ -212,10 +206,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'exclude'   => true,
             'inputType' => 'text',
             'search'    => true,
-//            'save_callback' => [
-//                ['netzmacht.contao_toolkit.dca.listeners.alias_generator', 'handleSaveCallback'],
-//                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateAlias'],
-//            ],
             'eval'      => [
                 'mandatory'   => false,
                 'maxlength'   => 255,
@@ -223,12 +213,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
                 'unique'      => true,
                 'nullIfEmpty' => true,
                 'doNotCopy'   => true,
-            ],
-            'toolkit'   => [
-                'alias_generator' => [
-                    'factory' => 'netzmacht.contao_leaflet.definition.alias_generator.factory_default',
-                    'fields'  => ['title'],
-                ],
             ],
             'sql'       => 'varchar(255) NULL',
         ],
@@ -244,7 +228,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
                 'chosen'             => true,
                 'helpwizard'         => true,
             ],
-//            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'getLayerOptions'],
             'reference' => &$GLOBALS['TL_LANG']['cowegis_layer'],
             'sql'       => "varchar(32) NOT NULL default ''",
         ],
@@ -272,7 +255,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
         'reference'                      => [
             'exclude'    => true,
             'inputType'  => 'select',
-//            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'getLayers'],
             'eval'       => [
                 'mandatory'          => true,
                 'tl_class'           => 'w50',
@@ -351,7 +333,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
         'disableClusteringAtZoom'        => [
             'exclude'   => true,
             'inputType' => 'select',
-//            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'getZoomLevels'],
             'default'   => null,
             'eval'      => [
                 'maxlength'          => 4,
@@ -653,7 +634,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
                         'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['amenityIcon'],
                         'exclude'   => true,
                         'inputType' => 'select',
-//                        'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'getIcons'],
                         'eval'      => [
                             'mandatory' => false,
                             'style'     => 'width: 100%',
@@ -688,7 +668,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
                 'chosen'             => true,
                 'helpwizard'         => true,
             ],
-//            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'getFileFormats'],
             'reference' => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['fileFormats'],
             'sql'       => "varchar(32) NOT NULL default ''",
         ],

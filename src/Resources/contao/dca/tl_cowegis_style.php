@@ -122,12 +122,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
                 'doNotCopy'   => true,
                 'nullIfEmpty' => true,
             ],
-            'toolkit'       => [
-                'alias_generator' => [
-                    'factory' => 'netzmacht.contao_leaflet.definition.alias_generator.factory_default',
-                    'fields'  => ['title'],
-                ],
-            ],
             'sql'           => 'varchar(255) NULL',
         ],
         'type'        => [
@@ -140,7 +134,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
                 'submitOnChange'     => true,
                 'chosen'             => true,
             ],
-//            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.style', 'getStyleOptions'],
             'reference'        => &$GLOBALS['TL_LANG']['leaflet_style'],
             'sql'              => "varchar(32) NOT NULL default ''",
         ],

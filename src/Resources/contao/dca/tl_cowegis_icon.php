@@ -171,10 +171,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
         'alias'             => [
             'exclude'       => true,
             'inputType'     => 'text',
-//            'save_callback' => [
-//                ['netzmacht.contao_toolkit.dca.listeners.alias_generator', 'handleSaveCallback'],
-//                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateAlias'],
-//],
             'eval'          => [
                 'mandatory'   => false,
                 'maxlength'   => 255,
@@ -182,12 +178,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                 'unique'      => true,
                 'doNotCopy'   => true,
                 'nullIfEmpty' => true,
-            ],
-            'toolkit'       => [
-                'alias_generator' => [
-                    'factory' => 'netzmacht.contao_leaflet.definition.alias_generator.factory_default',
-                    'fields'  => ['title'],
-                ],
             ],
             'sql'           => 'varchar(255) NULL',
         ],
@@ -201,7 +191,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                 'submitOnChange'     => true,
                 'chosen'             => true,
             ],
-//            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.icon', 'getIconOptions'],
             'reference' => &$GLOBALS['TL_LANG']['leaflet_icon'],
             'sql'       => "varchar(32) NOT NULL default ''",
         ],
@@ -262,9 +251,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
         'iconAnchor'        => [
             'exclude'   => true,
             'inputType' => 'text',
-//            'save_callback' => [
-//                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateCoordinates'],
-//            ],
             'eval'      => [
                 'maxlength'   => 255,
                 'tl_class'    => 'w50',
@@ -275,9 +261,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
         'shadowAnchor'      => [
             'exclude'   => true,
             'inputType' => 'text',
-//            'save_callback' => [
-//                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateCoordinates'],
-//            ],
             'eval'      => [
                 'maxlength'   => 255,
                 'tl_class'    => 'w50',
@@ -288,9 +271,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
         'popupAnchor'       => [
             'exclude'   => true,
             'inputType' => 'text',
-//            'save_callback' => [
-//                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateCoordinates'],
-//            ],
             'eval'      => [
                 'maxlength'   => 255,
                 'tl_class'    => 'w50',
@@ -301,9 +281,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
         'tooltipAnchor'     => [
             'exclude'   => true,
             'inputType' => 'text',
-//            'save_callback' => [
-//                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateCoordinates'],
-//            ],
             'eval'      => [
                 'maxlength'   => 255,
                 'tl_class'    => 'w50',

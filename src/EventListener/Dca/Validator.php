@@ -58,7 +58,7 @@ final class Validator
             LatLng::fromString($value);
         } catch (Throwable $e) {
             throw new InvalidArgumentException(
-                $this->translator->trans('cowegis.invalidCoordinates', [$value], 'contao_leaflet'),
+                $this->translator->trans('cowegis.invalidCoordinates', [$value], 'contao_cowegis'),
                 0,
                 $e
             );
