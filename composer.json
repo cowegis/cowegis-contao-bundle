@@ -45,7 +45,7 @@
     "phpspec/phpspec": "^6.1 || ^7.0"
   },
   "conflict": {
-    "cowegis/contao-geocoder": "<1.0 || >= 2.0",
+    "cowegis/contao-geocoder": ">= 2.0",
     "hofff/contao-consent-bridge": "<1.0 || >= 2.0"
   },
   "suggest": {
