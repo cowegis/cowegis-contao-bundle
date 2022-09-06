@@ -11,7 +11,6 @@ use Cowegis\Core\Definition\Layer\LayerId;
  * @property string|array|null       $amenityIcons
  * @property string                  $alias
  * @property numeric-string|int|bool $deferred
- * @property string|list<string>     $filterRules
  * @property string                  $file
  * @property string                  $fileFormat
  * @property string                  $groupType

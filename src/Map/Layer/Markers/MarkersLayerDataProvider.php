@@ -46,7 +46,10 @@ final class MarkersLayerDataProvider implements LayerDataProvider
 
         // TODO: Only pass filter if activated
         $filter     = $context->filter();
-        $options    = ['filter' => $filter, 'rules' => StringUtil::deserialize($layerModel->filterRules, true)];
+        $options    = [
+            'filter' => $filter,
+            'rules'  => StringUtil::deserialize($context->mapLayerModel()->filterRules, true),
+        ];
         $collection = $this->markersRepository->findActiveByLayer((int) $layerModel->layerId()->value(), $options);
         $markers    = [];
         $context    = $this->determineLocalContext($layerModel, $context);

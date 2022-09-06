@@ -12,14 +12,15 @@ use RuntimeException;
 use Throwable;
 
 /**
- * @property numeric-string|int $pid
- * @property string             $type
- * @property string             $pane
- * @property string             $dataPane
- * @property bool|int|string    $active
- * @property bool|int|string    $initialVisible
- * @property numeric-string|int $layerId
- * @property bool|int|string    $adjustBounds
+ * @property numeric-string|int  $pid
+ * @property string              $type
+ * @property string              $pane
+ * @property string              $dataPane
+ * @property bool|int|string     $active
+ * @property bool|int|string     $initialVisible
+ * @property numeric-string|int  $layerId
+ * @property bool|int|string     $adjustBounds
+ * @property string|list<string> $filterRules
  */
 final class MapLayerModel extends Model
 {
