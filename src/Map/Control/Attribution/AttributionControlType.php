@@ -20,7 +20,7 @@ final class AttributionControlType implements ControlType
     {
         return new AttributionControl(
             $controlModel->controlId(),
-            $controlModel->alias ?: 'control_' . $controlModel->id()
+            $controlModel->alias ?: 'control_' . $controlModel->id(),
         );
     }
 }

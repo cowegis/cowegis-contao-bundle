@@ -10,6 +10,7 @@ use IteratorAggregate;
 use function array_values;
 use function sprintf;
 
+/** @implements IteratorAggregate<int, LayerType> */
 final class LayerTypeRegistry implements IteratorAggregate
 {
     /** @var array<string, LayerType> */

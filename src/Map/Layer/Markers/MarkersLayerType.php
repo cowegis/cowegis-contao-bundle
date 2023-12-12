@@ -19,14 +19,10 @@ final class MarkersLayerType implements DataLayerType
 {
     use MapLayerType;
 
-    private MarkerRepository $markerRepository;
-
-    private TranslatorInterface $translator;
-
-    public function __construct(MarkerRepository $markerRepository, TranslatorInterface $translator)
-    {
-        $this->markerRepository = $markerRepository;
-        $this->translator       = $translator;
+    public function __construct(
+        private readonly MarkerRepository $markerRepository,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     public function name(): string
@@ -46,7 +42,7 @@ final class MarkersLayerType implements DataLayerType
         $label .= sprintf(
             '<span class="tl_gray"> (%s %s)</span>',
             $count,
-            $this->translator->trans('tl_cowegis_layer.countEntries', [], 'contao_tl_cowegis_layer')
+            $this->translator->trans('tl_cowegis_layer.countEntries', [], 'contao_tl_cowegis_layer'),
         );
 
         return $label;
@@ -57,7 +53,7 @@ final class MarkersLayerType implements DataLayerType
         return new DataLayer(
             $mapLayerModel->layerId(),
             $this->hydrateName($layerModel, $mapLayerModel),
-            $this->hydrateInitialVisible($mapLayerModel)
+            $this->hydrateInitialVisible($mapLayerModel),
         );
     }
 }

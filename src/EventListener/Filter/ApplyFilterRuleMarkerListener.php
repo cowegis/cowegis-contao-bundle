@@ -73,7 +73,7 @@ SQL;
             $southWest->latitude(),
             $northEast->latitude(),
             $southWest->longitude(),
-            $northEast->longitude()
+            $northEast->longitude(),
         );
     }
 }

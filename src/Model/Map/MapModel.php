@@ -9,6 +9,7 @@ use Cowegis\Bundle\Contao\Model\Model;
 /**
  * @property string                $type
  * @property string                $title
+ * @property string                $alias
  * @property mixed|null            $panes
  * @property string|int|float|null $zoom
  * @property string                $center

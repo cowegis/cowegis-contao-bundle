@@ -19,13 +19,9 @@ final class MarkerDcaListener extends AbstractListener
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_marker';
 
-    private Connection $connection;
-
-    public function __construct(Manager $dcaManager, Connection $connection)
+    public function __construct(Manager $dcaManager, private readonly Connection $connection)
     {
         parent::__construct($dcaManager);
-
-        $this->connection = $connection;
     }
 
     /**
@@ -68,12 +64,12 @@ final class MarkerDcaListener extends AbstractListener
     /**
      * Load the coordinates.
      *
-     * @param string        $value         The raw data.
+     * @param string|null   $value         The raw data.
      * @param DataContainer $dataContainer The data container driver.
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function loadCoordinates(?string $value, DataContainer $dataContainer): ?string
+    public function loadCoordinates(string|null $value, DataContainer $dataContainer): string|null
     {
         $query  = 'SELECT latitude, longitude, altitude FROM tl_cowegis_marker WHERE id=:id';
         $result = $this->connection->executeQuery($query, ['id' => $dataContainer->id]);

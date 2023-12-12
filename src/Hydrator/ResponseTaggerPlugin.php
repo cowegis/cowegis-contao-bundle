@@ -8,21 +8,16 @@ use Contao\Model as ContaoModel;
 use Cowegis\Bundle\Contao\Model\Model as CowegisModel;
 use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 
+use function array_values;
 use function sprintf;
 
 trait ResponseTaggerPlugin
 {
-    private ResponseTagger $responseTagger;
-
-    public function __construct(ResponseTagger $responseTagger)
+    public function __construct(private readonly ResponseTagger $responseTagger)
     {
-        $this->responseTagger = $responseTagger;
     }
 
-    /**
-     * @param mixed $data
-     */
-    protected function tagResponseForData($data): void
+    protected function tagResponseForData(mixed $data): void
     {
         if ($data instanceof CowegisModel) {
             $this->tagResponse(sprintf('contao.db.%s.%s', $data::getTable(), $data->id()));
@@ -33,6 +28,6 @@ trait ResponseTaggerPlugin
 
     protected function tagResponse(string ...$tags): void
     {
-        $this->responseTagger->addTags($tags);
+        $this->responseTagger->addTags(array_values($tags));
     }
 }

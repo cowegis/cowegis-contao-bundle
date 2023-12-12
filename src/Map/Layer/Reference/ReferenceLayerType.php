@@ -21,13 +21,10 @@ final class ReferenceLayerType implements LayerType, LayerTypeRegistryAware
 {
     use MapLayerType;
 
-    private ?LayerTypeRegistry $layerTypes = null;
+    private LayerTypeRegistry|null $layerTypes = null;
 
-    private LayerRepository $layerRepository;
-
-    public function __construct(LayerRepository $layerRepository)
+    public function __construct(private readonly LayerRepository $layerRepository)
     {
-        $this->layerRepository = $layerRepository;
     }
 
     public function setRegistry(LayerTypeRegistry $layerTypes): void
@@ -50,7 +47,7 @@ final class ReferenceLayerType implements LayerType, LayerTypeRegistryAware
         if (! $referenceModel instanceof LayerModel) {
             throw LayerNotFound::withLayerId(
                 $layerModel->layerId(),
-                MapId::fromValue(IntegerDefinitionId::fromValue((int) $mapLayerModel->pid))
+                MapId::fromValue(IntegerDefinitionId::fromValue((int) $mapLayerModel->pid)),
             );
         }
 

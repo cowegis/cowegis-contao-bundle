@@ -13,9 +13,7 @@ final class IconDcaListener
      */
     private IconTypeRegistry $iconTypes;
 
-    /**
-     * @param IconTypeRegistry $iconTypes Icon type options.
-     */
+    /** @param IconTypeRegistry $iconTypes Icon type options. */
     public function __construct(IconTypeRegistry $iconTypes)
     {
         $this->iconTypes = $iconTypes;

@@ -28,14 +28,10 @@ use function sprintf;
 
 final class MarkersLayerDataProvider implements LayerDataProvider
 {
-    private MarkerRepository $markersRepository;
-
-    private Hydrator $hydrator;
-
-    public function __construct(MarkerRepository $markersRepository, Hydrator $hydrator)
-    {
-        $this->markersRepository = $markersRepository;
-        $this->hydrator          = $hydrator;
+    public function __construct(
+        private readonly MarkerRepository $markersRepository,
+        private readonly Hydrator $hydrator,
+    ) {
     }
 
     public function findLayerData(LayerModel $layerModel, MapLayerContext $context): LayerData
@@ -62,8 +58,8 @@ final class MarkersLayerDataProvider implements LayerDataProvider
                 new LatLng(
                     (float) $markerModel->latitude,
                     (float) $markerModel->longitude,
-                    $markerModel->altitude > 0 ? ((float) $markerModel->altitude) : null
-                )
+                    $markerModel->altitude > 0 ? ((float) $markerModel->altitude) : null,
+                ),
             );
 
             $this->hydrator->hydrate($layerModel, $marker, $context, $this->hydrator);
@@ -76,7 +72,7 @@ final class MarkersLayerDataProvider implements LayerDataProvider
 
     private function determineLocalContext(
         LayerModel $layerModel,
-        MapLayerContext $context
+        MapLayerContext $context,
     ): MarkerContext {
         $popupPresetId   = null;
         $iconId          = null;
@@ -98,7 +94,7 @@ final class MarkersLayerDataProvider implements LayerDataProvider
             $context,
             $iconId,
             $popupPresetId,
-            $tooltipPresetId
+            $tooltipPresetId,
         );
     }
 }

@@ -18,20 +18,16 @@ use function assert;
 
 class GroupLayerHydrator extends LayerTypeHydrator
 {
-    private MapLayerRepository $repository;
-
-    public function __construct(MapLayerRepository $repository, ResponseTagger $responseTagger)
+    public function __construct(private readonly MapLayerRepository $repository, ResponseTagger $responseTagger)
     {
         parent::__construct($responseTagger);
-
-        $this->repository = $repository;
     }
 
     protected function hydrateLayer(
         LayerModel $layerModel,
         Layer $layer,
         MapLayerContext $context,
-        Hydrator $hydrator
+        Hydrator $hydrator,
     ): void {
         assert($layer instanceof LayerGroup);
 

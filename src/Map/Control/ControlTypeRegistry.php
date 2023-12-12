@@ -10,14 +10,13 @@ use IteratorAggregate;
 use function array_values;
 use function sprintf;
 
+/** @implements IteratorAggregate<int, ControlType> */
 final class ControlTypeRegistry implements IteratorAggregate
 {
     /** @var array<string, ControlType> */
     private array $controlTypes = [];
 
-    /**
-     * @param ControlType[] $controlTypes
-     */
+    /** @param ControlType[] $controlTypes */
     public function __construct(iterable $controlTypes)
     {
         foreach ($controlTypes as $controlType) {

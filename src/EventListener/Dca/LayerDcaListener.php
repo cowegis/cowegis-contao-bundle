@@ -30,41 +30,19 @@ final class LayerDcaListener extends AbstractListener
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_layer';
 
-    private LayerTypeRegistry $layerTypes;
-
-    private TranslatorInterface $translator;
-
-    private Adapter $backendAdapter;
-
-    /**
-     * File formats.
-     *
-     * @var array<string,list<string>>
-     */
-    private array $fileFormats;
-
-    /** @var string[] */
-    private array $amenities;
-
     /**
      * @param array<string,list<string>> $fileFormats
      * @param string[]                   $amenities
      */
     public function __construct(
         Manager $dcaManager,
-        LayerTypeRegistry $typeRegistry,
-        TranslatorInterface $translator,
-        Adapter $backendAdapter,
-        array $fileFormats,
-        array $amenities
+        private readonly LayerTypeRegistry $layerTypes,
+        private readonly TranslatorInterface $translator,
+        private readonly Adapter $backendAdapter,
+        private readonly array $fileFormats,
+        private readonly array $amenities,
     ) {
         parent::__construct($dcaManager);
-
-        $this->layerTypes     = $typeRegistry;
-        $this->fileFormats    = $fileFormats;
-        $this->translator     = $translator;
-        $this->backendAdapter = $backendAdapter;
-        $this->amenities      = $amenities;
     }
 
     /**
@@ -92,7 +70,7 @@ final class LayerDcaListener extends AbstractListener
         $attributes = sprintf(
             'class="list-icon" title="%s" data-icon="%s"',
             StringUtil::specialchars(strip_tags($alt)),
-            $activeIcon
+            $activeIcon,
         );
 
         $icon = Image::getHtml($src, $alt, $attributes);
@@ -120,7 +98,7 @@ final class LayerDcaListener extends AbstractListener
         string $label,
         string $title,
         string $icon,
-        string $attributes
+        string $attributes,
     ): string {
         if (! $this->layerTypes->has($row['type'])) {
             return '';
@@ -177,15 +155,15 @@ final class LayerDcaListener extends AbstractListener
                 $definition = $this->getDefinition();
                 $definition->set(
                     ['fields', $dataContainer->field, 'eval', 'extensions'],
-                    implode(',', $this->fileFormats[$fileFormat])
+                    implode(',', $this->fileFormats[$fileFormat]),
                 );
 
                 $definition->set(
                     ['fields', $dataContainer->field, 'label', 1],
                     sprintf(
                         $definition->get(['fields', $dataContainer->field, 'label', 1]),
-                        implode(', ', $this->fileFormats[$fileFormat])
-                    )
+                        implode(', ', $this->fileFormats[$fileFormat]),
+                    ),
                 );
             }
         }
@@ -209,13 +187,13 @@ final class LayerDcaListener extends AbstractListener
         string $label,
         string $title,
         string $icon,
-        string $attributes
+        string $attributes,
     ): string {
         return sprintf(
             '<a href="%s" title="%s">%s</a> ',
             Backend::addToUrl($href . '&amp;id=' . $row['id']),
             $title,
-            Image::getHtml($icon, $label, $attributes)
+            Image::getHtml($icon, $label, $attributes),
         );
     }
 
@@ -235,11 +213,11 @@ final class LayerDcaListener extends AbstractListener
         array $row,
         string $table,
         $whatever,
-        array $children
+        array $children,
     ): string {
         $pasteAfterUrl = $this->backendAdapter->addToUrl(
             'act=' . $children['mode'] . '&amp;mode=1&amp;pid=' . $row['id']
-            . (! is_array($children['id']) ? '&amp;id=' . $children['id'] : '')
+            . (! is_array($children['id']) ? '&amp;id=' . $children['id'] : ''),
         );
 
         $buffer = sprintf(
@@ -248,8 +226,8 @@ final class LayerDcaListener extends AbstractListener
             StringUtil::specialchars($this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)),
             Image::getHtml(
                 'pasteafter.svg',
-                $this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)
-            )
+                $this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table),
+            ),
         );
 
         if (
@@ -262,8 +240,8 @@ final class LayerDcaListener extends AbstractListener
                     'act=%s&amp;mode=2&amp;pid=%s%s',
                     $children['mode'],
                     $row['id'],
-                    ! is_array($children['id']) ? '&amp;id=' . $children['id'] : ''
-                )
+                    ! is_array($children['id']) ? '&amp;id=' . $children['id'] : '',
+                ),
             );
 
             $buffer .= sprintf(
@@ -272,8 +250,8 @@ final class LayerDcaListener extends AbstractListener
                 StringUtil::specialchars($this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)),
                 Image::getHtml(
                     'pasteinto.svg',
-                    $this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)
-                )
+                    $this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table),
+                ),
             );
         } elseif ($row['id'] > 0) {
             $buffer .= Image::getHtml('pasteinto_.svg');

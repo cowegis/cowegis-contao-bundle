@@ -21,29 +21,15 @@ use Symfony\Component\Routing\RouterInterface;
 use function assert;
 use function time;
 
-/**
- * @template T of Model
- */
+/** @template T of Model */
 final class MapLayerAction
 {
-    private ContaoFramework $framework;
-
-    private RouterInterface $router;
-
-    private RepositoryManager $repositoryManager;
-
-    private CsrfTokenProvider $csrfTokenProvider;
-
     public function __construct(
-        ContaoFramework $framework,
-        RepositoryManager $repositoryManager,
-        RouterInterface $router,
-        CsrfTokenProvider $csrfTokenProvider
+        private readonly ContaoFramework $framework,
+        private readonly RepositoryManager $repositoryManager,
+        private readonly RouterInterface $router,
+        private readonly CsrfTokenProvider $csrfTokenProvider,
     ) {
-        $this->framework         = $framework;
-        $this->router            = $router;
-        $this->repositoryManager = $repositoryManager;
-        $this->csrfTokenProvider = $csrfTokenProvider;
     }
 
     public function __invoke(int $mapId, int $layerId, Request $request): Response
@@ -84,8 +70,8 @@ final class MapLayerAction
                     'table' => 'tl_cowegis_layer',
                     'id'    => $mapId,
                     'rt'    => $this->csrfTokenProvider->getTokenValue(),
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -128,7 +114,7 @@ final class MapLayerAction
         $this->repositoryManager->getConnection()->update(
             MapLayerModel::getTable(),
             ['tstamp' => time(), 'active' => ''],
-            ['id' => $model->id]
+            ['id' => $model->id],
         );
     }
 
@@ -144,7 +130,7 @@ final class MapLayerAction
         $this->repositoryManager->getConnection()->update(
             MapLayerModel::getTable(),
             ['tstamp' => time(), 'initialVisible' => $model->initialVisible > 0 ? 0 : 1],
-            ['id' => $model->id]
+            ['id' => $model->id],
         );
     }
 

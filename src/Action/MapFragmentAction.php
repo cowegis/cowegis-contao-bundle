@@ -28,26 +28,18 @@ use function assert;
 
 abstract class MapFragmentAction extends AbstractHybridController
 {
-    private FilterFactory $filterFactory;
-
-    private UriFactoryInterface $uriFactory;
-
-    private RepositoryManager $repositoryManager;
-
-    /**
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
-     */
+    /** @SuppressWarnings(PHPMD.ExcessiveParameterList) */
     public function __construct(
-        FilterFactory $filterFactory,
-        UriFactoryInterface $uriFactory,
-        RepositoryManager $repositoryManager,
+        private readonly FilterFactory $filterFactory,
+        private readonly UriFactoryInterface $uriFactory,
+        private readonly RepositoryManager $repositoryManager,
         TemplateRenderer $templateRenderer,
         RequestScopeMatcher $scopeMatcher,
         ResponseTagger $responseTagger,
         RouterInterface $router,
         TranslatorInterface $translator,
         TokenChecker $tokenChecker,
-        Adapter $inputAdapter
+        Adapter $inputAdapter,
     ) {
         parent::__construct(
             $templateRenderer,
@@ -56,12 +48,8 @@ abstract class MapFragmentAction extends AbstractHybridController
             $router,
             $translator,
             $tokenChecker,
-            $inputAdapter
+            $inputAdapter,
         );
-
-        $this->filterFactory     = $filterFactory;
-        $this->uriFactory        = $uriFactory;
-        $this->repositoryManager = $repositoryManager;
     }
 
     /**
@@ -80,10 +68,10 @@ abstract class MapFragmentAction extends AbstractHybridController
                 'cowegis_api_map',
                 array_merge(
                     $this->createFilter($request)->toQuery()->toArray(),
-                    ['mapId' => $model->cowegis_map, '_locale' => $GLOBALS['TL_LANGUAGE']]
-                )
+                    ['mapId' => $model->cowegis_map, '_locale' => $GLOBALS['TL_LANGUAGE']],
+                ),
             );
-        } catch (InvalidParameterException $exception) {
+        } catch (InvalidParameterException) {
         }
 
         return $data;
@@ -107,10 +95,10 @@ abstract class MapFragmentAction extends AbstractHybridController
         return $style;
     }
 
-    abstract protected function getIdentifier(Model $model, ?string $identifier): string;
+    abstract protected function getIdentifier(Model $model, string|null $identifier): string;
 
     // phpcs:disable Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-    private function getDefaultIdentifier(Model $model): ?string
+    private function getDefaultIdentifier(Model $model): string|null
     {
         if ($model->cowegis_map_cssId) {
             return (string) $model->cowegis_map_cssId;
@@ -141,7 +129,7 @@ abstract class MapFragmentAction extends AbstractHybridController
         return $this->filterFactory->createFromUri($uri);
     }
 
-    private function getClientJs(Model $model): ?string
+    private function getClientJs(Model $model): string|null
     {
         switch ($model->cowegis_client) {
             case 'client':

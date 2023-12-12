@@ -19,23 +19,11 @@ use function preg_match;
 final class Validator
 {
     /**
-     * Translator.
-     */
-    private Translator $translator;
-
-    /**
-     * Data container manager.
-     */
-    private Manager $dcaManager;
-
-    /**
      * @param Manager    $dcaManager Data container manager.
      * @param Translator $translator Translator.
      */
-    public function __construct(Manager $dcaManager, Translator $translator)
+    public function __construct(private readonly Manager $dcaManager, private readonly Translator $translator)
     {
-        $this->translator = $translator;
-        $this->dcaManager = $dcaManager;
     }
 
     /**
@@ -60,7 +48,7 @@ final class Validator
             throw new InvalidArgumentException(
                 $this->translator->trans('cowegis.invalidCoordinates', [$value], 'contao_cowegis'),
                 0,
-                $e
+                $e,
             );
         }
 
@@ -98,11 +86,9 @@ final class Validator
      * @param mixed         $values        Given value.
      * @param DataContainer $dataContainer Data container driver.
      *
-     * @return mixed
-     *
      * @throws InvalidArgumentException When invalid coordinates given.
      */
-    public function validateMultipleCoordinateSets($values, DataContainer $dataContainer)
+    public function validateMultipleCoordinateSets(mixed $values, DataContainer $dataContainer): mixed
     {
         $sets = StringUtil::deserialize($values, true);
         foreach ($sets as $lines) {
@@ -123,7 +109,7 @@ final class Validator
     {
         if (preg_match('/^[A-Za-z_]+[A-Za-z0-9_]+$/', $value) !== 1) {
             throw new InvalidArgumentException(
-                $this->translator->trans('cowegis.invalidAlias', [], 'contao_cowegis')
+                $this->translator->trans('cowegis.invalidAlias', [], 'contao_cowegis'),
             );
         }
 

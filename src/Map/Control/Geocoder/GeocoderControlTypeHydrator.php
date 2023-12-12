@@ -33,11 +33,8 @@ final class GeocoderControlTypeHydrator extends ControlTypeHydrator
         'suggestTimeout'     => 'suggestTimeout',
     ];
 
-    private ?SearchUrlGenerator $searchUrlGenerator;
-
-    public function __construct(SearchUrlGenerator $searchUrlGenerator)
+    public function __construct(private readonly SearchUrlGenerator|null $searchUrlGenerator)
     {
-        $this->searchUrlGenerator = $searchUrlGenerator;
     }
 
     protected function supportedType(): string
@@ -58,7 +55,7 @@ final class GeocoderControlTypeHydrator extends ControlTypeHydrator
 
         $serviceUrl = $this->searchUrlGenerator->generate(
             ['providerId' => $data->geocoder],
-            RouterInterface::ABSOLUTE_URL
+            RouterInterface::ABSOLUTE_URL,
         );
 
         $definition->useGeocoder('cowegis', ['serviceUrl' => $serviceUrl]);

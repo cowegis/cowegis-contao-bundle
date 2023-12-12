@@ -13,49 +13,36 @@ use Cowegis\Core\Provider\ContextDecorator;
 
 final class MarkerContext extends ContextDecorator
 {
-    private ?IconId $iconId = null;
-
-    private ?PopupPresetId $popupPresetId = null;
-
-    private ?TooltipPresetId $tooltipPresetId = null;
-
-    private MapLayerContext $inner;
-
     public function __construct(
-        MapLayerContext $inner,
-        ?IconId $iconPresetId,
-        ?PopupPresetId $popupPresetId,
-        ?TooltipPresetId $tooltipPresetId
+        private readonly MapLayerContext $inner,
+        private readonly IconId|null $iconId = null,
+        private readonly PopupPresetId|null $popupPresetId = null,
+        private readonly TooltipPresetId|null $tooltipPresetId = null,
     ) {
-        parent::__construct($inner);
-
-        $this->iconId          = $iconPresetId;
-        $this->popupPresetId   = $popupPresetId;
-        $this->tooltipPresetId = $tooltipPresetId;
-        $this->inner           = $inner;
+        parent::__construct($this->inner);
     }
 
-    public function iconId(): ?IconId
+    public function iconId(): IconId|null
     {
         return $this->iconId;
     }
 
-    public function popupPresetId(): ?PopupPresetId
+    public function popupPresetId(): PopupPresetId|null
     {
         return $this->popupPresetId;
     }
 
-    public function tooltipPresetId(): ?TooltipPresetId
+    public function tooltipPresetId(): TooltipPresetId|null
     {
         return $this->tooltipPresetId;
     }
 
-    public function paneId(): ?PaneId
+    public function paneId(): PaneId|null
     {
         return $this->inner->paneId();
     }
 
-    public function dataPaneId(): ?PaneId
+    public function dataPaneId(): PaneId|null
     {
         return $this->inner->dataPaneId();
     }

@@ -22,23 +22,13 @@ final class MapDcaListener extends AbstractListener
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_map';
 
-    private TranslatorInterface $translator;
-
-    private SessionInterface $session;
-
-    private MapRepository $mapRepository;
-
     public function __construct(
         Manager $dcaManager,
-        MapRepository $mapRepository,
-        TranslatorInterface $translator,
-        SessionInterface $session
+        private readonly MapRepository $mapRepository,
+        private readonly TranslatorInterface $translator,
+        private SessionInterface $session,
     ) {
         parent::__construct($dcaManager);
-
-        $this->mapRepository = $mapRepository;
-        $this->translator    = $translator;
-        $this->session       = $session;
     }
 
     /** @param Result|Collection $records */
@@ -79,7 +69,7 @@ final class MapDcaListener extends AbstractListener
 
         $this->session->getFlashBag()->add(
             'contao.BE.info',
-            $this->translator->trans('ERR.cowegisMissingZoomLevel', [], 'contao_default')
+            $this->translator->trans('ERR.cowegisMissingZoomLevel', [], 'contao_default'),
         );
     }
 }

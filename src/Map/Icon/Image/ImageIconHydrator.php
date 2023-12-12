@@ -21,11 +21,8 @@ use function round;
 
 final class ImageIconHydrator extends IconTypeHydrator
 {
-    private RepositoryManager $repositoryManager;
-
-    public function __construct(RepositoryManager $repositoryManager)
+    public function __construct(private readonly RepositoryManager $repositoryManager)
     {
-        $this->repositoryManager = $repositoryManager;
     }
 
     protected function supportedType(): string
@@ -43,7 +40,7 @@ final class ImageIconHydrator extends IconTypeHydrator
         $this->hydrateFileOption($options, 'shadowRetinaUrl', $iconModel->shadowRetinaImage);
     }
 
-    protected function hydrateFileOption(Options $options, string $option, ?string $uuid): void
+    protected function hydrateFileOption(Options $options, string $option, string|null $uuid): void
     {
         $fileModel = $this->fetchFileModel($uuid);
         if (! $fileModel) {
@@ -68,7 +65,7 @@ final class ImageIconHydrator extends IconTypeHydrator
         $options->set('popupAnchor', new Point(0, -$options->get('iconSize')->y()));
     }
 
-    protected function hydrateImage(Options $options, string $key, ?string $uuid, IconModel $iconModel): ?File
+    protected function hydrateImage(Options $options, string $key, string|null $uuid, IconModel $iconModel): File|null
     {
         $fileModel = $this->fetchFileModel($uuid);
         if (! $fileModel) {
@@ -100,7 +97,7 @@ final class ImageIconHydrator extends IconTypeHydrator
         return $file;
     }
 
-    protected function fetchFileModel(?string $uuid): ?FilesModel
+    protected function fetchFileModel(string|null $uuid): FilesModel|null
     {
         if (! $uuid) {
             return null;

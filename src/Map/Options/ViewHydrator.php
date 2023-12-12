@@ -35,7 +35,7 @@ final class ViewHydrator extends ConfigurableOptionsHydrator
 
         $definition->changeView(
             (new LatLngConstraint())->filter($data->center),
-            (new FloatConstraint())->filter($data->zoom)
+            (new FloatConstraint())->filter($data->zoom),
         );
 
         $this->hydrateBoundsPadding($data, $options);

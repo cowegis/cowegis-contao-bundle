@@ -10,6 +10,7 @@ use IteratorAggregate;
 use function array_values;
 use function sprintf;
 
+/** @implements IteratorAggregate<int, IconType> */
 final class IconTypeRegistry implements IteratorAggregate
 {
     /** @var array<string, IconType> */

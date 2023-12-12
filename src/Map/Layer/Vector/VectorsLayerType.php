@@ -25,7 +25,7 @@ final class VectorsLayerType implements LayerType
         return new DataLayer(
             $mapLayerModel->layerId(),
             $this->hydrateName($layerModel, $mapLayerModel),
-            $this->hydrateInitialVisible($mapLayerModel)
+            $this->hydrateInitialVisible($mapLayerModel),
         );
     }
 

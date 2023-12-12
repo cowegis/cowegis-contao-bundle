@@ -8,11 +8,8 @@ use Cowegis\Core\Definition\GeoData\GeoData;
 
 final class RawGeoJsonGeoData implements GeoData
 {
-    private ?string $geoJson;
-
-    public function __construct(?string $geoJson)
+    public function __construct(private string|null $geoJson)
     {
-        $this->geoJson = $geoJson;
     }
 
     /** @return array<string, mixed> */

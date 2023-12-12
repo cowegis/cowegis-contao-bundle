@@ -41,7 +41,7 @@ final class PopupPresetHydrator extends ConfigurableOptionsHydrator
         if ($data->offset) {
             $definition->options()->set(
                 'offset',
-                Point::fromArray(array_map('intval', StringUtil::trimsplit(',', $data->offset)))
+                Point::fromArray(array_map('intval', StringUtil::trimsplit(',', $data->offset))),
             );
         }
 
@@ -69,7 +69,7 @@ final class PopupPresetHydrator extends ConfigurableOptionsHydrator
             static function (string $value): array {
                 return array_map('intval', StringUtil::trimsplit(',', $value));
             },
-            StringUtil::deserialize($model->autoPanPadding, true)
+            StringUtil::deserialize($model->autoPanPadding, true),
         );
 
         if ($padding[0] === $padding[1]) {

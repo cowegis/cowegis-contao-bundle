@@ -40,6 +40,7 @@ abstract class IconTypeHydrator extends ConfigurableOptionsHydrator
 
         if ($data instanceof IconModel) {
             parent::hydrate($data, $definition, $context, $hydrator);
+
             $this->hydrateIcon($data, $definition);
         }
 

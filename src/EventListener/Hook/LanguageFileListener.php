@@ -13,15 +13,9 @@ use function strpos;
 /** @Hook("loadLanguageFile") */
 final class LanguageFileListener
 {
-    /** @var Adapter<System> */
-    private Adapter $systemAdapter;
-
-    /**
-     * @param Adapter<System> $systemAdapter
-     */
-    public function __construct(Adapter $systemAdapter)
+    /** @param Adapter<System> $systemAdapter */
+    public function __construct(private readonly Adapter $systemAdapter)
     {
-        $this->systemAdapter = $systemAdapter;
     }
 
     public function __invoke(string $name, string $currentLanguage): void

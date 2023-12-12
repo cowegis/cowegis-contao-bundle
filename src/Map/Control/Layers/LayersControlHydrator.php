@@ -27,11 +27,8 @@ final class LayersControlHydrator extends ControlTypeHydrator
         'sortLayers',
     ];
 
-    private Connection $connection;
-
-    public function __construct(Connection $connection)
+    public function __construct(private readonly Connection $connection)
     {
-        $this->connection = $connection;
     }
 
     public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
@@ -55,7 +52,7 @@ final class LayersControlHydrator extends ControlTypeHydrator
     {
         $result = $this->connection->executeQuery(
             'SELECT * FROM tl_cowegis_control_layer WHERE cid=:controlId ORDER BY sorting',
-            ['controlId' => $controlModel->id()]
+            ['controlId' => $controlModel->id()],
         );
 
         while ($row = $result->fetchAssociative()) {
@@ -77,7 +74,7 @@ final class LayersControlHydrator extends ControlTypeHydrator
 
         $control->options()->set(
             'sortFunction',
-            $context->callbacks()->add(new InlineExpression($controlModel->sortFunction))
+            $context->callbacks()->add(new InlineExpression($controlModel->sortFunction)),
         );
     }
 
@@ -89,7 +86,7 @@ final class LayersControlHydrator extends ControlTypeHydrator
 
         $control->options()->set(
             'nameFunction',
-            $context->callbacks()->add(new InlineExpression($controlModel->nameFunction))
+            $context->callbacks()->add(new InlineExpression($controlModel->nameFunction)),
         );
     }
 }

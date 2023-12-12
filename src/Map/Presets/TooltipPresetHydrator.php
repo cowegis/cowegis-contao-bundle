@@ -42,7 +42,7 @@ final class TooltipPresetHydrator extends ConfigurableOptionsHydrator
 
         $definition->options()->set(
             'offset',
-            Point::fromArray(array_map('intval', StringUtil::trimsplit(',', $data->offset)))
+            Point::fromArray(array_map('intval', StringUtil::trimsplit(',', $data->offset))),
         );
     }
 

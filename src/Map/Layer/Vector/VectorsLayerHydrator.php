@@ -8,7 +8,6 @@ use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Map\GeoData\RawGeoJsonGeoData;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
-use Cowegis\Bundle\Contao\Provider\LayerDataProvider;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\GeoData\GeoData;
 use Cowegis\Core\Definition\GeoData\UriData;
@@ -22,19 +21,9 @@ use function assert;
 
 final class VectorsLayerHydrator extends LayerTypeHydrator
 {
-    private LayerDataProvider $dataProvider;
-
-    private RouterInterface $router;
-
-    public function __construct(
-        LayerDataProvider $dataProvider,
-        RouterInterface $router,
-        ResponseTagger $responseTagger
-    ) {
+    public function __construct(private readonly RouterInterface $router, ResponseTagger $responseTagger)
+    {
         parent::__construct($responseTagger);
-
-        $this->dataProvider = $dataProvider;
-        $this->router       = $router;
     }
 
     protected function supportedType(): string
@@ -46,7 +35,7 @@ final class VectorsLayerHydrator extends LayerTypeHydrator
         LayerModel $layerModel,
         Layer $layer,
         MapLayerContext $context,
-        Hydrator $hydrator
+        Hydrator $hydrator,
     ): void {
         assert($layer instanceof DataLayer);
         $layer->options()->set('adjustBounds', (bool) $context->mapLayerModel()->adjustBounds);
@@ -63,11 +52,11 @@ final class VectorsLayerHydrator extends LayerTypeHydrator
                                 'mapId'   => $context->mapId()->value(),
                                 'layerId' => $layer->layerId()->value(),
                                 '_locale' => $context->locale(),
-                            ]
-                        )
+                            ],
+                        ),
                     ),
-                    GeoData::FORMAT_GEOJSON
-                )
+                    GeoData::FORMAT_GEOJSON,
+                ),
             );
 
             return;

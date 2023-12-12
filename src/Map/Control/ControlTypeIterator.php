@@ -9,6 +9,7 @@ use Iterator;
 
 use function count;
 
+/** @implements Iterator<array-key, ControlType> */
 final class ControlTypeIterator implements Countable, Iterator
 {
     /** @var ControlType[] */

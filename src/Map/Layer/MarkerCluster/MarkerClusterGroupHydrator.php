@@ -37,7 +37,7 @@ final class MarkerClusterGroupHydrator extends GroupLayerHydrator
         LayerModel $layerModel,
         Layer $layer,
         MapLayerContext $context,
-        Hydrator $hydrator
+        Hydrator $hydrator,
     ): void {
         parent::hydrateLayer($layerModel, $layer, $context, $hydrator);
 
@@ -49,7 +49,7 @@ final class MarkerClusterGroupHydrator extends GroupLayerHydrator
 
         $layer->options()->set(
             'iconCreateFunction',
-            $context->callbacks()->add(new InlineExpression($layerModel->iconCreateFunction))
+            $context->callbacks()->add(new InlineExpression($layerModel->iconCreateFunction)),
         );
 
         $this->hydrateCustomOptions($layerModel, $layer->options());

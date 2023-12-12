@@ -35,6 +35,14 @@
     <div id="swagger-ui"></div>
 
     <script>
+        const pushState = window.history.pushState
+        window.history.pushState = function (state, title, url) {
+            if (state === null && title === null && url.startsWith('#/')) {
+                url = window.location.pathname + url
+            }
+            pushState.apply(this, [state, title, url])
+        }
+
         window.onload = function() {
             const ui = SwaggerUIBundle({
                 url: "{{ schemaUri }}",
@@ -45,9 +53,9 @@
                     SwaggerUIStandalonePreset
                 ],
                 plugins: [
-                    SwaggerUIBundle.plugins.DownloadUrl
+                    SwaggerUIBundle.plugins.DownloadUrl,
                 ],
-                layout: "BaseLayout"
+                layout: "BaseLayout",
             })
 
             window.ui = ui

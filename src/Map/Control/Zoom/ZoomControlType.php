@@ -20,7 +20,7 @@ final class ZoomControlType implements ControlType
     {
         return new ZoomControl(
             $controlModel->controlId(),
-            $controlModel->alias ?: 'control_' . $controlModel->id()
+            $controlModel->alias ?: 'control_' . $controlModel->id(),
         );
     }
 }

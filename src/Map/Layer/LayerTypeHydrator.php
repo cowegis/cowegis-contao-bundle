@@ -50,7 +50,7 @@ abstract class LayerTypeHydrator extends ConfigurableOptionsHydrator
         LayerModel $layerModel,
         Layer $layer,
         MapLayerContext $context,
-        Hydrator $hydrator
+        Hydrator $hydrator,
     ): void;
 
     abstract protected function supportedType(): string;

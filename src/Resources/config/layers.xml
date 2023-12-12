@@ -12,6 +12,15 @@
             <tag name="Cowegis\Core\Serializer\Serializer" key="Cowegis\Core\Definition\Layer\DataLayer" />
         </service>
 
+        <service id="Cowegis\Core\Schema\Layer\DataLayerSchemaDescriber">
+            <argument>data</argument>
+            <tag name="Cowegis\Core\Schema\LayerSchemaDescriber" />
+        </service>
+
+        <service id="Cowegis\Bundle\Contao\Schema\LayersSchemaDescriber">
+            <tag name="Cowegis\Core\Schema\LayerSchemaDescriber" />
+        </service>
+
         <!-- Tile layer -->
         <service id="Cowegis\Bundle\Contao\Map\Layer\Tile\TileLayerType">
             <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
@@ -161,7 +170,6 @@
         </service>
 
         <service id="Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsLayerHydrator">
-            <argument type="service" id="Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsDataLayerProvider"/>
             <argument type="service" id="router"/>
             <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />

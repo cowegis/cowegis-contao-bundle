@@ -8,20 +8,12 @@ use Cowegis\Core\Provider\Context;
 
 final class HydrateEvent
 {
-    private object $data;
-
-    private object $definition;
-
-    private Context $context;
-
-    private Hydrator $hydrator;
-
-    public function __construct(object $data, object $definition, Context $context, Hydrator $hydrator)
-    {
-        $this->data       = $data;
-        $this->definition = $definition;
-        $this->context    = $context;
-        $this->hydrator   = $hydrator;
+    public function __construct(
+        private readonly object $data,
+        private readonly object $definition,
+        private readonly Context $context,
+        private readonly Hydrator $hydrator,
+    ) {
     }
 
     public function data(): object

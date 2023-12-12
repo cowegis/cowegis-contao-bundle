@@ -20,7 +20,7 @@ final class LoadingControlType implements ControlType
     {
         return new LoadingControl(
             $controlModel->controlId(),
-            $controlModel->alias ?: 'control_' . $controlModel->id()
+            $controlModel->alias ?: 'control_' . $controlModel->id(),
         );
     }
 }

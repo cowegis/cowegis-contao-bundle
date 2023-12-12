@@ -45,7 +45,7 @@ final class TileLayerType implements LayerType
             $mapLayerModel->layerId(),
             $this->hydrateName($layerModel, $mapLayerModel),
             $layerModel->tileUrl,
-            $this->hydrateInitialVisible($mapLayerModel)
+            $this->hydrateInitialVisible($mapLayerModel),
         );
     }
 }

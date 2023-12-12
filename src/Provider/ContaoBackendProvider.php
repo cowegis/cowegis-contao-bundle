@@ -27,32 +27,14 @@ use function sprintf;
 
 final class ContaoBackendProvider implements Provider
 {
-    private MapRepository $mapRepository;
-
-    private MapLayerRepository $mapLayerRepository;
-
-    private Hydrator $hydrator;
-
-    private ContaoFramework $framework;
-
-    private ContainerInterface $layerDataProviders;
-
-    private IdFormat $idFormat;
-
     public function __construct(
-        ContaoFramework $framework,
-        MapRepository $mapRepository,
-        MapLayerRepository $layerRepository,
-        Hydrator $hydrator,
-        ContainerInterface $layerDataProviders,
-        IdFormat $idFormat
+        private readonly ContaoFramework $framework,
+        private readonly MapRepository $mapRepository,
+        private readonly MapLayerRepository $mapLayerRepository,
+        private readonly Hydrator $hydrator,
+        private readonly ContainerInterface $layerDataProviders,
+        private readonly IdFormat $idFormat,
     ) {
-        $this->mapRepository      = $mapRepository;
-        $this->mapLayerRepository = $layerRepository;
-        $this->hydrator           = $hydrator;
-        $this->framework          = $framework;
-        $this->layerDataProviders = $layerDataProviders;
-        $this->idFormat           = $idFormat;
     }
 
     public function idFormat(): IdFormat
@@ -71,9 +53,10 @@ final class ContaoBackendProvider implements Provider
             throw MapNotFound::withMapId($mapId);
         }
 
+        /** @psalm-suppress ArgumentTypeCoercion */
         $definition = new Map(
             MapId::fromValue(new IntegerDefinitionId((int) $mapModel->id)),
-            $mapModel->alias ?: 'map_' . $mapModel->id
+            $mapModel->alias ?: 'map_' . $mapModel->id,
         );
 
         $this->hydrator->hydrate($mapModel, $definition, $context, $this->hydrator);

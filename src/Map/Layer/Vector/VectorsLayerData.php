@@ -9,14 +9,11 @@ use JsonSerializable;
 
 final class VectorsLayerData implements LayerData, JsonSerializable
 {
-    private ?string $geoJson;
-
-    public function __construct(?string $geoJson)
+    public function __construct(private readonly string|null $geoJson)
     {
-        $this->geoJson = $geoJson;
     }
 
-    public function jsonSerialize(): ?string
+    public function jsonSerialize(): string|null
     {
         return $this->geoJson;
     }

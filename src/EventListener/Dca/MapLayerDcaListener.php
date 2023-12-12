@@ -27,31 +27,15 @@ final class MapLayerDcaListener extends AbstractListener
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_map_layer';
 
-    private MapPaneRepository $paneRepository;
-
-    private FilterFactory $filterFactory;
-
-    private LayerTypeRegistry $layerTypes;
-
-    private LayerRepository $layerRepository;
-
-    private MapLayerRepository $mapLayerRepository;
-
     public function __construct(
         Manager $dcaManager,
-        LayerTypeRegistry $layerTypes,
-        MapLayerRepository $mapLayerRepository,
-        LayerRepository $layerRepository,
-        MapPaneRepository $paneRepository,
-        FilterFactory $filterFactory
+        private readonly LayerTypeRegistry $layerTypes,
+        private readonly MapLayerRepository $mapLayerRepository,
+        private readonly LayerRepository $layerRepository,
+        private readonly MapPaneRepository $paneRepository,
+        private readonly FilterFactory $filterFactory,
     ) {
         parent::__construct($dcaManager);
-
-        $this->layerTypes         = $layerTypes;
-        $this->paneRepository     = $paneRepository;
-        $this->filterFactory      = $filterFactory;
-        $this->layerRepository    = $layerRepository;
-        $this->mapLayerRepository = $mapLayerRepository;
     }
 
     public function initializePalette(DataContainer $dataContainer): void
@@ -76,7 +60,7 @@ final class MapLayerDcaListener extends AbstractListener
             ['palettes', 'default'],
             static function (string $palette) {
                 return 'layerId;' . $palette;
-            }
+            },
         );
     }
 
@@ -110,7 +94,7 @@ final class MapLayerDcaListener extends AbstractListener
                 'row'   => $dataContainer->activeRecord,
                 'label' => $label,
                 'type'  => $layerType,
-            ]
+            ],
         );
 
         return $template->parse();

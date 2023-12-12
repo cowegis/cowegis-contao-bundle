@@ -15,26 +15,22 @@ use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 
 final class ReferenceLayerHydrator extends LayerTypeHydrator
 {
-    private LayerRepository $layerRepository;
-
-    public function __construct(LayerRepository $layerRepository, ResponseTagger $responseTagger)
+    public function __construct(private readonly LayerRepository $layerRepository, ResponseTagger $responseTagger)
     {
         parent::__construct($responseTagger);
-
-        $this->layerRepository = $layerRepository;
     }
 
     protected function hydrateLayer(
         LayerModel $layerModel,
         Layer $layer,
         MapLayerContext $context,
-        Hydrator $hydrator
+        Hydrator $hydrator,
     ): void {
         $referenceModel = $this->layerRepository->find((int) $layerModel->reference);
         if ($referenceModel === null) {
             throw LayerNotFound::withLayerId(
                 $layerModel->layerId(),
-                $context->mapId()
+                $context->mapId(),
             );
         }
 

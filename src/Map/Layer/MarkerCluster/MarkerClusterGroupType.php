@@ -31,7 +31,7 @@ final class MarkerClusterGroupType implements NodeLayerType
         return new MarkerClusterGroup(
             $mapLayerModel->layerId(),
             $this->hydrateName($layerModel, $mapLayerModel),
-            $this->hydrateInitialVisible($mapLayerModel)
+            $this->hydrateInitialVisible($mapLayerModel),
         );
     }
 }

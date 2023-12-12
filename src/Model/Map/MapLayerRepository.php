@@ -11,17 +11,13 @@ use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 /** @extends ContaoRepository<MapLayerModel> */
 final class MapLayerRepository extends ContaoRepository
 {
-    private Connection $connection;
-
-    public function __construct(Connection $connection)
+    public function __construct(private readonly Connection $connection)
     {
         parent::__construct(MapLayerModel::class);
-
-        $this->connection = $connection;
     }
 
     /** @param array<string,mixed> $options */
-    public function findActive(int $mapId, array $options = []): ?Collection
+    public function findActive(int $mapId, array $options = []): Collection|null
     {
         $options['sorting'] = $options['sorting'] ?? '.sorting';
 
@@ -29,7 +25,7 @@ final class MapLayerRepository extends ContaoRepository
     }
 
     /** @param array<string,mixed> $options */
-    public function findChildren(int $layerId, array $options = []): ?Collection
+    public function findChildren(int $layerId, array $options = []): Collection|null
     {
         $sql = <<<'SQL'
       SELECT ml.id 
@@ -47,13 +43,13 @@ SQL;
     }
 
     /** @param array<string,mixed> $options */
-    public function findActiveLayer(int $mapId, int $mapLayerId, array $options = []): ?MapLayerModel
+    public function findActiveLayer(int $mapId, int $mapLayerId, array $options = []): MapLayerModel|null
     {
         return $this->findOneBy(['.pid=?', '.layerId=?', 'active=?'], [$mapId, $mapLayerId, '1'], $options);
     }
 
     /** @param array<string,mixed> $options */
-    public function findLayer(int $mapId, int $layerId, array $options = []): ?MapLayerModel
+    public function findLayer(int $mapId, int $layerId, array $options = []): MapLayerModel|null
     {
         return $this->findOneBy(['.pid=?', '.layerId=?'], [$mapId, $layerId], $options);
     }

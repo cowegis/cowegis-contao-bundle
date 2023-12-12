@@ -23,23 +23,13 @@ use function assert;
 
 final class MarkersLayerHydrator extends LayerTypeHydrator
 {
-    private RouterInterface $router;
-
-    private LayerDataProvider $dataProvider;
-
-    private Serializer $serializer;
-
     public function __construct(
-        RouterInterface $router,
-        LayerDataProvider $dataProvider,
-        Serializer $serializer,
-        ResponseTagger $responseTagger
+        private readonly RouterInterface $router,
+        private readonly LayerDataProvider $dataProvider,
+        private readonly Serializer $serializer,
+        ResponseTagger $responseTagger,
     ) {
         parent::__construct($responseTagger);
-
-        $this->router       = $router;
-        $this->dataProvider = $dataProvider;
-        $this->serializer   = $serializer;
     }
 
     protected function supportedType(): string
@@ -51,14 +41,14 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
         LayerModel $layerModel,
         Layer $layer,
         MapLayerContext $context,
-        Hydrator $hydrator
+        Hydrator $hydrator,
     ): void {
         assert($layer instanceof DataLayer);
 
         if ($layerModel->pointToLayer) {
             $layer->options()->set(
                 'pointToLayer',
-                $context->callbacks()->add(new InlineExpression($layerModel->pointToLayer))
+                $context->callbacks()->add(new InlineExpression($layerModel->pointToLayer)),
             );
         }
 
@@ -76,11 +66,11 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
                                 'mapId'   => $context->mapId()->value(),
                                 'layerId' => $layer->layerId()->value(),
                                 '_locale' => $context->locale(),
-                            ]
-                        )
+                            ],
+                        ),
                     ),
-                    'geojson'
-                )
+                    'geojson',
+                ),
             );
 
             return;

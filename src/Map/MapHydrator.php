@@ -46,24 +46,12 @@ use function sprintf;
 
 final class MapHydrator implements Hydrator
 {
-    private LayerTypeRegistry $layerTypes;
-
-    private ControlTypeRegistry $controlTypes;
-
-    private IconTypeRegistry $iconTypes;
-
-    private RepositoryManager $repositoryManager;
-
     public function __construct(
-        LayerTypeRegistry $layerTypes,
-        ControlTypeRegistry $controlTypes,
-        IconTypeRegistry $iconTypes,
-        RepositoryManager $repositoryManager
+        private readonly LayerTypeRegistry $layerTypes,
+        private readonly ControlTypeRegistry $controlTypes,
+        private readonly IconTypeRegistry $iconTypes,
+        private readonly RepositoryManager $repositoryManager,
     ) {
-        $this->layerTypes        = $layerTypes;
-        $this->controlTypes      = $controlTypes;
-        $this->iconTypes         = $iconTypes;
-        $this->repositoryManager = $repositoryManager;
     }
 
     public function supports(object $data, object $definition): bool
@@ -108,8 +96,8 @@ final class MapHydrator implements Hydrator
                     PaneId::fromValue(new IntegerDefinitionId((int) $paneModel->id)),
                     $paneModel->name,
                     $paneModel->zIndex === null ? null : ((int) $paneModel->zIndex),
-                    $paneModel->pointerEvents
-                )
+                    $paneModel->pointerEvents,
+                ),
             );
         }
     }
@@ -126,10 +114,10 @@ final class MapHydrator implements Hydrator
             $layerType  = $this->layerTypes->get($layerModel->type);
             $definition = $layerType->createDefinition($layerModel, $mapLayerModel);
             $paneId     = $mapLayerModel->pane > 0 ? PaneId::fromValue(
-                IntegerDefinitionId::fromValue((int) $mapLayerModel->pane)
+                IntegerDefinitionId::fromValue((int) $mapLayerModel->pane),
             ) : null;
             $dataPaneId = $mapLayerModel->dataPane > 0 ? PaneId::fromValue(
-                IntegerDefinitionId::fromValue((int) $mapLayerModel->dataPane)
+                IntegerDefinitionId::fromValue((int) $mapLayerModel->dataPane),
             ) : null;
 
             $layerContext = new MapLayerContext($context, $mapLayerModel, $paneId, $dataPaneId);
@@ -235,7 +223,7 @@ final class MapHydrator implements Hydrator
             $options = [
                 'order' => sprintf(
                     'FIELD(uuid, UNHEX(\'%s\'))',
-                    implode('\'), UNHEX(\'', array_map('bin2hex', $order))
+                    implode('\'), UNHEX(\'', array_map('bin2hex', $order)),
                 ),
             ];
         }

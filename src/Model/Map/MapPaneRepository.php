@@ -7,6 +7,7 @@ namespace Cowegis\Bundle\Contao\Model\Map;
 use Contao\Model\Collection;
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 
+/** @extends ContaoRepository<MapPaneModel> */
 final class MapPaneRepository extends ContaoRepository
 {
     public function __construct()
@@ -15,7 +16,7 @@ final class MapPaneRepository extends ContaoRepository
     }
 
     /** @param array<string,mixed> $options */
-    public function findByMap(int $mapId, array $options = []): ?Collection
+    public function findByMap(int $mapId, array $options = []): Collection|null
     {
         $options['sorting'] = $options['sorting'] ?? '.sorting';
 

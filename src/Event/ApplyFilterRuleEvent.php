@@ -8,40 +8,27 @@ use Cowegis\Core\Filter\Rule;
 
 final class ApplyFilterRuleEvent
 {
-    private string $modelClass;
-
-    private Rule $rule;
-
-    /** @var string[] */
-    private array $columns;
-
-    /** @var mixed[] */
-    private array $values;
-
-    /** @var mixed[] */
-    private array $options;
-
     /**
-     * @param string[] $columns
-     * @param mixed[]  $values
-     * @param mixed[]  $options
+     * @param list<string>        $columns
+     * @param list<mixed>         $values
+     * @param array<string,mixed> $options
      */
-    public function __construct(string $modelClass, Rule $rule, array $columns, array $values, array $options = [])
-    {
-        $this->modelClass = $modelClass;
-        $this->rule       = $rule;
-        $this->columns    = $columns;
-        $this->values     = $values;
-        $this->options    = $options;
+    public function __construct(
+        private readonly string $modelClass,
+        private readonly Rule $rule,
+        private array $columns,
+        private array $values,
+        private readonly array $options = [],
+    ) {
     }
 
-    /** @return string[] */
+    /** @return list<string> */
     public function columns(): array
     {
         return $this->columns;
     }
 
-    /** @return string[] */
+    /** @return list<mixed> */
     public function values(): array
     {
         return $this->values;

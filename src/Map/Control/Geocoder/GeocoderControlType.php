@@ -20,7 +20,7 @@ final class GeocoderControlType implements ControlType
     {
         return new GeocoderControl(
             $controlModel->controlId(),
-            $controlModel->alias ?: 'control_' . $controlModel->id()
+            $controlModel->alias ?: 'control_' . $controlModel->id(),
         );
     }
 }

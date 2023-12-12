@@ -20,17 +20,9 @@ final class FileLayerType implements LayerType
 {
     use MapLayerType;
 
-    /**
-     * Repository manager.
-     */
-    private RepositoryManager $repositoryManager;
-
-    /**
-     * @param RepositoryManager $repositoryManager Repository manager.
-     */
-    public function __construct(RepositoryManager $repositoryManager)
+    /** @param RepositoryManager $repositoryManager Repository manager. */
+    public function __construct(private readonly RepositoryManager $repositoryManager)
     {
-        $this->repositoryManager = $repositoryManager;
     }
 
     public function name(): string
@@ -57,7 +49,7 @@ final class FileLayerType implements LayerType
         return new DataLayer(
             $mapLayerModel->layerId(),
             $this->hydrateName($layerModel, $mapLayerModel),
-            $this->hydrateInitialVisible($mapLayerModel)
+            $this->hydrateInitialVisible($mapLayerModel),
         );
     }
 }

@@ -9,6 +9,7 @@ use Iterator;
 
 use function count;
 
+/** @implements Iterator<array-key, LayerType> */
 final class LayerTypeIterator implements Countable, Iterator
 {
     /** @var LayerType[] */

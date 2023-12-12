@@ -13,14 +13,10 @@ use function is_object;
 
 final class AliasGenerator
 {
-    private SlugGeneratorInterface $slugGenerator;
-
-    private Connection $connection;
-
-    public function __construct(SlugGeneratorInterface $slugGenerator, Connection $connection)
-    {
-        $this->slugGenerator = $slugGenerator;
-        $this->connection    = $connection;
+    public function __construct(
+        private readonly SlugGeneratorInterface $slugGenerator,
+        private readonly Connection $connection,
+    ) {
     }
 
     /** @param mixed $value */

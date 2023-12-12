@@ -9,11 +9,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 final class BackendMenuListener
 {
-    private RequestStack $requestStack;
-
-    public function __construct(RequestStack $requestStack)
+    public function __construct(private readonly RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
     }
 
     public function onBuild(MenuEvent $event): void

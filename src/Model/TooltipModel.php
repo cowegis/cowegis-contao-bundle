@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Model;
 
-/**
- * @property string $offset
- */
+/** @property string $offset */
 final class TooltipModel extends Model
 {
     /** @var string */

@@ -17,17 +17,11 @@ use function assert;
 
 final class ServersSchemaDescriber implements SchemaDescriber
 {
-    private RepositoryManager $repositoryManager;
-
-    private RequestStack $requestStack;
-
-    private string $baseUri;
-
-    public function __construct(RepositoryManager $repositoryManager, RequestStack $requestStack, string $baseUri)
-    {
-        $this->repositoryManager = $repositoryManager;
-        $this->requestStack      = $requestStack;
-        $this->baseUri           = $baseUri;
+    public function __construct(
+        private readonly RepositoryManager $repositoryManager,
+        private readonly RequestStack $requestStack,
+        private readonly string $baseUri,
+    ) {
     }
 
     public function describe(SchemaBuilder $builder): void

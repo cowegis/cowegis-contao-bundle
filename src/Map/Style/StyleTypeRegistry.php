@@ -10,14 +10,13 @@ use IteratorAggregate;
 use function array_values;
 use function sprintf;
 
+/** @implements IteratorAggregate<int, StyleType> */
 final class StyleTypeRegistry implements IteratorAggregate
 {
     /** @var array<string, StyleType> */
     private array $controlTypes = [];
 
-    /**
-     * @param iterable|StyleType[] $controlTypes
-     */
+    /** @param iterable<StyleType> $controlTypes */
     public function __construct(iterable $controlTypes)
     {
         foreach ($controlTypes as $controlType) {

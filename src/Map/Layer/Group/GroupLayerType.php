@@ -33,14 +33,14 @@ final class GroupLayerType implements NodeLayerType
             return new FeatureGroup(
                 $mapLayerModel->layerId(),
                 $this->hydrateName($layerModel, $mapLayerModel),
-                $this->hydrateInitialVisible($mapLayerModel)
+                $this->hydrateInitialVisible($mapLayerModel),
             );
         }
 
         return new LayerGroup(
             $mapLayerModel->layerId(),
             $this->hydrateName($layerModel, $mapLayerModel),
-            $this->hydrateInitialVisible($mapLayerModel)
+            $this->hydrateInitialVisible($mapLayerModel),
         );
     }
 }

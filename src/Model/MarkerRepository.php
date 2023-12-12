@@ -15,18 +15,14 @@ use function in_array;
 /** @extends ContaoRepository<MarkerModel> */
 final class MarkerRepository extends ContaoRepository
 {
-    private EventDispatcherInterface $eventDispatcher;
-
     /** @psalm-param class-string<MarkerModel> $modelClass */
-    public function __construct(string $modelClass, EventDispatcherInterface $eventDispatcher)
+    public function __construct(string $modelClass, private readonly EventDispatcherInterface $eventDispatcher)
     {
         parent::__construct($modelClass);
-
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /** @param array<string,mixed> $options */
-    public function findActiveByLayer(int $layerId, array $options = []): ?Collection
+    public function findActiveByLayer(int $layerId, array $options = []): Collection|null
     {
         $options['sorting'] = $options['sorting'] ?? '.sorting';
         $columns            = [
@@ -44,8 +40,8 @@ final class MarkerRepository extends ContaoRepository
     }
 
     /**
-     * @param string[]            $columns
-     * @param mixed[]             $values
+     * @param list<string>        $columns
+     * @param list<mixed>         $values
      * @param array<string,mixed> $options
      */
     private function applyFilter(array &$columns, array &$values, array $options): void

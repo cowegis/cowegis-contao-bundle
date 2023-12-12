@@ -20,7 +20,7 @@ final class LayersControlType implements ControlType
     {
         return new LayersControl(
             $controlModel->controlId(),
-            $controlModel->alias ?: 'control_' . $controlModel->id()
+            $controlModel->alias ?: 'control_' . $controlModel->id(),
         );
     }
 }

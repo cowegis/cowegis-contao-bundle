@@ -9,11 +9,8 @@ use Cowegis\Bundle\Contao\Model\Map\MapRepository;
 
 final class MapResponseListener
 {
-    private MapRepository $maps;
-
-    public function __construct(MapRepository $maps)
+    public function __construct(private readonly MapRepository $maps)
     {
-        $this->maps = $maps;
     }
 
     public function __invoke(MapResponseEvent $event): void

@@ -16,14 +16,10 @@ use function assert;
 
 final class ReferenceLayerDataProvider implements LayerDataProvider
 {
-    private LayerRepository $layerRepository;
-
-    private ContainerInterface $layerDataProviders;
-
-    public function __construct(LayerRepository $layerRepository, ContainerInterface $layerDataProviders)
-    {
-        $this->layerRepository    = $layerRepository;
-        $this->layerDataProviders = $layerDataProviders;
+    public function __construct(
+        private readonly LayerRepository $layerRepository,
+        private readonly ContainerInterface $layerDataProviders,
+    ) {
     }
 
     public function findLayerData(LayerModel $layerModel, MapLayerContext $context): LayerData

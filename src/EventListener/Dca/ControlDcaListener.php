@@ -11,6 +11,7 @@ use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
@@ -25,27 +26,14 @@ final class ControlDcaListener extends AbstractListener
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_control';
 
-    private ControlTypeRegistry $controlTypes;
-
-    private LayerRepository $layerRepository;
-
-    private Connection $connection;
-
-    private ?Geocoder $geocoder;
-
     public function __construct(
         DcaManager $dcaManager,
-        ControlTypeRegistry $controlTypes,
-        Connection $connection,
-        LayerRepository $layerRepository,
-        ?Geocoder $geocoder
+        private readonly ControlTypeRegistry $controlTypes,
+        private readonly Connection $connection,
+        private LayerRepository $layerRepository,
+        private Geocoder|null $geocoder,
     ) {
         parent::__construct($dcaManager);
-
-        $this->controlTypes    = $controlTypes;
-        $this->connection      = $connection;
-        $this->layerRepository = $layerRepository;
-        $this->geocoder        = $geocoder;
     }
 
     /** @param array<string,mixed> $row */
@@ -75,7 +63,7 @@ final class ControlDcaListener extends AbstractListener
 
         $result = $this->connection->executeQuery(
             'SELECT layerId from tl_cowegis_map_layer WHERE pid=:mapId AND active=\'1\'',
-            ['mapId' => CURRENT_ID]
+            ['mapId' => CURRENT_ID],
         );
 
         $collection = $this->layerRepository->findMultipleByIds($result->fetchFirstColumn(), ['order' => 'sorting']);
@@ -111,10 +99,8 @@ final class ControlDcaListener extends AbstractListener
      *
      * @param mixed         $layers        The layer id values.
      * @param DataContainer $dataContainer The dataContainer driver.
-     *
-     * @return null
      */
-    public function saveLayerRelations($layers, DataContainer $dataContainer)
+    public function saveLayerRelations($layers, DataContainer $dataContainer): null
     {
         $new       = StringUtil::deserialize($layers, true);
         $values    = [];
@@ -149,7 +135,7 @@ final class ControlDcaListener extends AbstractListener
                     ],
                     [
                         'id' => $values[$layer['layer']]['id'],
-                    ]
+                    ],
                 );
 
                 $sorting += 128;
@@ -162,14 +148,14 @@ final class ControlDcaListener extends AbstractListener
             static function (array $item): int {
                 return (int) $item['id'];
             },
-            $values
+            $values,
         );
 
         if ($ids) {
             $this->connection->executeStatement(
                 'DELETE FROM tl_cowegis_control_layer WHERE id IN(?)',
                 [$ids],
-                [Connection::PARAM_INT_ARRAY]
+                [ArrayParameterType::INTEGER],
             );
         }
 

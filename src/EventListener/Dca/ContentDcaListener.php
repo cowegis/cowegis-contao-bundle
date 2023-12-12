@@ -13,13 +13,9 @@ final class ContentDcaListener extends AbstractListener
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_content';
 
-    private bool $clientAvailable;
-
-    public function __construct(DcaManager $dcaManager, bool $clientAvailable)
+    public function __construct(DcaManager $dcaManager, private readonly bool $clientAvailable)
     {
         parent::__construct($dcaManager);
-
-        $this->clientAvailable = $clientAvailable;
     }
 
     public function onLoad(): void

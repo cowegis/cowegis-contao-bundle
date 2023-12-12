@@ -14,15 +14,10 @@ final class DelegatingHydrator implements Hydrator
         ResponseTaggerPlugin::__construct as private responseTaggerConstruct;
     }
 
-    /** @var Hydrator[] */
-    private iterable $hydrators;
-
     /** @param Hydrator[] $hydrators */
-    public function __construct(iterable $hydrators, ResponseTagger $responseTagger)
+    public function __construct(private readonly iterable $hydrators, ResponseTagger $responseTagger)
     {
         $this->responseTaggerConstruct($responseTagger);
-
-        $this->hydrators = $hydrators;
     }
 
     public function supports(object $data, object $definition): bool

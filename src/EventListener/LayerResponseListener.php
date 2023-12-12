@@ -9,11 +9,8 @@ use Cowegis\Bundle\Contao\Model\LayerRepository;
 
 final class LayerResponseListener
 {
-    private LayerRepository $layers;
-
-    public function __construct(LayerRepository $layers)
+    public function __construct(private readonly LayerRepository $layers)
     {
-        $this->layers = $layers;
     }
 
     public function __invoke(LayerResponseEvent $event): void

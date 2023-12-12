@@ -28,35 +28,16 @@ final class MapLayerSelectionDcaListener extends AbstractListener
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_layer';
 
-    private Connection $connection;
-
-    private RouterInterface $router;
-
-    private TranslatorInterface $translator;
-
-    private MapRepository $mapRepository;
-
-    private CsrfTokenProvider $csrfTokenProvider;
-
-    private Invoker $callbackInvoker;
-
     public function __construct(
         Manager $dcaManager,
-        MapRepository $mapRepository,
-        Connection $connection,
-        RouterInterface $router,
-        TranslatorInterface $translator,
-        CsrfTokenProvider $csrfTokenProvider,
-        Invoker $callbackInvoker
+        private readonly MapRepository $mapRepository,
+        private readonly Connection $connection,
+        private readonly RouterInterface $router,
+        private readonly TranslatorInterface $translator,
+        private readonly CsrfTokenProvider $csrfTokenProvider,
+        private readonly Invoker $callbackInvoker,
     ) {
         parent::__construct($dcaManager);
-
-        $this->connection        = $connection;
-        $this->router            = $router;
-        $this->translator        = $translator;
-        $this->mapRepository     = $mapRepository;
-        $this->csrfTokenProvider = $csrfTokenProvider;
-        $this->callbackInvoker   = $callbackInvoker;
     }
 
     public function initializeMapView(): void
@@ -82,7 +63,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
                 $config['notSortable']  = true;
 
                 return $config;
-            }
+            },
         );
 
         $definition->set(
@@ -94,7 +75,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
                     'class' => 'header header_back',
                 ],
                 'toggleNodes' => $definition->get(['list', 'global_operations', 'toggleNodes']),
-            ]
+            ],
         );
         $definition->set(
             ['list', 'operations'],
@@ -102,15 +83,15 @@ final class MapLayerSelectionDcaListener extends AbstractListener
                 'map' => [
                     'button_callback' => [self::class, 'mapIntegrationButtons'],
                 ],
-            ]
+            ],
         );
         $definition->set(
             ['list', 'label', 'origin_label_callback'],
-            $definition->get(['list', 'label', 'label_callback'])
+            $definition->get(['list', 'label', 'label_callback']),
         );
         $definition->set(
             ['list', 'label', 'label_callback'],
-            [self::class, 'rowLabel']
+            [self::class, 'rowLabel'],
         );
     }
 
@@ -132,7 +113,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
             [
                 'mapId'   => Input::get('id'),
                 'layerId' => $row['id'],
-            ]
+            ],
         );
 
         $exists = false;
@@ -146,7 +127,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
         return sprintf(
             '<div class="cowegis-map-layer-item cowegis-map-layer-item--%s">%s</div>',
             $exists ? 'active' : 'inactive',
-            $label
+            $label,
         );
     }
 
@@ -158,7 +139,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
             [
                 'mapId'   => Input::get('id'),
                 'layerId' => $row['id'],
-            ]
+            ],
         );
 
         $layer    = $result->fetchAssociative();
@@ -187,14 +168,14 @@ final class MapLayerSelectionDcaListener extends AbstractListener
                 'toggleVisibilityLabel' => $this->translate('tl_cowegis_map_layer.toggleVisibility.0'),
                 'toggleVisibilityTitle' => $this->translate('tl_cowegis_map_layer.toggleVisibility.1'),
                 'requestToken'          => $this->csrfTokenProvider->getTokenValue(),
-            ]
+            ],
         );
 
         return $template->parse();
     }
 
     /** @param array<string,mixed> $params */
-    private function translate(string $key, array $params = [], ?string $domain = null): string
+    private function translate(string $key, array $params = [], string|null $domain = null): string
     {
         $domain = $domain ?: 'contao_tl_cowegis_map_layer';
 

@@ -26,7 +26,7 @@ final class OverpassLayerType implements LayerType
         return new OverpassLayer(
             $layerModel->layerId(),
             $this->hydrateName($layerModel, $mapLayerModel),
-            $this->hydrateInitialVisible($mapLayerModel)
+            $this->hydrateInitialVisible($mapLayerModel),
         );
     }
 

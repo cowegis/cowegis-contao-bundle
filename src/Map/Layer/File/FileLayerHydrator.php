@@ -20,13 +20,9 @@ use function assert;
 
 final class FileLayerHydrator extends LayerTypeHydrator
 {
-    private RepositoryManager $repositoryManager;
-
-    public function __construct(RepositoryManager $repositoryManager, ResponseTagger $responseTagger)
+    public function __construct(private readonly RepositoryManager $repositoryManager, ResponseTagger $responseTagger)
     {
         parent::__construct($responseTagger);
-
-        $this->repositoryManager = $repositoryManager;
     }
 
     protected function supportedType(): string
@@ -38,14 +34,14 @@ final class FileLayerHydrator extends LayerTypeHydrator
         LayerModel $layerModel,
         Layer $layer,
         MapLayerContext $context,
-        Hydrator $hydrator
+        Hydrator $hydrator,
     ): void {
         assert($layer instanceof DataLayer);
 
         if ($layerModel->pointToLayer) {
             $layer->options()->set(
                 'pointToLayer',
-                $context->callbacks()->add(new InlineExpression($layerModel->pointToLayer))
+                $context->callbacks()->add(new InlineExpression($layerModel->pointToLayer)),
             );
         }
 

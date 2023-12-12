@@ -20,7 +20,7 @@ final class ScaleControlType implements ControlType
     {
         return new ScaleControl(
             $controlModel->controlId(),
-            $controlModel->alias ?: 'control_' . $controlModel->id()
+            $controlModel->alias ?: 'control_' . $controlModel->id(),
         );
     }
 }

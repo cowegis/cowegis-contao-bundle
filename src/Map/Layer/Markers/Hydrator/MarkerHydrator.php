@@ -32,14 +32,10 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         'title' => 'tooltip',
     ];
 
-    private IconTypeRegistry $iconTypes;
-
-    private IconRepository $iconRepository;
-
-    public function __construct(IconTypeRegistry $iconTypes, IconRepository $iconRepository)
-    {
-        $this->iconTypes      = $iconTypes;
-        $this->iconRepository = $iconRepository;
+    public function __construct(
+        private readonly IconTypeRegistry $iconTypes,
+        private readonly IconRepository $iconRepository,
+    ) {
     }
 
     public function hydrate(object $data, object $definition, Context $context, Hydrator $hydrator): void
@@ -127,7 +123,7 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         MarkerModel $markerModel,
         Marker $definition,
         MarkerContext $context,
-        Hydrator $hydrator
+        Hydrator $hydrator,
     ): void {
         $iconId = $context->iconId();
         if ($markerModel->icon) {

@@ -11,27 +11,21 @@ use Cowegis\Core\Provider\ContextDecorator;
 
 final class MapLayerContext extends ContextDecorator
 {
-    private ?PaneId $dataPaneId = null;
-
-    private ?PaneId $paneId = null;
-
-    private MapLayerModel $mapLayerModel;
-
-    public function __construct(Context $context, MapLayerModel $mapLayerModel, ?PaneId $paneId, ?PaneId $dataPaneId)
-    {
+    public function __construct(
+        Context $context,
+        private readonly MapLayerModel $mapLayerModel,
+        private readonly PaneId|null $paneId,
+        private readonly PaneId|null $dataPaneId,
+    ) {
         parent::__construct($context);
-
-        $this->paneId        = $paneId;
-        $this->dataPaneId    = $dataPaneId;
-        $this->mapLayerModel = $mapLayerModel;
     }
 
-    public function paneId(): ?PaneId
+    public function paneId(): PaneId|null
     {
         return $this->paneId;
     }
 
-    public function dataPaneId(): ?PaneId
+    public function dataPaneId(): PaneId|null
     {
         return $this->dataPaneId;
     }

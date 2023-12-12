@@ -47,7 +47,7 @@ final class LoadingControlHydrator extends ControlTypeHydrator
 
         $definition->options()->set(
             'zoomControl',
-            ControlId::fromValue(IntegerDefinitionId::fromValue((int) $data->zoomControl))
+            ControlId::fromValue(IntegerDefinitionId::fromValue((int) $data->zoomControl)),
         );
     }
 

@@ -28,7 +28,7 @@ final class MapLayerModel extends Model
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $strTable = 'tl_cowegis_map_layer';
 
-    private ?LayerModel $layer = null;
+    private LayerModel|null $layer = null;
 
     /**
      * {@inheritDoc}
@@ -41,7 +41,7 @@ final class MapLayerModel extends Model
 
         try {
             $layer = $this->layerModel();
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             return null;
         }
 
@@ -51,19 +51,19 @@ final class MapLayerModel extends Model
     /**
      * {@inheritDoc}
      */
-    public function __isset($key): bool
+    public function __isset($strKey): bool
     {
-        if (parent::__isset($key)) {
+        if (parent::__isset($strKey)) {
             return true;
         }
 
         try {
             $layer = $this->layerModel();
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             return false;
         }
 
-        return isset($layer->$key);
+        return isset($layer->$strKey);
     }
 
     public function layerId(): LayerId

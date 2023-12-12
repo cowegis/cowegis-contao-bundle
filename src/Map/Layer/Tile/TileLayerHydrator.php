@@ -36,7 +36,7 @@ final class TileLayerHydrator extends LayerTypeHydrator
         LayerModel $layerModel,
         Layer $layer,
         MapLayerContext $context,
-        Hydrator $hydrator
+        Hydrator $hydrator,
     ): void {
     }
 }

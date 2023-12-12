@@ -9,6 +9,7 @@ use Iterator;
 
 use function count;
 
+/** @implements Iterator<array-key,StyleType> */
 final class StyleTypeIterator implements Countable, Iterator
 {
     /** @var StyleType[] */
