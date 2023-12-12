@@ -34,7 +34,7 @@ final class ViewHydrator extends ConfigurableOptionsHydrator
         $options = $definition->options();
 
         $definition->changeView(
-            (new LatLngConstraint())->filter($data->center),
+            $data->center ? (new LatLngConstraint())->filter($data->center) : null,
             (new FloatConstraint())->filter($data->zoom),
         );
 
