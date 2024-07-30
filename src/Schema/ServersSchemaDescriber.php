@@ -46,8 +46,8 @@ final class ServersSchemaDescriber implements SchemaDescriber
             }
 
             $added[$key] = true;
-            $dns         = $rootPage->dns ?? $this->getCurrentHost();
-            $url         = ($rootPage->useSSL ? 'https://' : 'http://') . $dns . '/' . $this->baseUri;
+            $dns         = $rootPage->dns !== '' ? $rootPage->dns : $this->getCurrentHost();
+            $url         = ((bool) $rootPage->useSSL ? 'https://' : 'http://') . $dns . '/' . $this->baseUri;
 
             $builder->withServers(Server::create()->url($url));
         }

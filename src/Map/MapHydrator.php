@@ -200,7 +200,7 @@ final class MapHydrator implements Hydrator
 
     private function hydrateLocate(Map $map, MapModel $model): void
     {
-        if (! $model->locate) {
+        if (! (bool) $model->locate) {
             return;
         }
 
