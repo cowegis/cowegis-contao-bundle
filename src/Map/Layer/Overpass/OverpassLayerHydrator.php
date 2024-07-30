@@ -51,7 +51,7 @@ final class OverpassLayerHydrator extends LayerTypeHydrator
             );
         }
 
-        if ($layerModel->overpassPopup !== null) {
+        if ($layerModel->overpassPopup === null) {
             return;
         }
 

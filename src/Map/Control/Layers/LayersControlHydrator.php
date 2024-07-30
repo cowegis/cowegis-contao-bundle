@@ -80,7 +80,7 @@ final class LayersControlHydrator extends ControlTypeHydrator
 
     private function hydrateNameFunction(ControlModel $controlModel, LayersControl $control, Context $context): void
     {
-        if ($controlModel->nameFunction !== null) {
+        if ($controlModel->nameFunction === null) {
             return;
         }
 
