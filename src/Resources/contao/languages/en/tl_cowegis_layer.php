@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['title_legend']  = 'Layer';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['active_legend'] = 'Activation';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['expert_legend'] = 'Expert settings';

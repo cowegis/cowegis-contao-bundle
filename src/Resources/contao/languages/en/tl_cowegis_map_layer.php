@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['config_legend']          = 'Configuration';
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['filter_legend']          = 'Filter rules';
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['active_legend']          = 'Activation';

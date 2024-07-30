@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $GLOBALS['TL_LANG']['tl_cowegis_control']['active']['0']              = 'Kontrollelement aktivieren';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['active']['1']              = 'Kontrollelement auf der Karte aktivieren.';
 $GLOBALS['TL_LANG']['tl_cowegis_control']['active_legend']            = 'Aktivierung';

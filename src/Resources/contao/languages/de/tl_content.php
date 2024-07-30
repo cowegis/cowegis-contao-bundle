@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $GLOBALS['TL_LANG']['tl_content']['cowegis_height']['0']   = 'Kartenhöhe';
 $GLOBALS['TL_LANG']['tl_content']['cowegis_height']['1']   = 'Legen Sie die Höhe der Karte fest.';
 $GLOBALS['TL_LANG']['tl_content']['cowegis_legend']        = 'Cowegis-Kartenkonfiguration';

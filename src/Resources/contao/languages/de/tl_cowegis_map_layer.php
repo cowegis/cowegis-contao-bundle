@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['filter_legend']          = 'Filterregeln';
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['active_legend']          = 'Aktivierung';
 $GLOBALS['TL_LANG']['tl_cowegis_map_layer']['edit']['0']              = 'Kartenlayer bearbeiten';

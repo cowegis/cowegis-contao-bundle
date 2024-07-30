@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $GLOBALS['TL_LANG']['MOD']['cowegis_layer']['0']   = 'Layer';
 $GLOBALS['TL_LANG']['MOD']['cowegis_layer']['1']   = 'Kartenlayer verwalten';
 $GLOBALS['TL_LANG']['MOD']['cowegis_map']['0']     = 'Karten';

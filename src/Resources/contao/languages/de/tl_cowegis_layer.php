@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['active']['0']                     = 'Layer aktivieren';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['active']['1']                     = 'Layer auf der Karte aktivieren';
 $GLOBALS['TL_LANG']['tl_cowegis_layer']['active_legend']                   = 'Aktivierung';
