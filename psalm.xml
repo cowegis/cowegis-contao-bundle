@@ -20,12 +20,6 @@
             </errorLevel>
         </InternalMethod>
 
-        <UndefinedFunction>
-            <errorLevel type="suppress">
-                <referencedFunction name="array_insert"/>
-            </errorLevel>
-        </UndefinedFunction>
-
         <UndefinedMagicPropertyFetch>
             <errorLevel type="suppress">
                 <referencedProperty name="Contao\ContentModel::$cowegis_map"/>
