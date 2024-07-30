@@ -22,9 +22,10 @@ final class MapPaneDcaListener extends AbstractListener
         'popupPane',
     ];
 
-    /** @var string */
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-    protected static $name = 'tl_cowegis_map_pane';
+    public static function getName(): string
+    {
+        return 'tl_cowegis_map_pane';
+    }
 
     /** @param array<string,mixed> $row */
     public function rowLabel(array $row): string

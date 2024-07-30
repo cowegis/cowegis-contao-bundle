@@ -9,13 +9,14 @@ use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 
 final class ContentDcaListener extends AbstractListener
 {
-    /** @var string  */
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-    protected static $name = 'tl_content';
-
     public function __construct(DcaManager $dcaManager, private readonly bool $clientAvailable)
     {
         parent::__construct($dcaManager);
+    }
+
+    public static function getName(): string
+    {
+        return 'tl_content';
     }
 
     public function onLoad(): void

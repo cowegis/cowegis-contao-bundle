@@ -23,10 +23,6 @@ use function iterator_to_array;
 
 final class MapLayerDcaListener extends AbstractListener
 {
-    /** @var string */
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-    protected static $name = 'tl_cowegis_map_layer';
-
     public function __construct(
         Manager $dcaManager,
         private readonly LayerTypeRegistry $layerTypes,
@@ -36,6 +32,11 @@ final class MapLayerDcaListener extends AbstractListener
         private readonly FilterFactory $filterFactory,
     ) {
         parent::__construct($dcaManager);
+    }
+
+    public static function getName(): string
+    {
+        return 'tl_cowegis_map_layer';
     }
 
     public function initializePalette(DataContainer $dataContainer): void

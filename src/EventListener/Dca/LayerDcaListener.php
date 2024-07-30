@@ -45,6 +45,11 @@ final class LayerDcaListener extends AbstractListener
         parent::__construct($dcaManager);
     }
 
+    public static function getName(): string
+    {
+        return 'tl_cowegis_layer';
+    }
+
     /**
      * Generate a row.
      *

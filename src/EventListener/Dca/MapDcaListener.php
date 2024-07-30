@@ -18,10 +18,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class MapDcaListener extends AbstractListener
 {
-    /** @var string */
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-    protected static $name = 'tl_cowegis_map';
-
     public function __construct(
         Manager $dcaManager,
         private readonly MapRepository $mapRepository,
@@ -29,6 +25,11 @@ final class MapDcaListener extends AbstractListener
         private SessionInterface $session,
     ) {
         parent::__construct($dcaManager);
+    }
+
+    public static function getName(): string
+    {
+        return 'tl_cowegis_map';
     }
 
     /** @param Result|Collection $records */

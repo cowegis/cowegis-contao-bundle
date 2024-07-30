@@ -22,10 +22,6 @@ use function time;
 
 final class ControlDcaListener extends AbstractListener
 {
-    /** @var string */
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-    protected static $name = 'tl_cowegis_control';
-
     public function __construct(
         DcaManager $dcaManager,
         private readonly ControlTypeRegistry $controlTypes,
@@ -34,6 +30,11 @@ final class ControlDcaListener extends AbstractListener
         private Geocoder|null $geocoder,
     ) {
         parent::__construct($dcaManager);
+    }
+
+    public static function getName(): string
+    {
+        return 'tl_cowegis_control';
     }
 
     /** @param array<string,mixed> $row */

@@ -24,10 +24,6 @@ use function sprintf;
 
 final class MapLayerSelectionDcaListener extends AbstractListener
 {
-    /** @var string */
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-    protected static $name = 'tl_cowegis_layer';
-
     public function __construct(
         Manager $dcaManager,
         private readonly MapRepository $mapRepository,
@@ -38,6 +34,11 @@ final class MapLayerSelectionDcaListener extends AbstractListener
         private readonly Invoker $callbackInvoker,
     ) {
         parent::__construct($dcaManager);
+    }
+
+    public static function getName(): string
+    {
+        return 'tl_cowegis_layer';
     }
 
     public function initializeMapView(): void
