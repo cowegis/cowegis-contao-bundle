@@ -1,18 +1,14 @@
 <?xml version="1.0"?>
-<psalm
-        errorLevel="3"
-        resolveFromConfigFile="true"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="https://getpsalm.org/schema/config"
-        xsi:schemaLocation="https://getpsalm.org/schema/config https://getpsalm.org/schema/config"
->
+<psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://getpsalm.org/schema/config" errorLevel="3" resolveFromConfigFile="true" xsi:schemaLocation="https://getpsalm.org/schema/config https://getpsalm.org/schema/config" findUnusedCode="false" findUnusedBaselineEntry="false">
     <projectFiles>
-        <directory name="src" />
+        <directory name="src"/>
         <ignoreFiles>
             <directory name="vendor"/>
+            <directory name="spec"/>
             <directory name="src/Resources/contao/languages"/>
             <directory name="src/Resources/contao/dca"/>
         </ignoreFiles>
+        <directory name="spec"/>
     </projectFiles>
 
     <issueHandlers>
@@ -54,6 +50,12 @@
                 <referencedMethod name="Doctrine\DBAL\Query\QueryBuilder::execute"/>
             </errorLevel>
         </DeprecatedMethod>
+
+        <RiskyTruthyFalsyComparison>
+            <errorLevel type="suppress">
+                <directory name="src"/>
+            </errorLevel>
+        </RiskyTruthyFalsyComparison>
     </issueHandlers>
 
     <universalObjectCrates>
