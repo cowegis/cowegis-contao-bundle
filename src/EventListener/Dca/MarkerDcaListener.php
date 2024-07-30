@@ -76,7 +76,7 @@ final class MarkerDcaListener extends AbstractListener
         $result = $this->connection->executeQuery($query, ['id' => $dataContainer->id]);
         $row    = $result->fetchAssociative();
 
-        if ($row) {
+        if ($row !== false) {
             $buffer = $row['latitude'];
 
             if (! $buffer || ! $row['longitude']) {

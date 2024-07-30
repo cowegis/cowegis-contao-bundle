@@ -37,21 +37,21 @@ final class OverpassLayerHydrator extends LayerTypeHydrator
     ): void {
         $layer->options()->set('amenityIcons', $this->buildAmenityIcons($layerModel));
 
-        if ($layerModel->pointToLayer) {
+        if ($layerModel->pointToLayer !== null) {
             $layer->options()->set(
                 'pointToLayer',
                 $context->callbacks()->add(new InlineExpression($layerModel->pointToLayer)),
             );
         }
 
-        if ($layerModel->onEachFeature) {
+        if ($layerModel->onEachFeature !== null) {
             $layer->options()->set(
                 'onEachFeature',
                 $context->callbacks()->add(new InlineExpression($layerModel->onEachFeature)),
             );
         }
 
-        if (! $layerModel->overpassPopup) {
+        if ($layerModel->overpassPopup !== null) {
             return;
         }
 

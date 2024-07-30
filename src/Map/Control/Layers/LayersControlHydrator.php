@@ -68,7 +68,7 @@ final class LayersControlHydrator extends ControlTypeHydrator
 
     private function hydrateSortingFunction(ControlModel $controlModel, LayersControl $control, Context $context): void
     {
-        if (! $controlModel->sortLayers || ! $controlModel->sortFunction) {
+        if (! (bool) $controlModel->sortLayers || $controlModel->sortFunction === null) {
             return;
         }
 
@@ -80,7 +80,7 @@ final class LayersControlHydrator extends ControlTypeHydrator
 
     private function hydrateNameFunction(ControlModel $controlModel, LayersControl $control, Context $context): void
     {
-        if (! $controlModel->nameFunction) {
+        if ($controlModel->nameFunction !== null) {
             return;
         }
 

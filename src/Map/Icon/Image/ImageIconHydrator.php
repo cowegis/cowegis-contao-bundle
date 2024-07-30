@@ -99,7 +99,7 @@ final class ImageIconHydrator extends IconTypeHydrator
 
     protected function fetchFileModel(string|null $uuid): FilesModel|null
     {
-        if (! $uuid) {
+        if ($uuid === null) {
             return null;
         }
 

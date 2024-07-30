@@ -45,7 +45,7 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
     ): void {
         assert($layer instanceof DataLayer);
 
-        if ($layerModel->pointToLayer) {
+        if ($layerModel->pointToLayer !== null) {
             $layer->options()->set(
                 'pointToLayer',
                 $context->callbacks()->add(new InlineExpression($layerModel->pointToLayer)),
@@ -54,7 +54,7 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
 
         $layer->options()->set('adjustBounds', (bool) $context->mapLayerModel()->adjustBounds);
 
-        if ($layerModel->deferred) {
+        if ($layerModel->deferred === true) {
             $layer->withData(
                 new UriData(
                     $this->router->generate(

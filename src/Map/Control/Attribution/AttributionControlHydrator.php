@@ -39,7 +39,7 @@ final class AttributionControlHydrator extends ControlTypeHydrator
             $definition->addAttribution($attribution);
         }
 
-        if (! $data->disableDefault) {
+        if (! (bool) $data->disableDefault) {
             return;
         }
 

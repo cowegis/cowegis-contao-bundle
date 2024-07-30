@@ -34,7 +34,7 @@ final class LoadingControlHydrator extends ControlTypeHydrator
         assert($data instanceof ControlModel);
         assert($definition instanceof LoadingControl);
 
-        if ($data->spinjs && $data->spin) {
+        if (! (bool) $data->spinjs && $data->spin !== null) {
             $config = json_decode($data->spin, true);
             if (is_array($config) && count($config) > 0) {
                 $definition->options()->set('spin', $config);

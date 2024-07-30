@@ -18,7 +18,7 @@ final class LayerResponseListener
         $layerId    = $event->layerId();
         $layerModel = $this->layers->find((int) $layerId->value());
 
-        if (! $layerModel || ! $layerModel->deferred || ! $layerModel->cache) {
+        if ($layerModel === null || ! (bool) $layerModel->deferred || ! (bool) $layerModel->cache) {
             return;
         }
 

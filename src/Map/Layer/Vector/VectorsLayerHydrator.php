@@ -40,7 +40,7 @@ final class VectorsLayerHydrator extends LayerTypeHydrator
         assert($layer instanceof DataLayer);
         $layer->options()->set('adjustBounds', (bool) $context->mapLayerModel()->adjustBounds);
 
-        if ($layerModel->deferred) {
+        if ((bool) $layerModel->deferred) {
             $layer->withData(
                 new UriData(
                     $this->router->generate(

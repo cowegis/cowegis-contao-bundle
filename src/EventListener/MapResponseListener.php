@@ -18,7 +18,7 @@ final class MapResponseListener
         $mapId    = $event->definition()->mapId();
         $mapModel = $this->maps->find((int) $mapId->value());
 
-        if (! $mapModel || ! $mapModel->cache) {
+        if ($mapModel === null || ! (bool) $mapModel->cache) {
             return;
         }
 

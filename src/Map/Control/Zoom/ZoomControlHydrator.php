@@ -30,7 +30,7 @@ final class ZoomControlHydrator extends ControlTypeHydrator
         assert($data instanceof ControlModel);
         assert($definition instanceof ZoomControl);
 
-        if (! $data->disableDefault) {
+        if (! (bool) $data->disableDefault) {
             return;
         }
 

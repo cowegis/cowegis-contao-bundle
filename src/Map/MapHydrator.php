@@ -87,7 +87,7 @@ final class MapHydrator implements Hydrator
     {
         $repository = $this->repositoryManager->getRepository(MapPaneModel::class);
         assert($repository instanceof MapPaneRepository);
-        $collection = $repository->findByMap((int) $mapModel->id) ?: [];
+        $collection = $repository->findByMap((int) $mapModel->id) ?? [];
 
         foreach ($collection as $paneModel) {
             assert($paneModel instanceof MapPaneModel);

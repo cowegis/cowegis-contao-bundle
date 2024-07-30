@@ -26,12 +26,6 @@
                 <referencedProperty name="Contao\ModuleModel::$cowegis_map"/>
             </errorLevel>
         </UndefinedMagicPropertyFetch>
-
-        <RiskyTruthyFalsyComparison>
-            <errorLevel type="suppress">
-                <directory name="src"/>
-            </errorLevel>
-        </RiskyTruthyFalsyComparison>
     </issueHandlers>
 
     <universalObjectCrates>

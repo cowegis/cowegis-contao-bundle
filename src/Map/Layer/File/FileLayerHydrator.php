@@ -38,7 +38,7 @@ final class FileLayerHydrator extends LayerTypeHydrator
     ): void {
         assert($layer instanceof DataLayer);
 
-        if ($layerModel->pointToLayer) {
+        if ($layerModel->pointToLayer !== null) {
             $layer->options()->set(
                 'pointToLayer',
                 $context->callbacks()->add(new InlineExpression($layerModel->pointToLayer)),

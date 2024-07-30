@@ -25,6 +25,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function array_merge;
 use function assert;
+use function is_string;
 
 abstract class MapFragmentAction extends AbstractHybridController
 {
@@ -121,7 +122,7 @@ abstract class MapFragmentAction extends AbstractHybridController
             $autoItem = $this->inputAdapter->get('auto_item');
         }
 
-        if ($autoItem) {
+        if (is_string($autoItem) && $autoItem !== '') {
             $query = $uri->getQuery();
             $uri   = $uri->withQuery(($query ? '&' : '') . 'auto_item=' . $autoItem);
         }

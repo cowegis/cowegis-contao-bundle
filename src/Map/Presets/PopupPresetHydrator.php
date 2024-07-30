@@ -60,7 +60,7 @@ final class PopupPresetHydrator extends ConfigurableOptionsHydrator
 
     private function hydrateAutoPan(PopupModel $model, PopupPreset $definition): void
     {
-        if (! $model->autoPan) {
+        if (! (bool) $model->autoPan) {
             return;
         }
 

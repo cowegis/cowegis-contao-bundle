@@ -54,7 +54,7 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
         $this->hydratePopup($data, $definition, $context);
         $this->hydrateTooltip($data, $definition, $context);
 
-        if ($data->featureData) {
+        if ($data->featureData !== null) {
             $featureData = json_decode($data->featureData, true);
             if (is_array($featureData)) {
                 $definition->properties()->merge($featureData);
@@ -83,7 +83,7 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
 
     private function hydratePopup(MarkerModel $markerModel, Marker $definition, Context $context): void
     {
-        if (! $markerModel->addPopup) {
+        if ($markerModel->addPopup !== false) {
             return;
         }
 
@@ -101,7 +101,7 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
 
     private function hydrateTooltip(MarkerModel $markerModel, Marker $definition, Context $context): void
     {
-        if (! $markerModel->addTooltip) {
+        if ($markerModel->addTooltip !== false) {
             return;
         }
 

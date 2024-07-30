@@ -43,7 +43,7 @@ final class MarkerClusterGroupHydrator extends GroupLayerHydrator
 
         assert($layer instanceof MarkerClusterGroup);
 
-        if (! $layerModel->iconCreateFunction) {
+        if ($layerModel->iconCreateFunction === null) {
             return;
         }
 

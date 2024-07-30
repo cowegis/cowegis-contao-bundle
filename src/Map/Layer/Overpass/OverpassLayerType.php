@@ -33,7 +33,7 @@ final class OverpassLayerType implements LayerType
     /** {@inheritDoc} */
     public function label(string $label, array $row): string
     {
-        if ($row['overpassQuery']) {
+        if ($row['overpassQuery'] !== null) {
             $label .= '<span class="tl_gray"> ' . StringUtil::substr($row['overpassQuery'], 50) . '</span>';
         }
 
