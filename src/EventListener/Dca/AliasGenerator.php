@@ -9,8 +9,6 @@ use Contao\DataContainer;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 
-use function is_object;
-
 final class AliasGenerator
 {
     public function __construct(
@@ -48,11 +46,7 @@ final class AliasGenerator
             ->andWhere('id != :id')
             ->setParameter('alias', $slug)
             ->setParameter('id', $recordId)
-            ->execute();
-
-        if (! is_object($statement)) {
-            return false;
-        }
+            ->executeQuery();
 
         return $statement->fetchOne() > 0;
     }

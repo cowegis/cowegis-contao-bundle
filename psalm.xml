@@ -45,12 +45,6 @@
             </errorLevel>
         </UndefinedMagicPropertyFetch>
 
-        <DeprecatedMethod>
-            <errorLevel type="suppress">
-                <referencedMethod name="Doctrine\DBAL\Query\QueryBuilder::execute"/>
-            </errorLevel>
-        </DeprecatedMethod>
-
         <RiskyTruthyFalsyComparison>
             <errorLevel type="suppress">
                 <directory name="src"/>
