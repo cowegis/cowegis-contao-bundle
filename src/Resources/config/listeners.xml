@@ -12,6 +12,11 @@
             <tag name="kernel.event_listener" event="contao.backend_menu_build" method="onBuild" priority="-255" />
         </service>
 
+        <service id="Cowegis\Bundle\Contao\EventListener\BackendStyleListener" autoconfigure="true">
+            <argument type="service" id="netzmacht.contao_toolkit.assets_manager"/>
+            <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher"/>
+        </service>
+
         <service id="Cowegis\Bundle\Contao\EventListener\LayerResponseListener">
             <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository"/>
             <tag name="kernel.event_listener" event="Cowegis\Bundle\Api\Event\LayerResponseEvent"/>
