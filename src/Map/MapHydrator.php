@@ -79,7 +79,7 @@ final class MapHydrator implements Hydrator
         $this->hydrateIconPresets($definition, $context, $hydrator);
         $this->hydratePopupPresets($definition, $context, $hydrator);
         $this->hydrateTooltipPresets($definition, $context, $hydrator);
-        $this->hydrateAssets($definition, $data, $context);
+        $this->hydrateAssets($data, $context);
         $hydrator->hydrate($data, $definition->view(), $context, $hydrator);
     }
 
@@ -208,7 +208,7 @@ final class MapHydrator implements Hydrator
     }
 
     /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
-    private function hydrateAssets(Map $definition, MapModel $model, Context $context): void
+    private function hydrateAssets(MapModel $model, Context $context): void
     {
         if ($model->defaultAssets) {
             $context->assets()->add(Asset::STYLESHEET('bundles/cowegisclient/css/cowegis.css'));

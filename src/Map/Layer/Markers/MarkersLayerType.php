@@ -38,14 +38,13 @@ final class MarkersLayerType implements DataLayerType
     /** {@inheritDoc} */
     public function label(string $label, array $row): string
     {
-        $count  = $this->markerRepository->countBy(['.pid=?'], [$row['id']]);
-        $label .= sprintf(
+        $count = $this->markerRepository->countBy(['.pid=?'], [$row['id']]);
+
+        return $label . sprintf(
             '<span class="tl_gray"> (%s %s)</span>',
             $count,
             $this->translator->trans('tl_cowegis_layer.countEntries', [], 'contao_tl_cowegis_layer'),
         );
-
-        return $label;
     }
 
     public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
