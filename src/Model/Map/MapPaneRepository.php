@@ -18,7 +18,7 @@ final class MapPaneRepository extends ContaoRepository
     /** @param array<string,mixed> $options */
     public function findByMap(int $mapId, array $options = []): Collection|null
     {
-        $options['sorting'] = $options['sorting'] ?? '.sorting';
+        $options['sorting'] ??= '.sorting';
 
         return $this->findBy(['.pid=?'], [$mapId], $options);
     }

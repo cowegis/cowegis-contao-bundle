@@ -178,7 +178,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
     /** @param array<string,mixed> $params */
     private function translate(string $key, array $params = [], string|null $domain = null): string
     {
-        $domain = $domain ?? 'contao_tl_cowegis_map_layer';
+        $domain ??= 'contao_tl_cowegis_map_layer';
 
         return StringUtil::specialchars($this->translator->trans($key, $params, $domain));
     }

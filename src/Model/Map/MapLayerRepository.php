@@ -19,7 +19,7 @@ final class MapLayerRepository extends ContaoRepository
     /** @param array<string,mixed> $options */
     public function findActive(int $mapId, array $options = []): Collection|null
     {
-        $options['sorting'] = $options['sorting'] ?? '.sorting';
+        $options['sorting'] ??= '.sorting';
 
         return $this->findBy(['.pid=?', '.active=?'], [$mapId, 1], $options);
     }

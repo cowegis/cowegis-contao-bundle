@@ -24,8 +24,8 @@ final class MarkerRepository extends ContaoRepository
     /** @param array<string,mixed> $options */
     public function findActiveByLayer(int $layerId, array $options = []): Collection|null
     {
-        $options['sorting'] = $options['sorting'] ?? '.sorting';
-        $columns            = [
+        $options['sorting'] ??= '.sorting';
+        $columns              = [
             '.pid=?',
             '.active=?',
             '.latitude IS NOT NULL',
