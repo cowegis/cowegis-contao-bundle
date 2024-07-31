@@ -13,6 +13,7 @@ use Cowegis\Bundle\Contao\Model\MarkerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
 use Cowegis\Core\Definition\Icon\IconId;
+use Cowegis\Core\Definition\Map\PaneId;
 use Cowegis\Core\Definition\Preset\PopupPresetId;
 use Cowegis\Core\Definition\Preset\TooltipPresetId;
 use Cowegis\Core\Definition\UI\Marker;
@@ -63,7 +64,7 @@ final class MarkerHydrator extends ConfigurableOptionsHydrator
 
         if (
             ! ($context instanceof MarkerContext) && ! ($context instanceof MapLayerContext)
-            || ! $context->dataPaneId()
+            || ! $context->dataPaneId() instanceof PaneId
         ) {
             return;
         }

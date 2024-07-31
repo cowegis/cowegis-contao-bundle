@@ -166,7 +166,7 @@ final class ControlDcaListener extends AbstractListener
     /** @Callback(table="tl_cowegis_control", target="config.onload") */
     public function initializeGeocoderPalette(): void
     {
-        if ($this->geocoder === null) {
+        if (! $this->geocoder instanceof Geocoder) {
             return;
         }
 
@@ -184,7 +184,7 @@ final class ControlDcaListener extends AbstractListener
     {
         $options = [];
 
-        if ($this->geocoder === null) {
+        if (! $this->geocoder instanceof Geocoder) {
             return $options;
         }
 

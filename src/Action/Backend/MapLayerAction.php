@@ -88,7 +88,7 @@ final class MapLayerAction
             'layerId'        => $layerModel->id(),
         ];
 
-        if ($model === null) {
+        if (! $model instanceof MapLayerModel) {
             $this->repositoryManager->getConnection()->insert(MapLayerModel::getTable(), $data);
         } else {
             $this->repositoryManager->getConnection()->update(MapLayerModel::getTable(), $data, ['id' => $model->id]);
@@ -107,7 +107,7 @@ final class MapLayerAction
         $repository = $this->repositoryManager->getRepository(MapLayerModel::class);
         assert($repository instanceof MapLayerRepository);
         $model = $repository->findLayer($mapModel->id(), $layerModel->id());
-        if ($model === null) {
+        if (! $model instanceof MapLayerModel) {
             return;
         }
 
@@ -123,7 +123,7 @@ final class MapLayerAction
         $repository = $this->repositoryManager->getRepository(MapLayerModel::class);
         assert($repository instanceof MapLayerRepository);
         $model = $repository->findLayer($mapModel->id(), $layerModel->id());
-        if ($model === null) {
+        if (! $model instanceof MapLayerModel) {
             throw new BadRequestHttpException();
         }
 

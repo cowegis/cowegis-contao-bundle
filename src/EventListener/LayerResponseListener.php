@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener;
 
+use Contao\Model;
 use Cowegis\Bundle\Api\Event\LayerResponseEvent;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
 
@@ -18,7 +19,7 @@ final class LayerResponseListener
         $layerId    = $event->layerId();
         $layerModel = $this->layers->find((int) $layerId->value());
 
-        if ($layerModel === null || ! (bool) $layerModel->deferred || ! (bool) $layerModel->cache) {
+        if (! $layerModel instanceof Model || ! (bool) $layerModel->deferred || ! (bool) $layerModel->cache) {
             return;
         }
 

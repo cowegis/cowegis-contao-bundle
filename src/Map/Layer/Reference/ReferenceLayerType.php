@@ -39,7 +39,7 @@ final class ReferenceLayerType implements LayerType, LayerTypeRegistryAware
 
     public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
     {
-        if ($this->layerTypes === null) {
+        if (! $this->layerTypes instanceof LayerTypeRegistry) {
             throw new RuntimeException('Layer registry has to be set.');
         }
 

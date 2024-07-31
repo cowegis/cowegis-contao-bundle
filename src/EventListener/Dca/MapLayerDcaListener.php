@@ -7,6 +7,7 @@ namespace Cowegis\Bundle\Contao\EventListener\Dca;
 use Contao\BackendTemplate;
 use Contao\DataContainer;
 use Contao\Input;
+use Contao\Model;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
@@ -84,7 +85,7 @@ final class MapLayerDcaListener extends AbstractListener
         $label      = $this->rowLabel($dataContainer->activeRecord->row(), $dataContainer);
         $layerType  = null;
 
-        if ($layerModel && $this->layerTypes->has($layerModel->type)) {
+        if ($layerModel instanceof Model && $this->layerTypes->has($layerModel->type)) {
             $layerType = $this->layerTypes->get($layerModel->type);
             $label     = $layerType->label($label, $layerModel->row());
         }

@@ -49,7 +49,7 @@ final class GeocoderControlTypeHydrator extends ControlTypeHydrator
         assert($data instanceof ControlModel);
         assert($definition instanceof GeocoderControl);
 
-        if ($this->searchUrlGenerator === null || ! $data->geocoder) {
+        if (! $this->searchUrlGenerator instanceof SearchUrlGenerator || ! $data->geocoder) {
             return;
         }
 

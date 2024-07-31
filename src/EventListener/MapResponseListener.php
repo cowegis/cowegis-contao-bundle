@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener;
 
+use Contao\Model;
 use Cowegis\Bundle\Api\Event\MapResponseEvent;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
 
@@ -18,7 +19,7 @@ final class MapResponseListener
         $mapId    = $event->definition()->mapId();
         $mapModel = $this->maps->find((int) $mapId->value());
 
-        if ($mapModel === null || ! (bool) $mapModel->cache) {
+        if (! $mapModel instanceof Model || ! (bool) $mapModel->cache) {
             return;
         }
 

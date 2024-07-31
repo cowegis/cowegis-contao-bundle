@@ -58,7 +58,7 @@ final class ImageIconHydrator extends IconTypeHydrator
         }
 
         $file = $this->hydrateImage($options, 'icon', $iconModel->iconImage, $iconModel);
-        if (! $file || $options->has('popupAnchor')) {
+        if (! $file instanceof File || $options->has('popupAnchor')) {
             return;
         }
 

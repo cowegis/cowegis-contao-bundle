@@ -73,7 +73,7 @@ final class MapLayerModel extends Model
 
     public function layerModel(): LayerModel
     {
-        if ($this->layer === null) {
+        if (! $this->layer instanceof LayerModel) {
             $layer = $this->getRelated('layerId');
 
             /** @psalm-suppress RedundantConditionGivenDocblockType */

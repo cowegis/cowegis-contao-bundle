@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Map\Layer\Reference;
 
+use Contao\Model;
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
@@ -27,7 +28,7 @@ final class ReferenceLayerHydrator extends LayerTypeHydrator
         Hydrator $hydrator,
     ): void {
         $referenceModel = $this->layerRepository->find((int) $layerModel->reference);
-        if ($referenceModel === null) {
+        if (! $referenceModel instanceof Model) {
             throw LayerNotFound::withLayerId(
                 $layerModel->layerId(),
                 $context->mapId(),

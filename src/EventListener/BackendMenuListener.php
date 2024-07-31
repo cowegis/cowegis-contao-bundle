@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\EventListener;
 
 use Contao\CoreBundle\Event\MenuEvent;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final class BackendMenuListener
@@ -27,12 +28,12 @@ final class BackendMenuListener
         }
 
         $contentNode = $tree->getChild('cowegis');
-        if ($contentNode === null) {
+        if (! $contentNode instanceof ItemInterface) {
             return;
         }
 
         $mapNode = $contentNode->getChild('cowegis_map');
-        if ($mapNode === null) {
+        if (! $mapNode instanceof ItemInterface) {
             return;
         }
 

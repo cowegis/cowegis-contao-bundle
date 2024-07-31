@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Provider;
 
 use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\Model;
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
+use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerRepository;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
 use Cowegis\Core\Definition\DefinitionId\IntegerDefinitionId;
@@ -49,7 +51,7 @@ final class ContaoBackendProvider implements Provider
         // TODO: Protect against unsupported id formats
 
         $mapModel = $this->mapRepository->find((int) $mapId->value());
-        if ($mapModel === null) {
+        if (! $mapModel instanceof Model) {
             throw MapNotFound::withMapId($mapId);
         }
 
@@ -71,7 +73,7 @@ final class ContaoBackendProvider implements Provider
         // TODO: Protect against unsupported id formats
 
         $mapLayer = $this->mapLayerRepository->findActiveLayer((int) $mapId->value(), (int) $layerId->value());
-        if ($mapLayer === null) {
+        if (! $mapLayer instanceof MapLayerModel) {
             throw LayerNotFound::withLayerId($layerId, $mapId);
         }
 

@@ -10,6 +10,7 @@ use Cowegis\Bundle\Contao\Map\Options\ConfigurableOptionsHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Layer\Layer;
+use Cowegis\Core\Definition\Map\PaneId;
 use Cowegis\Core\Provider\Context;
 
 use function assert;
@@ -58,7 +59,7 @@ abstract class LayerTypeHydrator extends ConfigurableOptionsHydrator
     private function hydratePane(Layer $definition, MapLayerContext $context): void
     {
         $paneId = $context->paneId();
-        if ($paneId === null) {
+        if (! $paneId instanceof PaneId) {
             return;
         }
 
