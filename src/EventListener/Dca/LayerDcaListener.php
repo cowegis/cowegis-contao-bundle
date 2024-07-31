@@ -26,10 +26,6 @@ use function strip_tags;
 
 final class LayerDcaListener extends AbstractListener
 {
-    /** @var string */
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-    protected static $name = 'tl_cowegis_layer';
-
     /**
      * @param array<string,list<string>> $fileFormats
      * @param string[]                   $amenities
@@ -186,7 +182,7 @@ final class LayerDcaListener extends AbstractListener
      * @param string              $icon       The button icon.
      * @param string              $attributes Optional attributes.
      */
-    protected function generateButton(
+    private function generateButton(
         array $row,
         string $href,
         string $label,

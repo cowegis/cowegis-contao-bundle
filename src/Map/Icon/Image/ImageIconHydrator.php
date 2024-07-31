@@ -40,7 +40,7 @@ final class ImageIconHydrator extends IconTypeHydrator
         $this->hydrateFileOption($options, 'shadowRetinaUrl', $iconModel->shadowRetinaImage);
     }
 
-    protected function hydrateFileOption(Options $options, string $option, string|null $uuid): void
+    private function hydrateFileOption(Options $options, string $option, string|null $uuid): void
     {
         $fileModel = $this->fetchFileModel($uuid);
         if (! $fileModel) {
@@ -50,7 +50,7 @@ final class ImageIconHydrator extends IconTypeHydrator
         $options->set($option, $fileModel->path);
     }
 
-    protected function hydrateIconImage(Options $options, IconModel $iconModel): void
+    private function hydrateIconImage(Options $options, IconModel $iconModel): void
     {
         $fileModel = $this->fetchFileModel($iconModel->iconImage);
         if (! $fileModel) {
@@ -65,7 +65,7 @@ final class ImageIconHydrator extends IconTypeHydrator
         $options->set('popupAnchor', new Point(0, -$options->get('iconSize')->y()));
     }
 
-    protected function hydrateImage(Options $options, string $key, string|null $uuid, IconModel $iconModel): File|null
+    private function hydrateImage(Options $options, string $key, string|null $uuid, IconModel $iconModel): File|null
     {
         $fileModel = $this->fetchFileModel($uuid);
         if (! $fileModel) {
@@ -97,7 +97,7 @@ final class ImageIconHydrator extends IconTypeHydrator
         return $file;
     }
 
-    protected function fetchFileModel(string|null $uuid): FilesModel|null
+    private function fetchFileModel(string|null $uuid): FilesModel|null
     {
         if ($uuid === null) {
             return null;
