@@ -60,7 +60,7 @@ final class MapLayerDcaListener extends AbstractListener
 
         $this->getDefinition()->modify(
             ['palettes', 'default'],
-            static function (string $palette) {
+            static function (string $palette): string {
                 return 'layerId;' . $palette;
             },
         );
