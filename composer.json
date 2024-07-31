@@ -56,7 +56,7 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "https://token:ANU5iWbJuovTQ5j4Mre31crK5Dx36OscQ33uB7tzHtcDvTO55bAkRl8M8P0Mvp9r@packages.netzmacht.de/r/"
+      "url": "https://packages.netzmacht.de/r/"
     }
   ],
   "minimum-stability": "dev",
