@@ -17,8 +17,7 @@ final class AliasGenerator
     ) {
     }
 
-    /** @param mixed $value */
-    public function __invoke($value, DataContainer $dataContainer): string
+    public function __invoke(mixed $value, DataContainer $dataContainer): string
     {
         if ($value || ! $dataContainer->activeRecord) {
             return $value;

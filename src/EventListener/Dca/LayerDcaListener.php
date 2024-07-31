@@ -144,10 +144,8 @@ final class LayerDcaListener extends AbstractListener
      *
      * @param mixed         $value         Given value.
      * @param DataContainer $dataContainer Data container driver.
-     *
-     * @return mixed
      */
-    public function prepareFileWidget($value, DataContainer $dataContainer)
+    public function prepareFileWidget(mixed $value, DataContainer $dataContainer): mixed
     {
         if ($dataContainer->activeRecord) {
             $fileFormat = $dataContainer->activeRecord->fileFormat;
@@ -213,7 +211,7 @@ final class LayerDcaListener extends AbstractListener
         DataContainer $dataContainer,
         array $row,
         string $table,
-        $whatever,
+        mixed $whatever,
         array $children,
     ): string {
         $pasteAfterUrl = $this->backendAdapter->addToUrl(

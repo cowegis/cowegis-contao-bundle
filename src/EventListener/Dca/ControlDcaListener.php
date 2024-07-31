@@ -87,7 +87,7 @@ final class ControlDcaListener extends AbstractListener
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function loadLayerRelations($value, DataContainer $dataContainer): array
+    public function loadLayerRelations(mixed $value, DataContainer $dataContainer): array
     {
         $query  = 'SELECT lid As layer, mode FROM tl_cowegis_control_layer WHERE cid=:cid ORDER BY sorting';
         $result = $this->connection->executeQuery($query, ['cid' => $dataContainer->id]);
@@ -101,7 +101,7 @@ final class ControlDcaListener extends AbstractListener
      * @param mixed         $layers        The layer id values.
      * @param DataContainer $dataContainer The dataContainer driver.
      */
-    public function saveLayerRelations($layers, DataContainer $dataContainer): null
+    public function saveLayerRelations(mixed $layers, DataContainer $dataContainer): null
     {
         $new       = StringUtil::deserialize($layers, true);
         $values    = [];

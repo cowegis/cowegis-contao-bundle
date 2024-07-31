@@ -57,8 +57,7 @@ final class ApplyFilterRuleEvent
         }
     }
 
-    /** @param mixed ...$values */
-    public function withValues(...$values): void
+    public function withValues(mixed ...$values): void
     {
         foreach ($values as $value) {
             $this->values[] = $value;

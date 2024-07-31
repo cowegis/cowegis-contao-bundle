@@ -32,27 +32,6 @@
         </properties>
     </rule>
 
-    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
-        <properties>
-            <property name="enableUnionTypeHint" value="false" />
-            <property name="enableMixedTypeHint" value="false" />
-        </properties>
-    </rule>
-
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
-        <properties>
-            <property name="enableUnionTypeHint" value="false" />
-            <property name="enableMixedTypeHint" value="false" />
-        </properties>
-    </rule>
-
-    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
-        <properties>
-            <property name="enableUnionTypeHint" value="false" />
-            <property name="enableMixedTypeHint" value="false" />
-        </properties>
-    </rule>
-
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
         <exclude-pattern>spec/*</exclude-pattern>
     </rule>

@@ -32,11 +32,9 @@ final class Validator
      * @param mixed         $value         Given value.
      * @param DataContainer $dataContainer Data container driver.
      *
-     * @return mixed
-     *
      * @throws InvalidArgumentException When invalid coordinates given.
      */
-    public function validateCoordinates($value, DataContainer $dataContainer)
+    public function validateCoordinates(mixed $value, DataContainer $dataContainer): mixed
     {
         if (! $value && ! $this->isRequired($dataContainer)) {
             return $value;
@@ -61,11 +59,9 @@ final class Validator
      * @param mixed         $values        Given value.
      * @param DataContainer $dataContainer Data container driver.
      *
-     * @return mixed
-     *
      * @throws InvalidArgumentException When invalid coordinates given.
      */
-    public function validateMultipleCoordinates($values, DataContainer $dataContainer)
+    public function validateMultipleCoordinates(mixed $values, DataContainer $dataContainer): mixed
     {
         if (! is_array($values)) {
             $lines = explode("\n", $values);

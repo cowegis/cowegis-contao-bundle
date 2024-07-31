@@ -32,8 +32,7 @@ final class MapDcaListener extends AbstractListener
         return 'tl_cowegis_map';
     }
 
-    /** @param Result|Collection $records */
-    public function layerList($records, string $uniqueId): string
+    public function layerList(Result|Collection $records, string $uniqueId): string
     {
         $strReturn = '';
 
