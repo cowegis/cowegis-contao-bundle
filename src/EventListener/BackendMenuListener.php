@@ -6,6 +6,7 @@ namespace Cowegis\Bundle\Contao\EventListener;
 
 use Contao\CoreBundle\Event\MenuEvent;
 use Knp\Menu\ItemInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final class BackendMenuListener
@@ -17,7 +18,7 @@ final class BackendMenuListener
     public function onBuild(MenuEvent $event): void
     {
         $request = $this->requestStack->getCurrentRequest();
-        if ($request === null) {
+        if (! $request instanceof Request) {
             return;
         }
 

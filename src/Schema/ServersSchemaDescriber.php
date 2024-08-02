@@ -11,6 +11,7 @@ use Cowegis\Core\Schema\SchemaDescriber;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 use function assert;
@@ -47,7 +48,9 @@ final class ServersSchemaDescriber implements SchemaDescriber
 
             $added[$key] = true;
             $dns         = $rootPage->dns !== '' ? $rootPage->dns : $this->getCurrentHost();
-            $url         = ((bool) $rootPage->useSSL ? 'https://' : 'http://') . $dns . '/' . $this->baseUri;
+
+            /** @psalm-suppress RedundantCastGivenDocblockType */
+            $url = ((bool) $rootPage->useSSL ? 'https://' : 'http://') . $dns . '/' . $this->baseUri;
 
             $builder->withServers(Server::create()->url($url));
         }
@@ -56,7 +59,7 @@ final class ServersSchemaDescriber implements SchemaDescriber
     private function getCurrentHost(): string
     {
         $request = $this->requestStack->getCurrentRequest();
-        if ($request === null) {
+        if (! $request instanceof Request) {
             return '';
         }
 

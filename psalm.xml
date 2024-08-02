@@ -24,8 +24,15 @@
             <errorLevel type="suppress">
                 <referencedProperty name="Contao\ContentModel::$cowegis_map"/>
                 <referencedProperty name="Contao\ModuleModel::$cowegis_map"/>
+                <referencedProperty name="Contao\DataContainer::$activeRecord"/>
             </errorLevel>
         </UndefinedMagicPropertyFetch>
+        
+        <DeprecatedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Contao\Template"/>
+            </errorLevel>
+        </DeprecatedClass>
     </issueHandlers>
 
     <universalObjectCrates>

@@ -13,11 +13,11 @@ use Cowegis\Bundle\Contao\Model\LayerRepository;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
+use MenAtWork\MultiColumnWizardBundle\Contao\Widgets\MultiColumnWizard;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
 
 use function array_map;
-use function defined;
 use function time;
 
 final class ControlDcaListener extends AbstractListener
@@ -55,16 +55,16 @@ final class ControlDcaListener extends AbstractListener
     }
 
     /** @return array<int,string> */
-    public function layerOptions(): array
+    public function layerOptions(MultiColumnWizard $multiColumnWizard): array
     {
-        // We can't trust the MCW https://github.com/menatwork/contao-multicolumnwizard-bundle/issues/66
-        if (! defined('CURRENT_ID')) {
+        /** @psalm-suppress DocblockTypeContradiction */
+        if (! isset($multiColumnWizard->dataContainer->currentPid)) {
             return [];
         }
 
         $result = $this->connection->executeQuery(
             'SELECT layerId from tl_cowegis_map_layer WHERE pid=:mapId AND active=\'1\'',
-            ['mapId' => CURRENT_ID],
+            ['mapId' => $multiColumnWizard->dataContainer->currentPid],
         );
 
         $collection = $this->layerRepository->findMultipleByIds($result->fetchFirstColumn(), ['order' => 'sorting']);

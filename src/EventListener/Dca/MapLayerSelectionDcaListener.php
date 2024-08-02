@@ -47,6 +47,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
             return;
         }
 
+        /** @psalm-suppress RiskyCast */
         $mapModel = $this->mapRepository->find((int) Input::get('id'));
         if (! $mapModel instanceof MapModel) {
             throw new BadRequestHttpException();
