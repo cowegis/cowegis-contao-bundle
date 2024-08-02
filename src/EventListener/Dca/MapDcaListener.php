@@ -12,8 +12,8 @@ use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class MapDcaListener extends AbstractListener
@@ -22,7 +22,7 @@ final class MapDcaListener extends AbstractListener
         Manager $dcaManager,
         private readonly MapRepository $mapRepository,
         private readonly TranslatorInterface $translator,
-        private SessionInterface $session,
+        private RequestStack $requestStack,
     ) {
         parent::__construct($dcaManager);
     }
@@ -63,11 +63,12 @@ final class MapDcaListener extends AbstractListener
             return;
         }
 
-        if (! $this->session instanceof Session) {
+        $session = $this->requestStack->getCurrentRequest()?->getSession();
+        if (! $session instanceof Session) {
             return;
         }
 
-        $this->session->getFlashBag()->add(
+        $session->getFlashBag()->add(
             'contao.BE.info',
             $this->translator->trans('ERR.cowegisMissingZoomLevel', [], 'contao_default'),
         );

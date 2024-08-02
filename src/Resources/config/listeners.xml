@@ -69,7 +69,7 @@
             <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
             <argument type="service" id="Cowegis\Bundle\Contao\Model\Map\MapRepository" />
             <argument type="service" id="translator" />
-            <argument type="service" id="session" />
+            <argument type="service" id="request_stack" />
             <tag name="contao.callback" table="tl_cowegis_map" target="fields.layers.eval.listCallback" method="layerList" />
             <tag name="contao.callback" table="tl_cowegis_map" target="config.onload" method="showIncompleteConfigurationWarning" />
         </service>
