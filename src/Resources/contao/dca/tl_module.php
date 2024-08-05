@@ -40,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_mapId'] = [
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_width'] = [
     'inputType' => 'inputUnit',
-    'options'   => $GLOBALS['TL_CSS_UNITS'],
+    'options'   => ['px', '%', 'em', 'rem'],
     'search'    => false,
     'exclude'   => true,
     'eval'      => ['rgxp' => 'digit', 'tl_class' => 'clr w50'],
@@ -50,7 +50,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_width'] = [
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['cowegis_height'] = [
     'inputType' => 'inputUnit',
-    'options'   => $GLOBALS['TL_CSS_UNITS'],
+    'options'   => ['px', '%', 'em', 'rem'],
     'search'    => false,
     'exclude'   => true,
     'eval'      => ['rgxp' => 'digit', 'tl_class' => 'w50'],
