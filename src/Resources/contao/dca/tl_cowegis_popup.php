@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Contao\DC_Table;
+use Netzmacht\Contao\Toolkit\Dca\Listener\Button\StateButtonCallbackListener;
 
 $GLOBALS['TL_DCA']['tl_cowegis_popup'] = [
     'config' => [
@@ -63,10 +64,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_popup'] = [
             'toggle' => [
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => [
-                    'netzmacht.contao_toolkit.dca.listeners.state_button_callback',
-                    'handleButtonCallback',
-                ],
+                'button_callback' => [StateButtonCallbackListener::class, 'onButtonCallback'],
                 'toolkit'         => [
                     'state_button' => ['stateColumn' => 'active'],
                 ],
