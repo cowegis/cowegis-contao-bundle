@@ -5,7 +5,7 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults autowire="false" autoconfigure="false" public="false"/>
+        <defaults autowire="false" autoconfigure="true" public="false"/>
 
         <service id="Cowegis\Bundle\Contao\Action\MapContentElementAction">
             <argument type="service" id="Cowegis\Core\Filter\FilterFactory"/>
@@ -19,7 +19,6 @@
             <argument type="service" id="translator"/>
             <argument type="service" id="contao.security.token_checker"/>
             <argument type="service" id="netzmacht.contao_toolkit.contao.input_adapter"/>
-            <tag name="contao.content_element" category="includes" type="cowegis_map" method="renderAsContentElement"/>
         </service>
 
         <service id="Cowegis\Bundle\Contao\Action\MapModuleAction">
@@ -34,7 +33,6 @@
             <argument type="service" id="translator"/>
             <argument type="service" id="contao.security.token_checker"/>
             <argument type="service" id="netzmacht.contao_toolkit.contao.input_adapter"/>
-            <tag name="contao.frontend_module" category="includes" type="cowegis_map" method="renderAsFrontendModule"/>
         </service>
 
     </services>
