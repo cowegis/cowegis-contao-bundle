@@ -24,6 +24,6 @@ final class BackendStyleListener
             return;
         }
 
-        $this->assetsManager->addStylesheet('cowegiscontao::css/backend.css');
+        $this->assetsManager->addStylesheet('cowegis_contao::css/backend.css');
     }
 }
