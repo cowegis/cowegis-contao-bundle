@@ -21,6 +21,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
             'mode'        => 5,
             'fields'      => ['title'],
             'flag'        => 1,
+            'rootPaste'   => true,
             'icon'        => 'bundles/cowegiscontao/img/layers.png',
             'panelLayout' => 'filter;search,limit',
         ],
