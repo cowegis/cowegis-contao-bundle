@@ -17,6 +17,7 @@ use Cowegis\Core\Filter\FilterFactory;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
+use stdClass;
 
 use function assert;
 use function is_string;
@@ -82,7 +83,10 @@ final class MapLayerDcaListener extends AbstractListener
         }
 
         $layerModel = $this->layerRepository->find((int) $dataContainer->activeRecord->layerId);
-        $label      = $this->rowLabel($dataContainer->activeRecord->row(), $dataContainer);
+        $row        = $dataContainer->activeRecord instanceof stdClass
+            ? (array) $dataContainer->activeRecord
+            : $dataContainer->activeRecord->row();
+        $label      = $this->rowLabel($row, $dataContainer);
         $layerType  = null;
 
         if ($layerModel instanceof Model && $this->layerTypes->has($layerModel->type)) {
