@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use Contao\DC_Table;
+
 $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
     'config' => [
-        'dataContainer'    => 'Table',
+        'dataContainer'    => DC_Table::class,
         'enableVersioning' => true,
         'sql'              => [
             'keys' => [

@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use Contao\DC_Table;
+
 $GLOBALS['TL_DCA']['tl_cowegis_map_layer'] = [
     'config'       => [
-        'dataContainer' => 'Table',
+        'dataContainer' => DC_Table::class,
         'ptable'        => 'tl_cowegis_map',
         'closed'        => true,
         'notCopyable'   => true,

@@ -2,15 +2,11 @@
 
 declare(strict_types=1);
 
-/**
- * Leaflet maps for Contao CMS.
- *
- * @filesource
- */
+use Contao\DC_Table;
 
 $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
     'config' => [
-        'dataContainer'     => 'Table',
+        'dataContainer'     => DC_Table::class,
         'enableVersioning'  => true,
         'sql'               => [
             'keys' => ['id' => 'primary'],
