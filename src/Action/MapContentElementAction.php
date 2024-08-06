@@ -13,8 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 #[AsContentElement('cowegis_map', 'includes', 'ce_cowegis_map')]
 final class MapContentElementAction extends MapFragmentAction
 {
-    public function __invoke(Request $request, ContentModel $model, string $section, ?array $classes = null,): Response
-    {
+    /** @param list<string>|null $classes */
+    public function __invoke(
+        Request $request,
+        ContentModel $model,
+        string $section,
+        array|null $classes = null,
+    ): Response {
         return parent::renderAsContentElement($request, $model, $section, $classes);
     }
 
