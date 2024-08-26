@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener;
 
-use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
-use Contao\Template;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
-#[AsHook('parseTemplate')]
+#[AsEventListener(priority: -128)]
 final class BackendStyleListener
 {
     public function __construct(
@@ -18,12 +18,12 @@ final class BackendStyleListener
     ) {
     }
 
-    public function __invoke(Template $template): void
+    public function __invoke(RequestEvent $event): void
     {
-        if (! $this->scopeMatcher->isBackendRequest() || $template->getName() !== 'be_main') {
+        if (! $this->scopeMatcher->isBackendRequest($event->getRequest())) {
             return;
         }
 
-        $this->assetsManager->addStylesheet('cowegis_contao::css/backend.css');
+        $this->assetsManager->addStylesheet('bundles/cowegiscontao/css/backend.css', static: false);
     }
 }
