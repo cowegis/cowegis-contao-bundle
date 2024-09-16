@@ -17,8 +17,8 @@
     "beberlei/assert": "^3.2",
     "contao-community-alliance/meta-palettes": "^2.0",
     "contao/core-bundle": "^4.13 || ^5.3",
-    "cowegis/cowegis-api-bundle": "^1.0@dev",
-    "cowegis/cowegis-contao-geocode-widget-bundle": "^1.0@dev",
+    "cowegis/cowegis-api-bundle": "^1.0",
+    "cowegis/cowegis-contao-geocode-widget-bundle": "^1.0",
     "cowegis/cowegis-core": "^1.0@dev",
     "cowegis/cowegis-geojson": "^1.0@dev",
     "doctrine/dbal": "^3.8",
@@ -54,12 +54,6 @@
   "suggest": {
     "cowegis/contao-geocoder": "Customize the geocoder"
   },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packages.netzmacht.de/r/"
-    }
-  ],
   "minimum-stability": "dev",
   "prefer-stable": true,
   "autoload": {
