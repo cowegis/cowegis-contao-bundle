@@ -10,8 +10,8 @@ use Contao\Input;
 use Contao\Model\Collection;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
+use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
-use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Override;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -20,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class MapDcaListener extends AbstractListener
 {
     public function __construct(
-        Manager $dcaManager,
+        DcaManager $dcaManager,
         private readonly MapRepository $mapRepository,
         private readonly TranslatorInterface $translator,
         private RequestStack $requestStack,

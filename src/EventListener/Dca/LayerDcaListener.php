@@ -12,8 +12,8 @@ use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Map\Layer\DataLayerType;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry;
 use Cowegis\Bundle\Contao\Map\Layer\NodeLayerType;
+use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
-use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Override;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -33,7 +33,7 @@ final class LayerDcaListener extends AbstractListener
      * @param string[]                   $amenities
      */
     public function __construct(
-        Manager $dcaManager,
+        DcaManager $dcaManager,
         private readonly LayerTypeRegistry $layerTypes,
         private readonly TranslatorInterface $translator,
         private readonly Adapter $backendAdapter,

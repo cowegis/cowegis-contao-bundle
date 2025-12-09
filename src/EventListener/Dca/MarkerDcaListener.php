@@ -7,8 +7,8 @@ namespace Cowegis\Bundle\Contao\EventListener\Dca;
 use Contao\DataContainer;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
+use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
-use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Override;
 
 use function array_keys;
@@ -16,7 +16,7 @@ use function count;
 
 final class MarkerDcaListener extends AbstractListener
 {
-    public function __construct(Manager $dcaManager, private readonly Connection $connection)
+    public function __construct(DcaManager $dcaManager, private readonly Connection $connection)
     {
         parent::__construct($dcaManager);
     }

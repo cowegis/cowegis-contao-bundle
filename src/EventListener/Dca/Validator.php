@@ -8,7 +8,7 @@ use Contao\DataContainer;
 use Contao\StringUtil;
 use Cowegis\Core\Definition\LatLng;
 use InvalidArgumentException;
-use Netzmacht\Contao\Toolkit\Dca\Manager;
+use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 use Symfony\Contracts\Translation\TranslatorInterface as Translator;
 use Throwable;
 
@@ -16,13 +16,13 @@ use function explode;
 use function is_array;
 use function preg_match;
 
-final class Validator
+final readonly class Validator
 {
     /**
-     * @param Manager    $dcaManager Data container manager.
+     * @param DcaManager $dcaManager Data container manager.
      * @param Translator $translator Translator.
      */
-    public function __construct(private readonly Manager $dcaManager, private readonly Translator $translator)
+    public function __construct(private DcaManager $dcaManager, private Translator $translator)
     {
     }
 

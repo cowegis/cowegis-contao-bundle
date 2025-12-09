@@ -14,8 +14,8 @@ use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerRepository;
 use Cowegis\Bundle\Contao\Model\Map\MapPaneRepository;
 use Cowegis\Core\Filter\FilterFactory;
+use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
-use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Override;
 use stdClass;
@@ -27,7 +27,7 @@ use function iterator_to_array;
 final class MapLayerDcaListener extends AbstractListener
 {
     public function __construct(
-        Manager $dcaManager,
+        DcaManager $dcaManager,
         private readonly LayerTypeRegistry $layerTypes,
         private readonly MapLayerRepository $mapLayerRepository,
         private readonly LayerRepository $layerRepository,

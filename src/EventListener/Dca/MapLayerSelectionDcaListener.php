@@ -12,8 +12,8 @@ use Cowegis\Bundle\Contao\Model\Map\MapModel;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Callback\Invoker;
+use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
-use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Security\Csrf\CsrfTokenProvider;
 use Override;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -26,7 +26,7 @@ use function sprintf;
 final class MapLayerSelectionDcaListener extends AbstractListener
 {
     public function __construct(
-        Manager $dcaManager,
+        DcaManager $dcaManager,
         private readonly MapRepository $mapRepository,
         private readonly Connection $connection,
         private readonly RouterInterface $router,
