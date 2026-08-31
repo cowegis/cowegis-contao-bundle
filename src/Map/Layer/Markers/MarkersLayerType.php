@@ -10,7 +10,6 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
 use Cowegis\Bundle\Contao\Model\MarkerRepository;
 use Cowegis\Core\Definition\Layer\DataLayer;
-use Cowegis\Core\Definition\Layer\Layer;
 use Override;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -52,7 +51,7 @@ final class MarkersLayerType implements DataLayerType
     }
 
     #[Override]
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): DataLayer
     {
         return new DataLayer(
             $mapLayerModel->layerId(),

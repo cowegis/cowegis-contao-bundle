@@ -10,7 +10,6 @@ use Cowegis\Bundle\Contao\Map\Layer\MapLayerType;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
 use Cowegis\Core\Definition\Layer\DataLayer;
-use Cowegis\Core\Definition\Layer\Layer;
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Override;
@@ -49,7 +48,7 @@ final class FileLayerType implements LayerType
     }
 
     #[Override]
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): DataLayer
     {
         return new DataLayer(
             $mapLayerModel->layerId(),

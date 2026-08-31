@@ -8,7 +8,6 @@ use Cowegis\Bundle\Contao\Map\Layer\LayerType;
 use Cowegis\Bundle\Contao\Map\Layer\MapLayerType;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
-use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Definition\Layer\TileLayer;
 use Override;
 
@@ -43,7 +42,7 @@ final class TileLayerType implements LayerType
     }
 
     #[Override]
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): TileLayer
     {
         return new TileLayer(
             $mapLayerModel->layerId(),

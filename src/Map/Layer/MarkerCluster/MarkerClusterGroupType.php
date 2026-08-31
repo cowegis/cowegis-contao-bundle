@@ -8,7 +8,6 @@ use Cowegis\Bundle\Contao\Map\Layer\MapLayerType;
 use Cowegis\Bundle\Contao\Map\Layer\NodeLayerType;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
-use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Definition\Layer\MarkerClusterGroup;
 use Override;
 
@@ -30,7 +29,7 @@ final class MarkerClusterGroupType implements NodeLayerType
     }
 
     #[Override]
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): MarkerClusterGroup
     {
         return new MarkerClusterGroup(
             $mapLayerModel->layerId(),

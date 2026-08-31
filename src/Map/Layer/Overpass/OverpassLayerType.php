@@ -9,7 +9,6 @@ use Cowegis\Bundle\Contao\Map\Layer\LayerType;
 use Cowegis\Bundle\Contao\Map\Layer\MapLayerType;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
-use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Definition\Layer\OverpassLayer;
 use Override;
 
@@ -24,7 +23,7 @@ final class OverpassLayerType implements LayerType
     }
 
     #[Override]
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): OverpassLayer
     {
         return new OverpassLayer(
             $layerModel->layerId(),
