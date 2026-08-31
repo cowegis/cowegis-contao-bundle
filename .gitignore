@@ -1,6 +1,9 @@
 # Companion
 /.env.companion
 
+# Claude Code
+/.mcp.json
+
 # Composer
 /composer.lock
 /vendor
