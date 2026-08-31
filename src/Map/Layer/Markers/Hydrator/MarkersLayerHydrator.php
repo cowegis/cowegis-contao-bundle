@@ -58,7 +58,7 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
 
         $layer->options()->set('adjustBounds', (bool) $context->mapLayerModel()->adjustBounds);
 
-        if (((bool) $layerModel->deferred) === true) {
+        if ((bool) $layerModel->deferred) {
             $layer->withData(
                 new UriData(
                     $this->router->generate(

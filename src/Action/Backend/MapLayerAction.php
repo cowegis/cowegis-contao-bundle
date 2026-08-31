@@ -14,7 +14,6 @@ use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Security\Csrf\CsrfTokenProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -32,7 +31,7 @@ final class MapLayerAction
     ) {
     }
 
-    public function __invoke(int $mapId, int $layerId, Request $request): Response
+    public function __invoke(int $mapId, int $layerId, Request $request): RedirectResponse
     {
         $this->framework->initialize();
 
@@ -98,7 +97,6 @@ final class MapLayerAction
         $collection      = $layerRepository->findBy(['.pid=?'], [$layerModel->id()]) ?: [];
 
         foreach ($collection as $child) {
-            assert($child instanceof LayerModel);
             $this->activateLayer($mapModel, $child);
         }
     }

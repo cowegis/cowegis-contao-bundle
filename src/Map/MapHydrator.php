@@ -192,7 +192,6 @@ final class MapHydrator implements Hydrator
         }
 
         foreach ($collection as $model) {
-            assert($model instanceof TooltipModel);
             $presetId = TooltipPresetId::fromValue(IntegerDefinitionId::fromValue((int) $model->id));
             $preset   = new TooltipPreset($presetId);
 
