@@ -7,12 +7,8 @@
     <services>
         <defaults autowire="false" autoconfigure="true" public="false"/>
 
-        <service id="Cowegis\Bundle\Contao\Map\Style\Fixed\FixedStyleType">
-            <tag name="Cowegis\Bundle\Contao\Map\Style\StyleType" />
-        </service>
+        <service id="Cowegis\Bundle\Contao\Map\Style\Fixed\FixedStyleType" />
 
-        <service id="Cowegis\Bundle\Contao\Map\Style\Fixed\FixedStyleTypeHydrator">
-            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
-        </service>
+        <service id="Cowegis\Bundle\Contao\Map\Style\Fixed\FixedStyleTypeHydrator" />
     </services>
 </container>

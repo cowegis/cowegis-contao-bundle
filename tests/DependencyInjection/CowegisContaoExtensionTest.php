@@ -127,6 +127,22 @@ final class CowegisContaoExtensionTest extends TestCase
         self::assertCount(1, $container->findTaggedServiceIds(self::STYLE_TYPE_TAG));
     }
 
+    public function testFixedStyleServicesTaggedExactlyOnce(): void
+    {
+        $container = self::compiledContainer();
+
+        self::assertCount(
+            1,
+            $container->getDefinition('Cowegis\Bundle\Contao\Map\Style\Fixed\FixedStyleType')
+                ->getTag(self::STYLE_TYPE_TAG),
+        );
+        self::assertCount(
+            1,
+            $container->getDefinition('Cowegis\Bundle\Contao\Map\Style\Fixed\FixedStyleTypeHydrator')
+                ->getTag(self::HYDRATOR_TAG),
+        );
+    }
+
     public function testSerializerKeyTag(): void
     {
         $container = self::compiledContainer();
