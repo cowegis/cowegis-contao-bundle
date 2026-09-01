@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener\Hook;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\CoreBundle\Framework\Adapter;
-use Contao\CoreBundle\ServiceAnnotation\Hook;
 use Contao\System;
 
 use function str_starts_with;
 
-/** @Hook("loadLanguageFile") */
+#[AsHook('loadLanguageFile')]
 final class LanguageFileListener
 {
     /** @param Adapter<System> $systemAdapter */

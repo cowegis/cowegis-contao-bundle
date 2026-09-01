@@ -1,0 +1,122 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+        public: false
+
+    Cowegis\Bundle\Contao\EventListener\BackendMenuListener:
+        arguments:
+            - '@request_stack'
+
+    Cowegis\Bundle\Contao\EventListener\BackendStyleListener:
+        arguments:
+            - '@netzmacht.contao_toolkit.assets_manager'
+            - '@netzmacht.contao_toolkit.routing.scope_matcher'
+
+    Cowegis\Bundle\Contao\EventListener\LayerResponseListener:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Model\LayerRepository'
+
+    Cowegis\Bundle\Contao\EventListener\MapResponseListener:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Model\Map\MapRepository'
+
+    Cowegis\Bundle\Contao\EventListener\Filter\ApplyFilterRuleMarkerListener: ~
+
+    Cowegis\Bundle\Contao\EventListener\Dca\ContentDcaListener:
+        public: true
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+            - '%cowegis_contao.client_bundle%'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\ModuleDcaListener:
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+            - '%cowegis_contao.client_bundle%'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\LayerDcaListener:
+        public: true
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+            - '@Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry'
+            - '@translator'
+            - '@netzmacht.contao_toolkit.contao.backend_adapter'
+            - '%cowegis_contao.file_formats%'
+            - '%cowegis_contao.amenities%'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\MapLayerSelectionDcaListener:
+        public: true
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+            - '@Cowegis\Bundle\Contao\Model\Map\MapRepository'
+            - '@database_connection'
+            - '@router'
+            - '@translator'
+            - '@netzmacht.contao_toolkit.csrf.token_provider'
+            - '@netzmacht.contao_toolkit.callback_invoker'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\MapDcaListener:
+        public: true
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+            - '@Cowegis\Bundle\Contao\Model\Map\MapRepository'
+            - '@translator'
+            - '@request_stack'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\MapLayerDcaListener:
+        public: true
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+            - '@Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry'
+            - '@Cowegis\Bundle\Contao\Model\Map\MapLayerRepository'
+            - '@Cowegis\Bundle\Contao\Model\LayerRepository'
+            - '@Cowegis\Bundle\Contao\Model\Map\MapPaneRepository'
+            - '@Cowegis\Core\Filter\FilterFactory'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\MapPaneDcaListener:
+        public: true
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\MarkerDcaListener:
+        public: true
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+            - '@database_connection'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\IconDcaListener:
+        public: true
+        arguments:
+            - '@Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\ControlDcaListener:
+        public: true
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+            - '@Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry'
+            - '@database_connection'
+            - '@Cowegis\Bundle\Contao\Model\LayerRepository'
+            - '@?Cowegis\ContaoGeocoder\Provider\Geocoder'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\OptionsListener:
+        public: true
+
+    Cowegis\Bundle\Contao\EventListener\Dca\StyleDcaListener:
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+            - '@Cowegis\Bundle\Contao\Map\Style\StyleTypeRegistry'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\AliasGenerator:
+        arguments:
+            - '@cowegis_contao.slug_generator'
+            - '@database_connection'
+
+    Cowegis\Bundle\Contao\EventListener\Dca\Validator:
+        public: true
+        arguments:
+            - '@netzmacht.contao_toolkit.dca.manager'
+            - '@translator'
+
+    Cowegis\Bundle\Contao\EventListener\Hook\LanguageFileListener:
+        arguments:
+            - '@netzmacht.contao_toolkit.contao.system_adapter'

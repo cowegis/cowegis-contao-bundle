@@ -108,6 +108,31 @@ final class CowegisContaoExtensionTest extends TestCase
         }
     }
 
+    public function testListenerServicesRegistered(): void
+    {
+        $container = self::compiledContainer();
+
+        $listenerIds = [
+            'Cowegis\Bundle\Contao\EventListener\BackendMenuListener',
+            'Cowegis\Bundle\Contao\EventListener\LayerResponseListener',
+            'Cowegis\Bundle\Contao\EventListener\MapResponseListener',
+            'Cowegis\Bundle\Contao\EventListener\Dca\LayerDcaListener',
+            'Cowegis\Bundle\Contao\EventListener\Dca\ControlDcaListener',
+            'Cowegis\Bundle\Contao\EventListener\Hook\LanguageFileListener',
+        ];
+
+        foreach ($listenerIds as $id) {
+            self::assertTrue($container->hasDefinition($id), $id);
+        }
+
+        self::assertTrue(
+            $container->getDefinition('Cowegis\Bundle\Contao\EventListener\Dca\LayerDcaListener')->isPublic(),
+        );
+        self::assertFalse(
+            $container->getDefinition('Cowegis\Bundle\Contao\EventListener\Dca\StyleDcaListener')->isPublic(),
+        );
+    }
+
     public function testPublicFlags(): void
     {
         $container = self::compiledContainer();

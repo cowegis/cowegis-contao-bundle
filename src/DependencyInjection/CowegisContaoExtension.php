@@ -13,7 +13,6 @@ use Override;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 final class CowegisContaoExtension extends Extension
@@ -26,7 +25,6 @@ final class CowegisContaoExtension extends Extension
     #[Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $xmlLoader  = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $yamlLoader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $container->registerForAutoconfiguration(Hydrator::class)
@@ -48,7 +46,7 @@ final class CowegisContaoExtension extends Extension
         $yamlLoader->load('icons.yaml');
         $yamlLoader->load('styles.yaml');
         $yamlLoader->load('layers.yaml');
-        $xmlLoader->load('listeners.xml');
+        $yamlLoader->load('listeners.yaml');
         $yamlLoader->load('services.yaml');
         $yamlLoader->load('repositories.yaml');
 

@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\Test\EventListener;
 
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Cowegis\Bundle\Contao\EventListener\BackendMenuListener;
 use Cowegis\Bundle\Contao\EventListener\BackendStyleListener;
 use Cowegis\Bundle\Contao\EventListener\Filter\ApplyFilterRuleMarkerListener;
+use Cowegis\Bundle\Contao\EventListener\Hook\LanguageFileListener;
 use Cowegis\Bundle\Contao\EventListener\LayerResponseListener;
 use Cowegis\Bundle\Contao\EventListener\MapResponseListener;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -148,18 +150,31 @@ final class ListenerAttributeCoverageTest extends TestCase
 
     public function testEventListenerAttributes(): void
     {
+        /** @var array<class-string, array{string|null, string|null, int}> $expected event/method/priority */
         $expected = [
-            BackendMenuListener::class => 'contao.backend_menu_build',
-            BackendStyleListener::class => null,
-            LayerResponseListener::class => 'Cowegis\Bundle\Api\Event\LayerResponseEvent',
-            MapResponseListener::class => 'Cowegis\Bundle\Api\Event\MapResponseEvent',
-            ApplyFilterRuleMarkerListener::class => 'Cowegis\Bundle\Contao\Event\ApplyFilterRuleEvent',
+            BackendMenuListener::class => ['contao.backend_menu_build', 'onBuild', -255],
+            BackendStyleListener::class => [null, null, -128],
+            LayerResponseListener::class => ['Cowegis\Bundle\Api\Event\LayerResponseEvent', null, 0],
+            MapResponseListener::class => ['Cowegis\Bundle\Api\Event\MapResponseEvent', null, 0],
+            ApplyFilterRuleMarkerListener::class => ['Cowegis\Bundle\Contao\Event\ApplyFilterRuleEvent', null, 0],
         ];
 
-        foreach ($expected as $class => $event) {
+        foreach ($expected as $class => [$event, $method, $priority]) {
             $attributes = (new ReflectionClass($class))->getAttributes(AsEventListener::class);
             self::assertCount(1, $attributes, $class);
-            self::assertSame($event, $attributes[0]->newInstance()->event, $class);
+
+            $instance = $attributes[0]->newInstance();
+            self::assertSame($event, $instance->event, $class);
+            self::assertSame($method, $instance->method, $class);
+            self::assertSame($priority, $instance->priority, $class);
         }
+    }
+
+    public function testHookAttribute(): void
+    {
+        $attributes = (new ReflectionClass(LanguageFileListener::class))->getAttributes(AsHook::class);
+
+        self::assertCount(1, $attributes);
+        self::assertSame('loadLanguageFile', $attributes[0]->newInstance()->hook);
     }
 }
