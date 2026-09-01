@@ -9,6 +9,7 @@
             <directory name="src/Resources/contao/dca"/>
         </ignoreFiles>
         <directory name="spec"/>
+        <directory name="tests"/>
     </projectFiles>
 
     <issueHandlers>
