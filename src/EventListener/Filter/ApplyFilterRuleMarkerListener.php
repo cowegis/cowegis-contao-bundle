@@ -9,9 +9,11 @@ use Cowegis\Bundle\Contao\Model\MarkerModel;
 use Cowegis\Core\Filter\Rule\BboxRule;
 use Cowegis\Core\Filter\Rule\DistanceRule;
 use Cowegis\Core\Filter\Rule\KeywordRule;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
 use function is_a;
 
+#[AsEventListener(event: ApplyFilterRuleEvent::class)]
 final class ApplyFilterRuleMarkerListener
 {
     public function __invoke(ApplyFilterRuleEvent $event): void

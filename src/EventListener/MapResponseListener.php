@@ -7,7 +7,9 @@ namespace Cowegis\Bundle\Contao\EventListener;
 use Contao\Model;
 use Cowegis\Bundle\Api\Event\MapResponseEvent;
 use Cowegis\Bundle\Contao\Model\Map\MapRepository;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
+#[AsEventListener(event: MapResponseEvent::class)]
 final class MapResponseListener
 {
     public function __construct(private readonly MapRepository $maps)

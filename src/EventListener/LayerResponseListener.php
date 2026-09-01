@@ -7,7 +7,9 @@ namespace Cowegis\Bundle\Contao\EventListener;
 use Contao\Model;
 use Cowegis\Bundle\Api\Event\LayerResponseEvent;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
+#[AsEventListener(event: LayerResponseEvent::class)]
 final class LayerResponseListener
 {
     public function __construct(private readonly LayerRepository $layers)

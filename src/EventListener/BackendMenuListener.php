@@ -6,9 +6,11 @@ namespace Cowegis\Bundle\Contao\EventListener;
 
 use Contao\CoreBundle\Event\MenuEvent;
 use Knp\Menu\ItemInterface;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+#[AsEventListener(event: 'contao.backend_menu_build', method: 'onBuild', priority: -255)]
 final class BackendMenuListener
 {
     public function __construct(private readonly RequestStack $requestStack)
