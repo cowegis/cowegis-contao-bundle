@@ -150,7 +150,7 @@ final class CowegisContaoExtensionTest extends TestCase
         self::assertCount(1, $container->findTaggedServiceIds(self::STYLE_TYPE_TAG));
     }
 
-    public function testFixedStyleServicesTaggedExactlyOnce(): void
+    public function testMarkerInterfaceServicesTaggedExactlyOnce(): void
     {
         $container = self::compiledContainer();
 
@@ -162,6 +162,16 @@ final class CowegisContaoExtensionTest extends TestCase
         self::assertCount(
             1,
             $container->getDefinition('Cowegis\Bundle\Contao\Map\Style\Fixed\FixedStyleTypeHydrator')
+                ->getTag(self::HYDRATOR_TAG),
+        );
+        self::assertCount(
+            1,
+            $container->getDefinition('Cowegis\Bundle\Contao\Map\Icon\Image\ImageIconType')
+                ->getTag(self::ICON_TYPE_TAG),
+        );
+        self::assertCount(
+            1,
+            $container->getDefinition('Cowegis\Bundle\Contao\Map\Icon\Image\ImageIconHydrator')
                 ->getTag(self::HYDRATOR_TAG),
         );
     }

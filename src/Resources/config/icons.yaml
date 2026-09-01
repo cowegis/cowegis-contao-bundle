@@ -1,0 +1,23 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+        public: false
+
+    Cowegis\Bundle\Contao\Map\Icon\Image\ImageIconType: ~
+
+    Cowegis\Bundle\Contao\Map\Icon\Image\ImageIconHydrator:
+        arguments:
+            - '@netzmacht.contao_toolkit.repository_manager'
+
+    Cowegis\Bundle\Contao\Map\Icon\Div\DivIconType: ~
+
+    Cowegis\Bundle\Contao\Map\Icon\Div\DivIconHydrator: ~
+
+    Cowegis\Bundle\Contao\Map\Icon\Svg\SvgIconType: ~
+
+    Cowegis\Bundle\Contao\Map\Icon\Svg\SvgIconHydrator: ~
+
+    Cowegis\Bundle\Contao\Map\Icon\FontAwesome\FontAwesomeIconType: ~
+
+    Cowegis\Bundle\Contao\Map\Icon\FontAwesome\FontAwesomeIconHydrator: ~

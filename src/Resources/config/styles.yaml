@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+        public: false
+
+    Cowegis\Bundle\Contao\Map\Style\Fixed\FixedStyleType: ~
+
+    Cowegis\Bundle\Contao\Map\Style\Fixed\FixedStyleTypeHydrator: ~
