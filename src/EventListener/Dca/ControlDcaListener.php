@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Contao\StringUtil;
@@ -40,12 +41,14 @@ final class ControlDcaListener extends AbstractListener
     }
 
     /** @param array<string,mixed> $row */
+    #[AsCallback('tl_cowegis_control', 'list.sorting.child_record')]
     public function rowLabel(array $row): string
     {
         return $row['title'];
     }
 
     /** @return string[] */
+    #[AsCallback('tl_cowegis_control', 'fields.type.options')]
     public function typeOptions(): array
     {
         $options = [];
@@ -57,6 +60,7 @@ final class ControlDcaListener extends AbstractListener
     }
 
     /** @return array<int,string> */
+    #[AsCallback('tl_cowegis_control', 'fields.layers.eval.columnFields.layer.options')]
     public function layerOptions(MultiColumnWizard $multiColumnWizard): array
     {
         /** @psalm-suppress RedundantCastGivenDocblockType */
@@ -90,6 +94,7 @@ final class ControlDcaListener extends AbstractListener
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
+    #[AsCallback('tl_cowegis_control', 'fields.layers.load')]
     public function loadLayerRelations(mixed $value, DataContainer $dataContainer): array
     {
         $query  = 'SELECT lid As layer, mode FROM tl_cowegis_control_layer WHERE cid=:cid ORDER BY sorting';
@@ -104,6 +109,7 @@ final class ControlDcaListener extends AbstractListener
      * @param mixed         $layers        The layer id values.
      * @param DataContainer $dataContainer The dataContainer driver.
      */
+    #[AsCallback('tl_cowegis_control', 'fields.layers.save')]
     public function saveLayerRelations(mixed $layers, DataContainer $dataContainer): null
     {
         $new       = StringUtil::deserialize($layers, true);

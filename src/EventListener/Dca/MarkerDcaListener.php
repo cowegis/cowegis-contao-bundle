@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\DataContainer;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
@@ -32,6 +33,7 @@ final class MarkerDcaListener extends AbstractListener
      *
      * @param array<string,mixed> $row Current data row.
      */
+    #[AsCallback('tl_cowegis_marker', 'list.sorting.child_record')]
     public function rowLabel(array $row): string
     {
         return $row['title'];
@@ -43,6 +45,7 @@ final class MarkerDcaListener extends AbstractListener
      * @param string        $value         The raw data.
      * @param DataContainer $dataContainer The data container driver.
      */
+    #[AsCallback('tl_cowegis_marker', 'fields.coordinates.save')]
     public function saveCoordinates(string $value, DataContainer $dataContainer): void
     {
         $combined = [
@@ -72,6 +75,7 @@ final class MarkerDcaListener extends AbstractListener
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
+    #[AsCallback('tl_cowegis_marker', 'fields.coordinates.load', priority: 128)]
     public function loadCoordinates(string|null $value, DataContainer $dataContainer): string|null
     {
         $query  = 'SELECT latitude, longitude, altitude FROM tl_cowegis_marker WHERE id=:id';

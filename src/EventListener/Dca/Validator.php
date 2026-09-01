@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\DataContainer;
 use Contao\StringUtil;
 use Cowegis\Core\Definition\LatLng;
@@ -34,6 +35,9 @@ final readonly class Validator
      *
      * @throws InvalidArgumentException When invalid coordinates given.
      */
+    #[AsCallback('tl_cowegis_marker', 'fields.coordinates.save', priority: 128)]
+    #[AsCallback('tl_cowegis_map', 'fields.center.save', priority: 128)]
+    #[AsCallback('tl_cowegis_popup', 'fields.offset.save', priority: 128)]
     public function validateCoordinates(mixed $value, DataContainer $dataContainer): mixed
     {
         if (! $value && ! $this->isRequired($dataContainer)) {
@@ -101,6 +105,13 @@ final readonly class Validator
      *
      * @throws InvalidArgumentException When invalid value given.
      */
+    #[AsCallback('tl_cowegis_map', 'fields.alias.save')]
+    #[AsCallback('tl_cowegis_marker', 'fields.alias.save')]
+    #[AsCallback('tl_cowegis_layer', 'fields.alias.save')]
+    #[AsCallback('tl_cowegis_icon', 'fields.alias.save')]
+    #[AsCallback('tl_cowegis_popup', 'fields.alias.save')]
+    #[AsCallback('tl_cowegis_control', 'fields.alias.save')]
+    #[AsCallback('tl_cowegis_style', 'fields.alias.save')]
     public function validateAlias(string $value): string
     {
         if (preg_match('/^[A-Za-z_]+[A-Za-z0-9_]+$/', $value) !== 1) {

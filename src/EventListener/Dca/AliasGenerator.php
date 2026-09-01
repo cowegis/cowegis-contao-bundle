@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
 use Ausi\SlugGenerator\SlugGeneratorInterface;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\DataContainer;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
@@ -17,6 +18,13 @@ final class AliasGenerator
     ) {
     }
 
+    #[AsCallback('tl_cowegis_map', 'fields.alias.save', priority: 128)]
+    #[AsCallback('tl_cowegis_marker', 'fields.alias.save', priority: 128)]
+    #[AsCallback('tl_cowegis_layer', 'fields.alias.save', priority: 128)]
+    #[AsCallback('tl_cowegis_icon', 'fields.alias.save', priority: 128)]
+    #[AsCallback('tl_cowegis_popup', 'fields.alias.save', priority: 128)]
+    #[AsCallback('tl_cowegis_control', 'fields.alias.save', priority: 128)]
+    #[AsCallback('tl_cowegis_style', 'fields.alias.save', priority: 128)]
     public function __invoke(mixed $value, DataContainer $dataContainer): string
     {
         if ($value || ! $dataContainer->activeRecord) {
