@@ -138,14 +138,22 @@ final class CowegisContaoExtensionTest extends TestCase
         self::assertSame(self::expectedHydratorIds(), $ids);
     }
 
+    public function testEveryHydratorTaggedExactlyOnce(): void
+    {
+        $container = self::compiledContainer();
+
+        foreach ($container->findTaggedServiceIds(self::HYDRATOR_TAG) as $id => $tags) {
+            self::assertCount(1, $tags, $id . ' must carry the Hydrator tag exactly once');
+        }
+    }
+
     public function testHydratorPriorities(): void
     {
         $container = self::compiledContainer();
         $tagged    = $container->findTaggedServiceIds(self::HYDRATOR_TAG);
 
-        // Locate/Bounds hydrators are double-tagged (once via <instanceof>, once via an explicit
-        // <tag priority="-32">). This assumes the explicit priority tag sorts to index [0] ahead of
-        // the priority-less <instanceof> tag. Relevant for Task 9 once <instanceof> is removed.
+        // Locate/Bounds/EventDispatching hydrators opt out of autoconfiguration and carry a single
+        // explicit priority tag (hydrators.yaml: autoconfigure: false + tags: [...]).
         self::assertSame(-32, $tagged['Cowegis\Bundle\Contao\Map\Options\LocateOptionsHydrator'][0]['priority'] ?? 0);
         self::assertSame(-32, $tagged['Cowegis\Bundle\Contao\Map\Options\BoundsOptionsHydrator'][0]['priority'] ?? 0);
         self::assertSame(

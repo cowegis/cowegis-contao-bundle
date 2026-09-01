@@ -1,0 +1,41 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+        public: false
+
+    Cowegis\Bundle\Contao\Map\MapHydrator:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry'
+            - '@Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry'
+            - '@Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry'
+            - '@netzmacht.contao_toolkit.repository_manager'
+
+    Cowegis\Bundle\Contao\Map\Options\MapOptionsHydrator: ~
+
+    Cowegis\Bundle\Contao\Map\Options\LocateOptionsHydrator:
+        autoconfigure: false
+        tags:
+            - { name: 'Cowegis\Bundle\Contao\Hydrator\Hydrator', priority: -32 }
+
+    Cowegis\Bundle\Contao\Map\Options\BoundsOptionsHydrator:
+        autoconfigure: false
+        tags:
+            - { name: 'Cowegis\Bundle\Contao\Hydrator\Hydrator', priority: -32 }
+
+    Cowegis\Bundle\Contao\Map\Options\ViewHydrator: ~
+
+    Cowegis\Bundle\Contao\Map\Layer\LayerObjectOptionsHydrator: ~
+
+    Cowegis\Bundle\Contao\Map\Layer\GridLayerOptionsHydrator: ~
+
+    Cowegis\Bundle\Contao\Map\Presets\PopupPresetHydrator: ~
+
+    Cowegis\Bundle\Contao\Map\Presets\TooltipPresetHydrator: ~
+
+    Cowegis\Bundle\Contao\Hydrator\EventDispatchingHydrator:
+        autoconfigure: false
+        arguments:
+            - '@event_dispatcher'
+        tags:
+            - { name: 'Cowegis\Bundle\Contao\Hydrator\Hydrator', priority: -128 }

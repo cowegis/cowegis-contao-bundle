@@ -44,7 +44,7 @@ final class CowegisContaoExtension extends Extension
         $yamlLoader->load('config.yaml');
         $yamlLoader->load('controls.yaml');
         $yamlLoader->load('fragments.yaml');
-        $xmlLoader->load('hydrators.xml');
+        $yamlLoader->load('hydrators.yaml');
         $yamlLoader->load('icons.yaml');
         $yamlLoader->load('styles.yaml');
         $xmlLoader->load('layers.xml');
