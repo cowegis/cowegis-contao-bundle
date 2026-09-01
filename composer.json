@@ -36,6 +36,7 @@
     "symfony/http-kernel": "^6.4 || ^7.4",
     "symfony/routing": "^6.4 || ^7.4",
     "symfony/translation-contracts": "^2.0 || ^3.0",
+    "symfony/yaml": "^6.4 || ^7.4",
     "twig/twig": "^3.0"
   },
   "require-dev": {
