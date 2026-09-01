@@ -81,15 +81,15 @@ Die Tag-Familien des Bundles werden nach Besitzer und Attributbedarf klassifizie
 
 | Tag | Besitzer | # | Strategie |
 |---|---|---|---|
-| `Cowegis\Bundle\Contao\Hydrator\Hydrator` | Bundle-Interface | ~30 | `#[AutoconfigureTag]` am Interface |
-| `Cowegis\Bundle\Contao\Map\Layer\LayerType` | Bundle-Interface | ~8 | `#[AutoconfigureTag]` am Interface |
-| `Cowegis\Bundle\Contao\Map\Control\ControlType` | Bundle-Interface | ~7 | `#[AutoconfigureTag]` am Interface |
-| `Cowegis\Bundle\Contao\Map\Icon\IconType` | Bundle-Interface | ~4 | `#[AutoconfigureTag]` am Interface |
-| `Cowegis\Bundle\Contao\Map\Style\StyleType` | Bundle-Interface | ~1 | `#[AutoconfigureTag]` am Interface |
+| `Cowegis\Bundle\Contao\Hydrator\Hydrator` | Bundle-Interface | ~30 | `registerForAutoconfiguration(Hydrator::class)` in der Extension |
+| `Cowegis\Bundle\Contao\Map\Layer\LayerType` | Bundle-Interface | ~8 | `registerForAutoconfiguration(LayerType::class)` in der Extension |
+| `Cowegis\Bundle\Contao\Map\Control\ControlType` | Bundle-Interface | ~7 | `registerForAutoconfiguration(ControlType::class)` in der Extension |
+| `Cowegis\Bundle\Contao\Map\Icon\IconType` | Bundle-Interface | ~4 | `registerForAutoconfiguration(IconType::class)` in der Extension |
+| `Cowegis\Bundle\Contao\Map\Style\StyleType` | Bundle-Interface | ~1 | `registerForAutoconfiguration(StyleType::class)` in der Extension |
 | `contao.callback` (`table`/`target`/`method`) | Contao | ~60 | `#[AsCallback]` an den Zielmethoden |
 | `kernel.event_listener` (`event`/`method`/`priority`) | Symfony | 4 | `#[AsEventListener]` an der Klasse |
 | Contao-Hook (`@Hook`) | Contao | 1 | `@Hook`-Annotation → `#[AsHook]`-Attribut |
-| `Cowegis\Core\Serializer\Serializer` (`key`) | cowegis-core | ~13 | eigenes `#[AsSerializer(key: …)]` + `registerAttributeForAutoconfiguration()` |
+| `Cowegis\Core\Serializer\Serializer` (`key`) | cowegis-core | ~10 | expliziter `tags`-Eintrag mit `key` (Serializer-Klassen liegen in `cowegis-core`, tragen kein Attribut) |
 | `Cowegis\Core\Schema\LayerSchemaDescriber` | cowegis-core | ~8 | `_instanceof` in `layers.yaml` (String-Ctor-Arg bleibt in `arguments`) |
 | `Cowegis\Core\Schema\SchemaDescriber` | cowegis-core | 1 | expliziter `tags`-Eintrag |
 | `Cowegis\Core\Provider\Provider` | cowegis-core | 1 | expliziter `tags`-Eintrag |
@@ -124,61 +124,43 @@ Cowegis\Bundle\Contao\Map\Options\LocateOptionsHydrator:
 (Alternative `#[AsTaggedItem(priority: -32)]` am Konzern-Class wird bewusst nicht
 gewählt — der explizite YAML-Override ist besser testbar und eindeutig.)
 
-## 4. Neue PHP-Attribute
+## 4. Keine neuen PHP-Attribute
 
-### `src/DependencyInjection/Attribute/AsSerializer.php`
+Ursprünglich war ein `#[AsSerializer(key: …)]` vorgesehen. Das entfällt: **alle
+Serializer-Service-IDs sind Klassen aus `cowegis-core`** (`Cowegis\Core\Serializer\…`),
+die dieses Bundle nur als Services verdrahtet — sie können keine bundle-eigenen
+Attribute tragen. Ihre `key`-Tags bleiben deshalb explizit im YAML (reine
+XML→YAML-Übersetzung, siehe §7). Das gemeinsame Konstruktor-Argument
+`@Cowegis\Core\Serializer\Serializer` wird — wie bisher im XML — je Service explizit
+in `arguments` angegeben; **kein** `bind`.
+
+Die Marker-Tags der Bundle-Interfaces kommen aus `registerForAutoconfiguration()`
+(§5), nicht aus Attributen — weitere Attribute (`AsLayerType` etc.) sind nicht nötig.
+
+## 5. Autokonfiguration der Marker-Interfaces
+
+`#[AutoconfigureTag]` **auf einem Interface** wirkt nicht: Symfonys
+`RegisterAutoconfigureAttributesPass` reflektiert nur die konkrete Service-Klasse,
+nicht deren Interfaces. Die Interface-Dateien werden daher **nicht** angefasst.
+
+Stattdessen in `CowegisContaoExtension::load()` — vor den `load()`-Aufrufen:
 
 ```php
-#[\Attribute(\Attribute::TARGET_CLASS)]
-final class AsSerializer
-{
-    public function __construct(public string $key) {}
-}
+$container->registerForAutoconfiguration(Hydrator::class)
+    ->addTag('Cowegis\Bundle\Contao\Hydrator\Hydrator');
+$container->registerForAutoconfiguration(LayerType::class)
+    ->addTag('Cowegis\Bundle\Contao\Map\Layer\LayerType');
+$container->registerForAutoconfiguration(ControlType::class)
+    ->addTag('Cowegis\Bundle\Contao\Map\Control\ControlType');
+$container->registerForAutoconfiguration(IconType::class)
+    ->addTag('Cowegis\Bundle\Contao\Map\Icon\IconType');
+$container->registerForAutoconfiguration(StyleType::class)
+    ->addTag('Cowegis\Bundle\Contao\Map\Style\StyleType');
 ```
 
-Registrierung in `CowegisContaoExtension::load()`:
-
-```php
-$container->registerAttributeForAutoconfiguration(
-    AsSerializer::class,
-    static function (ChildDefinition $definition, AsSerializer $attribute): void {
-        $definition->addTag('Cowegis\Core\Serializer\Serializer', ['key' => $attribute->key]);
-    },
-);
-```
-
-Das gemeinsame Konstruktor-Argument der Serializer (`Cowegis\Core\Serializer\Serializer`,
-der delegierende Serializer) wird in `layers.yaml` / `controls.yaml` per
-`_defaults` → `bind` gesetzt (Binds greifen auch ohne Autowiring):
-
-```yaml
-_defaults:
-    autowire: false
-    autoconfigure: true
-    public: false
-    bind:
-        Cowegis\Core\Serializer\Serializer $serializer: '@Cowegis\Core\Serializer\Serializer'
-```
-
-Der exakte Parametername (`$serializer` o. ä.) wird bei der Umsetzung an den
-Serializer-Konstruktoren verifiziert (TDD-Schritt).
-
-Keine weiteren Attribute (`AsLayerType` etc.) — `#[AutoconfigureTag]` am Interface
-genügt.
-
-## 5. Interface-Änderungen
-
-An folgende Interfaces wird `#[AutoconfigureTag('<FQCN des Interface>')]` gesetzt:
-
-- `src/Hydrator/Hydrator.php`
-- `src/Map/Layer/LayerType.php`
-- `src/Map/Control/ControlType.php`
-- `src/Map/Icon/IconType.php`
-- `src/Map/Style/StyleType.php`
-
-Import: `Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag`.
-Der Tag greift nur bei `autoconfigure: true` im YAML-`_defaults` — was künftig überall
-der Fall ist.
+Wirkt nur auf Services mit `autoconfigure: true`; wird von
+`ResolveInstanceofConditionalsPass` per `is_a(...)` auf alle Implementierungen
+angewandt. Das ersetzt auch das bisherige `<instanceof>` aus `hydrators.xml`.
 
 ## 6. YAML-Konvertierung — allgemeine Regeln
 
@@ -239,12 +221,9 @@ vorhanden). Nur XML→YAML, lange `arguments`-Liste 1:1.
 - `*ControlHydrator` / `*ControlTypeHydrator` → Tag via `Hydrator`-Attribut, entfällt.
   `LayersControlHydrator` behält `database_connection`;
   `GeocoderControlTypeHydrator` behält `'@?Cowegis\ContaoGeocoder\Routing\SearchUrlGenerator'`.
-- `*ControlSerializer` (core, `key=`) → `#[AsSerializer(key: …ControlFqcn)]` an der
-  Serializer-Klasse; `arguments` nur noch, was `bind` nicht abdeckt (ggf. leer).
-
-### Serializer-Bind (`controls.yaml`, `layers.yaml`)
-`_defaults.bind` für `Cowegis\Core\Serializer\Serializer $…` nur in den Dateien mit
-Serializer-Services — das sind `controls.yaml` und `layers.yaml`.
+- `*ControlSerializer` (core-Klasse, `key=`) → 1:1 XML→YAML:
+  `arguments: ['@Cowegis\Core\Serializer\Serializer']` +
+  `tags: [{ name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Definition\Control\…Control' }]`.
 
 ### `layers.xml` → `layers.yaml`
 - `*LayerType` → Interface-Attribut. `MarkersLayerType` (`MarkerRepository`,
@@ -253,7 +232,9 @@ Serializer-Services — das sind `controls.yaml` und `layers.yaml`.
 - `*LayerHydrator` / `*OptionsHydrator` → `Hydrator`-Attribut. Argumente
   (`router`, `response_tagger`, Repositories, `StyleTypeRegistry`, `Serializer`)
   bleiben.
-- `*LayerSerializer` / `Marker*Serializer` (core, `key=`) → `#[AsSerializer]`.
+- `*LayerSerializer` / `Marker*Serializer` (core-Klassen, `key=`) → 1:1 XML→YAML:
+  `arguments: ['@Cowegis\Core\Serializer\Serializer']` +
+  `tags: [{ name: 'Cowegis\Core\Serializer\Serializer', key: '…' }]`.
 - `*SchemaDescriber` (core, String-Ctor-Arg `data`/`tileLayer`/…):
   `_instanceof: { 'Cowegis\Core\Schema\LayerSchemaDescriber': { tags: ['Cowegis\Core\Schema\LayerSchemaDescriber'] } }`;
   String-Argument bleibt in `arguments`. `LayersSchemaDescriber` (Bundle-Klasse,
@@ -263,7 +244,7 @@ Serializer-Services — das sind `controls.yaml` und `layers.yaml`.
   `ReferenceLayerDataProvider` behält `!tagged_locator`.
 
 ### `hydrators.xml` → `hydrators.yaml`
-- `<instanceof>` entfällt (ersetzt durch `#[AutoconfigureTag]` am `Hydrator`-Interface).
+- `<instanceof>` entfällt (ersetzt durch `registerForAutoconfiguration(Hydrator::class)` in der Extension, §5).
 - `MapHydrator` (4 Registry-Argumente), `EventDispatchingHydrator`
   (`event_dispatcher`) behalten Argumente.
 - Prioritäts-Hydratoren (`LocateOptionsHydrator`, `BoundsOptionsHydrator` = `-32`;
@@ -379,9 +360,14 @@ cowegis_contao_backend_map_layer_actions:
 - alle `$loader->load('*.xml')` → `'*.yaml'` (Reihenfolge unverändert:
   amenities, config, controls, fragments, hydrators, icons, styles, layers,
   listeners, services, repositories).
-- Neu vor den `load()`-Aufrufen:
-  `$container->registerAttributeForAutoconfiguration(AsSerializer::class, …)`
-  (Closure siehe §4).
+- Während der schrittweisen Migration laufen `XmlFileLoader` **und**
+  `YamlFileLoader` parallel; jede Datei-Task verschiebt eine `load()`-Zeile vom
+  einen zum anderen. Der `XmlFileLoader` wird erst entfernt, wenn keine `.xml`
+  mehr geladen wird.
+- Neu vor den `load()`-Aufrufen: fünf `registerForAutoconfiguration(...)->addTag(...)`
+  für `Hydrator`/`LayerType`/`ControlType`/`IconType`/`StyleType` (§5). Passende
+  `use`-Importe der fünf Interfaces ergänzen.
+- Kein `registerAttributeForAutoconfiguration` (kein bundle-eigenes Attribut, §4).
 - `kernel.bundles` / `cowegis_contao.client_bundle`-Logik am Ende unverändert.
 - `#[Override]` / `declare(strict_types=1)` bleiben.
 
@@ -461,8 +447,9 @@ Fälle:
    `DelegatingHydrator` trägt **keinen** `Hydrator`-Tag.
 6. `test_layer_control_icon_style_type_tags` — je erwartete Menge an
    `LayerType` / `ControlType` / `IconType` / `StyleType`-getaggten Services.
-7. `test_serializer_tags` — mind. `TileLayerSerializer` trägt
-   `Cowegis\Core\Serializer\Serializer` mit korrektem `key`.
+7. `test_serializer_tags` — mind. `Cowegis\Core\Serializer\Layer\TileLayerSerializer`
+   trägt `Cowegis\Core\Serializer\Serializer` mit korrektem `key`
+   (`Cowegis\Core\Definition\Layer\TileLayer`).
 8. `test_contao_callback_tags` — je Tabelle (`tl_cowegis_map`, `tl_cowegis_layer`,
    `tl_cowegis_map_layer`, …) die erwartete Anzahl `contao.callback`-Tags gegen
    eine im Test hinterlegte Sollliste (fängt vertippte `#[AsCallback]`-Ziele/-Methoden).
@@ -487,18 +474,21 @@ grün bekommen).
   `Cowegis\Bundle\Contao\Test`.
 - Abschnitt **Service wiring**: „Autowiring and autoconfiguration are **off** in
   every file" → „Autowiring is **off**; autoconfiguration is **on**. Marker-interface
-  tags come from `#[AutoconfigureTag]` on the interface (`Hydrator`, `LayerType`,
-  `ControlType`, `IconType`, `StyleType`), from `_instanceof`
-  (`Cowegis\Core\Schema\LayerSchemaDescriber`), or from `#[AsSerializer]` /
-  `#[AsCallback]` / `#[AsEventListener]` / `#[AsHook]`. Every constructor argument is
-  still wired by hand. Attribute-carrying non-autoconfigurable tags
-  (`netzmacht.contao_toolkit.repository`, `Cowegis\...\Provider\LayerDataProvider`,
-  core `Provider` / `SchemaDescriber` / `IdFormat` / `IdSchema`) stay as explicit
-  `tags:` in YAML."
+  tags come from `registerForAutoconfiguration()` in `CowegisContaoExtension`
+  (`Hydrator`, `LayerType`, `ControlType`, `IconType`, `StyleType`), from
+  `_instanceof` (`Cowegis\Core\Schema\LayerSchemaDescriber` in `layers.yaml`), or
+  from `#[AsCallback]` / `#[AsEventListener]` / `#[AsHook]` on the listener classes.
+  Every constructor argument is still wired by hand. Attribute-carrying
+  non-autoconfigurable tags
+  (`netzmacht.contao_toolkit.repository` with `model`, `Cowegis\...\Provider\LayerDataProvider`
+  with `type`, `Cowegis\Core\Serializer\Serializer` with `key`, core `Provider` /
+  `SchemaDescriber` / `IdFormat` / `IdSchema`) stay as explicit `tags:` in YAML."
 - Abschnitt **Type + Registry + Hydrator pattern** / **Adding a layer type**:
   `layers.xml` → `layers.yaml`; „register both in `layers.yaml`" — der
-  `LayerType`-Tag kommt jetzt automatisch übers Interface, nur `LayerHydrator`-Tag
-  bzw. Argumente müssen gesetzt werden; Serializer via `#[AsSerializer]`.
+  `LayerType`-Tag kommt jetzt automatisch übers Interface (`FooLayerType`
+  implementiert `LayerType`), ebenso der `Hydrator`-Tag für `FooLayerHydrator`;
+  nur die Konstruktor-Argumente und ggf. `Serializer`/`SchemaDescriber`-Einträge
+  (mit `key` bzw. `_instanceof`) müssen von Hand gesetzt werden.
 - Konvention zu `.xml`-Config-Dateien → `.yaml` (Config-Format YAML).
 
 ## 12. Umsetzungsreihenfolge (TDD)
@@ -508,22 +498,28 @@ grün bekommen).
 2. **PHPUnit-Infrastruktur**: `companion.json` anpassen,
    `companion project:configure`, `phpcq update`, `autoload-dev`, leerer
    Smoke-Test `tests/` grün (`phpcq run phpunit`).
-3. **`AsSerializer`-Attribut** + Extension-`registerAttributeForAutoconfiguration`
-   (noch ohne Wirkung, XML unverändert).
-4. **Interface-Attribute** `#[AutoconfigureTag]` setzen.
-5. **Container-Kompilierungstest** gegen den **noch-XML**-Zustand schreiben und
+3. **Container-Kompilierungstest** gegen den **noch-XML**-Zustand schreiben und
    grün bekommen (Regressionsnetz mit Solllisten für Tag-Zahlen).
-6. **Datei für Datei** XML→YAML + zugehörige PHP-Attribute; nach jeder Datei
+4. **`registerForAutoconfiguration()`** für die fünf Marker-Interfaces in der
+   Extension ergänzen + redundante `<tag>`-Zeilen aus `styles.xml` entfernen
+   (einzige Datei mit `autoconfigure="true"` + Typ-/Hydrator-Services).
+5. **Datei für Datei** XML→YAML; pro Datei sofort die `load()`-Zeile im
+   Extension-Loader von XML nach YAML verschieben; nach jeder Datei
    `phpcq run phpunit` + `phpcq run psalm`. Reihenfolge: erst die einfachen
-   (`amenities`, `config`, `icons`, `styles`, `fragments`), dann `controls`,
-   `hydrators`, `layers`, `services`, `repositories`, zuletzt `listeners`.
-7. **`routing.xml` → `routing.yaml`** + `Plugin.php` anpassen.
-8. **XML-Dateien löschen**, `CowegisContaoExtension` auf `YamlFileLoader` +
-   `.yaml`-Namen umstellen (falls nicht schon in Schritt 6 schrittweise erfolgt —
-   empfohlen: pro Datei sofort im Loader umbenennen).
-9. **Voller QA-Lauf** `vendor/bin/phpcq run` (psalm L3, phpcs Doctrine, rector,
-   phpmd, phpcpd, composer-require-checker, phpspec, phpunit).
-10. **`CLAUDE.md`** aktualisieren.
+   (`amenities`+`config`, `icons`+`styles`, `fragments`), dann `controls`,
+   `hydrators`, `layers`, `services`, `repositories`.
+6. **Listener-Attribute** an den PHP-Klassen setzen (`#[AsEventListener]`,
+   `#[AsHook]`, `#[AsCallback]`) — solange `listeners.xml` noch
+   `autoconfigure="false"` ist, bleiben die Attribute wirkungslos (Dormant-Phase);
+   Test bleibt grün.
+7. **`listeners.xml` → `listeners.yaml`** mit `autoconfigure: true` und **ohne**
+   `contao.callback`/`kernel.event_listener`-Tag-Zeilen; `XmlFileLoader` aus der
+   Extension entfernen. Test prüft Tag-Zahlen pro Tabelle gegen die Sollliste
+   aus Schritt 3.
+8. **`routing.xml` → `routing.yaml`** + `Plugin.php` anpassen.
+9. **`CLAUDE.md`** aktualisieren.
+10. **Voller QA-Lauf** `vendor/bin/phpcq run` (psalm L3, phpcs Doctrine, rector,
+    phpmd, phpcpd, composer-require-checker, phpspec, phpunit).
 
 ## 13. Risiken & Gegenmaßnahmen
 
@@ -533,11 +529,10 @@ grün bekommen).
 | Doppelte Marker-Tags (Attribut **und** `_instanceof`/expliziter Tag) → Service doppelt im `tagged_iterator` | Grundregel §3; Test „jeder Service genau einmal getaggt" |
 | `DelegatingHydrator` taggt sich selbst (implementiert `Hydrator`) → Rekursion im eigenen Iterator | `autoconfigure: false` für den Sammel-Service `Cowegis\Bundle\Contao\Hydrator\Hydrator` in `services.yaml`; Test prüft „kein `Hydrator`-Tag" |
 | Hydrator-Prioritäten (`-32`, `-128`) gehen verloren | expliziter YAML-Override + dedizierter Test |
-| `bind` für `Cowegis\Core\Serializer\Serializer` trifft falschen Parameternamen | Parameternamen an den Serializer-Konstruktoren verifizieren; Kompilierungstest deckt fehlende Args auf |
 | `routing.yaml` wird vom Manager-Plugin nicht geladen | `Plugin.php` beide Pfade umstellen; manueller Funktionstest der Backend-Routen bzw. `debug:router` |
 | `companion project:configure` überschreibt manuelle `.phpcq.yaml.dist`-Anpassungen | zuerst `companion` laufen lassen, dann Diff prüfen und nur Ergänzungen (phpunit-Task) nachziehen |
 | Symfony-6.4-Kompatibilität von `#[AsCallback(priority: …)]` / `#[AsHook]` | Contao 5.3 unterstützt beide; im vollen QA-Lauf abgesichert |
-| `composer-require-checker` meckert neue `use` (`AutoconfigureTag`, `AsSerializer`, `AsHook`) | `AsCallback`/`AsEventListener`/`AsContentElement` bereits im Baum und erlaubt; ggf. `.composer-require-checker.json` ergänzen |
+| `composer-require-checker` meckert neue `use` (`AutoconfigureTag`, `AsHook`) | `AsCallback`/`AsEventListener`/`AsContentElement` bereits im Baum und erlaubt; ggf. `.composer-require-checker.json` ergänzen |
 
 ## 14. Verifikation / QA-Gates
 
