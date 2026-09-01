@@ -1,0 +1,85 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+        public: false
+
+    Cowegis\Bundle\Contao\Action\Backend\DocsAction:
+        public: true
+        arguments:
+            - '@twig'
+            - '@router'
+
+    Cowegis\Bundle\Contao\Action\Backend\MapLayerAction:
+        public: true
+        arguments:
+            - '@contao.framework'
+            - '@netzmacht.contao_toolkit.repository_manager'
+            - '@router'
+            - '@netzmacht.contao_toolkit.csrf.token_provider'
+
+    Cowegis\Bundle\Contao\ConsentBridge\Plugin:
+        autoconfigure: false
+        tags:
+            - { name: hofff_contao_consent_bridge.plugin }
+
+    Cowegis\Core\IdFormat\IntegerIdFormat:
+        tags:
+            - 'Cowegis\Core\IdFormat\IdFormat'
+
+    Cowegis\Core\Schema\Id\IntegerIdSchema:
+        tags:
+            - 'Cowegis\Core\Schema\IdSchema'
+
+    Cowegis\Bundle\Contao\Hydrator\Hydrator:
+        class: Cowegis\Bundle\Contao\Hydrator\DelegatingHydrator
+        autoconfigure: false
+        arguments:
+            - !tagged_iterator 'Cowegis\Bundle\Contao\Hydrator\Hydrator'
+            - '@netzmacht.contao_toolkit.response_tagger'
+
+    Cowegis\Bundle\Contao\Provider\ContaoBackendProvider:
+        arguments:
+            - '@contao.framework'
+            - '@Cowegis\Bundle\Contao\Model\Map\MapRepository'
+            - '@Cowegis\Bundle\Contao\Model\Map\MapLayerRepository'
+            - '@Cowegis\Bundle\Contao\Hydrator\Hydrator'
+            - !tagged_locator { tag: 'Cowegis\Bundle\Contao\Provider\LayerDataProvider', index_by: 'type' }
+            - '@Cowegis\Core\IdFormat\IntegerIdFormat'
+        tags:
+            - 'Cowegis\Core\Provider\Provider'
+
+    cowegis_contao.slug_generator.options:
+        class: Ausi\SlugGenerator\SlugOptions
+        calls:
+            - [setValidChars, ['a-z0-9_']]
+            - [setDelimiter, ['_']]
+
+    cowegis_contao.slug_generator:
+        class: Ausi\SlugGenerator\SlugGenerator
+        arguments:
+            - '@cowegis_contao.slug_generator.options'
+
+    Cowegis\Bundle\Contao\Map\Layer\LayerTypeRegistry:
+        arguments:
+            - !tagged_iterator 'Cowegis\Bundle\Contao\Map\Layer\LayerType'
+
+    Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry:
+        arguments:
+            - !tagged_iterator 'Cowegis\Bundle\Contao\Map\Control\ControlType'
+
+    Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry:
+        arguments:
+            - !tagged_iterator 'Cowegis\Bundle\Contao\Map\Icon\IconType'
+
+    Cowegis\Bundle\Contao\Map\Style\StyleTypeRegistry:
+        arguments:
+            - !tagged_iterator 'Cowegis\Bundle\Contao\Map\Style\StyleType'
+
+    Cowegis\Bundle\Contao\Schema\ServersSchemaDescriber:
+        arguments:
+            - '@netzmacht.contao_toolkit.repository_manager'
+            - '@request_stack'
+            - '%cowegis_api.api_base_uri%'
+        tags:
+            - 'Cowegis\Core\Schema\SchemaDescriber'

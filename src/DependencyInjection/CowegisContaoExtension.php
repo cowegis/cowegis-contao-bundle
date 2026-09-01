@@ -49,7 +49,7 @@ final class CowegisContaoExtension extends Extension
         $yamlLoader->load('styles.yaml');
         $yamlLoader->load('layers.yaml');
         $xmlLoader->load('listeners.xml');
-        $xmlLoader->load('services.xml');
+        $yamlLoader->load('services.yaml');
         $xmlLoader->load('repositories.xml');
 
         /** @psalm-var array<string,string> $bundles */

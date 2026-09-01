@@ -269,6 +269,28 @@ final class CowegisContaoExtensionTest extends TestCase
         self::assertCount(10, $container->findTaggedServiceIds(self::REPOSITORY_TAG));
     }
 
+    public function testProviderTagPresent(): void
+    {
+        $container = self::compiledContainer();
+
+        self::assertNotSame(
+            [],
+            $container->getDefinition('Cowegis\Bundle\Contao\Provider\ContaoBackendProvider')
+                ->getTag('Cowegis\Core\Provider\Provider'),
+        );
+    }
+
+    public function testSlugGeneratorCalls(): void
+    {
+        $container = self::compiledContainer();
+        $calls     = $container->getDefinition('cowegis_contao.slug_generator.options')->getMethodCalls();
+
+        self::assertSame('setValidChars', $calls[0][0]);
+        self::assertSame(['a-z0-9_'], $calls[0][1]);
+        self::assertSame('setDelimiter', $calls[1][0]);
+        self::assertSame(['_'], $calls[1][1]);
+    }
+
     /** @return list<string> */
     private static function expectedHydratorIds(): array
     {
