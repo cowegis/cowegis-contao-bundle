@@ -50,7 +50,7 @@ final class CowegisContaoExtension extends Extension
         $yamlLoader->load('layers.yaml');
         $xmlLoader->load('listeners.xml');
         $yamlLoader->load('services.yaml');
-        $xmlLoader->load('repositories.xml');
+        $yamlLoader->load('repositories.yaml');
 
         /** @psalm-var array<string,string> $bundles */
         $bundles   = $container->getParameter('kernel.bundles');

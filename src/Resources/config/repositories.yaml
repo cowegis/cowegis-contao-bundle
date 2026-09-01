@@ -1,0 +1,62 @@
+parameters:
+    cowegis_contao.model.tl_cowegis_marker: Cowegis\Bundle\Contao\Model\MarkerModel
+    cowegis_contao.model.tl_cowegis_layer: Cowegis\Bundle\Contao\Model\LayerModel
+    cowegis_contao.model.tl_cowegis_control: Cowegis\Bundle\Contao\Model\ControlModel
+    cowegis_contao.model.tl_cowegis_icon: Cowegis\Bundle\Contao\Model\IconModel
+
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    Cowegis\Bundle\Contao\Model\Map\MapRepository:
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: 'Cowegis\Bundle\Contao\Model\Map\MapModel' }
+
+    Cowegis\Bundle\Contao\Model\Map\MapLayerRepository:
+        arguments:
+            - '@database_connection'
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: 'Cowegis\Bundle\Contao\Model\Map\MapLayerModel' }
+
+    Cowegis\Bundle\Contao\Model\Map\MapPaneRepository:
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: 'Cowegis\Bundle\Contao\Model\Map\MapPaneModel' }
+
+    Cowegis\Bundle\Contao\Model\IconRepository:
+        arguments:
+            - '%cowegis_contao.model.tl_cowegis_icon%'
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: 'Cowegis\Bundle\Contao\Model\IconModel' }
+
+    Cowegis\Bundle\Contao\Model\MarkerRepository:
+        arguments:
+            - '%cowegis_contao.model.tl_cowegis_marker%'
+            - '@event_dispatcher'
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: 'Cowegis\Bundle\Contao\Model\MarkerModel' }
+
+    Cowegis\Bundle\Contao\Model\LayerRepository:
+        arguments:
+            - '%cowegis_contao.model.tl_cowegis_layer%'
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: 'Cowegis\Bundle\Contao\Model\LayerModel' }
+
+    Cowegis\Bundle\Contao\Model\PopupRepository:
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: 'Cowegis\Bundle\Contao\Model\PopupModel' }
+
+    Cowegis\Bundle\Contao\Model\ControlRepository:
+        arguments:
+            - '%cowegis_contao.model.tl_cowegis_control%'
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: 'Cowegis\Bundle\Contao\Model\ControlModel' }
+
+    Cowegis\Bundle\Contao\Model\TooltipRepository:
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: 'Cowegis\Bundle\Contao\Model\TooltipModel' }
+
+    Cowegis\Bundle\Contao\Model\StyleRepository:
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: 'Cowegis\Bundle\Contao\Model\StyleModel' }
