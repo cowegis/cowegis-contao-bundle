@@ -1,11 +1,12 @@
 {
   "receipts": [
-    "projects/contao-bundle/4.13-5.3"
+    "projects/contao-bundle/5.3"
   ],
   "config": {
     "phpConstraint": "^8.2",
     "directories": [
-      "spec"
+      "spec",
+      "tests"
     ]
   },
   "tools": {
@@ -14,7 +15,7 @@
     },
     "phpcq": {
       "plugins": {
-        "phpunit": false,
+        "phpunit": true,
         "phpspec": true
       },
       "defaults": {

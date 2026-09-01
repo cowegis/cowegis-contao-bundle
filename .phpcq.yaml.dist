@@ -5,6 +5,7 @@ phpcq:
   directories:
     - src
     - spec
+    - tests
   artifact: .phpcq/build
   plugins:
     doctrine-coding-standard:
@@ -26,6 +27,9 @@ phpcq:
       version: ^1.0
       signed: false
     phpmd:
+      version: ^1.0
+      signed: false
+    phpunit:
       version: ^1.0
       signed: false
     psalm:
@@ -71,6 +75,7 @@ tasks:
     - rector
     - phpcs
     - phpspec
+    - phpunit
   default:
     - verify
     - analyze
