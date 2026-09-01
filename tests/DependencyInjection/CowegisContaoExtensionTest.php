@@ -38,6 +38,29 @@ final class CowegisContaoExtensionTest extends TestCase
         self::compiledContainer();
     }
 
+    public function testParametersFromYaml(): void
+    {
+        $container = self::compiledContainer();
+
+        $amenities = $container->getParameter('cowegis_contao.amenities');
+        self::assertIsArray($amenities);
+        self::assertCount(196, $amenities);
+        self::assertSame('administration', $amenities[0]);
+        self::assertSame('youth_centre', $amenities[195]);
+        self::assertContains('Kneippbecken', $amenities);
+
+        self::assertSame(
+            [
+                'gpx' => ['gpx'],
+                'kml' => ['kml'],
+                'wkt' => ['wkt'],
+                'geojson' => ['json', 'geojson'],
+                'topojson' => ['json', 'geojson'],
+            ],
+            $container->getParameter('cowegis_contao.file_formats'),
+        );
+    }
+
     public function testMissingRequiredServiceFailsCompilation(): void
     {
         $container = StubContainerFactory::create();

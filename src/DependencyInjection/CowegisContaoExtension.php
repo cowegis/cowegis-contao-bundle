@@ -14,6 +14,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 final class CowegisContaoExtension extends Extension
 {
@@ -25,7 +26,8 @@ final class CowegisContaoExtension extends Extension
     #[Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $xmlLoader  = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $yamlLoader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $container->registerForAutoconfiguration(Hydrator::class)
             ->addTag('Cowegis\Bundle\Contao\Hydrator\Hydrator');
@@ -38,17 +40,17 @@ final class CowegisContaoExtension extends Extension
         $container->registerForAutoconfiguration(StyleType::class)
             ->addTag('Cowegis\Bundle\Contao\Map\Style\StyleType');
 
-        $loader->load('amenities.xml');
-        $loader->load('config.xml');
-        $loader->load('controls.xml');
-        $loader->load('fragments.xml');
-        $loader->load('hydrators.xml');
-        $loader->load('icons.xml');
-        $loader->load('styles.xml');
-        $loader->load('layers.xml');
-        $loader->load('listeners.xml');
-        $loader->load('services.xml');
-        $loader->load('repositories.xml');
+        $yamlLoader->load('amenities.yaml');
+        $yamlLoader->load('config.yaml');
+        $xmlLoader->load('controls.xml');
+        $xmlLoader->load('fragments.xml');
+        $xmlLoader->load('hydrators.xml');
+        $xmlLoader->load('icons.xml');
+        $xmlLoader->load('styles.xml');
+        $xmlLoader->load('layers.xml');
+        $xmlLoader->load('listeners.xml');
+        $xmlLoader->load('services.xml');
+        $xmlLoader->load('repositories.xml');
 
         /** @psalm-var array<string,string> $bundles */
         $bundles   = $container->getParameter('kernel.bundles');

@@ -1,0 +1,7 @@
+parameters:
+    cowegis_contao.file_formats:
+        gpx: ['gpx']
+        kml: ['kml']
+        wkt: ['wkt']
+        geojson: ['json', 'geojson']
+        topojson: ['json', 'geojson']
