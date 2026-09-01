@@ -38,6 +38,20 @@ final class CowegisContaoExtensionTest extends TestCase
         self::compiledContainer();
     }
 
+    public function testMapActionArgumentCount(): void
+    {
+        $container = self::compiledContainer();
+
+        self::assertCount(
+            10,
+            $container->getDefinition('Cowegis\Bundle\Contao\Action\MapContentElementAction')->getArguments(),
+        );
+        self::assertCount(
+            10,
+            $container->getDefinition('Cowegis\Bundle\Contao\Action\MapModuleAction')->getArguments(),
+        );
+    }
+
     public function testParametersFromYaml(): void
     {
         $container = self::compiledContainer();
