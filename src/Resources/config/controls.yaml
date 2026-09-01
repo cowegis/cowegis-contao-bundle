@@ -1,0 +1,80 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+        public: false
+
+    # Attribution control
+    Cowegis\Bundle\Contao\Map\Control\Attribution\AttributionControlType: ~
+
+    Cowegis\Bundle\Contao\Map\Control\Attribution\AttributionControlHydrator: ~
+
+    Cowegis\Core\Serializer\Control\AttributionControlSerializer:
+        arguments:
+            - '@Cowegis\Core\Serializer\Serializer'
+        tags:
+            - { name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Definition\Control\AttributionControl' }
+
+    # Fullscreen control
+    Cowegis\Bundle\Contao\Map\Control\Fullscreen\FullscreenControlType: ~
+
+    Cowegis\Bundle\Contao\Map\Control\Fullscreen\FullscreenControlTypeHydrator: ~
+
+    Cowegis\Core\Serializer\Control\FullscreenControlSerializer:
+        arguments:
+            - '@Cowegis\Core\Serializer\Serializer'
+        tags:
+            - { name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Definition\Control\FullscreenControl' }
+
+    # Layers control
+    Cowegis\Bundle\Contao\Map\Control\Layers\LayersControlType: ~
+
+    Cowegis\Bundle\Contao\Map\Control\Layers\LayersControlHydrator:
+        arguments:
+            - '@database_connection'
+
+    # Loading control
+    Cowegis\Bundle\Contao\Map\Control\Loading\LoadingControlType: ~
+
+    Cowegis\Bundle\Contao\Map\Control\Loading\LoadingControlHydrator: ~
+
+    Cowegis\Core\Serializer\Control\LoadingControlSerializer:
+        arguments:
+            - '@Cowegis\Core\Serializer\Serializer'
+        tags:
+            - { name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Definition\Control\LoadingControl' }
+
+    # Scale control
+    Cowegis\Bundle\Contao\Map\Control\Scale\ScaleControlType: ~
+
+    Cowegis\Bundle\Contao\Map\Control\Scale\ScaleControlHydrator: ~
+
+    Cowegis\Core\Serializer\Control\ScaleControlSerializer:
+        arguments:
+            - '@Cowegis\Core\Serializer\Serializer'
+        tags:
+            - { name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Definition\Control\ScaleControl' }
+
+    # Zoom control
+    Cowegis\Bundle\Contao\Map\Control\Zoom\ZoomControlType: ~
+
+    Cowegis\Bundle\Contao\Map\Control\Zoom\ZoomControlHydrator: ~
+
+    Cowegis\Core\Serializer\Control\ZoomControlSerializer:
+        arguments:
+            - '@Cowegis\Core\Serializer\Serializer'
+        tags:
+            - { name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Definition\Control\ZoomControl' }
+
+    # Geocoder control
+    Cowegis\Bundle\Contao\Map\Control\Geocoder\GeocoderControlType: ~
+
+    Cowegis\Core\Serializer\Control\GeocoderControlSerializer:
+        arguments:
+            - '@Cowegis\Core\Serializer\Serializer'
+        tags:
+            - { name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Definition\Control\GeocoderControl' }
+
+    Cowegis\Bundle\Contao\Map\Control\Geocoder\GeocoderControlTypeHydrator:
+        arguments:
+            - '@?Cowegis\ContaoGeocoder\Routing\SearchUrlGenerator'

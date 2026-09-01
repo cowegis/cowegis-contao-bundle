@@ -188,6 +188,21 @@ final class CowegisContaoExtensionTest extends TestCase
             $container->getDefinition('Cowegis\Bundle\Contao\Map\Icon\Image\ImageIconHydrator')
                 ->getTag(self::HYDRATOR_TAG),
         );
+        self::assertCount(
+            1,
+            $container->getDefinition('Cowegis\Bundle\Contao\Map\Control\Zoom\ZoomControlType')
+                ->getTag(self::CONTROL_TYPE_TAG),
+        );
+        self::assertCount(
+            1,
+            $container->getDefinition('Cowegis\Bundle\Contao\Map\Control\Zoom\ZoomControlHydrator')
+                ->getTag(self::HYDRATOR_TAG),
+        );
+
+        $serializerTags = $container->getDefinition('Cowegis\Core\Serializer\Control\ZoomControlSerializer')
+            ->getTag(self::SERIALIZER_TAG);
+        self::assertCount(1, $serializerTags);
+        self::assertSame('Cowegis\Core\Definition\Control\ZoomControl', $serializerTags[0]['key'] ?? null);
     }
 
     public function testSerializerKeyTag(): void
