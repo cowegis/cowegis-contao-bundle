@@ -65,14 +65,17 @@ final class BoundsOptionsHydrator extends ConfigurableOptionsHydrator
 
     private function hydrateBoundsPadding(Model $model, Options $options): void
     {
+        /** @psalm-var list<int> $padding */
         $padding = array_map('intval', StringUtil::trimsplit(',', $model->boundsPadding));
 
         switch (count($padding)) {
             case 1:
+                assert(isset($padding[0]));
                 $padding[1] = $padding[0];
                 // No break
 
             case 2:
+                /** @psalm-suppress PossiblyUndefinedArrayOffset */
                 $options->set('padding', Point::fromArray([$padding[0], $padding[1]]));
                 break;
 

@@ -15,7 +15,6 @@ use Override;
 
 use function array_map;
 use function assert;
-use function count;
 use function is_int;
 
 abstract class ConfigurableOptionsHydrator implements Hydrator
@@ -95,7 +94,11 @@ abstract class ConfigurableOptionsHydrator implements Hydrator
             $values = StringUtil::trimsplit(',', $model->{$source});
             $values = array_map('intval', $values);
 
-            if (count($values) === 1) {
+            if (! isset($values[0])) {
+                continue;
+            }
+
+            if (! isset($values[1])) {
                 $values[1] = $values[0];
             }
 
