@@ -1,0 +1,163 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+        public: false
+
+    _instanceof:
+        Cowegis\Core\Schema\LayerSchemaDescriber:
+            tags:
+                - 'Cowegis\Core\Schema\LayerSchemaDescriber'
+
+    # Data layer
+    Cowegis\Core\Serializer\Layer\DataLayerSerializer:
+        arguments:
+            - '@Cowegis\Core\Serializer\Serializer'
+        tags:
+            - { name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Definition\Layer\DataLayer' }
+
+    Cowegis\Core\Schema\Layer\DataLayerSchemaDescriber:
+        arguments:
+            - 'data'
+
+    # Implements Cowegis\Core\Schema\SchemaDescriber (not LayerSchemaDescriber) => _instanceof cannot
+    # tag it; keep the explicit LayerSchemaDescriber tag.
+    Cowegis\Bundle\Contao\Schema\LayersSchemaDescriber:
+        tags:
+            - 'Cowegis\Core\Schema\LayerSchemaDescriber'
+
+    # Tile layer
+    Cowegis\Bundle\Contao\Map\Layer\Tile\TileLayerType: ~
+
+    Cowegis\Core\Schema\Layer\TileLayerSchemaDescriber:
+        arguments:
+            - 'tileLayer'
+
+    Cowegis\Bundle\Contao\Map\Layer\Tile\TileLayerHydrator:
+        arguments:
+            - '@netzmacht.contao_toolkit.response_tagger'
+
+    Cowegis\Core\Serializer\Layer\TileLayerSerializer:
+        arguments:
+            - '@Cowegis\Core\Serializer\Serializer'
+        tags:
+            - { name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Definition\Layer\TileLayer' }
+
+    # Marker layer
+    Cowegis\Bundle\Contao\Map\Layer\Markers\MarkersLayerType:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Model\MarkerRepository'
+            - '@translator'
+
+    Cowegis\Core\Schema\Layer\MarkerLayerSchemaDescriber:
+        arguments:
+            - 'markers'
+
+    Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator\MarkerOptionsHydrator: ~
+
+    Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator\MarkersLayerHydrator:
+        arguments:
+            - '@router'
+            - '@Cowegis\Bundle\Contao\Map\Layer\Markers\MarkersLayerDataProvider'
+            - '@Cowegis\Core\Serializer\Serializer'
+            - '@netzmacht.contao_toolkit.response_tagger'
+
+    Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator\MarkerHydrator:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry'
+            - '@Cowegis\Bundle\Contao\Model\IconRepository'
+            - '@contao.insert_tag.parser'
+
+    Cowegis\Bundle\Contao\Map\Layer\Markers\MarkersLayerDataProvider:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Model\MarkerRepository'
+            - '@Cowegis\Bundle\Contao\Hydrator\Hydrator'
+        tags:
+            - { name: 'Cowegis\Bundle\Contao\Provider\LayerDataProvider', type: 'markers' }
+
+    Cowegis\Core\Serializer\Layer\MarkersLayerDataSerializer:
+        arguments:
+            - '@Cowegis\Core\Serializer\Serializer'
+        tags:
+            - { name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Provider\LayerData\MarkersLayerData' }
+
+    Cowegis\Core\Serializer\Layer\MarkerSerializer:
+        arguments:
+            - '@Cowegis\Core\Serializer\Serializer'
+        tags:
+            - { name: 'Cowegis\Core\Serializer\Serializer', key: 'Cowegis\Core\Definition\UI\Marker' }
+
+    # File layer
+    Cowegis\Bundle\Contao\Map\Layer\File\FileLayerType:
+        arguments:
+            - '@netzmacht.contao_toolkit.repository_manager'
+
+    Cowegis\Bundle\Contao\Map\Layer\File\FileLayerHydrator:
+        arguments:
+            - '@netzmacht.contao_toolkit.repository_manager'
+            - '@netzmacht.contao_toolkit.response_tagger'
+
+    # Group layer
+    Cowegis\Bundle\Contao\Map\Layer\Group\GroupLayerType: ~
+
+    Cowegis\Bundle\Contao\Map\Layer\Group\GroupLayerHydrator:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Model\Map\MapLayerRepository'
+            - '@netzmacht.contao_toolkit.response_tagger'
+
+    Cowegis\Core\Schema\Layer\FeatureGroupLayerSchemaDescriber:
+        arguments:
+            - 'featureGroup'
+
+    Cowegis\Core\Schema\Layer\LayerGroupLayerSchemaDescriber:
+        arguments:
+            - 'layerGroup'
+
+    # Marker cluster layer
+    Cowegis\Bundle\Contao\Map\Layer\MarkerCluster\MarkerClusterGroupType: ~
+
+    Cowegis\Bundle\Contao\Map\Layer\MarkerCluster\MarkerClusterGroupHydrator:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Model\Map\MapLayerRepository'
+            - '@netzmacht.contao_toolkit.response_tagger'
+
+    Cowegis\Core\Schema\Layer\MarkerClusterLayerSchemaDescriber:
+        arguments:
+            - 'markerCluster'
+
+    # Reference layer
+    Cowegis\Bundle\Contao\Map\Layer\Reference\ReferenceLayerType:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Model\LayerRepository'
+
+    Cowegis\Bundle\Contao\Map\Layer\Reference\ReferenceLayerHydrator:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Model\LayerRepository'
+            - '@netzmacht.contao_toolkit.response_tagger'
+
+    Cowegis\Bundle\Contao\Map\Layer\Reference\ReferenceLayerDataProvider:
+        arguments:
+            - '@Cowegis\Bundle\Contao\Model\LayerRepository'
+            - !tagged_locator { tag: 'Cowegis\Bundle\Contao\Provider\LayerDataProvider', index_by: 'type' }
+        tags:
+            - { name: 'Cowegis\Bundle\Contao\Provider\LayerDataProvider', type: 'reference' }
+
+    # Overpass layer
+    Cowegis\Bundle\Contao\Map\Layer\Overpass\OverpassLayerType: ~
+
+    Cowegis\Bundle\Contao\Map\Layer\Overpass\OverpassLayerHydrator:
+        arguments:
+            - '@netzmacht.contao_toolkit.response_tagger'
+
+    # Vector layer
+    Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsLayerType: ~
+
+    Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsLayerHydrator:
+        arguments:
+            - '@router'
+            - '@netzmacht.contao_toolkit.response_tagger'
+            - '@Cowegis\Bundle\Contao\Map\Style\StyleTypeRegistry'
+
+    Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsDataLayerProvider:
+        tags:
+            - { name: 'Cowegis\Bundle\Contao\Provider\LayerDataProvider', type: 'vectors' }

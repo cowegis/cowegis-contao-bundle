@@ -23,6 +23,7 @@ final class CowegisContaoExtensionTest extends TestCase
     private const string SERIALIZER_TAG          = 'Cowegis\Core\Serializer\Serializer';
     private const string LAYER_DATA_PROVIDER_TAG = 'Cowegis\Bundle\Contao\Provider\LayerDataProvider';
     private const string REPOSITORY_TAG          = 'netzmacht.contao_toolkit.repository';
+    private const string LAYER_SCHEMA_TAG        = 'Cowegis\Core\Schema\LayerSchemaDescriber';
 
     private static function compiledContainer(): ContainerBuilder
     {
@@ -211,6 +212,32 @@ final class CowegisContaoExtensionTest extends TestCase
             ->getTag(self::SERIALIZER_TAG);
         self::assertCount(1, $serializerTags);
         self::assertSame('Cowegis\Core\Definition\Control\ZoomControl', $serializerTags[0]['key'] ?? null);
+
+        self::assertCount(
+            1,
+            $container->getDefinition('Cowegis\Bundle\Contao\Map\Layer\Tile\TileLayerType')
+                ->getTag(self::LAYER_TYPE_TAG),
+        );
+        self::assertCount(
+            1,
+            $container->getDefinition('Cowegis\Bundle\Contao\Map\Layer\Tile\TileLayerHydrator')
+                ->getTag(self::HYDRATOR_TAG),
+        );
+
+        $dataSerializerTags = $container->getDefinition('Cowegis\Core\Serializer\Layer\DataLayerSerializer')
+            ->getTag(self::SERIALIZER_TAG);
+        self::assertCount(1, $dataSerializerTags);
+        self::assertSame('Cowegis\Core\Definition\Layer\DataLayer', $dataSerializerTags[0]['key'] ?? null);
+    }
+
+    public function testLayerSchemaDescriberTagCount(): void
+    {
+        $container = self::compiledContainer();
+
+        // 6 core Cowegis\Core\Schema\Layer\*SchemaDescriber (tagged via `_instanceof`, they extend the
+        // abstract Cowegis\Core\Schema\LayerSchemaDescriber) + 1 bundle LayersSchemaDescriber (explicit
+        // tag, it implements Cowegis\Core\Schema\SchemaDescriber, not LayerSchemaDescriber).
+        self::assertCount(7, $container->findTaggedServiceIds(self::LAYER_SCHEMA_TAG));
     }
 
     public function testSerializerKeyTag(): void
