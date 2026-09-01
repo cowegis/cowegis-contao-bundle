@@ -60,9 +60,9 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
             }
         }
 
-        $loader = $resolver->resolve(__DIR__ . '/../Resources/config/routing.xml');
+        $loader = $resolver->resolve(__DIR__ . '/../Resources/config/routing.yaml');
         if ($loader) {
-            $collection = $loader->load(__DIR__ . '/../Resources/config/routing.xml');
+            $collection = $loader->load(__DIR__ . '/../Resources/config/routing.yaml');
             if ($collection instanceof RouteCollection) {
                 $routeCollection->addCollection($collection);
             }
