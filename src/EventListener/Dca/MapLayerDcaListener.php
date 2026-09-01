@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
 use Contao\BackendTemplate;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\DataContainer;
 use Contao\Input;
 use Contao\Model;
@@ -43,6 +44,7 @@ final class MapLayerDcaListener extends AbstractListener
         return 'tl_cowegis_map_layer';
     }
 
+    #[AsCallback('tl_cowegis_map_layer', 'config.onload')]
     public function initializePalette(DataContainer $dataContainer): void
     {
         // TODO: Multi edit support
@@ -70,6 +72,7 @@ final class MapLayerDcaListener extends AbstractListener
     }
 
     /** @param array<string,mixed> $row */
+    #[AsCallback('tl_cowegis_map_layer', 'list.sorting.child_record')]
     public function rowLabel(array $row, DataContainer $dataContainer): string
     {
         $formatted = $this->getFormatter()->formatValue('layerId', $row['layerId'], $dataContainer);
@@ -78,6 +81,7 @@ final class MapLayerDcaListener extends AbstractListener
         return (string) $formatted;
     }
 
+    #[AsCallback('tl_cowegis_map_layer', 'fields.layerId.input_field')]
     public function layerFieldLabel(DataContainer $dataContainer): string
     {
         if (! $dataContainer->activeRecord) {
@@ -109,6 +113,8 @@ final class MapLayerDcaListener extends AbstractListener
     }
 
     /** @return array<string, array<string, string>|string> */
+    #[AsCallback('tl_cowegis_map_layer', 'fields.pane.options')]
+    #[AsCallback('tl_cowegis_map_layer', 'fields.dataPane.options')]
     public function paneOptions(DataContainer $dataContainer): array
     {
         if ($dataContainer->activeRecord) {
@@ -121,6 +127,7 @@ final class MapLayerDcaListener extends AbstractListener
     }
 
     /** @return array<int,string> */
+    #[AsCallback('tl_cowegis_map_layer', 'fields.filterRules.options')]
     public function fileRuleOptions(): array
     {
         return iterator_to_array($this->filterFactory->ruleNames());

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
 use Contao\Backend;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
 use Contao\Image;
@@ -55,6 +56,7 @@ final class LayerDcaListener extends AbstractListener
      * @param array<string,mixed> $row   The data row.
      * @param string              $label Current row label.
      */
+    #[AsCallback('tl_cowegis_layer', 'list.label.label')]
     public function rowLabel(array $row, string $label): string
     {
         $layerType = null;
@@ -96,6 +98,7 @@ final class LayerDcaListener extends AbstractListener
      * @param string              $icon       The button icon.
      * @param string              $attributes Optional attributes.
      */
+    #[AsCallback('tl_cowegis_layer', 'list.operations.data.button')]
     public function editDataButton(
         array $row,
         string $href,
@@ -119,6 +122,7 @@ final class LayerDcaListener extends AbstractListener
     }
 
     /** @return string[] */
+    #[AsCallback('tl_cowegis_layer', 'fields.type.options')]
     public function typeOptions(): array
     {
         $options = [];
@@ -131,12 +135,14 @@ final class LayerDcaListener extends AbstractListener
     }
 
     /** @return string[] */
+    #[AsCallback('tl_cowegis_layer', 'fields.fileFormat.options')]
     public function fileFormatOptions(): array
     {
         return array_keys($this->fileFormats);
     }
 
     /** @return string[] */
+    #[AsCallback('tl_cowegis_layer', 'fields.amenityIcons.eval.columnFields.amenity.options')]
     public function amenitiesOptions(): array
     {
         return $this->amenities;
@@ -148,6 +154,7 @@ final class LayerDcaListener extends AbstractListener
      * @param mixed         $value         Given value.
      * @param DataContainer $dataContainer Data container driver.
      */
+    #[AsCallback('tl_cowegis_layer', 'fields.file.load')]
     public function prepareFileWidget(mixed $value, DataContainer $dataContainer): mixed
     {
         if ($dataContainer->activeRecord) {
@@ -210,6 +217,7 @@ final class LayerDcaListener extends AbstractListener
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
+    #[AsCallback('tl_cowegis_layer', 'list.sorting.paste_button')]
     public function pasteButtons(
         DataContainer $dataContainer,
         array $row,

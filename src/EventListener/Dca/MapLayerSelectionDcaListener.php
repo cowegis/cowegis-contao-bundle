@@ -6,6 +6,7 @@ namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
 use Contao\Backend;
 use Contao\BackendTemplate;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\Input;
 use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Model\Map\MapModel;
@@ -43,6 +44,7 @@ final class MapLayerSelectionDcaListener extends AbstractListener
         return 'tl_cowegis_layer';
     }
 
+    #[AsCallback('tl_cowegis_layer', 'config.onload')]
     public function initializeMapView(): void
     {
         if (Input::get('do') !== 'cowegis_map') {

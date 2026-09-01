@@ -118,13 +118,19 @@ final class ListenerAttributeCoverageTest extends TestCase
     #[DataProvider('callbackClassProvider')]
     public function testCallbackAttributesMatchGoldenList(string $class, array $expected): void
     {
-        if (
-            ! in_array($class, [
-                'Cowegis\Bundle\Contao\EventListener\Dca\ModuleDcaListener',
-                'Cowegis\Bundle\Contao\EventListener\Dca\StyleDcaListener',
-            ], true)
-        ) {
-            self::markTestIncomplete('AsCallback attributes added in Task 14/15');
+        $done = [
+            'Cowegis\Bundle\Contao\EventListener\Dca\ModuleDcaListener',
+            'Cowegis\Bundle\Contao\EventListener\Dca\StyleDcaListener',
+            'Cowegis\Bundle\Contao\EventListener\Dca\ContentDcaListener',
+            'Cowegis\Bundle\Contao\EventListener\Dca\LayerDcaListener',
+            'Cowegis\Bundle\Contao\EventListener\Dca\MapLayerSelectionDcaListener',
+            'Cowegis\Bundle\Contao\EventListener\Dca\MapDcaListener',
+            'Cowegis\Bundle\Contao\EventListener\Dca\MapLayerDcaListener',
+            'Cowegis\Bundle\Contao\EventListener\Dca\MapPaneDcaListener',
+        ];
+
+        if (! in_array($class, $done, true)) {
+            self::markTestIncomplete('AsCallback attributes added in Task 15');
         }
 
         $actual = [];

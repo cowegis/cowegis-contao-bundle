@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\Database\Result;
 use Contao\DataContainer;
 use Contao\Input;
@@ -34,6 +35,7 @@ final class MapDcaListener extends AbstractListener
         return 'tl_cowegis_map';
     }
 
+    #[AsCallback('tl_cowegis_map', 'fields.layers.eval.listCallback')]
     public function layerList(Result|Collection $records, string $uniqueId): string
     {
         $strReturn = '';
@@ -51,6 +53,7 @@ final class MapDcaListener extends AbstractListener
      *
      * @param DataContainer $dataContainer The data container driver.
      */
+    #[AsCallback('tl_cowegis_map', 'config.onload')]
     public function showIncompleteConfigurationWarning(DataContainer $dataContainer): void
     {
         if (Input::get('act') !== 'edit') {

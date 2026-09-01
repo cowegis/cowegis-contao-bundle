@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Override;
@@ -21,6 +22,7 @@ final class ContentDcaListener extends AbstractListener
         return 'tl_content';
     }
 
+    #[AsCallback('tl_content', 'config.onload')]
     public function onLoad(): void
     {
         if (! $this->clientAvailable) {
@@ -32,6 +34,7 @@ final class ContentDcaListener extends AbstractListener
     }
 
     /** @return list<string> */
+    #[AsCallback('tl_content', 'fields.cowegis_client.options')]
     public function clientOptions(): array
     {
         $options = ['custom'];
