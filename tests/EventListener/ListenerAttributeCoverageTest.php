@@ -76,6 +76,10 @@ final class ListenerAttributeCoverageTest extends TestCase
                 ['tl_cowegis_control', 'fields.layers.load', null],
                 ['tl_cowegis_control', 'fields.layers.save', null],
                 ['tl_cowegis_control', 'fields.layers.eval.columnFields.layer.options', null],
+                // Converted from @Callback annotations in the final-review fix (not from the
+                // pre-conversion listeners.xml).
+                ['tl_cowegis_control', 'config.onload', null],
+                ['tl_cowegis_control', 'fields.geocoder.options', null],
             ],
             'Cowegis\Bundle\Contao\EventListener\Dca\OptionsListener' => [
                 ['tl_cowegis_map', 'fields.zoom.options', null],

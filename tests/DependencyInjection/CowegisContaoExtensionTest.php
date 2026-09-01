@@ -7,8 +7,12 @@ namespace Cowegis\Bundle\Contao\Test\DependencyInjection;
 use Cowegis\Bundle\Contao\Hydrator\DelegatingHydrator;
 use Cowegis\Bundle\Contao\Provider\ContaoBackendProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 use function array_keys;
 use function sort;
@@ -285,6 +289,46 @@ final class CowegisContaoExtensionTest extends TestCase
         sort($types);
 
         self::assertSame(['markers', 'reference', 'vectors'], $types);
+    }
+
+    public function testLayerDataProviderLocatorArgument(): void
+    {
+        // The pre-compile definition still carries the raw `!tagged_locator` argument, so we can
+        // assert its shape directly: arg index 4 (the 5th ctor arg) of ContaoBackendProvider must be
+        // a ServiceLocatorArgument backed by a TaggedIteratorArgument for the LayerDataProvider tag,
+        // indexed by the `type` tag attribute.
+        $rawContainer = StubContainerFactory::create();
+        $rawArgument  = $rawContainer->getDefinition(ContaoBackendProvider::class)->getArgument(4);
+
+        self::assertInstanceOf(ServiceLocatorArgument::class, $rawArgument);
+
+        $taggedIterator = $rawArgument->getTaggedIteratorArgument();
+        self::assertNotNull($taggedIterator);
+        self::assertSame(self::LAYER_DATA_PROVIDER_TAG, $taggedIterator->getTag());
+        self::assertSame('type', $taggedIterator->getIndexAttribute());
+
+        // After compilation the argument is resolved to a Reference pointing at a generated
+        // ServiceLocator whose service map is keyed by the `type` attribute values.
+        $container = self::compiledContainer();
+        $argument  = $container->getDefinition(ContaoBackendProvider::class)->getArgument(4);
+        self::assertInstanceOf(Reference::class, $argument);
+
+        $locatorDefinition = $container->getDefinition((string) $argument);
+        self::assertSame(ServiceLocator::class, $locatorDefinition->getClass());
+
+        $serviceMap = $locatorDefinition->getArgument(0);
+        self::assertIsArray($serviceMap);
+
+        $types = array_keys($serviceMap);
+        sort($types);
+        self::assertSame(['markers', 'reference', 'vectors'], $types);
+
+        foreach ($serviceMap as $type => $entry) {
+            self::assertInstanceOf(ServiceClosureArgument::class, $entry, (string) $type);
+            $values = $entry->getValues();
+            self::assertArrayHasKey(0, $values, (string) $type);
+            self::assertInstanceOf(Reference::class, $values[0], (string) $type);
+        }
     }
 
     public function testRepositoryTagCount(): void

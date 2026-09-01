@@ -6,7 +6,6 @@ namespace Cowegis\Bundle\Contao\EventListener\Dca;
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
-use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Contao\StringUtil;
 use Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry;
@@ -172,7 +171,7 @@ final class ControlDcaListener extends AbstractListener
         return null;
     }
 
-    /** @Callback(table="tl_cowegis_control", target="config.onload") */
+    #[AsCallback('tl_cowegis_control', 'config.onload')]
     public function initializeGeocoderPalette(): void
     {
         if (! $this->geocoder instanceof Geocoder) {
@@ -184,11 +183,8 @@ final class ControlDcaListener extends AbstractListener
             ->applyToPalette('geocoder', 'tl_cowegis_control');
     }
 
-    /**
-     * @return array<string,string>
-     *
-     * @Callback(table="tl_cowegis_control", target="fields.geocoder.options")
-     */
+    /** @return array<string,string> */
+    #[AsCallback('tl_cowegis_control', 'fields.geocoder.options')]
     public function geocoderOptions(): array
     {
         $options = [];
