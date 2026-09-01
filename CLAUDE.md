@@ -34,13 +34,21 @@ Use the `phpcq` skill for more details.
 
 Tools in the chain: `psalm` (errorLevel 3), `phpcs` (Doctrine Coding Standard, 120-col limit),
 `rector` (dead code / type declarations / privatization / strict types – see `rector.php`), `phpmd`,
-`phpcpd`, `phploc`, `composer-require-checker`, `composer-normalize`, `phpspec`.
+`phpcpd`, `phploc`, `composer-require-checker`, `composer-normalize`, `phpspec`, `phpunit`.
 
 Tests use **phpspec** (specs in `spec/`, namespace `spec\Cowegis\Bundle\Contao`):
 
 ```bash
 vendor/bin/phpspec run                               # all specs
 vendor/bin/phpspec run spec/CowegisContaoBundleSpec.php   # single spec
+```
+
+PHPUnit runs alongside phpspec (DI / service-config tests), tests in `tests/`,
+namespace `Cowegis\Bundle\Contao\Test`:
+
+```bash
+vendor/bin/phpcq run phpunit
+vendor/bin/phpunit tests/DependencyInjection        # single suite
 ```
 
 ## Architecture
@@ -86,16 +94,32 @@ sibling `*Hydrator` (tagged as a `Hydrator`) fills that definition in. The `*Typ
 Contao backend (`label()`, `iconUrl()`, option lists via the DCA listeners).
 
 **Adding a layer type**: new `FooLayerType` + `FooLayerHydrator` in `src/Map/Layer/Foo/`, register
-both in `src/Resources/config/layers.xml`, and usually add the matching `cowegis-core`
-`SchemaDescriber` / `Serializer` service entries there too.
+both in `src/Resources/config/layers.yaml` (the `LayerType` / `Hydrator` tags come automatically from
+`registerForAutoconfiguration` — just wire the constructor arguments), and usually add the matching
+`cowegis-core` `SchemaDescriber` (string arg + `_instanceof` tag) / `Serializer`
+(`@Cowegis\Core\Serializer\Serializer` arg + explicit `key` tag) service entries there too.
 
 ### Service wiring
 
-`CowegisContaoExtension` loads `src/Resources/config/*.xml` **explicitly and in order**. Autowiring
-and autoconfiguration are **off** in every file (`<defaults autowire="false" autoconfigure="false">`)
-— wire every argument and tag by hand. Behaviour is composed through tags:
-`...\Hydrator\Hydrator`, `...\Map\Layer\LayerType` (and Control/Icon/Style variants),
-`...\Provider\LayerDataProvider` (`index-by="type"`), plus core `Serializer` / `Schema*` tags.
+`CowegisContaoExtension` loads `src/Resources/config/*.yaml` **explicitly and in order** via
+`YamlFileLoader`. Autowiring is **off** in every file (`_defaults: { autowire: false }`) — wire every
+constructor argument by hand. Autoconfiguration is **on** by default; the five marker-interface tags
+(`Hydrator`, `LayerType`, `ControlType`, `IconType`, `StyleType`) are attached via
+`registerForAutoconfiguration()` calls at the top of `CowegisContaoExtension::load()`.
+`autoconfigure: false` is set locally where it would double-tag or self-reference: the
+`DelegatingHydrator` collector service, the priority hydrators (`LocateOptionsHydrator`,
+`BoundsOptionsHydrator`, `EventDispatchingHydrator`), `ConsentBridge\Plugin`, and all of
+`repositories.yaml`.
+
+Contao/Symfony behaviour tags come from PHP attributes on the classes: `#[AsCallback]` (DCA listeners
+in `src/EventListener/Dca/`), `#[AsEventListener]` (menu / response / filter listeners), `#[AsHook]`
+(`LanguageFileListener`), `#[AsContentElement]` / `#[AsFrontendModule]` (fragment actions).
+
+Tags that stay explicit in YAML: `Cowegis\Core\Serializer\Serializer` (`key`),
+`netzmacht.contao_toolkit.repository` (`model`), `Cowegis\Bundle\Contao\Provider\LayerDataProvider`
+(`type`), `Cowegis\Core\Schema\LayerSchemaDescriber` (via `_instanceof` in `layers.yaml`), and the
+singletons `Cowegis\Core\Provider\Provider` / `…\Schema\SchemaDescriber` / `…\IdFormat\IdFormat` /
+`…\Schema\IdSchema`.
 
 ### Contao backend
 
@@ -103,7 +127,8 @@ and autoconfiguration are **off** in every file (`<defaults autowire="false" aut
   `layer`, `marker`, `control`, `control_layer`, `icon`, `style`, `popup`, `tooltip`); the bundle
   also extends `tl_content` and `tl_module`.
 - DCA callbacks live in `src/EventListener/Dca/*Listener` (Toolkit `AbstractListener`; `getName()`
-  returns the table it binds to). Registered in `src/Resources/config/listeners.xml`.
+  returns the table it binds to). Registered via `#[AsCallback]` on the callback methods; the
+  services are wired in `src/Resources/config/listeners.yaml`.
 - Backend modules are injected into `$GLOBALS['BE_MOD']` in `src/Resources/contao/config/config.php`
   (`cowegis_map`, `cowegis_layer`, `cowegis_presets`).
 - `tl_cowegis_map_layer` is the junction between a map and a reusable `tl_cowegis_layer`, carrying
