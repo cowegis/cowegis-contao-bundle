@@ -28,6 +28,7 @@ final class CowegisContaoExtensionTest extends TestCase
     private const string LAYER_DATA_PROVIDER_TAG = 'Cowegis\Bundle\Contao\Provider\LayerDataProvider';
     private const string REPOSITORY_TAG          = 'netzmacht.contao_toolkit.repository';
     private const string LAYER_SCHEMA_TAG        = 'Cowegis\Core\Schema\LayerSchemaDescriber';
+    private const string CONTROL_SCHEMA_TAG      = 'Cowegis\Core\Schema\ControlSchemaDescriber';
 
     private static function compiledContainer(): ContainerBuilder
     {
@@ -269,6 +270,36 @@ final class CowegisContaoExtensionTest extends TestCase
         // so it carries the SchemaDescriber tag instead (MapSchemaDescriber would call
         // ComponentsBuilder::withSchema() on its void return value otherwise).
         self::assertCount(6, $container->findTaggedServiceIds(self::LAYER_SCHEMA_TAG));
+    }
+
+    public function testControlSchemaDescribersAreRegistered(): void
+    {
+        $container = self::compiledContainer();
+
+        $tagged = array_keys($container->findTaggedServiceIds(self::CONTROL_SCHEMA_TAG));
+        sort($tagged);
+
+        self::assertSame(
+            [
+                'Cowegis\Core\Schema\Control\AttributionControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\FullscreenControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\GeocoderControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\LayersControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\LoadingControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\ScaleControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\ZoomControlSchemaDescriber',
+            ],
+            $tagged,
+        );
+
+        self::assertSame(
+            ['zoom'],
+            $container->getDefinition('Cowegis\Core\Schema\Control\ZoomControlSchemaDescriber')->getArguments(),
+        );
+        self::assertSame(
+            ['layers'],
+            $container->getDefinition('Cowegis\Core\Schema\Control\LayersControlSchemaDescriber')->getArguments(),
+        );
     }
 
     public function testSerializerKeyTag(): void
