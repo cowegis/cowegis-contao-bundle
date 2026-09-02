@@ -21,10 +21,10 @@ services:
             - 'data'
 
     # Implements Cowegis\Core\Schema\SchemaDescriber (not LayerSchemaDescriber) => _instanceof cannot
-    # tag it; keep the explicit LayerSchemaDescriber tag.
+    # tag it; keep the explicit SchemaDescriber tag.
     Cowegis\Bundle\Contao\Schema\LayersSchemaDescriber:
         tags:
-            - 'Cowegis\Core\Schema\LayerSchemaDescriber'
+            - 'Cowegis\Core\Schema\SchemaDescriber'
 
     # Tile layer
     Cowegis\Bundle\Contao\Map\Layer\Tile\TileLayerType: ~

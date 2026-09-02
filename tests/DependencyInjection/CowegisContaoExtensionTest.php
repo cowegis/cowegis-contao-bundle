@@ -264,9 +264,11 @@ final class CowegisContaoExtensionTest extends TestCase
         $container = self::compiledContainer();
 
         // 6 core Cowegis\Core\Schema\Layer\*SchemaDescriber (tagged via `_instanceof`, they extend the
-        // abstract Cowegis\Core\Schema\LayerSchemaDescriber) + 1 bundle LayersSchemaDescriber (explicit
-        // tag, it implements Cowegis\Core\Schema\SchemaDescriber, not LayerSchemaDescriber).
-        self::assertCount(7, $container->findTaggedServiceIds(self::LAYER_SCHEMA_TAG));
+        // abstract Cowegis\Core\Schema\LayerSchemaDescriber). The bundle LayersSchemaDescriber is NOT
+        // among them: it implements Cowegis\Core\Schema\SchemaDescriber and only registers a path item,
+        // so it carries the SchemaDescriber tag instead (MapSchemaDescriber would call
+        // ComponentsBuilder::withSchema() on its void return value otherwise).
+        self::assertCount(6, $container->findTaggedServiceIds(self::LAYER_SCHEMA_TAG));
     }
 
     public function testSerializerKeyTag(): void
