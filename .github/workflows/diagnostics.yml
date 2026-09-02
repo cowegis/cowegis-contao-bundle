@@ -16,13 +16,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php: 8.2
-            output: '-o default'
-            phpcq_install: 'update'
           - php: 8.3
             output: '-o default'
             phpcq_install: 'update'
           - php: 8.4
+            output: '-o default'
+            phpcq_install: 'update'
+          - php: 8.5
             output: '-o default'
             phpcq_install: 'update'
     steps:
