@@ -18,6 +18,13 @@
     transition: 0.2s filter;
 }
 
+.cowegis-map-layer-actions {
+    display: flex;
+    gap: 3px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .tl_listing li:not(:hover) .cowegis-map-layer-item--inactive {
     color: #999;
 }
