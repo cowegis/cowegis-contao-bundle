@@ -32,10 +32,6 @@ phpcq:
     phpunit:
       version: ^1.0
       signed: false
-      requirements:
-        tools:
-          phpunit:
-            version: ^11.0
     psalm:
       version: ^1.0
       signed: false
@@ -75,11 +71,11 @@ tasks:
     - phpcpd
     - phploc
     - phpmd
+    - phpunit
     - psalm
     - rector
     - phpcs
     - phpspec
-    - phpunit
   default:
     - verify
     - analyze

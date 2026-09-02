@@ -1,9 +1,6 @@
 # Companion
 /.env.companion
 
-# Claude Code
-/.mcp.json
-
 # Composer
 /composer.lock
 /vendor
@@ -12,10 +9,4 @@
 /.phpcq
 /.phpcq.yaml
 /.phpcs-cache
-
-# Superpowers SDD workspace
-/.superpowers/
-
-# PHPUnit
-/.phpunit.cache
 /.phpunit.result.cache

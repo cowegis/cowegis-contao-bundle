@@ -15,7 +15,6 @@
     },
     "phpcq": {
       "plugins": {
-        "phpunit": true,
         "phpspec": true
       },
       "defaults": {
