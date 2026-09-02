@@ -1,19 +1,11 @@
-{% extends "@ContaoCore/Backend/be_page.html.twig" %}
+{% extends "@Contao/be_main.html.twig" %}
 
-{% block headline %} {% endblock %}
-
-{% block error %}{% endblock %}
-
-{% block main %}
-    <div id="tl_buttons">
-        <a href="{{ backUrl }}" class="header_back" title="" accesskey="b" onclick="Backend.getScrollOffset()">{{ 'MSC.backBT'|trans({}, 'contao_default') }}</a>
-    </div>
+{% block main_content %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/cowegisapi/swagger/swagger-ui.css') }}" >
     <style>
         html
         {
             box-sizing: border-box;
-            overflow: -moz-scrollbars-vertical;
             overflow-y: scroll;
         }
 

@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../vendor/symfony/dependency-injection/Loader/schema/services.schema.json
 services:
     _defaults:
         autowire: false
@@ -7,8 +8,9 @@ services:
     Cowegis\Bundle\Contao\Action\Backend\DocsAction:
         public: true
         arguments:
-            - '@twig'
             - '@router'
+        calls:
+          - [setContainer, ["@service_container"]]
 
     Cowegis\Bundle\Contao\Action\Backend\MapLayerAction:
         public: true
