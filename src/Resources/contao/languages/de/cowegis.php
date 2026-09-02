@@ -64,3 +64,9 @@ $GLOBALS['TL_LANG']['cowegis_style']['fixed'][1] = 'Feste Stilmuster auf jeden V
 
 $GLOBALS['TL_LANG']['cowegis_icon']['svg'][0] = 'SVG icon';
 $GLOBALS['TL_LANG']['cowegis_icon']['svg'][1] = 'SVG icon';
+
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['backgroundColor'][0] = 'Hintergrundfarbe';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['backgroundColor'][1] = 'Wählen Sie eine Farbe für den Hintergrund aus.';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['html'][0]            = 'HTML-Quelltext';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['html'][1]            =
+    'Geben Sie Ihren HTML-Quelltext ein - Sie können HTML- oder SVG-Quelltext einfügen.';

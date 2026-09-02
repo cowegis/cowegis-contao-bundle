@@ -19,7 +19,7 @@ $GLOBALS['TL_LANG']['tl_cowegis_icon']['delete']['1']            = 'Icon ID %s �
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['edit']['0']              = 'Icon bearbeiten';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['edit']['1']              = 'Icon ID %s bearbeiten';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['icon']['0']              = 'Icon-CSS-Klasse';
-$GLOBALS['TL_LANG']['tl_cowegis_icon']['icon']['1']              = 'Icon-CSS-Klasse, beispielsweise <em>fa-envelope</em>';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['icon']['1']              = 'Icon-CSS-Klasse, z. B. <em>envelope</em> - siehe <a href="https://fontawesome.com/v6/search?ic=free" target="_blank">Font Awesome Icon Set</a>';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['iconAnchor']['0']        = 'Icon-Anker';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['iconAnchor']['1']        = 'Die Koordinaten der "Spitze" des Schattens (relativ zu seiner oberen linken Ecke).';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['iconColor']['0']         = 'Iconfarbe';
@@ -44,6 +44,8 @@ $GLOBALS['TL_LANG']['tl_cowegis_icon']['prefix']['0']            = 'Iconpräfix 
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['prefix']['1']            = 'Iconpräfix Klasse, z.B. <em>fa</em>';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['shadowAnchor']['0']      = 'Schatten-Anker';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['shadowAnchor']['1']      = 'Die Koordinaten der "Spitze" des Schattens (relativ zu seiner oberen linken Ecke) (das gleiche wie der Symbol Anker, wenn nicht angegeben).';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['tooltipAnchor'][0]       = 'Tooltipp-Anker';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['tooltipAnchor'][1]       = 'Koordinaten des Tooltipp-Offsets in Pixeln, z. B. <em>20,40</em>.';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['shadowImage']['0']       = 'Schatten-Bild';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['shadowImage']['1']       = 'Wählen Sie ein Bild für den Schatten aus.';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['shadowRetinaImage']['0'] = 'Retina-Schattenbild';
@@ -62,3 +64,18 @@ $GLOBALS['TL_LANG']['tl_cowegis_icon']['toggle']['0']            = 'Aktivierung 
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['toggle']['1']            = 'Aktivierung von Icon ID %s umschalten';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['type']['0']              = 'Typ';
 $GLOBALS['TL_LANG']['tl_cowegis_icon']['type']['1']              = 'Wählen Sie den Icon-Typ';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['content'][0]             = 'Inhalt';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['content'][1]             = 'Der Inhalt wird im Marker angezeigt - man kann Text einfügen oder auch UTF8-Icons z. B. <em>&#127785;</em>';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['iconSize'][0]            = 'Icon-Größe';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['iconSize'][1]            = 'Icon-Größe in Pixeln in komma-separierte Werte, z. B. <em>20,40</em>.';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['faIconSet'][0]           = 'Font Awesome Icon Set';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['faIconSet'][1]           = 'Bitte wählen Sie das bevorzugte <a href="https://fontawesome.com/v6/search?ic=free" target="_blank">Font Awesome Icon Set</a>';
+
+// Reference
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['icon_type']['image']       = 'Bild-Datei';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['icon_type']['div']         = 'DIV (mit Quelltext)';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['icon_type']['svg']         = 'SVG (mit Inhalt)';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['icon_type']['fontAwesome'] = 'Font Awesome Icon';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['faIconSet']['regular']     = 'Classic regular';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['faIconSet']['solid']       = 'Classic solid';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['faIconSet']['brands']      = 'Brands';

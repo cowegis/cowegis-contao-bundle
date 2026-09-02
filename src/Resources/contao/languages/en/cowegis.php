@@ -60,6 +60,12 @@ $GLOBALS['TL_LANG']['cowegis_vector']['rectangle'][1]     = 'Rectangle overlay. 
 $GLOBALS['TL_LANG']['cowegis_icon']['svg'][0] = 'SVG icon';
 $GLOBALS['TL_LANG']['cowegis_icon']['svg'][1] = 'SVG icon';
 
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['backgroundColor'][0] = 'Background color';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['backgroundColor'][1] = 'Define a custom background color here.';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['html'][0]            = 'HTML source code';
+$GLOBALS['TL_LANG']['tl_cowegis_icon']['html'][1]            =
+    'Add your own HTML source code - you can add HTML or SVG source code.';
+
 $GLOBALS['TL_LANG']['cowegis_style']['fixed'][0] = 'Fixed';
 $GLOBALS['TL_LANG']['cowegis_style']['fixed'][1] = 'Apply fixed style pattern to each vector.';
 
