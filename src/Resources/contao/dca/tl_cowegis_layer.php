@@ -34,22 +34,20 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer'] = [
                 'href'         => 'ptg=all',
                 'class'        => 'header_toggle',
                 'showOnSelect' => true,
-            ],
-            'all'         => [
-                'href'       => 'act=select',
-                'class'      => 'header_edit_all',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'primary'      => true,
             ],
         ],
         'operations'        => [
             'data'   => [
                 'href' => '',
                 'icon' => 'children.svg',
+                'primary' => true,
             ],
             'edit'   => [
                 'label' => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['edit'],
                 'href'  => 'act=edit',
                 'icon'  => 'edit.svg',
+                'primary' => true,
             ],
             'copy'   => [
                 'label' => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['copy'],

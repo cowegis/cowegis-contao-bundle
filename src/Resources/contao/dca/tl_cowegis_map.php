@@ -33,32 +33,31 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
                 'icon'  => 'bundles/cowegiscontao/img/api_docs.png',
                 'route' => 'cowegis_contao_backend_api_docs',
             ],
-            'all'      => [
-                'href'       => 'act=select',
-                'class'      => 'header_edit_all',
-                'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
-            ],
         ],
         'operations'        => [
             'edit'     => [
                 'href'       => 'act=edit',
                 'icon'       => 'edit.svg',
                 'attributes' => 'accesskey="e"',
+                'primary'    => true,
             ],
             'layers'   => [
                 'href'       => 'table=tl_cowegis_layer',
                 'icon'       => 'bundles/cowegiscontao/img/layers.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="l"',
+                'primary'    => true,
             ],
             'controls' => [
                 'href'       => 'table=tl_cowegis_control',
                 'icon'       => 'bundles/cowegiscontao/img/control.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="c"',
+                'primary'    => true,
             ],
             'panes'    => [
                 'href'       => 'table=tl_cowegis_map_pane',
                 'icon'       => 'bundles/cowegiscontao/img/panes.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="p"',
+                'primary'    => true,
             ],
             'copy'     => [
                 'href' => 'act=copy',

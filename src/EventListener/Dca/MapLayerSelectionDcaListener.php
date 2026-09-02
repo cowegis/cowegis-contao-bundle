@@ -76,9 +76,10 @@ final class MapLayerSelectionDcaListener extends AbstractListener
             ['list', 'global_operations'],
             [
                 'back'        => [
-                    'label' => [$mapModel->title, $this->translator->trans('MSC.backBT', [], 'contao_default')],
-                    'href'  => 'table=tl_cowegis_map&id=',
-                    'class' => 'header header_back',
+                    'label'   => [$mapModel->title, $this->translator->trans('MSC.backBT', [], 'contao_default')],
+                    'href'    => 'table=tl_cowegis_map&id=',
+                    'class'   => 'header header_back',
+                    'primary' => true,
                 ],
                 'toggleNodes' => $definition->get(['list', 'global_operations', 'toggleNodes']),
             ],

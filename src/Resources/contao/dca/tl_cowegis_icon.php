@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Contao\DC_Table;
-use Netzmacht\Contao\Toolkit\Dca\Listener\Button\StateButtonCallbackListener;
 
 $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
     'config' => [
@@ -34,27 +33,26 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                 'href'       => 'table=tl_cowegis_style',
                 'icon'       => 'bundles/cowegiscontao/img/style.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'primary'    => true,
             ],
             'popups'   => [
                 'href'       => 'table=tl_cowegis_popup',
                 'icon'       => 'bundles/cowegiscontao/img/popup.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'primary'    => true,
             ],
             'tooltips' => [
                 'href'       => 'table=tl_cowegis_tooltip',
                 'icon'       => 'bundles/cowegiscontao/img/tooltip.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
-            ],
-            'all'      => [
-                'href'       => 'act=select',
-                'class'      => 'header_edit_all',
-                'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
+                'primary'    => true,
             ],
         ],
         'operations'        => [
             'edit'   => [
                 'href' => 'act=edit',
                 'icon' => 'edit.svg',
+                'primary'    => true,
             ],
             'copy'   => [
                 'href' => 'act=copy',
@@ -67,12 +65,10 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
                     . '\'))return false;Backend.getScrollOffset()"',
             ],
             'toggle' => [
-                'icon'            => 'visible.svg',
-                'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => [StateButtonCallbackListener::class, 'onButtonCallback'],
-                'toolkit'         => [
-                    'state_button' => ['stateColumn' => 'active'],
-                ],
+                'icon'       => 'visible.svg',
+                'attributes' => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+                'href'       => 'act=toggle&amp;field=active',
+                'primary'    => true,
             ],
             'show'   => [
                 'href' => 'act=show',
@@ -184,6 +180,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
         ],
         'active'            => [
             'exclude'   => true,
+            'toggle'    => true,
             'inputType' => 'checkbox',
             'eval'      => ['tl_class' => 'w50'],
             'sql'       => "char(1) NOT NULL default ''",

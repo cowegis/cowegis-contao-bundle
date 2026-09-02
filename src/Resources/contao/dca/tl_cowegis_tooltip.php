@@ -6,9 +6,9 @@ use Contao\DC_Table;
 
 $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
     'config' => [
-        'dataContainer'     => DC_Table::class,
-        'enableVersioning'  => true,
-        'sql'               => [
+        'dataContainer'    => DC_Table::class,
+        'enableVersioning' => true,
+        'sql'              => [
             'keys' => ['id' => 'primary'],
         ],
     ],
@@ -30,31 +30,30 @@ $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
                 'href'       => 'table=tl_cowegis_style',
                 'icon'       => 'bundles/cowegiscontao/img/style.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'primary'    => true,
             ],
             'icons'  => [
                 'href'       => 'table=tl_cowegis_icon',
                 'icon'       => 'bundles/cowegiscontao/img/icons.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'primary'    => true,
             ],
             'popups' => [
                 'href'       => 'table=tl_cowegis_popup',
                 'icon'       => 'bundles/cowegiscontao/img/popup.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
-            ],
-            'all'    => [
-                'href'       => 'act=select',
-                'class'      => 'header_edit_all',
-                'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
+                'primary'    => true,
             ],
         ],
         'operations'        => [
             'edit'   => [
-                'href'  => 'act=edit',
-                'icon'  => 'edit.svg',
+                'href'    => 'act=edit',
+                'icon'    => 'edit.svg',
+                'primary' => true,
             ],
             'copy'   => [
-                'href'  => 'act=copy',
-                'icon'  => 'copy.svg',
+                'href' => 'act=copy',
+                'icon' => 'copy.svg',
             ],
             'delete' => [
                 'href'       => 'act=delete',
@@ -63,8 +62,8 @@ $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
                     . '\'))return false;Backend.getScrollOffset()"',
             ],
             'show'   => [
-                'href'  => 'act=show',
-                'icon'  => 'show.svg',
+                'href' => 'act=show',
+                'icon' => 'show.svg',
             ],
         ],
     ],
@@ -94,15 +93,15 @@ $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
     ],
 
     'fields' => [
-        'id'         => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
-        'tstamp'     => ['sql' => "int(10) unsigned NOT NULL default '0'"],
-        'title'      => [
+        'id'          => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
+        'tstamp'      => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'title'       => [
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'direction'  => [
+        'direction'   => [
             'exclude'   => true,
             'inputType' => 'select',
             'default'   => null,
@@ -114,55 +113,55 @@ $GLOBALS['TL_DCA']['tl_cowegis_tooltip'] = [
             ],
             'sql'       => 'varchar(6) NULL',
         ],
-        'opacity'                        => [
+        'opacity'     => [
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '1.0',
             'eval'      => ['mandatory' => false, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'w50'],
             'sql'       => "varchar(4) NOT NULL default ''",
         ],
-        'permanent'    => [
+        'permanent'   => [
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
             'eval'      => ['tl_class' => 'w50'],
             'sql'       => "char(1) NOT NULL default ''",
         ],
-        'sticky'    => [
+        'sticky'      => [
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
             'eval'      => ['tl_class' => 'w50'],
             'sql'       => "char(1) NOT NULL default ''",
         ],
-        'offset'         => [
-            'exclude'       => true,
-            'inputType'     => 'text',
-            'eval'          => [
+        'offset'      => [
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => [
                 'maxlength'   => 255,
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
             ],
-            'sql'           => 'varchar(255) NULL',
+            'sql'       => 'varchar(255) NULL',
         ],
-        'className'         => [
-            'exclude'       => true,
-            'inputType'     => 'text',
-            'eval'          => [
+        'className'   => [
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => [
                 'maxlength'   => 255,
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
             ],
-            'sql'           => 'varchar(255) NULL',
+            'sql'       => 'varchar(255) NULL',
         ],
-        'interactive'    => [
+        'interactive' => [
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
             'eval'      => ['tl_class' => 'w50'],
             'sql'       => "char(1) NOT NULL default ''",
         ],
-        'attribution'                    => [
+        'attribution' => [
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',

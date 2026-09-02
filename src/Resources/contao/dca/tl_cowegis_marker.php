@@ -3,14 +3,13 @@
 declare(strict_types=1);
 
 use Contao\DC_Table;
-use Netzmacht\Contao\Toolkit\Dca\Listener\Button\StateButtonCallbackListener;
 
 $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
     'config' => [
-        'dataContainer'     => DC_Table::class,
-        'enableVersioning'  => true,
-        'ptable'            => 'tl_cowegis_layer',
-        'sql'               => [
+        'dataContainer'    => DC_Table::class,
+        'enableVersioning' => true,
+        'ptable'           => 'tl_cowegis_layer',
+        'sql'              => [
             'keys' => [
                 'id'  => 'primary',
                 'pid' => 'index',
@@ -30,17 +29,11 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'fields' => ['title'],
             'format' => '%s',
         ],
-        'global_operations' => [
-            'all' => [
-                'href'       => 'act=select',
-                'class'      => 'header_edit_all',
-                'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
-            ],
-        ],
         'operations'        => [
             'edit'   => [
-                'href' => 'act=edit',
-                'icon' => 'edit.svg',
+                'href'    => 'act=edit',
+                'icon'    => 'edit.svg',
+                'primary' => true,
             ],
             'copy'   => [
                 'href' => 'act=copy',
@@ -53,12 +46,10 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
                     . '\'))return false;Backend.getScrollOffset()"',
             ],
             'toggle' => [
-                'icon'            => 'visible.svg',
-                'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => [StateButtonCallbackListener::class, 'onButtonCallback'],
-                'toolkit'         => [
-                    'state_button' => ['stateColumn' => 'active'],
-                ],
+                'icon'       => 'visible.svg',
+                'attributes' => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+                'href'       => 'act=toggle&amp;field=active',
+                'primary'    => true,
             ],
             'show'   => [
                 'href' => 'act=show',
@@ -82,14 +73,14 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
         'addTooltip' => ['tooltipContent', 'tooltipPreset'],
     ],
     'fields'          => [
-        'id'              => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
-        'tstamp'          => ['sql' => "int(10) unsigned NOT NULL default '0'"],
-        'sorting'         => [
+        'id'             => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
+        'tstamp'         => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'sorting'        => [
             'sql'     => "int(10) unsigned NOT NULL default '0'",
             'sorting' => true,
         ],
-        'pid'             => ['sql' => "int(10) unsigned NOT NULL default '0'"],
-        'title'           => [
+        'pid'            => ['sql' => "int(10) unsigned NOT NULL default '0'"],
+        'title'          => [
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -98,7 +89,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'alias'           => [
+        'alias'          => [
             'exclude'   => true,
             'inputType' => 'text',
             'search'    => true,
@@ -112,7 +103,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             ],
             'sql'       => 'varchar(255) NULL',
         ],
-        'coordinates'     => [
+        'coordinates'    => [
             'exclude'   => true,
             'inputType' => 'cowegis_geocode',
             'eval'      => [
@@ -122,53 +113,54 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
                 'doNotSaveEmpty' => true,
             ],
         ],
-        'latitude'        => [
+        'latitude'       => [
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => 'decimal(10,8) NULL',
         ],
-        'longitude'       => [
+        'longitude'      => [
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => 'decimal(11,8) NULL',
         ],
-        'altitude'        => [
+        'altitude'       => [
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => 'float NULL',
         ],
-        'active'          => [
+        'active'         => [
             'exclude'   => true,
             'filter'    => true,
             'sorting'   => true,
+            'toggle'    => true,
             'flag'      => 12,
             'inputType' => 'checkbox',
             'eval'      => ['tl_class' => 'w50'],
             'sql'       => "char(1) NOT NULL default ''",
         ],
-        'tooltip'         => [
+        'tooltip'        => [
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'alt'             => [
+        'alt'            => [
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
-        'addPopup'        => [
+        'addPopup'       => [
             'exclude'   => true,
             'inputType' => 'checkbox',
             'filter'    => true,
             'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
             'sql'       => "char(1) NOT NULL default ''",
         ],
-        'popup'           => [
+        'popup'          => [
             'exclude'    => true,
             'inputType'  => 'select',
             'eval'       => [
@@ -180,7 +172,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'foreignKey' => 'tl_cowegis_popup.title',
             'sql'        => "int(10) unsigned NOT NULL default '0'",
         ],
-        'popupContent'    => [
+        'popupContent'   => [
             'exclude'     => true,
             'inputType'   => 'text',
             'eval'        => [
@@ -192,7 +184,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'explanation' => 'insertTags',
             'sql'         => 'mediumtext NULL',
         ],
-        'addTooltip'      => [
+        'addTooltip'     => [
             'exclude'   => true,
             'inputType' => 'checkbox',
             'filter'    => true,
@@ -200,7 +192,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'eval'      => ['tl_class' => 'clr w50', 'submitOnChange' => true],
             'sql'       => "char(1) NOT NULL default ''",
         ],
-        'tooltipPreset'   => [
+        'tooltipPreset'  => [
             'exclude'    => true,
             'inputType'  => 'select',
             'eval'       => [
@@ -212,7 +204,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'foreignKey' => 'tl_cowegis_tooltip.title',
             'sql'        => "int(10) unsigned NOT NULL default '0'",
         ],
-        'tooltipContent'  => [
+        'tooltipContent' => [
             'exclude'     => true,
             'inputType'   => 'text',
             'eval'        => [
@@ -224,7 +216,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'explanation' => 'insertTags',
             'sql'         => 'mediumtext NULL',
         ],
-        'icon'            => [
+        'icon'           => [
             'exclude'    => true,
             'inputType'  => 'select',
             'eval'       => [
@@ -236,13 +228,13 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             'foreignKey' => 'tl_cowegis_icon.title',
             'sql'        => "int(10) unsigned NOT NULL default '0'",
         ],
-        'markerSymbol'        => [
+        'markerSymbol'   => [
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql'       => 'varchar(255) NOT NULL default \'\'',
         ],
-        'featureData'     => [
+        'featureData'    => [
             'exclude'   => true,
             'inputType' => 'textarea',
             'eval'      => [
@@ -253,7 +245,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_marker'] = [
             ],
             'sql'       => 'text NULL',
         ],
-        'options'         => [
+        'options'        => [
             'exclude'   => true,
             'inputType' => 'textarea',
             'eval'      => [

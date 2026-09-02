@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Contao\DC_Table;
-use Netzmacht\Contao\Toolkit\Dca\Listener\Button\StateButtonCallbackListener;
 
 $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
     'config' => [
@@ -32,17 +31,11 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
             'fields' => ['title'],
             'format' => '%s',
         ],
-        'global_operations' => [
-            'all' => [
-                'href'       => 'act=select',
-                'class'      => 'header_edit_all',
-                'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
-            ],
-        ],
         'operations'        => [
             'edit'   => [
-                'href' => 'act=edit',
-                'icon' => 'edit.svg',
+                'href'    => 'act=edit',
+                'icon'    => 'edit.svg',
+                'primary' => true,
             ],
             'copy'   => [
                 'href' => 'act=copy',
@@ -55,12 +48,10 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
                     . '\'))return false;Backend.getScrollOffset()"',
             ],
             'toggle' => [
-                'icon'            => 'visible.svg',
-                'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => [StateButtonCallbackListener::class, 'onButtonCallback'],
-                'toolkit'         => [
-                    'state_button' => ['stateColumn' => 'active'],
-                ],
+                'icon'       => 'visible.svg',
+                'attributes' => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+                'href'       => 'act=toggle&amp;field=active',
+                'primary'    => true,
             ],
             'show'   => [
                 'href' => 'act=show',
@@ -185,6 +176,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_control'] = [
         ],
         'active'                => [
             'exclude'   => true,
+            'toggle'    => true,
             'inputType' => 'checkbox',
             'filter'    => true,
             'eval'      => ['tl_class' => 'w50'],
