@@ -30,8 +30,9 @@ $GLOBALS['TL_DCA']['tl_cowegis_map'] = [
         ],
         'global_operations' => [
             'api_docs' => [
-                'icon'  => 'bundles/cowegiscontao/img/api_docs.png',
-                'route' => 'cowegis_contao_backend_api_docs',
+                'icon'       => 'bundles/cowegiscontao/img/api_docs.png',
+                'route'      => 'cowegis_contao_backend_api_docs',
+                'attributes' => 'data-turbo="false"',
             ],
         ],
         'operations'        => [

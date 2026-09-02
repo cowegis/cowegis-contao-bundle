@@ -1,5 +1,10 @@
 {% extends "@Contao/be_main.html.twig" %}
 
+{% block meta %}
+    {{ parent() }}
+    <meta name="turbo-visit-control" content="reload">
+{% endblock %}
+
 {% block main_content %}
     <div id="tl_buttons">
         <a href="{{ backUrl }}" class="header_back" title="" accesskey="b" onclick="Backend.getScrollOffset()">{{ 'MSC.backBT'|trans({}, 'contao_default') }}</a>
