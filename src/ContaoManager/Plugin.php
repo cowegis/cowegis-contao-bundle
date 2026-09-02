@@ -48,9 +48,9 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
         $routeCollection = new RouteCollection();
 
         $apiPath = $kernel->getBundle('CowegisApiBundle')->getPath();
-        $loader  = $resolver->resolve($apiPath . '/Resources/config/routing.xml');
+        $loader  = $resolver->resolve($apiPath . '/Resources/config/routing.yaml');
         if ($loader) {
-            $collection = $loader->load($apiPath . '/Resources/config/routing.xml');
+            $collection = $loader->load($apiPath . '/Resources/config/routing.yaml');
 
             if ($collection instanceof RouteCollection) {
                 $routePrefix = $kernel->getContainer()->getParameter('cowegis_api.route_prefix');
