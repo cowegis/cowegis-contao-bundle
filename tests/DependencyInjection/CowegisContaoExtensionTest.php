@@ -28,6 +28,7 @@ final class CowegisContaoExtensionTest extends TestCase
     private const string LAYER_DATA_PROVIDER_TAG = 'Cowegis\Bundle\Contao\Provider\LayerDataProvider';
     private const string REPOSITORY_TAG          = 'netzmacht.contao_toolkit.repository';
     private const string LAYER_SCHEMA_TAG        = 'Cowegis\Core\Schema\LayerSchemaDescriber';
+    private const string CONTROL_SCHEMA_TAG      = 'Cowegis\Core\Schema\ControlSchemaDescriber';
 
     private static function compiledContainer(): ContainerBuilder
     {
@@ -263,12 +264,56 @@ final class CowegisContaoExtensionTest extends TestCase
     {
         $container = self::compiledContainer();
 
-        // 6 core Cowegis\Core\Schema\Layer\*SchemaDescriber (tagged via `_instanceof`, they extend the
-        // abstract Cowegis\Core\Schema\LayerSchemaDescriber). The bundle LayersSchemaDescriber is NOT
-        // among them: it implements Cowegis\Core\Schema\SchemaDescriber and only registers a path item,
-        // so it carries the SchemaDescriber tag instead (MapSchemaDescriber would call
+        // 7 core Cowegis\Core\Schema\Layer\*SchemaDescriber (tagged via `_instanceof`, they extend the
+        // abstract Cowegis\Core\Schema\LayerSchemaDescriber): data, tileLayer, markers, featureGroup,
+        // layerGroup, markerCluster and overpass. The bundle LayersSchemaDescriber is NOT among them:
+        // it implements Cowegis\Core\Schema\SchemaDescriber and only registers a path item, so it
+        // carries the SchemaDescriber tag instead (MapSchemaDescriber would call
         // ComponentsBuilder::withSchema() on its void return value otherwise).
-        self::assertCount(6, $container->findTaggedServiceIds(self::LAYER_SCHEMA_TAG));
+        self::assertCount(7, $container->findTaggedServiceIds(self::LAYER_SCHEMA_TAG));
+    }
+
+    public function testOverpassLayerSchemaDescriberIsRegistered(): void
+    {
+        $container = self::compiledContainer();
+
+        $tagged = array_keys($container->findTaggedServiceIds(self::LAYER_SCHEMA_TAG));
+
+        self::assertContains('Cowegis\Core\Schema\Layer\OverpassLayerSchemaDescriber', $tagged);
+        self::assertSame(
+            ['overpass'],
+            $container->getDefinition('Cowegis\Core\Schema\Layer\OverpassLayerSchemaDescriber')->getArguments(),
+        );
+    }
+
+    public function testControlSchemaDescribersAreRegistered(): void
+    {
+        $container = self::compiledContainer();
+
+        $tagged = array_keys($container->findTaggedServiceIds(self::CONTROL_SCHEMA_TAG));
+        sort($tagged);
+
+        self::assertSame(
+            [
+                'Cowegis\Core\Schema\Control\AttributionControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\FullscreenControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\GeocoderControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\LayersControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\LoadingControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\ScaleControlSchemaDescriber',
+                'Cowegis\Core\Schema\Control\ZoomControlSchemaDescriber',
+            ],
+            $tagged,
+        );
+
+        self::assertSame(
+            ['zoom'],
+            $container->getDefinition('Cowegis\Core\Schema\Control\ZoomControlSchemaDescriber')->getArguments(),
+        );
+        self::assertSame(
+            ['layers'],
+            $container->getDefinition('Cowegis\Core\Schema\Control\LayersControlSchemaDescriber')->getArguments(),
+        );
     }
 
     public function testSerializerKeyTag(): void

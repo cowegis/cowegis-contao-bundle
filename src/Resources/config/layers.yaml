@@ -149,6 +149,10 @@ services:
         arguments:
             - '@netzmacht.contao_toolkit.response_tagger'
 
+    Cowegis\Core\Schema\Layer\OverpassLayerSchemaDescriber:
+        arguments:
+            - 'overpass'
+
     # Vector layer
     Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsLayerType: ~
 

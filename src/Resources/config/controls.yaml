@@ -4,6 +4,11 @@ services:
         autoconfigure: true
         public: false
 
+    _instanceof:
+        Cowegis\Core\Schema\ControlSchemaDescriber:
+            tags:
+                - 'Cowegis\Core\Schema\ControlSchemaDescriber'
+
     # Attribution control
     Cowegis\Bundle\Contao\Map\Control\Attribution\AttributionControlType: ~
 
@@ -78,3 +83,27 @@ services:
     Cowegis\Bundle\Contao\Map\Control\Geocoder\GeocoderControlTypeHydrator:
         arguments:
             - '@?Cowegis\ContaoGeocoder\Routing\SearchUrlGenerator'
+
+    # Control schema describers (tagged Cowegis\Core\Schema\ControlSchemaDescriber via _instanceof).
+    # The string argument is the control type name emitted by the matching core serializer; it drives
+    # the ControlType<Name> schema in the generated OpenAPI document.
+    Cowegis\Core\Schema\Control\AttributionControlSchemaDescriber:
+        arguments: ['attribution']
+
+    Cowegis\Core\Schema\Control\FullscreenControlSchemaDescriber:
+        arguments: ['fullscreen']
+
+    Cowegis\Core\Schema\Control\GeocoderControlSchemaDescriber:
+        arguments: ['geocoder']
+
+    Cowegis\Core\Schema\Control\LayersControlSchemaDescriber:
+        arguments: ['layers']
+
+    Cowegis\Core\Schema\Control\LoadingControlSchemaDescriber:
+        arguments: ['loading']
+
+    Cowegis\Core\Schema\Control\ScaleControlSchemaDescriber:
+        arguments: ['scale']
+
+    Cowegis\Core\Schema\Control\ZoomControlSchemaDescriber:
+        arguments: ['zoom']
