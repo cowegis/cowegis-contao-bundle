@@ -15,7 +15,6 @@ final class StubContainerFactory
 {
     // phpcs:ignore SlevomatCodingStandard.TypeHints.ClassConstantTypeHint.MissingNativeTypeHint
     public const STUB_SERVICE_IDS = [
-        'twig',
         'router',
         'request_stack',
         'event_dispatcher',

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 final class DocsAction extends AbstractBackendController
 {
     public function __construct(private readonly RouterInterface $router)

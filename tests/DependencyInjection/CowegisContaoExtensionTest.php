@@ -83,7 +83,7 @@ final class CowegisContaoExtensionTest extends TestCase
     public function testMissingRequiredServiceFailsCompilation(): void
     {
         $container = StubContainerFactory::create();
-        $container->removeDefinition('twig'); // required `@service` arg of Action\Backend\DocsAction
+        $container->removeDefinition('router'); // required `@service` arg of Action\Backend\DocsAction
 
         $this->expectException(ServiceNotFoundException::class);
         StubContainerFactory::compile($container);
