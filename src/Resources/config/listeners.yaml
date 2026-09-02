@@ -8,6 +8,10 @@ services:
         arguments:
             - '@request_stack'
 
+    Cowegis\Bundle\Contao\EventListener\MapLayerBreadcrumbListener:
+        arguments:
+            - '@netzmacht.contao_toolkit.contao.input_adapter'
+
     Cowegis\Bundle\Contao\EventListener\BackendStyleListener:
         arguments:
             - '@netzmacht.contao_toolkit.assets_manager'
