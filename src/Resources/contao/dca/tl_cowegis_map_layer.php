@@ -114,7 +114,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_map_layer'] = [
             'inputType' => 'checkbox',
             'filter'    => true,
             'eval'      => ['tl_class' => 'clr w50'],
-            'sql'       => ['type' => 'string', 'length' => '1', 'default' => ''],
+            'sql'       => ['type' => 'string', 'length' => 1, 'default' => ''],
         ],
     ],
 ];
