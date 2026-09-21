@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[AsFrontendModule('cowegis_map', 'includes', 'ce_cowegis_map')]
 final class MapModuleAction extends AbstractFrontendModuleController
 {
-    use MapFragmentDataTrait;
+    use MapFragmentDataPlugin;
 
     #[Override]
     protected function prepareTemplateData(array $data, Request $request, ModuleModel $model): array

@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 #[AsContentElement('cowegis_map', 'includes', 'ce_cowegis_map')]
 final class MapContentElementAction extends AbstractContentElementController
 {
-    use MapFragmentDataTrait;
+    use MapFragmentDataPlugin;
     use RenderBackendWildcardTrait;
 
     #[Override]

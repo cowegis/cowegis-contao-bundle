@@ -20,9 +20,7 @@ use function array_merge;
 use function assert;
 use function is_string;
 
-// phpcs:disable SlevomatCodingStandard.Classes.SuperfluousTraitNaming.SuperfluousSuffix
-// Name mandated by the task brief / architecture doc to mirror the two controllers it composes.
-trait MapFragmentDataTrait
+trait MapFragmentDataPlugin
 {
     public function __construct(
         private readonly FilterFactory $filterFactory,
