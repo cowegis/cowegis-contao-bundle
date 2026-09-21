@@ -15,7 +15,7 @@ stack. It is **not** self-contained:
 - This bundle supplies the Contao backend UI (DCA, backend modules), the Doctrine/Contao data models,
   and the code that turns those models into `cowegis-core` definitions.
 
-PHP `^8.2`; supports Contao `^5.3` and Symfony `6.4 / 7.4`. CI runs on PHP 8.2, 8.3, 8.4.
+PHP `^8.2`; supports Contao `^5.7` and Symfony `6.4 / 7.4`. CI runs on PHP 8.2, 8.3, 8.4.
 
 ## Commands
 
