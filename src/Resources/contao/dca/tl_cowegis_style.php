@@ -141,13 +141,11 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
         'color'       => [
             'exclude'   => true,
             'inputType' => 'text',
-            'wizard'    => [
-                ['netzmacht.contao_toolkit.dca.listeners.color_picker', 'onWizardCallback'],
-            ],
             'eval'      => [
                 'tl_class'       => 'w50 wizard clr',
                 'maxlength'      => 7,
                 'decodeEntities' => true,
+                'colorpicker'    => true,
             ],
             'sql'       => "varchar(8) NOT NULL default ''",
         ],
@@ -174,13 +172,11 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
         'fillColor'   => [
             'exclude'   => true,
             'inputType' => 'text',
-            'wizard'    => [
-                ['netzmacht.contao_toolkit.dca.listeners.color_picker', 'onWizardCallback'],
-            ],
             'eval'      => [
                 'tl_class'       => 'clr w50 wizard',
                 'maxlength'      => 7,
                 'decodeEntities' => true,
+                'colorpicker'    => true,
             ],
             'sql'       => "varchar(8) NOT NULL default ''",
         ],

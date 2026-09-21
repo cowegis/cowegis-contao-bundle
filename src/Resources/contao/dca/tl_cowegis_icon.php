@@ -315,28 +315,24 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
         'iconColor'         => [
             'exclude'   => true,
             'inputType' => 'text',
-            'wizard'    => [
-                ['netzmacht.contao_toolkit.dca.listeners.color_picker', 'onWizardCallback'],
-            ],
             'eval'      => [
                 'maxlength'      => 64,
                 'tl_class'       => 'w50 wizard',
                 'decodeEntities' => true,
                 'nullIfEmpty'    => true,
+                'colorpicker'    => true,
             ],
             'sql'       => 'varchar(16) NULL',
         ],
         'backgroundColor'   => [
             'exclude'   => true,
             'inputType' => 'text',
-            'wizard'    => [
-                ['netzmacht.contao_toolkit.dca.listeners.color_picker', 'onWizardCallback'],
-            ],
             'eval'      => [
                 'maxlength'      => 64,
                 'tl_class'       => 'clr w50 wizard',
                 'nullIfEmpty'    => true,
                 'decodeEntities' => true,
+                'colorpicker'    => true,
             ],
             'sql'       => 'varchar(16) NULL',
         ],
