@@ -20,6 +20,7 @@ final class MapContentElementAction extends AbstractContentElementController
     use MapFragmentDataPlugin;
     use RenderBackendWildcardTrait;
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     #[Override]
     protected function preGenerate(FragmentTemplate $template, ContentModel $model, Request $request): Response|null
     {
