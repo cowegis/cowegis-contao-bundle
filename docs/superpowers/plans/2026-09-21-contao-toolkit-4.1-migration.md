@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Migrate `cowegis/cowegis-contao-bundle` from `netzmacht/contao-toolkit` `^4.0` to `^4.1`, replacing every deprecated toolkit API this bundle uses with its 5.0-ready replacement, with no behavioural change for visitors or backend editors.
+**Goal:** Migrate `cowegis/cowegis-contao-bundle` from `netzmacht/contao-toolkit` `^4.0` to `^4.1@dev` (4.1.0 is not tagged on Packagist yet — its changes live on the `develop` branch), replacing every deprecated toolkit API this bundle uses with its 5.0-ready replacement, with no behavioural change for visitors or backend editors.
 
 **Architecture:** Five independent, sequentially-committed migrations: (1) version constraints, (2) `ResponseTagger` → `Contao\CoreBundle\Cache\CacheTagManager`, (3) `RequestScopeMatcher` → `Contao\CoreBundle\Routing\ScopeMatcher`, (4) DCA color-picker wizard → native `colorpicker` eval, (5) the Hybrid-fragment-controller split into independent `MapContentElementAction`/`MapModuleAction` classes sharing a `MapFragmentDataTrait`. Each task leaves the container compilable and the test suite green — tasks 2–4 deliberately do not touch `src/Resources/config/fragments.yaml` so the still-untouched `MapFragmentAction` keeps working right up until task 5 replaces it atomically.
 
@@ -12,7 +12,8 @@
 
 ## Global Constraints
 
-- `netzmacht/contao-toolkit`: `^4.0` → `^4.1`
+- `netzmacht/contao-toolkit`: `^4.0` → `^4.1@dev` (no stable `4.1.0` tag exists yet; resolves to
+  the `develop` branch, published as `dev-develop`/`4.1.x-dev`)
 - `contao/core-bundle`: `^5.3` → `^5.7`
 - No migration of the legacy `.html5` fragment templates to Twig — out of scope (Contao Core keeps rendering un-namespaced template names via the legacy engine).
 - Every task must leave `vendor/bin/phpunit tests/DependencyInjection` green (container compiles, `testMapActionArgumentCount` etc. pass) before moving to the next task.
@@ -46,15 +47,38 @@ and change:
 ```
 to:
 ```json
-    "netzmacht/contao-toolkit": "^4.1",
+    "netzmacht/contao-toolkit": "^4.1@dev",
 ```
+
+`4.1.0` is not tagged on Packagist yet (highest stable tag is `4.0.11`) — its changes live on the
+`develop` branch. The `@dev` stability flag is required, or composer will fail to resolve any
+version at all satisfying `^4.1`. This project's `minimum-stability` is already `dev` (see
+`CLAUDE.md`), so the flag only needs to apply to this one package, not the whole project.
 
 - [ ] **Step 2: Validate the composer manifest**
 
 Run: `composer validate --no-check-publish`
 Expected: `./composer.json is valid`
 
-- [ ] **Step 3: Update the documented Contao floor in `CLAUDE.md`**
+- [ ] **Step 3: Actually install the raised versions**
+
+Editing `composer.json` alone does not touch `vendor/` — Task 5 needs the real `Netzmacht\Contao\Toolkit\Controller\Fragment\*` classes (new in 4.1.0) physically installed, not just the constraint string changed.
+
+Run: `composer update netzmacht/contao-toolkit contao/core-bundle --with-all-dependencies --no-interaction`
+Expected: exits 0, resolving `netzmacht/contao-toolkit` to `dev-develop` (verified in advance via
+`composer require "netzmacht/contao-toolkit:^4.1@dev" --dry-run`, which reported
+`Upgrading netzmacht/contao-toolkit (4.0.11 => dev-develop ...)`). If it fails on a conflicting
+transitive constraint from another package (e.g. `cowegis/cowegis-api-bundle`), report BLOCKED
+with the full composer output — do not attempt to loosen unrelated constraints yourself.
+
+Then verify the installed versions:
+
+Run: `composer show netzmacht/contao-toolkit` and `composer show contao/core-bundle`
+Expected: `versions` line shows `* dev-develop` (or similar, marking the currently-installed dev
+version) for `netzmacht/contao-toolkit`, and a `5.7.*` (or higher, still `<6.0`) release for
+`contao/core-bundle`.
+
+- [ ] **Step 4: Update the documented Contao floor in `CLAUDE.md`**
 
 In `CLAUDE.md`, change:
 
@@ -68,7 +92,9 @@ to:
 PHP `^8.2`; supports Contao `^5.7` and Symfony `6.4 / 7.4`. CI runs on PHP 8.2, 8.3, 8.4.
 ```
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 5: Commit**
+
+`composer.lock` is gitignored (`/composer.lock` in `.gitignore`) for this library — do not add it.
 
 ```bash
 git add composer.json CLAUDE.md
@@ -903,7 +929,7 @@ git commit -m "refactor: use native colorpicker eval instead of deprecated Color
 - Consumes: `Netzmacht\Contao\Toolkit\Controller\Fragment\AbstractContentElementController`,
   `Netzmacht\Contao\Toolkit\Controller\Fragment\AbstractFrontendModuleController`,
   `Netzmacht\Contao\Toolkit\Controller\Fragment\RenderBackendWildcardTrait` (all from
-  `netzmacht/contao-toolkit` `^4.1`, already available after Task 1).
+  `netzmacht/contao-toolkit` `^4.1@dev` (`dev-develop`), already installed after Task 1).
 - Produces: `MapFragmentDataTrait` exposes `protected function buildTemplateData(array $data, Request $request, Model $model): array` and declares `abstract protected function getIdentifier(Model $model, string|null $identifier): string`, which `MapContentElementAction`/`MapModuleAction` must implement.
 
 **Why in one task:** `MapContentElementAction`/`MapModuleAction` share the same trait and the same `fragments.yaml` file; splitting the controller rewrite from the config/test update would leave the container broken between commits.

@@ -37,9 +37,14 @@ the toolkit's `CHANGELOG.md` / `UPGRADE-5.0.md`.
 
 ### 1. Version constraints (`composer.json`)
 
-- `netzmacht/contao-toolkit`: `^4.0` → `^4.1`
+- `netzmacht/contao-toolkit`: `^4.0` → `^4.1@dev` — 4.1.0 is not tagged on Packagist yet (only
+  `4.0.11` is the latest stable tag; `4.1.0`'s changes live on the `develop` branch, published as
+  `dev-develop` with a `4.1.x-dev` branch alias). Verified via
+  `composer require "netzmacht/contao-toolkit:^4.1@dev" --dry-run`, which resolves to
+  `dev-develop`. A plain `^4.1` would fail to resolve.
 - `contao/core-bundle`: `^5.3` → `^5.7` (toolkit 4.1.0's own floor; also drops CLAUDE.md's
-  documented Contao `^5.3` support down to `^5.7+`)
+  documented Contao `^5.3` support down to `^5.7+`). `5.7.13` is a real stable tag, no `@dev`
+  needed here.
 
 ### 2. `ResponseTagger` → `Contao\CoreBundle\Cache\CacheTagManager`
 
