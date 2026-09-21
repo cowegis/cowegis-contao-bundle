@@ -15,7 +15,7 @@ stack. It is **not** self-contained:
 - This bundle supplies the Contao backend UI (DCA, backend modules), the Doctrine/Contao data models,
   and the code that turns those models into `cowegis-core` definitions.
 
-PHP `^8.2`; supports Contao `^5.7` and Symfony `6.4 / 7.4`. CI runs on PHP 8.2, 8.3, 8.4.
+PHP `^8.3`; supports Contao `^5.7` and Symfony `6.4 / 7.4`. CI runs on PHP 8.3, 8.4, 8.5.
 
 ## Commands
 
@@ -74,7 +74,7 @@ map, then hands each layer/control/preset back to the chain).
   tooltip presets, assets, view.
 - `EventDispatchingHydrator` (tag priority `-128`, runs last) dispatches `HydrateEvent` so other
   bundles / listeners can extend hydration without a new service.
-- Hydrators that produce cacheable output pull in `netzmacht.contao_toolkit.response_tagger` (via
+- Hydrators that produce cacheable output pull in `contao.cache.tag_manager` (via
   `ResponseTaggerPlugin`) to tag the HTTP response for cache invalidation.
 
 ### Type + Registry + Hydrator pattern
@@ -137,11 +137,12 @@ singletons `Cowegis\Core\Provider\Provider` / `â€¦\Schema\SchemaDescriber` / `â€
 
 ### Frontend rendering
 
-`MapFragmentAction` (abstract, extends Toolkit `AbstractHybridController`) renders the map container
-and a `mapUri` pointing at the `cowegis_api_map` route (filters derived from the request). Concrete
-entry points: `MapContentElementAction` (`#[AsContentElement('cowegis_map')]`) and
-`MapModuleAction`. Client JS/CSS is chosen from `cowegis_client` (`bundles/cowegisclient/...` or a
-custom file).
+`MapContentElementAction` and `MapModuleAction` (`#[AsContentElement('cowegis_map')]`/
+`#[AsFrontendModule('cowegis_map')]`) each extend a Toolkit `Controller\Fragment\Abstract*Controller`
+base class and share their map-container-rendering logic (style compilation, identifier resolution,
+client JS lookup, `mapUri` generation pointing at the `cowegis_api_map` route) via the
+`MapFragmentDataPlugin` trait. Client JS/CSS is chosen from `cowegis_client`
+(`bundles/cowegisclient/...` or a custom file).
 
 ### Response caching
 

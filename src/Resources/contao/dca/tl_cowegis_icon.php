@@ -313,28 +313,36 @@ $GLOBALS['TL_DCA']['tl_cowegis_icon'] = [
             'sql'       => 'varchar(64) NULL',
         ],
         'iconColor'         => [
-            'exclude'   => true,
-            'inputType' => 'text',
-            'eval'      => [
+            'exclude'        => true,
+            'inputType'      => 'text',
+            'eval'           => [
                 'maxlength'      => 64,
                 'tl_class'       => 'w50 wizard',
                 'decodeEntities' => true,
                 'nullIfEmpty'    => true,
                 'colorpicker'    => true,
             ],
-            'sql'       => 'varchar(16) NULL',
+            'load_callback'  => [static fn ($value) => is_string($value) ? ltrim($value, '#') : $value],
+            'save_callback'  => [
+                static fn ($value) => is_string($value) && $value !== '' ? '#' . ltrim($value, '#') : $value,
+            ],
+            'sql'            => 'varchar(16) NULL',
         ],
         'backgroundColor'   => [
-            'exclude'   => true,
-            'inputType' => 'text',
-            'eval'      => [
+            'exclude'        => true,
+            'inputType'      => 'text',
+            'eval'           => [
                 'maxlength'      => 64,
                 'tl_class'       => 'clr w50 wizard',
                 'nullIfEmpty'    => true,
                 'decodeEntities' => true,
                 'colorpicker'    => true,
             ],
-            'sql'       => 'varchar(16) NULL',
+            'load_callback'  => [static fn ($value) => is_string($value) ? ltrim($value, '#') : $value],
+            'save_callback'  => [
+                static fn ($value) => is_string($value) && $value !== '' ? '#' . ltrim($value, '#') : $value,
+            ],
+            'sql'            => 'varchar(16) NULL',
         ],
         'faIconSet'         => [
             'exclude'   => true,

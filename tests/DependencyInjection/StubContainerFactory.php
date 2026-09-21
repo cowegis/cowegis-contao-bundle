@@ -22,7 +22,6 @@ final class StubContainerFactory
         'database_connection',
         'contao.framework',
         'contao.insert_tag.parser',
-        'contao.security.token_checker',
         'psr18.http_client',
         'netzmacht.contao_toolkit.repository_manager',
         'netzmacht.contao_toolkit.csrf.token_provider',

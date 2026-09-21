@@ -139,15 +139,19 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'       => "char(1) NOT NULL default '1'",
         ],
         'color'       => [
-            'exclude'   => true,
-            'inputType' => 'text',
-            'eval'      => [
+            'exclude'        => true,
+            'inputType'      => 'text',
+            'eval'           => [
                 'tl_class'       => 'w50 wizard clr',
                 'maxlength'      => 7,
                 'decodeEntities' => true,
                 'colorpicker'    => true,
             ],
-            'sql'       => "varchar(8) NOT NULL default ''",
+            'load_callback'  => [static fn ($value) => is_string($value) ? ltrim($value, '#') : $value],
+            'save_callback'  => [
+                static fn ($value) => is_string($value) && $value !== '' ? '#' . ltrim($value, '#') : $value,
+            ],
+            'sql'            => "varchar(8) NOT NULL default ''",
         ],
         'weight'      => [
             'exclude'   => true,
@@ -170,15 +174,19 @@ $GLOBALS['TL_DCA']['tl_cowegis_style'] = [
             'sql'       => "char(1) NOT NULL default ''",
         ],
         'fillColor'   => [
-            'exclude'   => true,
-            'inputType' => 'text',
-            'eval'      => [
+            'exclude'        => true,
+            'inputType'      => 'text',
+            'eval'           => [
                 'tl_class'       => 'clr w50 wizard',
                 'maxlength'      => 7,
                 'decodeEntities' => true,
                 'colorpicker'    => true,
             ],
-            'sql'       => "varchar(8) NOT NULL default ''",
+            'load_callback'  => [static fn ($value) => is_string($value) ? ltrim($value, '#') : $value],
+            'save_callback'  => [
+                static fn ($value) => is_string($value) && $value !== '' ? '#' . ltrim($value, '#') : $value,
+            ],
+            'sql'            => "varchar(8) NOT NULL default ''",
         ],
         'fillOpacity' => [
             'exclude'   => true,

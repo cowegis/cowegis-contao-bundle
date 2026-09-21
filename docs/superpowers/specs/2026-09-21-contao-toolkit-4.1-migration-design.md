@@ -119,7 +119,7 @@ Remaining genuine constructor dependencies: `Cowegis\Core\Filter\FilterFactory`,
 **Sharing strategy:** since `AbstractContentElementController` and
 `AbstractFrontendModuleController` share no common ancestor besides Contao Core's fragment
 plumbing, the logic currently living in `MapFragmentAction` moves into a new
-`src/Action/MapFragmentDataTrait.php`, used by both concrete controllers:
+`src/Action/MapFragmentDataPlugin.php`, used by both concrete controllers:
 
 - Constructor: the three dependencies above.
 - `compileMapStyle(Model $model): string` — unchanged.
@@ -137,7 +137,7 @@ plumbing, the logic currently living in `MapFragmentAction` moves into a new
 Concrete controllers:
 
 - `src/Action/MapContentElementAction.php`: `extends Fragment\AbstractContentElementController`,
-  `use MapFragmentDataTrait, Fragment\RenderBackendWildcardTrait;`. No `__invoke()` needed
+  `use MapFragmentDataPlugin, Fragment\RenderBackendWildcardTrait;`. No `__invoke()` needed
   anymore (inherited from Contao Core). Implements:
   - `prepareTemplateData(array $data, Request $request, ContentModel $model): array` →
     `return $this->buildTemplateData($data, $request, $model);`
@@ -147,7 +147,7 @@ Concrete controllers:
     editor behaviour (a "###COWEGIS_MAP###" wildcard placeholder instead of a live map).
   - `getIdentifier()` — unchanged body (`map_ce_` prefix).
 - `src/Action/MapModuleAction.php`: `extends Fragment\AbstractFrontendModuleController`,
-  `use MapFragmentDataTrait;`. No `__invoke()`, no backend-wildcard code (Contao Core's
+  `use MapFragmentDataPlugin;`. No `__invoke()`, no backend-wildcard code (Contao Core's
   `AbstractFrontendModuleController::__invoke()` already renders the wildcard automatically
   before `getResponse()` is reached). Implements `prepareTemplateData()` (same delegation) and
   `getIdentifier()` (unchanged, `map_mod_` prefix).

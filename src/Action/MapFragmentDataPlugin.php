@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Action;
 
+use Contao\CoreBundle\Controller\AbstractFragmentController;
 use Contao\FilesModel;
 use Contao\Input;
 use Contao\Model;
@@ -20,6 +21,7 @@ use function array_merge;
 use function assert;
 use function is_string;
 
+/** @psalm-require-extends AbstractFragmentController */
 trait MapFragmentDataPlugin
 {
     public function __construct(

@@ -4,7 +4,7 @@
 
 **Goal:** Migrate `cowegis/cowegis-contao-bundle` from `netzmacht/contao-toolkit` `^4.0` to `^4.1@dev` (4.1.0 is not tagged on Packagist yet — its changes live on the `develop` branch), replacing every deprecated toolkit API this bundle uses with its 5.0-ready replacement, with no behavioural change for visitors or backend editors.
 
-**Architecture:** Five independent, sequentially-committed migrations: (1) version constraints, (2) `ResponseTagger` → `Contao\CoreBundle\Cache\CacheTagManager`, (3) `RequestScopeMatcher` → `Contao\CoreBundle\Routing\ScopeMatcher`, (4) DCA color-picker wizard → native `colorpicker` eval, (5) the Hybrid-fragment-controller split into independent `MapContentElementAction`/`MapModuleAction` classes sharing a `MapFragmentDataTrait`. Each task leaves the container compilable and the test suite green — tasks 2–4 deliberately do not touch `src/Resources/config/fragments.yaml` so the still-untouched `MapFragmentAction` keeps working right up until task 5 replaces it atomically.
+**Architecture:** Five independent, sequentially-committed migrations: (1) version constraints, (2) `ResponseTagger` → `Contao\CoreBundle\Cache\CacheTagManager`, (3) `RequestScopeMatcher` → `Contao\CoreBundle\Routing\ScopeMatcher`, (4) DCA color-picker wizard → native `colorpicker` eval, (5) the Hybrid-fragment-controller split into independent `MapContentElementAction`/`MapModuleAction` classes sharing a `MapFragmentDataPlugin`. Each task leaves the container compilable and the test suite green — tasks 2–4 deliberately do not touch `src/Resources/config/fragments.yaml` so the still-untouched `MapFragmentAction` keeps working right up until task 5 replaces it atomically.
 
 **Tech Stack:** PHP 8.2+, Symfony DI (YAML service config, `autowire: false` everywhere), Contao 5.7 fragment controllers, phpspec, PHPUnit.
 
@@ -917,7 +917,7 @@ git commit -m "refactor: use native colorpicker eval instead of deprecated Color
 ### Task 5: Split the Hybrid fragment controller into `MapContentElementAction`/`MapModuleAction`
 
 **Files:**
-- Create: `src/Action/MapFragmentDataTrait.php`
+- Create: `src/Action/MapFragmentDataPlugin.php`
 - Modify: `src/Action/MapContentElementAction.php`
 - Modify: `src/Action/MapModuleAction.php`
 - Delete: `src/Action/MapFragmentAction.php`
@@ -930,13 +930,13 @@ git commit -m "refactor: use native colorpicker eval instead of deprecated Color
   `Netzmacht\Contao\Toolkit\Controller\Fragment\AbstractFrontendModuleController`,
   `Netzmacht\Contao\Toolkit\Controller\Fragment\RenderBackendWildcardTrait` (all from
   `netzmacht/contao-toolkit` `^4.1@dev` (`dev-develop`), already installed after Task 1).
-- Produces: `MapFragmentDataTrait` exposes `protected function buildTemplateData(array $data, Request $request, Model $model): array` and declares `abstract protected function getIdentifier(Model $model, string|null $identifier): string`, which `MapContentElementAction`/`MapModuleAction` must implement.
+- Produces: `MapFragmentDataPlugin` exposes `protected function buildTemplateData(array $data, Request $request, Model $model): array` and declares `abstract protected function getIdentifier(Model $model, string|null $identifier): string`, which `MapContentElementAction`/`MapModuleAction` must implement.
 
 **Why in one task:** `MapContentElementAction`/`MapModuleAction` share the same trait and the same `fragments.yaml` file; splitting the controller rewrite from the config/test update would leave the container broken between commits.
 
-- [ ] **Step 1: Create `MapFragmentDataTrait`**
+- [ ] **Step 1: Create `MapFragmentDataPlugin`**
 
-Create `src/Action/MapFragmentDataTrait.php`:
+Create `src/Action/MapFragmentDataPlugin.php`:
 
 ```php
 <?php
@@ -961,7 +961,7 @@ use function array_merge;
 use function assert;
 use function is_string;
 
-trait MapFragmentDataTrait
+trait MapFragmentDataPlugin
 {
     public function __construct(
         private readonly FilterFactory $filterFactory,
@@ -1087,7 +1087,7 @@ use Symfony\Component\HttpFoundation\Response;
 #[AsContentElement('cowegis_map', 'includes', 'ce_cowegis_map')]
 final class MapContentElementAction extends AbstractContentElementController
 {
-    use MapFragmentDataTrait;
+    use MapFragmentDataPlugin;
     use RenderBackendWildcardTrait;
 
     #[Override]
@@ -1139,7 +1139,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[AsFrontendModule('cowegis_map', 'includes', 'ce_cowegis_map')]
 final class MapModuleAction extends AbstractFrontendModuleController
 {
-    use MapFragmentDataTrait;
+    use MapFragmentDataPlugin;
 
     #[Override]
     protected function prepareTemplateData(array $data, Request $request, ModuleModel $model): array
@@ -1265,7 +1265,7 @@ Expected: OK, all tests green, including the updated `testMapActionArgumentCount
 - [ ] **Step 9: Run static analysis and coding-standard checks on the rewritten files**
 
 Run: `vendor/bin/phpcq run psalm` and `vendor/bin/phpcq run phpcs`
-Expected: no new errors. Pay particular attention to `MapFragmentDataTrait::buildTemplateData()` and `createFilter()` — both call inherited `AbstractController` methods (`generateUrl()`, `getContaoAdapter()`) that only exist once the trait is used inside a class extending Symfony's `AbstractController`; if psalm cannot resolve them because the trait is analyzed standalone, add a targeted `@psalm-suppress UndefinedMethod` with a one-line comment explaining why (mirrors the existing local-suppression style described in `CLAUDE.md`).
+Expected: no new errors. Pay particular attention to `MapFragmentDataPlugin::buildTemplateData()` and `createFilter()` — both call inherited `AbstractController` methods (`generateUrl()`, `getContaoAdapter()`) that only exist once the trait is used inside a class extending Symfony's `AbstractController`; if psalm cannot resolve them because the trait is analyzed standalone, add a targeted `@psalm-suppress UndefinedMethod` with a one-line comment explaining why (mirrors the existing local-suppression style described in `CLAUDE.md`).
 
 - [ ] **Step 10: Manual verification**
 
@@ -1278,7 +1278,7 @@ Start the Contao installation this bundle is developed against (or a local dev i
 - [ ] **Step 11: Commit**
 
 ```bash
-git add src/Action/MapFragmentDataTrait.php src/Action/MapContentElementAction.php \
+git add src/Action/MapFragmentDataPlugin.php src/Action/MapContentElementAction.php \
   src/Action/MapModuleAction.php src/Resources/config/fragments.yaml \
   tests/DependencyInjection/StubContainerFactory.php tests/DependencyInjection/CowegisContaoExtensionTest.php
 git commit -m "refactor: split MapFragmentAction into independent content-element/module controllers
@@ -1286,7 +1286,7 @@ git commit -m "refactor: split MapFragmentAction into independent content-elemen
 Netzmacht\\Contao\\Toolkit\\Controller\\Hybrid\\AbstractHybridController has no
 successor in contao-toolkit 4.1 — split into MapContentElementAction and
 MapModuleAction extending the new Controller\\Fragment base classes,
-sharing the former's logic via MapFragmentDataTrait."
+sharing the former's logic via MapFragmentDataPlugin."
 ```
 
 ---

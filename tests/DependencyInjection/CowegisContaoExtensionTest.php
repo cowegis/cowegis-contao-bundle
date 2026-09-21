@@ -48,12 +48,18 @@ final class CowegisContaoExtensionTest extends TestCase
     {
         $container = self::compiledContainer();
 
-        self::assertCount(
-            3,
+        $expectedArguments = [
+            new Reference('Cowegis\Core\Filter\FilterFactory'),
+            new Reference('psr18.http_client'),
+            new Reference('netzmacht.contao_toolkit.repository_manager'),
+        ];
+
+        self::assertEquals(
+            $expectedArguments,
             $container->getDefinition('Cowegis\Bundle\Contao\Action\MapContentElementAction')->getArguments(),
         );
-        self::assertCount(
-            3,
+        self::assertEquals(
+            $expectedArguments,
             $container->getDefinition('Cowegis\Bundle\Contao\Action\MapModuleAction')->getArguments(),
         );
     }
