@@ -6,22 +6,34 @@ namespace Cowegis\Bundle\Contao\Action;
 
 use Contao\ContentModel;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsContentElement;
+use Contao\CoreBundle\Twig\FragmentTemplate;
 use Contao\Model;
+use Netzmacht\Contao\Toolkit\Controller\Fragment\AbstractContentElementController;
+use Netzmacht\Contao\Toolkit\Controller\Fragment\RenderBackendWildcardTrait;
 use Override;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 #[AsContentElement('cowegis_map', 'includes', 'ce_cowegis_map')]
-final class MapContentElementAction extends MapFragmentAction
+final class MapContentElementAction extends AbstractContentElementController
 {
-    /** @param list<string>|null $classes */
-    public function __invoke(
-        Request $request,
-        ContentModel $model,
-        string $section,
-        array|null $classes = null,
-    ): Response {
-        return parent::renderAsContentElement($request, $model, $section, $classes);
+    use MapFragmentDataTrait;
+    use RenderBackendWildcardTrait;
+
+    #[Override]
+    protected function preGenerate(FragmentTemplate $template, ContentModel $model, Request $request): Response|null
+    {
+        if ($this->isBackendScope($request)) {
+            return $this->renderBackendWildcard($model, $request);
+        }
+
+        return null;
+    }
+
+    #[Override]
+    protected function prepareTemplateData(array $data, Request $request, ContentModel $model): array
+    {
+        return $this->buildTemplateData($data, $request, $model);
     }
 
     #[Override]

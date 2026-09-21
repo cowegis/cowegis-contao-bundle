@@ -49,11 +49,11 @@ final class CowegisContaoExtensionTest extends TestCase
         $container = self::compiledContainer();
 
         self::assertCount(
-            10,
+            3,
             $container->getDefinition('Cowegis\Bundle\Contao\Action\MapContentElementAction')->getArguments(),
         );
         self::assertCount(
-            10,
+            3,
             $container->getDefinition('Cowegis\Bundle\Contao\Action\MapModuleAction')->getArguments(),
         );
     }

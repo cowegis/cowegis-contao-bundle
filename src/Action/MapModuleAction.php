@@ -7,21 +7,19 @@ namespace Cowegis\Bundle\Contao\Action;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsFrontendModule;
 use Contao\Model;
 use Contao\ModuleModel;
+use Netzmacht\Contao\Toolkit\Controller\Fragment\AbstractFrontendModuleController;
 use Override;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 #[AsFrontendModule('cowegis_map', 'includes', 'ce_cowegis_map')]
-final class MapModuleAction extends MapFragmentAction
+final class MapModuleAction extends AbstractFrontendModuleController
 {
-    /** @param list<string>|null $classes */
-    public function __invoke(
-        Request $request,
-        ModuleModel $model,
-        string $section,
-        array|null $classes = null,
-    ): Response {
-        return parent::renderAsFrontendModule($request, $model, $section, $classes);
+    use MapFragmentDataTrait;
+
+    #[Override]
+    protected function prepareTemplateData(array $data, Request $request, ModuleModel $model): array
+    {
+        return $this->buildTemplateData($data, $request, $model);
     }
 
     #[Override]

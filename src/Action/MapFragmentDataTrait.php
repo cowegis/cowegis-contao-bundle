@@ -4,70 +4,48 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Action;
 
-use Contao\CoreBundle\Framework\Adapter;
-use Contao\CoreBundle\Security\Authentication\Token\TokenChecker;
 use Contao\FilesModel;
+use Contao\Input;
 use Contao\Model;
 use Contao\StringUtil;
 use Cowegis\Core\Filter\Filter;
 use Cowegis\Core\Filter\FilterFactory;
-use Netzmacht\Contao\Toolkit\Controller\Hybrid\AbstractHybridController;
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
-use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
-use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
-use Netzmacht\Contao\Toolkit\View\Template\TemplateRenderer;
-use Override;
 use Psr\Http\Message\UriFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function array_merge;
 use function assert;
 use function is_string;
 
-abstract class MapFragmentAction extends AbstractHybridController
+// phpcs:disable SlevomatCodingStandard.Classes.SuperfluousTraitNaming.SuperfluousSuffix
+// Name mandated by the task brief / architecture doc to mirror the two controllers it composes.
+trait MapFragmentDataTrait
 {
-    /** @SuppressWarnings(PHPMD.ExcessiveParameterList) */
     public function __construct(
         private readonly FilterFactory $filterFactory,
         private readonly UriFactoryInterface $uriFactory,
         private readonly RepositoryManager $repositoryManager,
-        TemplateRenderer $templateRenderer,
-        RequestScopeMatcher $scopeMatcher,
-        ResponseTagger $responseTagger,
-        RouterInterface $router,
-        TranslatorInterface $translator,
-        TokenChecker $tokenChecker,
-        Adapter $inputAdapter,
     ) {
-        parent::__construct(
-            $templateRenderer,
-            $scopeMatcher,
-            $responseTagger,
-            $router,
-            $translator,
-            $tokenChecker,
-            $inputAdapter,
-        );
     }
 
+    abstract protected function getIdentifier(Model $model, string|null $identifier): string;
+
     /**
-     * {@inheritDoc}
+     * @param array<string,mixed> $data
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @return array<string,mixed>
      */
-    #[Override]
-    protected function prepareTemplateData(array $data, Request $request, Model $model): array
+    protected function buildTemplateData(array $data, Request $request, Model $model): array
     {
         $data['mapStyle'] = $this->compileMapStyle($model);
         $data['mapId']    = $this->getIdentifier($model, $this->getDefaultIdentifier($model));
         $data['clientJs'] = $this->getClientJs($model);
 
         try {
-            $data['mapUri'] = $this->router->generate(
+            $data['mapUri'] = $this->generateUrl(
                 'cowegis_api_map',
                 array_merge(
                     $this->createFilter($request)->toQuery()->toArray(),
@@ -98,8 +76,6 @@ abstract class MapFragmentAction extends AbstractHybridController
         return $style;
     }
 
-    abstract protected function getIdentifier(Model $model, string|null $identifier): string;
-
     // phpcs:disable Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     private function getDefaultIdentifier(Model $model): string|null
     {
@@ -118,11 +94,7 @@ abstract class MapFragmentAction extends AbstractHybridController
     private function createFilter(Request $request): Filter
     {
         $uri      = $this->uriFactory->createUri($request->getUri());
-        $autoItem = null;
-
-        if ($this->inputAdapter) {
-            $autoItem = $this->inputAdapter->get('auto_item');
-        }
+        $autoItem = $this->getContaoAdapter(Input::class)->get('auto_item');
 
         if (is_string($autoItem) && $autoItem !== '') {
             $query = $uri->getQuery();
