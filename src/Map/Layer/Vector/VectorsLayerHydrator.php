@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Map\Layer\Vector;
 
+use Contao\CoreBundle\Cache\CacheTagManager;
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Map\GeoData\RawGeoJsonGeoData;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeHydrator;
@@ -16,7 +17,6 @@ use Cowegis\Core\Definition\GeoData\GeoData;
 use Cowegis\Core\Definition\GeoData\UriData;
 use Cowegis\Core\Definition\Layer\DataLayer;
 use Cowegis\Core\Definition\Layer\Layer;
-use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 use Override;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -27,10 +27,10 @@ final class VectorsLayerHydrator extends LayerTypeHydrator
 {
     public function __construct(
         private readonly RouterInterface $router,
-        ResponseTagger $responseTagger,
+        CacheTagManager $cacheTagManager,
         private readonly StyleTypeRegistry $styleTypes,
     ) {
-        parent::__construct($responseTagger);
+        parent::__construct($cacheTagManager);
     }
 
     #[Override]

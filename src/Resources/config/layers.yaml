@@ -35,7 +35,7 @@ services:
 
     Cowegis\Bundle\Contao\Map\Layer\Tile\TileLayerHydrator:
         arguments:
-            - '@netzmacht.contao_toolkit.response_tagger'
+            - '@contao.cache.tag_manager'
 
     Cowegis\Core\Serializer\Layer\TileLayerSerializer:
         arguments:
@@ -60,7 +60,7 @@ services:
             - '@router'
             - '@Cowegis\Bundle\Contao\Map\Layer\Markers\MarkersLayerDataProvider'
             - '@Cowegis\Core\Serializer\Serializer'
-            - '@netzmacht.contao_toolkit.response_tagger'
+            - '@contao.cache.tag_manager'
 
     Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator\MarkerHydrator:
         arguments:
@@ -95,7 +95,7 @@ services:
     Cowegis\Bundle\Contao\Map\Layer\File\FileLayerHydrator:
         arguments:
             - '@netzmacht.contao_toolkit.repository_manager'
-            - '@netzmacht.contao_toolkit.response_tagger'
+            - '@contao.cache.tag_manager'
 
     # Group layer
     Cowegis\Bundle\Contao\Map\Layer\Group\GroupLayerType: ~
@@ -103,7 +103,7 @@ services:
     Cowegis\Bundle\Contao\Map\Layer\Group\GroupLayerHydrator:
         arguments:
             - '@Cowegis\Bundle\Contao\Model\Map\MapLayerRepository'
-            - '@netzmacht.contao_toolkit.response_tagger'
+            - '@contao.cache.tag_manager'
 
     Cowegis\Core\Schema\Layer\FeatureGroupLayerSchemaDescriber:
         arguments:
@@ -119,7 +119,7 @@ services:
     Cowegis\Bundle\Contao\Map\Layer\MarkerCluster\MarkerClusterGroupHydrator:
         arguments:
             - '@Cowegis\Bundle\Contao\Model\Map\MapLayerRepository'
-            - '@netzmacht.contao_toolkit.response_tagger'
+            - '@contao.cache.tag_manager'
 
     Cowegis\Core\Schema\Layer\MarkerClusterLayerSchemaDescriber:
         arguments:
@@ -133,7 +133,7 @@ services:
     Cowegis\Bundle\Contao\Map\Layer\Reference\ReferenceLayerHydrator:
         arguments:
             - '@Cowegis\Bundle\Contao\Model\LayerRepository'
-            - '@netzmacht.contao_toolkit.response_tagger'
+            - '@contao.cache.tag_manager'
 
     Cowegis\Bundle\Contao\Map\Layer\Reference\ReferenceLayerDataProvider:
         arguments:
@@ -147,7 +147,7 @@ services:
 
     Cowegis\Bundle\Contao\Map\Layer\Overpass\OverpassLayerHydrator:
         arguments:
-            - '@netzmacht.contao_toolkit.response_tagger'
+            - '@contao.cache.tag_manager'
 
     Cowegis\Core\Schema\Layer\OverpassLayerSchemaDescriber:
         arguments:
@@ -159,7 +159,7 @@ services:
     Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsLayerHydrator:
         arguments:
             - '@router'
-            - '@netzmacht.contao_toolkit.response_tagger'
+            - '@contao.cache.tag_manager'
             - '@Cowegis\Bundle\Contao\Map\Style\StyleTypeRegistry'
 
     Cowegis\Bundle\Contao\Map\Layer\Vector\VectorsDataLayerProvider:

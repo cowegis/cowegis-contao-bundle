@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Map\Layer\Group;
 
+use Contao\CoreBundle\Cache\CacheTagManager;
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
@@ -12,16 +13,15 @@ use Cowegis\Bundle\Contao\Model\Map\MapLayerRepository;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Definition\Layer\LayerGroup;
-use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 use Override;
 
 use function assert;
 
 class GroupLayerHydrator extends LayerTypeHydrator
 {
-    public function __construct(private readonly MapLayerRepository $repository, ResponseTagger $responseTagger)
+    public function __construct(private readonly MapLayerRepository $repository, CacheTagManager $cacheTagManager)
     {
-        parent::__construct($responseTagger);
+        parent::__construct($cacheTagManager);
     }
 
     #[Override]

@@ -38,7 +38,7 @@ services:
         autoconfigure: false
         arguments:
             - !tagged_iterator 'Cowegis\Bundle\Contao\Hydrator\Hydrator'
-            - '@netzmacht.contao_toolkit.response_tagger'
+            - '@contao.cache.tag_manager'
 
     Cowegis\Bundle\Contao\Provider\ContaoBackendProvider:
         arguments:

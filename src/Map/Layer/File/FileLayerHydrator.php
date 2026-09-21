@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Map\Layer\File;
 
+use Contao\CoreBundle\Cache\CacheTagManager;
 use Contao\FilesModel;
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeHydrator;
@@ -14,16 +15,15 @@ use Cowegis\Core\Definition\GeoData\ExternalData;
 use Cowegis\Core\Definition\Layer\DataLayer;
 use Cowegis\Core\Definition\Layer\Layer;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
-use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 use Override;
 
 use function assert;
 
 final class FileLayerHydrator extends LayerTypeHydrator
 {
-    public function __construct(private readonly RepositoryManager $repositoryManager, ResponseTagger $responseTagger)
+    public function __construct(private readonly RepositoryManager $repositoryManager, CacheTagManager $cacheTagManager)
     {
-        parent::__construct($responseTagger);
+        parent::__construct($cacheTagManager);
     }
 
     #[Override]

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Map\Layer\Markers\Hydrator;
 
+use Contao\CoreBundle\Cache\CacheTagManager;
 use Cowegis\Bundle\Contao\Hydrator\Hydrator;
 use Cowegis\Bundle\Contao\Map\Layer\LayerTypeHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
@@ -16,7 +17,6 @@ use Cowegis\Core\Definition\Layer\DataLayer;
 use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Provider\LayerData\MarkersLayerData;
 use Cowegis\Core\Serializer\Serializer;
-use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 use Override;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -29,9 +29,9 @@ final class MarkersLayerHydrator extends LayerTypeHydrator
         private readonly RouterInterface $router,
         private readonly LayerDataProvider $dataProvider,
         private readonly Serializer $serializer,
-        ResponseTagger $responseTagger,
+        CacheTagManager $cacheTagManager,
     ) {
-        parent::__construct($responseTagger);
+        parent::__construct($cacheTagManager);
     }
 
     #[Override]

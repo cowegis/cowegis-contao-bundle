@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\Hydrator;
 
+use Contao\CoreBundle\Cache\CacheTagManager;
 use Cowegis\Core\Provider\Context;
-use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 use Override;
 
 /** @psalm-suppress PropertyNotSetInConstructor - see https://github.com/vimeo/psalm/issues/5062 */
@@ -16,9 +16,9 @@ final class DelegatingHydrator implements Hydrator
     }
 
     /** @param Hydrator[] $hydrators */
-    public function __construct(private readonly iterable $hydrators, ResponseTagger $responseTagger)
+    public function __construct(private readonly iterable $hydrators, CacheTagManager $cacheTagManager)
     {
-        $this->responseTaggerConstruct($responseTagger);
+        $this->responseTaggerConstruct($cacheTagManager);
     }
 
     #[Override]

@@ -26,6 +26,7 @@ final class StubContainerFactory
         'psr18.http_client',
         'netzmacht.contao_toolkit.repository_manager',
         'netzmacht.contao_toolkit.response_tagger',
+        'contao.cache.tag_manager',
         'netzmacht.contao_toolkit.csrf.token_provider',
         'netzmacht.contao_toolkit.dca.manager',
         'netzmacht.contao_toolkit.assets_manager',
