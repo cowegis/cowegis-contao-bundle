@@ -31,6 +31,7 @@ final class StubContainerFactory
         'netzmacht.contao_toolkit.dca.manager',
         'netzmacht.contao_toolkit.assets_manager',
         'netzmacht.contao_toolkit.routing.scope_matcher',
+        'contao.routing.scope_matcher',
         'netzmacht.contao_toolkit.contao.backend_adapter',
         'netzmacht.contao_toolkit.contao.system_adapter',
         'netzmacht.contao_toolkit.contao.input_adapter',

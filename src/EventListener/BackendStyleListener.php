@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\Contao\EventListener;
 
-use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
+use Contao\CoreBundle\Routing\ScopeMatcher;
 use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -14,7 +14,7 @@ final class BackendStyleListener
 {
     public function __construct(
         private readonly AssetsManager $assetsManager,
-        private readonly RequestScopeMatcher $scopeMatcher,
+        private readonly ScopeMatcher $scopeMatcher,
     ) {
     }
 

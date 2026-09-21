@@ -15,7 +15,7 @@ services:
     Cowegis\Bundle\Contao\EventListener\BackendStyleListener:
         arguments:
             - '@netzmacht.contao_toolkit.assets_manager'
-            - '@netzmacht.contao_toolkit.routing.scope_matcher'
+            - '@contao.routing.scope_matcher'
 
     Cowegis\Bundle\Contao\EventListener\LayerResponseListener:
         arguments:
