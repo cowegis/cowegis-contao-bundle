@@ -22,7 +22,7 @@ use function assert;
 use function is_string;
 
 /** @psalm-require-extends AbstractFragmentController */
-trait MapFragmentDataPlugin
+trait MapFragment
 {
     public function __construct(
         private readonly FilterFactory $filterFactory,

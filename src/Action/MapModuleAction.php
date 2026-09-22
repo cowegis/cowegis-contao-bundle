@@ -11,10 +11,11 @@ use Netzmacht\Contao\Toolkit\Controller\Fragment\AbstractFrontendModuleControlle
 use Override;
 use Symfony\Component\HttpFoundation\Request;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 #[AsFrontendModule('cowegis_map', 'includes', 'ce_cowegis_map')]
 final class MapModuleAction extends AbstractFrontendModuleController
 {
-    use MapFragmentDataPlugin;
+    use MapFragment;
 
     #[Override]
     protected function prepareTemplateData(array $data, Request $request, ModuleModel $model): array

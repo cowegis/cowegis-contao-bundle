@@ -14,10 +14,11 @@ use Override;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 #[AsContentElement('cowegis_map', 'includes', 'ce_cowegis_map')]
 final class MapContentElementAction extends AbstractContentElementController
 {
-    use MapFragmentDataPlugin;
+    use MapFragment;
     use RenderBackendWildcardTrait;
 
     /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
