@@ -4,7 +4,7 @@
 
 **Goal:** Migrate `cowegis/cowegis-contao-bundle` from `netzmacht/contao-toolkit` `^4.0` to `^4.1@dev` (4.1.0 is not tagged on Packagist yet — its changes live on the `develop` branch), replacing every deprecated toolkit API this bundle uses with its 5.0-ready replacement, with no behavioural change for visitors or backend editors.
 
-**Architecture:** Five independent, sequentially-committed migrations: (1) version constraints, (2) `ResponseTagger` → `Contao\CoreBundle\Cache\CacheTagManager`, (3) `RequestScopeMatcher` → `Contao\CoreBundle\Routing\ScopeMatcher`, (4) DCA color-picker wizard → native `colorpicker` eval, (5) the Hybrid-fragment-controller split into independent `MapContentElementAction`/`MapModuleAction` classes sharing a `MapFragmentDataPlugin`. Each task leaves the container compilable and the test suite green — tasks 2–4 deliberately do not touch `src/Resources/config/fragments.yaml` so the still-untouched `MapFragmentAction` keeps working right up until task 5 replaces it atomically.
+**Architecture:** Five independent, sequentially-committed migrations: (1) version constraints, (2) `ResponseTagger` → `Contao\CoreBundle\Cache\CacheTagManager`, (3) `RequestScopeMatcher` → `Contao\CoreBundle\Routing\ScopeMatcher`, (4) DCA color-picker wizard → native `colorpicker` eval, (5) the Hybrid-fragment-controller split into independent `MapContentElementAction`/`MapModuleAction` classes sharing a `MapFragment`. Each task leaves the container compilable and the test suite green — tasks 2–4 deliberately do not touch `src/Resources/config/fragments.yaml` so the still-untouched `MapFragmentAction` keeps working right up until task 5 replaces it atomically.
 
 **Tech Stack:** PHP 8.2+, Symfony DI (YAML service config, `autowire: false` everywhere), Contao 5.7 fragment controllers, phpspec, PHPUnit.
 
@@ -930,11 +930,11 @@ git commit -m "refactor: use native colorpicker eval instead of deprecated Color
   `Netzmacht\Contao\Toolkit\Controller\Fragment\AbstractFrontendModuleController`,
   `Netzmacht\Contao\Toolkit\Controller\Fragment\RenderBackendWildcardTrait` (all from
   `netzmacht/contao-toolkit` `^4.1@dev` (`dev-develop`), already installed after Task 1).
-- Produces: `MapFragmentDataPlugin` exposes `protected function buildTemplateData(array $data, Request $request, Model $model): array` and declares `abstract protected function getIdentifier(Model $model, string|null $identifier): string`, which `MapContentElementAction`/`MapModuleAction` must implement.
+- Produces: `MapFragment` exposes `protected function buildTemplateData(array $data, Request $request, Model $model): array` and declares `abstract protected function getIdentifier(Model $model, string|null $identifier): string`, which `MapContentElementAction`/`MapModuleAction` must implement.
 
 **Why in one task:** `MapContentElementAction`/`MapModuleAction` share the same trait and the same `fragments.yaml` file; splitting the controller rewrite from the config/test update would leave the container broken between commits.
 
-- [ ] **Step 1: Create `MapFragmentDataPlugin`**
+- [ ] **Step 1: Create `MapFragment`**
 
 Create `src/Action/MapFragmentDataPlugin.php`:
 
@@ -1087,7 +1087,7 @@ use Symfony\Component\HttpFoundation\Response;
 #[AsContentElement('cowegis_map', 'includes', 'ce_cowegis_map')]
 final class MapContentElementAction extends AbstractContentElementController
 {
-    use MapFragmentDataPlugin;
+    use MapFragment;
     use RenderBackendWildcardTrait;
 
     #[Override]
@@ -1139,7 +1139,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[AsFrontendModule('cowegis_map', 'includes', 'ce_cowegis_map')]
 final class MapModuleAction extends AbstractFrontendModuleController
 {
-    use MapFragmentDataPlugin;
+    use MapFragment;
 
     #[Override]
     protected function prepareTemplateData(array $data, Request $request, ModuleModel $model): array

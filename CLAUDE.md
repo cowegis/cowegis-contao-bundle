@@ -141,7 +141,7 @@ singletons `Cowegis\Core\Provider\Provider` / `â€¦\Schema\SchemaDescriber` / `â€
 `#[AsFrontendModule('cowegis_map')]`) each extend a Toolkit `Controller\Fragment\Abstract*Controller`
 base class and share their map-container-rendering logic (style compilation, identifier resolution,
 client JS lookup, `mapUri` generation pointing at the `cowegis_api_map` route) via the
-`MapFragmentDataPlugin` trait. Client JS/CSS is chosen from `cowegis_client`
+`MapFragment` trait. Client JS/CSS is chosen from `cowegis_client`
 (`bundles/cowegisclient/...` or a custom file).
 
 ### Response caching
