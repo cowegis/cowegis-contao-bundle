@@ -40,9 +40,10 @@ trait MapFragment
      */
     protected function buildTemplateData(array $data, Request $request, Model $model): array
     {
-        $data['mapStyle'] = $this->compileMapStyle($model);
-        $data['mapId']    = $this->getIdentifier($model, $this->getDefaultIdentifier($model));
-        $data['clientJs'] = $this->getClientJs($model);
+        $data['mapStyle']   = $this->compileMapStyle($model);
+        $data['mapId']      = $this->getIdentifier($model, $this->getDefaultIdentifier($model));
+        $data['clientJs']   = $this->getClientJs($model);
+        $data['searchable'] = false;
 
         try {
             $data['mapUri'] = $this->generateUrl(

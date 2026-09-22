@@ -1,0 +1,9 @@
+<cowegis-map{{ attrs()
+    .set('id', mapId)
+    .set('style', mapStyle)
+    .set('map-uri', mapUri)
+}}></cowegis-map>
+
+{% if clientJs %}
+    {% add 'cowegis' to head %}<script src="{{ clientJs }}"></script>{% endadd %}
+{% endif %}

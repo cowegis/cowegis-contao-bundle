@@ -12,7 +12,7 @@ use Override;
 use Symfony\Component\HttpFoundation\Request;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
-#[AsFrontendModule('cowegis_map', 'includes', 'ce_cowegis_map')]
+#[AsFrontendModule('cowegis_map', 'includes')]
 final class MapModuleAction extends AbstractFrontendModuleController
 {
     use MapFragment;
