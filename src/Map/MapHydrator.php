@@ -38,6 +38,7 @@ use Cowegis\Core\Provider\Context;
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Override;
+use Symfony\Component\Asset\Packages;
 
 use function array_map;
 use function assert;
@@ -52,6 +53,7 @@ final class MapHydrator implements Hydrator
         private readonly ControlTypeRegistry $controlTypes,
         private readonly IconTypeRegistry $iconTypes,
         private readonly RepositoryManager $repositoryManager,
+        private readonly Packages $packages,
     ) {
     }
 
@@ -213,7 +215,7 @@ final class MapHydrator implements Hydrator
     private function hydrateAssets(MapModel $model, Context $context): void
     {
         if ($model->defaultAssets) {
-            $context->assets()->add(Asset::STYLESHEET('bundles/cowegisclient/css/cowegis.css'));
+            $context->assets()->add(Asset::STYLESHEET($this->packages->getUrl('cowegis/cowegis.css', 'cowegis')));
         }
 
         $uuids      = StringUtil::deserialize($model->assets, true);

@@ -9,9 +9,11 @@ services:
             - '@Cowegis\Core\Filter\FilterFactory'
             - '@psr18.http_client'
             - '@netzmacht.contao_toolkit.repository_manager'
+            - '@assets.packages'
 
     Cowegis\Bundle\Contao\Action\MapModuleAction:
         arguments:
             - '@Cowegis\Core\Filter\FilterFactory'
             - '@psr18.http_client'
             - '@netzmacht.contao_toolkit.repository_manager'
+            - '@assets.packages'

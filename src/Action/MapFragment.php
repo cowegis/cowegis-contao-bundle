@@ -14,6 +14,7 @@ use Cowegis\Core\Filter\FilterFactory;
 use Netzmacht\Contao\Toolkit\Data\Model\ContaoRepository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Psr\Http\Message\UriFactoryInterface;
+use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
@@ -28,6 +29,7 @@ trait MapFragment
         private readonly FilterFactory $filterFactory,
         private readonly UriFactoryInterface $uriFactory,
         private readonly RepositoryManager $repositoryManager,
+        private readonly Packages $packages,
     ) {
     }
 
@@ -109,7 +111,7 @@ trait MapFragment
     {
         switch ($model->cowegis_client) {
             case 'client':
-                return 'bundles/cowegisclient/js/cowegis.js';
+                return $this->packages->getUrl('cowegis/cowegis.js', 'cowegis');
 
             case 'custom':
                 $repository = $this->repositoryManager->getRepository(FilesModel::class);

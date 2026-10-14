@@ -10,6 +10,7 @@ services:
             - '@Cowegis\Bundle\Contao\Map\Control\ControlTypeRegistry'
             - '@Cowegis\Bundle\Contao\Map\Icon\IconTypeRegistry'
             - '@netzmacht.contao_toolkit.repository_manager'
+            - '@assets.packages'
 
     Cowegis\Bundle\Contao\Map\Options\MapOptionsHydrator: ~
 

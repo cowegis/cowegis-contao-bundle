@@ -17,6 +17,7 @@ final class StubContainerFactory
     public const STUB_SERVICE_IDS = [
         'router',
         'request_stack',
+        'assets.packages',
         'event_dispatcher',
         'translator',
         'database_connection',

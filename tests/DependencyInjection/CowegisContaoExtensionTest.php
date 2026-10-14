@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
@@ -52,6 +53,7 @@ final class CowegisContaoExtensionTest extends TestCase
             new Reference('Cowegis\Core\Filter\FilterFactory'),
             new Reference('psr18.http_client'),
             new Reference('netzmacht.contao_toolkit.repository_manager'),
+            new Reference('assets.packages'),
         ];
 
         self::assertEquals(
@@ -61,6 +63,19 @@ final class CowegisContaoExtensionTest extends TestCase
         self::assertEquals(
             $expectedArguments,
             $container->getDefinition('Cowegis\Bundle\Contao\Action\MapModuleAction')->getArguments(),
+        );
+    }
+
+    public function testMapHydratorUsesTheAssetPackages(): void
+    {
+        $container = StubContainerFactory::create();
+        $argument  = $container->getDefinition('Cowegis\Bundle\Contao\Map\MapHydrator')->getArgument(4);
+
+        self::assertInstanceOf(Reference::class, $argument);
+        self::assertSame('assets.packages', (string) $argument);
+        self::assertSame(
+            ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE,
+            $argument->getInvalidBehavior(),
         );
     }
 
