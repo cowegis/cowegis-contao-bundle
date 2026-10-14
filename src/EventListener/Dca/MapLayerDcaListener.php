@@ -73,9 +73,9 @@ final class MapLayerDcaListener extends AbstractListener
 
     /** @param array<string,mixed> $row */
     #[AsCallback('tl_cowegis_map_layer', 'list.sorting.child_record')]
-    public function rowLabel(array $row, DataContainer $dataContainer): string
+    public function rowLabel(array $row): string
     {
-        $formatted = $this->getFormatter()->formatValue('layerId', $row['layerId'], $dataContainer);
+        $formatted = $this->getFormatter()->formatValue('layerId', $row['layerId']);
         assert(is_string($formatted) || $formatted === null);
 
         return (string) $formatted;
@@ -92,7 +92,7 @@ final class MapLayerDcaListener extends AbstractListener
         $row        = $dataContainer->activeRecord instanceof stdClass
             ? (array) $dataContainer->activeRecord
             : $dataContainer->activeRecord->row();
-        $label      = $this->rowLabel($row, $dataContainer);
+        $label      = $this->rowLabel($row);
         $layerType  = null;
 
         if ($layerModel instanceof Model && $this->layerTypes->has($layerModel->type)) {
